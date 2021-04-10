@@ -1,0 +1,70 @@
+@import 'styles/utils';
+
+
+header{
+    top:0;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+ 
+    list-style: none;
+}
+.topsection{
+    display: flex;
+    justify-content: space-around;
+    justify-items:center;
+    align-items: center;
+    align-content: center;
+    background-color: $yellow;
+    height: 50px;
+}
+.logoPosition{
+    margin-left: 10px;
+}
+.logo{
+    font-size: 50px;
+    font-weight: 700;
+    color:$red;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
+}
+.searchTab{
+    display: flex;
+    align-items: center;
+}
+.searchInput{
+    display: block;
+    width: 180px;
+    height: 25px;
+    outline: none;
+ 
+}
+.searchBtn{
+    height: 25px;
+    background-color: white;
+    outline: none;
+}
+.loginBtn{
+    background-color: $orange;
+    color:white;
+    outline: none;
+    margin-right: 10px;
+}
+.joininBtn{
+    background-color: $orange;
+    color:white;
+    outline: none;
+    margin-right: 10px;
+}
+input::placeholder{
+    font-size: 8px;
+}
+ul{
+    display: flex;
+    display: flex;
+    justify-content: space-around;
+    justify-items:center;
+    align-items: center;
+    align-content: center;
+
+}
