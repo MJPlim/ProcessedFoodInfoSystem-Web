@@ -26,7 +26,7 @@ export default()=>(
             <Route path="/" exact component={MS}/>
             <Route path="/commercialProduct" exact component={CP}/>
             <Route path="/recommendedProduct" exact component={RP}/>
-            <Route path="/searchProduct" exact component={SP}/>
+            <Route path="/searchProduct" exact component={FD}/>
             <Route path="/community" exact component={CM}/>
             <Route path="/userRanking" exact component={UR}/>
             <Route path="/productRanking" exact component={PR}/>

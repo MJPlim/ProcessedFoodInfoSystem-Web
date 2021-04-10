@@ -4,17 +4,56 @@
   padding-top: 30px;
 }
 
-.title{
+.title {
   font-size: x-large;
- font-weight: bold;
+  font-weight: bold;
   //padding-bottom: 10px;
   border-bottom-style: solid;
   border-bottom-color: black;
 }
-.offline{
+
+.offline {
   padding-top: 15px;
+  float: right;
   //padding-bottom: 10px;
 }
-.titleHr{
+
+.hr {
   border-top: 1px solid;
+}
+
+.rightBorderLine {
+  border-right: 1px solid;
+
+}
+
+.subTitle {
+  font-size: large;
+  margin-bottom: 10px;
+}
+
+.reviewTable {
+  margin-top: 5px;
+}
+
+.reviewLabel {
+  font-size: medium;
+  margin-bottom: 10px;
+  float: left;
+}
+
+.starRating {
+  float: right;
+}
+
+.pagingButton {
+  float: right;
+}
+
+.foodInfo {
+  margin-top: 20px;
+}
+
+#reviewFrom {
+  resize: none;
 }
