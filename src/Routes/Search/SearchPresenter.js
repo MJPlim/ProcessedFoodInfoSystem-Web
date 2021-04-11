@@ -1,6 +1,7 @@
 import React from "react";
 import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
+import { Link } from "react-router-dom";
 const SearchPresenter = ({
   results,
   loading,
@@ -25,9 +26,10 @@ const SearchPresenter = ({
       <>
         {results && results.length > 0 ? (
           <div title="Results" className="results">
-            {results.map(result => (
-             <div className="item">
-                <div className="prdName">{result.PRDLST_NM}</div>
+            {results.map((result,index) => (
+              
+             <div className="item" key={index}>
+              <Link to={`food/${result.PRDLST_REPORT_NO}`} className="prdName">{result.PRDLST_NM}</Link>
                <div><img className="img" src="image/no-image.png"/></div>
                 <div className="bshName">{result.BSSH_NM}</div>
                 <div className="rowMaterial">{result.RAWMTRL_NM}</div>
