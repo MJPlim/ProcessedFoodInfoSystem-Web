@@ -6,15 +6,13 @@ header{
     display: flex;
     flex-direction: column;
     justify-items: center;
- 
     list-style: none;
 }
 .topsection{
     display: flex;
     justify-content: space-around;
     justify-items:center;
-    align-items: center;
-    align-content: center;
+    align-items:center;
     background-color: $yellow;
     height: 50px;
 }

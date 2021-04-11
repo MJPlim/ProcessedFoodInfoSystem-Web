@@ -23,7 +23,7 @@ const SearchPresenter = ({
       <Spinner color="warning" />
     ) : (
       <>
-        {results && results.length > 0 && (
+        {results && results.length > 0 ? (
           <div title="Results" className="results">
             {results.map(result => (
              <div className="item">
@@ -36,7 +36,7 @@ const SearchPresenter = ({
             </div>
             ))}
           </div>
-        )}
+        ):<div>검색결과가 없습니다.</div>}
     
      </>
     )}

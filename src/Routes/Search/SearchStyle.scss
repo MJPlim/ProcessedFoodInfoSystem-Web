@@ -21,12 +21,13 @@
     top:20px;
     display: flex;
     flex-direction: column;
+    padding: 20px;
 
 }
 .item{
     transition:background-color 0.3s ease-in-out;
      &:hover {
-      background-color:rgba(1,1,1,0.2);
+      background-color:rgba(1,1,1,0.1);
 ;
     }
 }
