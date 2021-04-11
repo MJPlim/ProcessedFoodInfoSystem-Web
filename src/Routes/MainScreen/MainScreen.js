@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Food from './FoodPresenter';
 import {Spinner} from 'reactstrap';
+import './MainScreenStyle.scss';
 
-class MainScreen extends React.Component{
-    state={
-        isLoading:true,
-        foodlist:[]
-    };
-    getFood=async()=>{
-        const{data:{C002:{row}}}=await axios.get("http://openapi.foodsafetykorea.go.kr/api/eaac3b4e7dc04339b011/C002/json/1/10");
-        this.setState({foodlist:row,isLoading:false});
-    };
-    componentDidMount(){
-        this.getFood();
-    }
-    render(){
-      const {isLoading,foodlist}=this.state;
-      return(
-          <div>
-              {isLoading?
-              <Spinner color="warning" />
-              :foodlist.map(food=>(
-                  <Food
-                  key={food.LCNS_NO} id={food.LCNS_NO} 
-                  nm={food.PRDLST_NM} dcnm={food.PRDLST_DCNM}
-                  dt={food.PRMS_DT} raw_nm={food.RAWMTRL_NM}
-                  report_no={food.PRDLST_REPORT_NO}
-                  />
-              ))
+function MainScreen(){
+    const [results,setResults]=useState(null);
+    const [loading,setLoading]=useState(false);
+    const [error,setError]=useState(null);
+
+    useEffect(()=>{
+        const getFoodList=async()=>{
+            try{
+                setError(null);
+                setResults(null);
+                setLoading(true);
+                const{data:{C002:{row}}}=await axios.get("http://openapi.foodsafetykorea.go.kr/api/eaac3b4e7dc04339b011/C002/json/1/400");
+                setResults(row);
+            }catch(e){
+                setError(e);
             }
-          </div>
-      )
-    }
+            setLoading(false);
+        };
+        getFoodList();
+    },[]);
+    if(loading) return   <Spinner color="warning" />
+    if(error) return <div>Error!!</div>
+    if(!results) return null;
+    return(
+        <div className="resultSection">
+        <div>
+            {results.map(result=>(
+                <div key={result.PRDLST_REPORT_NO}>
+                    {result.PRDLST_NM}{result.PRDLST_NM}
+                    ===================
+                </div>
+            ))}
+        </div>
+        </div>
+    )
 }
 export default MainScreen;

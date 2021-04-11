@@ -11,7 +11,9 @@ function Food({ id, nm, dcnm, dt,raw_nm,report_no }) {
        <h5 className="food food__dt">{dt}</h5>
         <h5 className="food food__raw_nm">{raw_nm}</h5>
         <h5 className="food food_report_no">{report_no}</h5>
+         <div>===============</div>
      </div>
+    
   );
 }
   Food.propTypes={

@@ -6,6 +6,7 @@ import "./HeaderStyle.scss";
 
 const Item = styled.li`
 margin-top:10px;
+margin-bottom:20px;
   width: 80px;
   height: 30px;
   text-align: center;
@@ -23,12 +24,12 @@ export default withRouter(({ location: { pathname } }) => (
         <Link className="logo" to="/">kati</Link>
       </li>
       <div className="searchTab">
-        <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
-        <button className="searchBtn">🔍</button>
+        {/* <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
+        <button className="searchBtn">🔍</button> */}
       </div>
       <div className="buttons">
-      <Link to="/login">로그인</Link>
-      <Link to="/join">회원가입</Link>
+      <Link to="/login" className="loginBtn">로그인</Link>
+      <Link to="/join" className="joinBtn">회원가입</Link>
       </div>
     </div>
 
