@@ -21,22 +21,24 @@ import Join from "../Routes/Join/Join";
 export default()=>(
     <Router>
         <>
-        <Header/>
-        <Switch>
-            <Route path="/" exact component={MS}/>
-            <Route path="/commercialProduct" exact component={CP}/>
-            <Route path="/recommendedProduct" exact component={RP}/>
-            <Route path="/searchProduct" exact component={SP}/>
-            <Route path="/community" exact component={CM}/>
-            <Route path="/userRanking" exact component={UR}/>
-            <Route path="/productRanking" exact component={PR}/>
-            <Route path="/reviews" exact component={RV}/>
-            <Route path="/whatsKati" exact component={WK}/>
-            <Route path="/howToUse" exact component={HU}/>
-            <Route path="/food/:id" exact component={FD}/>
-            <Route path="/login" exact component={LG}/>
-             <Route path="/join" exact component={Join}/>
-        </Switch>
+            <Header/>
+            <Switch>
+                <Route path="/" exact component={MS}/>
+                <Route path="/commercialProduct" exact component={CP}/>
+                <Route path="/recommendedProduct" exact component={RP}/>
+                <Route path="/searchProduct" exact component={SP}/>
+
+
+                <Route path="/community" exact component={CM}/>
+                <Route path="/userRanking" exact component={UR}/>
+                <Route path="/productRanking" exact component={PR}/>
+                <Route path="/reviews" exact component={RV}/>
+                <Route path="/whatsKati" exact component={WK}/>
+                <Route path="/howToUse" exact component={HU}/>
+                <Route path="/food/:id" exact component={FD}/>
+                <Route path="/login" exact component={LG}/>
+                <Route path="/join" exact component={Join}/>
+            </Switch>
         </>
     </Router>
 );

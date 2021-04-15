@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import SearchPresenter from "./SearchPresenter";
+import {Spinner} from 'reactstrap';
+import "./SearchStyle.scss";
+import { Link } from "react-router-dom";
 import axios from 'axios';
+import {foodApi,bsshApi} from "../../api";
+
 function SearchProduct(){
-  const [results,setResults]=useState(null);
-  const [loading,setLoading]=useState(false);
-  const [error,setError]=useState(null);
-  const [searchTerm,setSearchTerm]=useState(null);
+    const [results,setResults]=useState(null);
+    const [loading,setLoading]=useState(false);
+    const [error,setError]=useState(null);
+    const [searchTerm,setSearchTerm]=useState(null);
 
     const handleSubmit=event=>{
         event.preventDefault();
@@ -15,34 +19,59 @@ function SearchProduct(){
         }
     }
     const updateTerm=(event)=>{
-       setSearchTerm(event.target.value);
+        setSearchTerm(event.target.value);
     };
 
     const searchByTerm=async()=>{
-      setLoading(true);
-       try{
-            const{data:{C002:{row}}}=await axios.get("http://openapi.foodsafetykorea.go.kr/api/eaac3b4e7dc04339b011/C002/json/1/400");
-            const newResults=[];
-            for(var i=0;i<row.length;i++){
-              if(row[i].PRDLST_NM.includes(searchTerm) || row[i].BSSH_NM.includes(searchTerm)){
-                newResults.push(row[i]);
-              }
+        setLoading(true);
+        try{
+            const{data}=await foodApi.search(searchTerm,1);
+            for(var i=0;i<data.length;i++){
+                console.log(data[i]);
             }
-            setResults(newResults);
-          
-       }catch{
-           setError("검색결과가 없습니다.");
-       }finally{
+            setResults(data);
+
+        }catch{
+            setError("검색결과가 없습니다.");
+        }finally{
             setLoading(false);
         }
-       };
-        return( 
-        <SearchPresenter
-        results={results}
-        loading={loading}
-        error={error}
-        handleSubmit={handleSubmit}
-        updateTerm={updateTerm}
-        />);
+    };
+    return(
+        <div>
+            <form onSubmit={handleSubmit} className="form">
+                <input className="searchTab"
+                       placeholder="제품명 또는 회사명을 입력하세요"
+                       value={searchTerm}
+                       onChange={updateTerm}
+                />
+                <button className="searchBtn"onClick={handleSubmit}>🔍</button>
+            </form>
+            <div className="resultSection">
+                {loading ? (
+                    <Spinner color="warning" />
+                ) : (
+                    <>
+                        {results && results.length > 0 ? (
+                            <div title="Results" className="results">
+                                {results.map((result,index) => (
+
+                                    <div className="item" key={index}>
+                                        <Link to={`food/${result.prdlstReportNo}`} className="prdName">{result.prdlstName}</Link>
+                                        <div><img className="img" src="image/no-image.png"/></div>
+                                        <div className="bshName">{result.bsshName}</div>
+                                        <div className="rowMaterial">{result.rawMaterialName}</div>
+                                        <div className="prdNum">{result.lcnsNo}</div>
+                                        <hr></hr>
+                                    </div>
+                                ))}
+                            </div>
+                        ):<div>검색결과가 없습니다.</div>}
+
+                    </>
+                )}
+            </div>
+        </div>
+    );
 }
 export default SearchProduct;
