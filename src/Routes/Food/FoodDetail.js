@@ -13,38 +13,39 @@ const FoodDetail = ({match}) => {
         const [starRating, setStarRating] = useState(0);
         const {id} = match.params;
 
-        const config = {
-            headers: {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QgdG9rZW4iLCJleHAiOjE2MTc5ODg3NDEsInVzZXJuYW1lIjoid2VidGVzdEBnbWFpbC5jb20ifQ.ih46Onu-VrvIGmUiUpG2dTUz7JlNns1TSgmXVxt5VsblqTuzCf13ObFtGipIghH7TZn8TbjOpDT_Y_jFLNYcvA"},
-        }
         const ratingChanged = (newRating) => {
             setStarRating(newRating);
             console.log(starRating)
         };
 
 
-        // useEffect(() => {
-        //     const fetchFood = async () => {
-        //         try {
-        //             setError(null);
-        //             setFood(null);
-        //             // loading 상태를 true 로 바꿉니다.
-        //             setLoading(true);
-        //             const response = await axios.get(
-        //                 'http://13.124.55.59:8080/api/v1/food/findFood/foodName?foodName=' + id + '&pageNo=1', config
-        //             );
-        //             setFood(response.data);
-        //         } catch (e) {
-        //             setError(e);
-        //         }
-        //         setLoading(false);
-        //
-        //     };
-        //
-        //     fetchFood();
-        // }, []);
-        // if (loading) return <div>로딩중..</div>;
-        // if (error) return <div>에러가 발생했습니다</div>;
-        // if (!food) return null;
+
+        useEffect(() => {
+            const fetchFood = async () => {
+                try {
+                    setError(null);
+                    setFood(null);
+                    // loading 상태를 true 로 바꿉니다.
+                    setLoading(true);
+                    const response = await axios.get(
+                        'http://openapi.foodsafetykorea.go.kr/api/eaac3b4e7dc04339b011/C002/json/1/400/PRDLST_REPORT_NO='
+                        + id
+                    );
+                    setFood(response.data.C002.row);
+                } catch (e) {
+                    setError(e);
+                }
+                setLoading(false);
+
+            };
+
+            fetchFood();
+        }, []);
+        console.log(food);
+
+        if (loading) return <div>로딩중..</div>;
+        if (error) return <div>에러가 발생했습니다</div>;
+        if (!food) return null;
 
 
         return (
@@ -78,7 +79,7 @@ const FoodDetail = ({match}) => {
                                                 상품명
                                             </th>
                                             <td>
-                                                새우깡
+                                                {food[0].PRDLST_NM}
                                             </td>
                                         </tr>
                                         <tr>
@@ -86,7 +87,7 @@ const FoodDetail = ({match}) => {
                                                 제조사
                                             </th>
                                             <td>
-                                                농협
+                                                {food[0].BSSH_NM}
                                             </td>
                                         </tr>
                                         <tr>
@@ -110,7 +111,7 @@ const FoodDetail = ({match}) => {
                                 </Col>
                                 <Col sm="6">
                                     <p className="subTitle">원료</p>
-                                    ㅁㄴㅁ아하ㅓㄹㅇ노하ㅗ하러옿ㄴㄹ아ㅓㅗㅎ아러놓아ㅓㅗ호ㅗㄴㅁㅇㅁㄴㅇㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㄴㅁㅇㅁㄴㅇㅁㄴ
+                                    {food[0].RAWMTRL_NM}
                                 </Col>
                             </Row>
                             {/*상품 정보 좌측 하단 영역 끝 */}
