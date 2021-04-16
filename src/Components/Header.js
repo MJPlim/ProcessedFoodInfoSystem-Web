@@ -43,7 +43,7 @@ export default withRouter(({ location: { pathname } }) => (
             <Item current={pathname === "/recommendedProduct"}>
                 <Link to="/recommendedProduct">추천상품</Link>
             </Item>
-            <Item current={pathname === "/searchProduct"}>
+            <Item current={pathname.includes("/searchProduct")}>
                 <Link to="/searchProduct">상품찾기</Link>
             </Item>
             <Item current={pathname === "/community"}>
