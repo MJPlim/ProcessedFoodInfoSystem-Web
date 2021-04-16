@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 const FoodDetail = ({match}) => {
+        const url = '/B553748/CertImgListService/getCertImgListService?ServiceKey=fTEm%2FiVcJFgwgjEeDhMET1kFQZduiSF09BedQaKgQRGH7fWSoKITTfTFZH2EzYono62%2BwMlAxdy2Jj64qzpgqQ%3D%3D&returnType=json&numOfRows=1&pageNo=1&prdlstReportNo='
         const [food, setFood] = useState(null);
 
         const [loading, setLoading] = useState(false);
@@ -28,10 +29,9 @@ const FoodDetail = ({match}) => {
                     // loading 상태를 true 로 바꿉니다.
                     setLoading(true);
                     const response = await axios.get(
-                        'http://openapi.foodsafetykorea.go.kr/api/eaac3b4e7dc04339b011/C002/json/1/400/PRDLST_REPORT_NO='
-                        + id
+                        url + id,
                     );
-                    setFood(response.data.C002.row);
+                    setFood(response.data.list);
                 } catch (e) {
                     setError(e);
                 }
@@ -46,7 +46,6 @@ const FoodDetail = ({match}) => {
         if (loading) return <div>로딩중..</div>;
         if (error) return <div>에러가 발생했습니다</div>;
         if (!food) return null;
-
 
         return (
             <div>
@@ -69,17 +68,17 @@ const FoodDetail = ({match}) => {
                         <Col md="6" className="rightBorderLine">
                             {/*상품 정보 좌측 상단 영역(이미지, 식품 이름 등) 시작 */}
                             <Row className="bottomBorderLine">
-                                <Col sm="6">
-                                    <img src="/image/no-image.png" alt="이미지 없음" width="200px" height="200px"/>
+                                <Col sm="4">
+                                    <img src={food[0].imgurl1} alt="이미지 없음" width="200px" height="200px"/>
                                 </Col>
-                                <Col lg="6">
+                                <Col lg="8">
                                     <Table>
                                         <tr>
                                             <th>
                                                 상품명
                                             </th>
                                             <td>
-                                                {food[0].PRDLST_NM}
+                                                {food[0].prdlstNm}
                                             </td>
                                         </tr>
                                         <tr>
@@ -87,7 +86,7 @@ const FoodDetail = ({match}) => {
                                                 제조사
                                             </th>
                                             <td>
-                                                {food[0].BSSH_NM}
+                                                {food[0].manufacture}
                                             </td>
                                         </tr>
                                         <tr>
@@ -95,7 +94,7 @@ const FoodDetail = ({match}) => {
                                                 바코드
                                             </th>
                                             <td>
-                                                13123123123
+                                                {food[0].barcode}
                                             </td>
                                         </tr>
                                     </Table>
@@ -108,10 +107,11 @@ const FoodDetail = ({match}) => {
                             <Row className="foodInfo">
                                 <Col sm="6">
                                     <p className="subTitle">성분</p>
+                                    {food[0].nutrient}
                                 </Col>
                                 <Col sm="6">
                                     <p className="subTitle">원료</p>
-                                    {food[0].RAWMTRL_NM}
+                                    {food[0].rawmtrl}
                                 </Col>
                             </Row>
                             {/*상품 정보 좌측 하단 영역 끝 */}

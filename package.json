@@ -2,7 +2,7 @@
   "name": "webweb",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://openapi.foodsafetykorea.go.kr/api/eaac3b4e7dc04339b011/C002/json/1/400",
+  "proxy": "http://apis.data.go.kr",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
