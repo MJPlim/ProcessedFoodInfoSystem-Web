@@ -48,7 +48,7 @@ const FoodDetail = ({match}) => {
         if (!food) return null;
 
         return (
-            <div className={FoodDetail}>
+            <div className="FoodDetail">
                 <Container>
                     {/* 타이틀 영역 시작*/}
                     <Row>
