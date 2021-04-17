@@ -1,56 +1,67 @@
-.searchTab{
+.SearchProduct {
+  .searchTab {
     border-width: 2px;
     width: 200px;
     height: 30px;
-}
-.searchBtn{
+  }
+
+  .searchBtn {
     height: 30px;
     color: #ed2f3b;
-}
-.resultSection{
+  }
+
+  .resultSection {
     display: flex;
     justify-content: center;
-}
-.form{
+  }
+
+  .form {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.results{
-    top:20px;
+  }
+
+  .results {
+    top: 20px;
     display: flex;
     flex-direction: column;
     padding: 20px;
 
-}
-.item{
-    transition:background-color 0.3s ease-in-out;
-     &:hover {
-      background-color:rgba(1,1,1,0.1);
-;
-    }
-}
+  }
 
-.img{
+  .item {
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(1, 1, 1, 0.1);;
+    }
+  }
+
+  .img {
     display: block;
     width: 20px;
     height: 20px;
-}
-.prdName{
+  }
+
+  .prdName {
     font-weight: 700;
     font-size: 16px;
-}
-.selection{
+  }
+
+  .selection {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-}
-.btn{
+  }
+
+  .btn {
     width: 200px;
     height: 200px;
-    background-color:#f56048;
+    background-color: #f56048;
     color: white;
     margin: 20px;
+  }
+
 }
