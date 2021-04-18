@@ -3,13 +3,27 @@ import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import {foodApi,bsshApi} from "../../api";
-
+import {foodApi} from "../../api";
 function SearchProduct(){
     const [results,setResults]=useState(null);
     const [loading,setLoading]=useState(false);
     const [error,setError]=useState(null);
     const [searchTerm,setSearchTerm]=useState(null);
+    const [currentPage, setCurrentPage]=useState(1);
+
+    const plus=()=> {
+        setCurrentPage(currentPage+1);
+        searchByTerm();
+    }
+     const minus=()=> {
+         if(currentPage===1){
+            alert("🔔 마지막 페이지 입니다");
+         }else{
+            setCurrentPage(currentPage-1);
+         searchByTerm();
+         }
+         
+    }
 
     const handleSubmit=event=>{
         event.preventDefault();
@@ -25,7 +39,7 @@ function SearchProduct(){
     const searchByTerm=async()=>{
         setLoading(true);
         try{
-            const{data}=await foodApi.search(searchTerm,1);
+            const{data}=await foodApi.search(searchTerm,currentPage);
             for(var i=0;i<data.length;i++){
                 console.log(data[i]);
             }
@@ -38,7 +52,7 @@ function SearchProduct(){
         }
     };
     return(
-        <div>
+        <div className="SearchProduct">
             <form onSubmit={handleSubmit} className="form">
                 <input className="searchTab"
                        placeholder="제품명 또는 회사명을 입력하세요"
@@ -65,6 +79,11 @@ function SearchProduct(){
                                         <hr></hr>
                                     </div>
                                 ))}
+                                <div className="pageArrow">
+                                <button onClick={minus} className="leftArrow arrow">⬅</button>
+                                <span className="currentPage">{currentPage}</span>
+                                <button onClick={plus}className="rightArrow arrow">➡</button>
+                                </div>
                             </div>
                         ):<div>검색결과가 없습니다.</div>}
 

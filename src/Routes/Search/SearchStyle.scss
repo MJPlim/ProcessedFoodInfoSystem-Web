@@ -46,11 +46,22 @@
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-}
-.btn{
+    .btn{
     width: 200px;
     height: 200px;
-    background-color:#f56048;
-    color: white;
     margin: 20px;
+    }
+    .pageArrow{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       .arrow{
+           margin: 20px;
+           outline: none;
+           &:hover{
+               background-color: #ed2f3b;
+           }
+       }
+
+    }
 }
