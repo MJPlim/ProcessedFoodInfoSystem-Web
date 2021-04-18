@@ -53,7 +53,7 @@ function SearchProduct(){
         }
     };
     return(
-        <div>
+        <div className="SearchProduct">
             <form onSubmit={handleSubmit} className="form">
                 <input className="searchTab"
                        placeholder="제품명 또는 회사명을 입력하세요"
