@@ -16,6 +16,8 @@ import RV from "../Routes/Reviews";
 import WK from "../Routes/WhatsKati";
 import HU from "../Routes/HowToUse";
 import FD from "../Routes/Food/FoodDetail";
+import FUE from "../Routes/FindUser/FindEmail";
+
 
 import LG from "../Routes/Login/Login";
 import Join from "../Routes/Join/Join";
@@ -43,6 +45,7 @@ export default()=>(
                 <Route path="/searchProduct/bssh/:id" exact component={FD}/>
                 <Route path="/login" exact component={LG}/>
                 <Route path="/join" exact component={Join}/>
+                <Route path="/findUser/email" exact component={FUE}/>
             </Switch>
         </>
     </Router>
