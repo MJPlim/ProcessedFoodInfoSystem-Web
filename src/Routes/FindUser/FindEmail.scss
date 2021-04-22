@@ -25,18 +25,16 @@
     color: $lightorange;
 
     &:hover, &:focus, &:active {
-      background-color: $lightorange;
-      color: white;
-      border-color: $lightorange;
+      background-color: $lightorange !important;
+      color: white !important;
+      border-color: $lightorange !important;
     }
-
   }
 
 
   .alert {
     margin-top: 10px;
     margin-bottom: 10px;
-
   }
 
 
