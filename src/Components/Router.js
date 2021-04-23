@@ -21,6 +21,7 @@ import FUE from "../Routes/FindUser/FindEmail";
 
 import LG from "../Routes/Login/Login";
 import Join from "../Routes/Join/Join";
+import DU from "../Routes/DeleteUser/DeleteUser";
 
 export default()=>(
     <Router>
@@ -43,8 +44,10 @@ export default()=>(
                 <Route path="/howToUse" exact component={HU}/>
                 <Route path="/searchProduct/food/:id" exact component={FD}/>
                 <Route path="/searchProduct/bssh/:id" exact component={FD}/>
-                <Route path="/login" exact component={LG}/>
-                <Route path="/join" exact component={Join}/>
+                <Route path="/login" exact component={LG} />
+                <Route path="/join" exact component={Join} />
+                <Route path="/delete" exact component={DU} />
+
                 <Route path="/findUser/email" exact component={FUE}/>
             </Switch>
         </>

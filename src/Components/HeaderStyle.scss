@@ -42,11 +42,16 @@ header{
     background-color: white;
     outline: none;
 }
-.loginBtn{
-   
+.loginBtn {
     margin-right: 10px;
 }
-.joininBtn{
+.joinBtn {
+    margin-right: 10px;
+}
+.deleteBtn {
+    margin-right: 10px;
+}
+.logoutBtn {
     margin-right: 10px;
 }
 input::placeholder{

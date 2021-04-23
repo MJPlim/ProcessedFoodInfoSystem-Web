@@ -20,16 +20,28 @@ margin-bottom:20px;
 export default withRouter(({ location: { pathname } }) => (
     <header>
         <div className="topsection">
-            <li className="logoPosition"current={pathname === "/"}>
-                <Link className="logo" to="/">kati</Link>
+            <li className="logoPosition" current={pathname === "/"}>
+                <Link className="logo" to="/">
+                    kati
+                </Link>
             </li>
             <div className="searchTab">
                 {/* <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
         <button className="searchBtn">🔍</button> */}
             </div>
             <div className="buttons">
-                <Link to="/login" className="loginBtn">로그인</Link>
-                <Link to="/join" className="joinBtn">회원가입</Link>
+                <Link to="/login" className="loginBtn">
+                    로그인
+                </Link>
+                <Link to="/join" className="joinBtn">
+                    회원가입
+                </Link>
+                <Link to="/logout" className="logoutBtn">
+                    로그아웃
+                </Link>
+                <Link to="/delete" className="deleteBtn">
+                    회원탈퇴
+                </Link>
             </div>
         </div>
 

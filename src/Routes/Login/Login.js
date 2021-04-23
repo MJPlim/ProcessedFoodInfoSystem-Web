@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+
+var token;
 
 function Login() {
-    const [userName, setUserName] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [userAddress, setUserAddress] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userBirth, setUserBirth] = useState('');
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
 
-    const login = (userId, userPassword) => {
-        const data = {
-            userEmail,
-            userPassword,
-        };
-        axios
-            .post('/login', data)
+    const login = () => {
+        axios({
+            url: "http://13.124.55.59:8080/login",
+            method: "POST",
+            data: {
+                email: email,
+                password: password,
+            },
+        })
             .then((response) => {
-                const { accessToken } = response.data;
-                axios.defaults.headers.common['Autorization'] = `Bearer ${accessToken}`;
+                console.log(12345);
+                token = response.headers.authorization;
+                console.log(token);
+                localStorage.setItem("authorization", token);
             })
-            .catch((error) => {});
-        console.log(axios.defaults.headers);
-        alert('로그인완료');
+            .catch((error) => {
+                const status = error.response.status;
+                if (status === 401) {
+                    console.log("fail");
+                }
+            });
     };
 
     return (
@@ -30,14 +36,14 @@ function Login() {
             <input
                 type="text"
                 onChange={(e) => {
-                    setUserEmail(e.target.value);
+                    setEmail(e.target.value);
                 }}
                 placeholder="이메일을입력하세요"
             />
             <input
                 type="password"
                 onChange={(e) => {
-                    setUserPassword(e.target.value);
+                    setPassword(e.target.value);
                 }}
                 placeholder="비밀번호입력하세요"
             />
