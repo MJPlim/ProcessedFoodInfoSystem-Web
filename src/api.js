@@ -29,3 +29,10 @@ export const foodDetailApi = {//해당 url로 가는 함수들
             }
         })
 };
+
+export const findPasswordApi = {//해당 url로 가는 함수들
+    postEmail: (email) =>
+        api.post("/find-password", {
+              email:email
+        })
+};

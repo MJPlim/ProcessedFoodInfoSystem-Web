@@ -1,6 +1,6 @@
 @import "./src/styles/utils";
 
-.FindEmail {
+.FindUser {
   .container {
     padding-left: 40px;
     padding-right: 40px;
@@ -17,7 +17,10 @@
   .card-title {
     font-size: large;
   }
-
+  .loadingSpinner {
+    margin-top: 10px;
+    color: $lightorange  !important;
+  }
   .submitButton {
     margin-top: 10px;
     background-color: white;
