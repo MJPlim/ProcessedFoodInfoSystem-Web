@@ -50,7 +50,7 @@ const FindPassword = () => {
                 <p className="title">비밀번호 찾기</p>
                 <Card body>
                     <Col>
-                        <CardTitle className="card-title">조회하고자 하는 이메일을 입력해주세요.</CardTitle>
+                        <CardTitle className="card-title">비밀번호를 찾을 이메일을 입력해주세요.</CardTitle>
                     </Col>
                     <Col md="6">
                         <Input className="inputEmail" type="email" value={email} onChange={onChange}
