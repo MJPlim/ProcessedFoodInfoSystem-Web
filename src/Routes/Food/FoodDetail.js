@@ -3,10 +3,10 @@ import {Button, ButtonGroup, Col, Container, FormGroup, Input, Label, Row, Table
 import "./FoodDetail.scss"
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
+import {foodDetail, foodDetailApi} from "../../api";
 
 
 const FoodDetail = ({match}) => {
-        const url = '/B553748/CertImgListService/getCertImgListService?ServiceKey=fTEm%2FiVcJFgwgjEeDhMET1kFQZduiSF09BedQaKgQRGH7fWSoKITTfTFZH2EzYono62%2BwMlAxdy2Jj64qzpgqQ%3D%3D&returnType=json&numOfRows=1&pageNo=1&prdlstReportNo='
         const [food, setFood] = useState(null);
 
         const [loading, setLoading] = useState(false);
@@ -20,7 +20,6 @@ const FoodDetail = ({match}) => {
         };
 
 
-
         useEffect(() => {
             const fetchFood = async () => {
                 try {
@@ -28,10 +27,8 @@ const FoodDetail = ({match}) => {
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
                     setLoading(true);
-                    const response = await axios.get(
-                        url + id,
-                    );
-                    setFood(response.data.list);
+                    const response = await foodDetailApi.search(id);
+                    setFood(response.data);
                 } catch (e) {
                     setError(e);
                 }
@@ -68,17 +65,17 @@ const FoodDetail = ({match}) => {
                         <Col md="6" className="rightBorderLine">
                             {/*상품 정보 좌측 상단 영역(이미지, 식품 이름 등) 시작 */}
                             <Row className="bottomBorderLine">
-                                <Col sm="4">
-                                    <img src={food[0].imgurl1} alt="이미지 없음" width="200px" height="200px"/>
+                                <Col sm="3">
+                                    <img src={food.foodImageAddress} alt="이미지 없음" width="150" height="150"/>
                                 </Col>
-                                <Col lg="8">
+                                <Col lg="9">
                                     <Table>
                                         <tr>
                                             <th>
                                                 상품명
                                             </th>
                                             <td>
-                                                {food[0].prdlstNm}
+                                                {food.foodName}
                                             </td>
                                         </tr>
                                         <tr>
@@ -86,15 +83,23 @@ const FoodDetail = ({match}) => {
                                                 제조사
                                             </th>
                                             <td>
-                                                {food[0].manufacture}
+                                                {food.manufacturerName}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>
-                                                바코드
+                                                카테고리
                                             </th>
                                             <td>
-                                                {food[0].barcode}
+                                                {food.category}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                알레르기 성분
+                                            </th>
+                                            <td>
+                                                {food.allergyMaterials}
                                             </td>
                                         </tr>
                                     </Table>
@@ -107,11 +112,11 @@ const FoodDetail = ({match}) => {
                             <Row className="foodInfo">
                                 <Col sm="6">
                                     <p className="subTitle">성분</p>
-                                    {food[0].nutrient}
+                                    {food.nutrient}
                                 </Col>
                                 <Col sm="6">
                                     <p className="subTitle">원료</p>
-                                    {food[0].rawmtrl}
+                                    {food.materials}
                                 </Col>
                             </Row>
                             {/*상품 정보 좌측 하단 영역 끝 */}
