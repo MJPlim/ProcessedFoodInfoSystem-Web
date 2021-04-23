@@ -1,9 +1,6 @@
 import React, {useState} from "react";
-import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import {Link} from "react-router-dom";
-import axios from 'axios';
-import {foodApi, bsshApi} from "../../api";
 import "./SearchStyle.scss";
 
 function SearchProduct() {
