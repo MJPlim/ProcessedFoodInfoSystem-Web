@@ -17,6 +17,7 @@ import WK from "../Routes/WhatsKati";
 import HU from "../Routes/HowToUse";
 import FD from "../Routes/Food/FoodDetail";
 import FUE from "../Routes/FindUser/FindEmail";
+import FUP from "../Routes/FindUser/FindPassword";
 
 
 import LG from "../Routes/Login/Login";
@@ -49,6 +50,7 @@ export default()=>(
                 <Route path="/delete" exact component={DU} />
 
                 <Route path="/findUser/email" exact component={FUE}/>
+                <Route path="/findUser/password" exact component={FUP}/>
             </Switch>
         </>
     </Router>
