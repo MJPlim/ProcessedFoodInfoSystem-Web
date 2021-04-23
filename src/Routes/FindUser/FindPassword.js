@@ -28,6 +28,7 @@ const FindPassword = () => {
         setLoading(true);
         if (!isEmail(email)) {
             setMessage('잘못된 이메일 형식 입니다.')
+            setLoading(false);
         } else {
             setMessage(null)
             findPasswordApi.postEmail(email)
