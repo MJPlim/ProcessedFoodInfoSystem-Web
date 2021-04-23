@@ -8,7 +8,6 @@ import {findPasswordApi} from "../../api";
 const FindPassword = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState(null);
-    const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(null);
 
 
@@ -33,7 +32,6 @@ const FindPassword = () => {
             setMessage(null)
             findPasswordApi.postEmail(email)
                 .then(function (response) {
-                    setSuccess(true);
                     setLoading(false);
                     alert('입력하신 이메일로 임시번호를 발송하였습니다.')
                 })
