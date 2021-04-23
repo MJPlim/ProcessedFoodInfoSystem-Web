@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import { Link } from "react-router-dom";
-import axios from 'axios';
 import {bsshApi} from "../../api";
-
 function SearchProduct(){
     const [results,setResults]=useState(null);
     const [loading,setLoading]=useState(false);
     const [error,setError]=useState(null);
     const [searchTerm,setSearchTerm]=useState(null);
-     const [currentPage, setCurrentPage]=useState(1);
+    const [currentPage, setCurrentPage]=useState(1);
 
-     const plus=()=> {
+    const plus=()=> {
         setCurrentPage(currentPage+1);
         searchByTerm();
     }
@@ -40,28 +38,33 @@ function SearchProduct(){
     const searchByTerm=async()=>{
         setLoading(true);
         try{
-            const{data}=await bsshApi.search(searchTerm,1);
+            const{data}=await bsshApi.search(searchTerm);
             for(var i=0;i<data.length;i++){
                 console.log(data[i]);
             }
-            setResults(data);
+        setResults(data);
 
-        }catch{
-            setError("검색결과가 없습니다.");
+        }catch(e){
+            setError(e);
+            console.log(e);
+
         }finally{
             setLoading(false);
         }
     };
     return(
         <div className="SearchProduct">
-            <form onSubmit={handleSubmit} className="form">
-                <input className="searchTab"
-                       placeholder="제품명 또는 회사명을 입력하세요"
+
+            <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
+                <a className="navbar-brand">회사명 찾기</a>
+                <form className="form-inline">
+                    <input className="form-control mr-sm-2" type="search"  placeholder="회사명을 입력하세요"
                        value={searchTerm}
-                       onChange={updateTerm}
-                />
-                <button className="searchBtn"onClick={handleSubmit}>🔍</button>
-            </form>
+                       onChange={updateTerm}/>
+                    <button onClick={handleSubmit} className="btn btn-outline-danger my-2 my-sm-0" type="submit">🔍</button>  
+                </form>
+            </nav>
+           
             <div className="resultSection">
                 {loading ? (
                     <Spinner color="warning" />
@@ -71,22 +74,33 @@ function SearchProduct(){
                             <div title="Results" className="results">
                                 {results.map((result,index) => (
 
-                                    <div className="item" key={index}>
-                                        <Link to={`food/${result.prdlstReportNo}`} className="prdName">{result.prdlstName}</Link>
-                                        <div><img className="img" src="image/no-image.png"/></div>
-                                        <div className="bshName">{result.bsshName}</div>
-                                        <div className="rowMaterial">{result.rawMaterialName}</div>
-                                        <div className="prdNum">{result.lcnsNo}</div>
-                                        <hr></hr>
-                                    </div>
+                                  
+                                        <div class="list-group"key={index}>
+                                            <button type="button" class="list-group-item list-group-item-action">
+                                                 <Link to={`food/${result.foodName}`}>
+                                                 <div className="searchResult">
+                                                     <div><img className="foodImg" src={result.foodImageAddress}/></div>
+                                                     <div className="foodInfo">
+                                                           <div className="foodName">{result.foodName}</div>
+                                                           <div className="bshName">{result.manufacturerName}</div>
+                                                     </div>
+                                                   
+                                                 </div>
+                                            
+                                                
+                                                </Link>
+                                            </button>
+                                        </div> 
+            
                                 ))}
-                                    <div className="pageArrow">
+                                <div className="pageArrow">
                                 <button onClick={minus} className="leftArrow arrow">⬅</button>
                                 <span className="currentPage">{currentPage}</span>
                                 <button onClick={plus}className="rightArrow arrow">➡</button>
                                 </div>
                             </div>
                         ):<div>검색결과가 없습니다.</div>}
+                        <div className="topButton"></div>
 
                     </>
                 )}
