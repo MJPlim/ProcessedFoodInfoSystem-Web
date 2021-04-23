@@ -20,3 +20,12 @@ export const bsshApi = {//해당 url로 가는 함수들
             }
         })
 };
+
+export const foodDetailApi = {//해당 url로 가는 함수들
+    search: (term) =>
+        api.get("/api/v1/food/findFood/foodDetail", {
+            params: {
+                foodId: term
+            }
+        })
+};
