@@ -33,6 +33,9 @@ function DeleteUser() {
                         <div class="form-group">
                             <label for="exampleDropdownFormPassword1">비밀번호</label>
                             <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password"
+                            onChange={(e) => {
+                    setPassword(e.target.value);
+                }}
       />
     </div>
                     </Col>
