@@ -19,6 +19,12 @@ const FoodDetail = ({match}) => {
             console.log(starRating)
         };
 
+    const onMoveToLink = () => {
+        let link =
+            `https://search.shopping.naver.com/search/all?query=` + food.foodName;
+        window.open(link, "_blank");
+    };
+
 
         useEffect(() => {
             const fetchFood = async () => {
@@ -53,7 +59,9 @@ const FoodDetail = ({match}) => {
                             <p className="title">상품정보</p>
                         </Col>
                         <Col md="2">
-                            <p className="offline">오프라인 구매처 찾기</p>
+                            <Button className="offline" onClick={onMoveToLink}>
+                                상품 구매하러 가기
+                            </Button>
                         </Col>
                     </Row>
 
