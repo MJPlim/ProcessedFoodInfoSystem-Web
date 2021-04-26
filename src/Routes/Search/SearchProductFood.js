@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import { Link } from "react-router-dom";
-import axios from 'axios';
 import {foodApi} from "../../api";
+
 function SearchProduct(){
     const [results,setResults]=useState(null);
     const [loading,setLoading]=useState(false);
@@ -32,9 +32,7 @@ function SearchProduct(){
             searchByTerm();
         }
     }
-    const updateTerm=(event)=>{
-        setSearchTerm(event.target.value);
-    };
+
 
     const searchByTerm=async()=>{
         setLoading(true);
@@ -60,8 +58,10 @@ function SearchProduct(){
                 <a className="navbar-brand">제품명 찾기</a>
                 <form className="form-inline">
                     <input className="form-control mr-sm-2" type="search"  placeholder="제품명을 입력하세요"
-                       value={searchTerm}
-                       onChange={updateTerm}/>
+                      
+                       onChange={(e)=>{
+                            setSearchTerm(e.target.value);
+                       }}/>
                     <button onClick={handleSubmit} className="btn btn-outline-danger my-2 my-sm-0" type="submit">🔍</button>  
                 </form>
             </nav>

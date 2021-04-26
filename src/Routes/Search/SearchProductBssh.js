@@ -59,8 +59,12 @@ function SearchProduct(){
                 <a className="navbar-brand">회사명 찾기</a>
                 <form className="form-inline">
                     <input className="form-control mr-sm-2" type="search"  placeholder="회사명을 입력하세요"
-                       value={searchTerm}
-                       onChange={updateTerm}/>
+                     onChange={
+                         (e)=>{
+                             setSearchTerm(e.target.value);
+                         }
+                     }
+                     />
                     <button onClick={handleSubmit} className="btn btn-outline-danger my-2 my-sm-0" type="submit">🔍</button>  
                 </form>
             </nav>
