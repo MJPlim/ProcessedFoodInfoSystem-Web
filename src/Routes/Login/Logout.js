@@ -9,11 +9,7 @@ function Logout() {
   const [userBirth, setUserBirth] = useState('');
 
   const logout = () => {
-    setUserAddress(null);
-    setUserPassword(null);
-    setUserName(null);
-    setUserEmail(null);
-    setUserBirth(null);
+    localStorage.setItem("authorization", null);
       alert('로그아웃!');
   };
 
