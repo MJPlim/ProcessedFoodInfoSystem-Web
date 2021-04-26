@@ -10,7 +10,9 @@ function Login() {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const history = useHistory();
+    let success=false;
     const login = () => {
+     
         axios({
             url: "http://13.124.55.59:8080/login",
             method: "POST",
@@ -24,22 +26,26 @@ function Login() {
                 token = response.headers.authorization;
                 console.log(token);
                 localStorage.setItem("authorization", token);
-              
+                success=true;
+                alert("로그인 완료");
             })
             .catch((error) => {
                 const status = error.response.status;
                 if (status === 401) {
-                    console.log("fail");
-                  
+                    //console.log("fail");
+                    alert("잘못된 정보입니다.");
                 }
             });
-             history.push('/');//로그인 후 메인페이지로..
+            if(success){
+              history.push("/");//로그인 성공했으면 메인으로..
+            }
+          
     };
 
     return (
      <div className="login">
             <Container>
-            <p className="title">로그인</p>
+           
                 <Card body>
               <form >
     <div class="form-group">

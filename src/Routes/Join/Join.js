@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Card, Container} from "reactstrap";
+import { useHistory } from 'react-router-dom';
 
 function Join() {
     const [name, setName] = useState("");
@@ -8,6 +9,7 @@ function Join() {
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [birth, setBrith] = useState("");
+    const history = useHistory();
 
     const register = () => {
         axios.create({ headers: { "Content-Type": "application/json" } });
@@ -24,6 +26,8 @@ function Join() {
             })
             .then((json) => console.log(json));
             alert("이메일을 확인하세요");
+            history.pushState("/");
+          
     };
 
     return (

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {Alert, Button, Card, CardTitle, Col, Container, Input} from "reactstrap";
+import { Button, Card, CardTitle, Col, Container} from "reactstrap";
+import { useHistory } from 'react-router-dom';
 
 function DeleteUser() {
     const [password, setPassword] = useState("");
-
+    const history=useHistory();
     const withdrawal = () => {
         axios({
             url: "http://13.124.55.59:8080/withdraw",
@@ -18,7 +19,17 @@ function DeleteUser() {
         }).then((response) => {
             console.log(response);
             alert("탈퇴하셨습니다");
-        });
+            history.push("/");//메인으로
+        })
+        .catch((error)=>{
+             alert("비밀번호가 틀렸습니다.");
+              const status = error.response.status;
+                if (status === 401) {
+                    //console.log("fail");
+                   
+                }
+        })
+        ;
     };
 
     return (
