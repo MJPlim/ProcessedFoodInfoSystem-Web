@@ -26,8 +26,6 @@ export default withRouter(({ location: { pathname } }) => (
                 </Link>
             </li>
             <div className="searchTab">
-                {/* <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
-        <button className="searchBtn">🔍</button> */}
             </div>
             <div className="buttons">
                 <Link to="/login" className="loginBtn">
