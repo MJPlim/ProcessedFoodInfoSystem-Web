@@ -13,7 +13,7 @@ const MyPage = () => {
           </Col>
           <Col md="2">
             <p className="changeUserInfo">회원정보변경하기</p>
-            {/*이 부분은 추후에 추가되야 할 부분 */}
+            {/*이 부분은 추후에 추가되야 할 부분 !*/}
           </Col>
           <Col md="2">
             <Button color="link" size="sm" className="changePassword">

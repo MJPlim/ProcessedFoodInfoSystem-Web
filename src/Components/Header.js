@@ -6,6 +6,7 @@ import './HeaderStyle.scss';
 function LoginState(props) {
   const checkLogin = props.auli;
   console.log(checkLogin);
+  console.log('main main ');
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
