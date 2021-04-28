@@ -10,7 +10,7 @@ function SearchProduct(){
     const [error,setError]=useState(null);
     const [searchTerm,setSearchTerm]=useState("검색어");
     const [isInput,setIsInput]=useState(true);
-
+    const [a,b]=useState("");
     useEffect(()=>{
        
         console.log("기존 검색어",sessionStorage.getItem("searchFood"));
