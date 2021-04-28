@@ -1,43 +1,51 @@
-.searchTab{
-    border-width: 2px;
-    width: 200px;
-    height: 30px;
-}
-.searchBtn{
-    height: 30px;
-    color: #ed2f3b;
-}
-.resultSection{
-    display: flex;
-    justify-content: center;
-}
-.form{
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.results{
-    top:20px;
+.SearchProduct {
+   height: 100%;
+  .results {
+    top: 20px;
     display: flex;
     flex-direction: column;
     padding: 20px;
 
+  }
+  .form-control{
+    border-color: #ed2f3b;
+  }
+.searchResult{
+  display: flex;
 }
-.item{
-    transition:background-color 0.3s ease-in-out;
-     &:hover {
-      background-color:rgba(1,1,1,0.1);
-;
-    }
-}
+  .foodInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .foodName{
+    font-size: large;
+    font-weight: 700;
 
-.img{
+  }
+
+
+
+  img {
     display: block;
-    width: 20px;
-    height: 20px;
-}
-.prdName{
+    width: 100px;
+    height: 100px;
+  }
+
+  .prdName {
     font-weight: 700;
     font-size: 16px;
+  }
+
+  .selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    .btn{
+      width: 200px;
+      height: 200px;
+    }
+  }
+
 }

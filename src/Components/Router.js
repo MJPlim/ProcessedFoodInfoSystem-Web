@@ -6,6 +6,8 @@ import MS from "../Routes/MainScreen/MainScreen";
 import CP from "../Routes/CommercialProduct";
 import RP from "../Routes/RecommendedProduct";
 import SP from "../Routes/Search/SearchProduct";
+import SPF from "../Routes/Search/SearchProductFood";
+import SPB from "../Routes/Search/SearchProductBssh";
 import CM from "../Routes/Community";
 
 import UR from "../Routes/UserRanking";
@@ -14,9 +16,14 @@ import RV from "../Routes/Reviews";
 import WK from "../Routes/WhatsKati";
 import HU from "../Routes/HowToUse";
 import FD from "../Routes/Food/FoodDetail";
+import FUE from "../Routes/FindUser/FindEmail";
+import FUP from "../Routes/FindUser/FindPassword";
+
 
 import LG from "../Routes/Login/Login";
+import LGO from "../Routes/Login/Logout";
 import Join from "../Routes/Join/Join";
+import DU from "../Routes/DeleteUser/DeleteUser";
 
 export default()=>(
     <Router>
@@ -27,6 +34,8 @@ export default()=>(
                 <Route path="/commercialProduct" exact component={CP}/>
                 <Route path="/recommendedProduct" exact component={RP}/>
                 <Route path="/searchProduct" exact component={SP}/>
+                <Route path="/searchProduct/food" exact component={SPF}/>
+                <Route path="/searchProduct/bssh" exact component={SPB}/>
 
 
                 <Route path="/community" exact component={CM}/>
@@ -35,9 +44,15 @@ export default()=>(
                 <Route path="/reviews" exact component={RV}/>
                 <Route path="/whatsKati" exact component={WK}/>
                 <Route path="/howToUse" exact component={HU}/>
-                <Route path="/food/:id" exact component={FD}/>
-                <Route path="/login" exact component={LG}/>
-                <Route path="/join" exact component={Join}/>
+                <Route path="/searchProduct/food/:id" exact component={FD}/>
+                <Route path="/searchProduct/bssh/:id" exact component={FD}/>
+                <Route path="/login" exact component={LG} />
+                 <Route path="/logout" exact component={LGO} />
+                <Route path="/join" exact component={Join} />
+                <Route path="/delete" exact component={DU} />
+
+                <Route path="/findUser/email" exact component={FUE}/>
+                <Route path="/findUser/password" exact component={FUP}/>
             </Switch>
         </>
     </Router>
