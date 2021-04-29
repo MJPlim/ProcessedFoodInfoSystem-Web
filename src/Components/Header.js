@@ -6,6 +6,7 @@ import './HeaderStyle.scss';
 function LoginState(props) {
   const checkLogin = props.auli;
   console.log(checkLogin);
+  console.log('main main ');
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
@@ -52,7 +53,10 @@ export default withRouter(({ location: { pathname } }) => (
           kati
         </Link>
       </li>
-      <div className="searchTab"></div>
+      <div className="searchTab">
+        {/* <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
+        <button className="searchBtn">🔍</button> */}
+      </div>
       <LoginState auli={localStorage.getItem('authorization')} />
     </div>
 

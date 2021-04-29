@@ -54,6 +54,7 @@ export default () => (
         <Route path="/logout" exact component={LGO} />
         <Route path="/join" exact component={Join} />
         <Route path="/delete" exact component={DU} />
+        <Route path="/mypage" exact component={MP} />
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />
