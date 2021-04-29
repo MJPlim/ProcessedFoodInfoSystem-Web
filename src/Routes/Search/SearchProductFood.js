@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import { Link } from "react-router-dom";
@@ -8,40 +8,33 @@ function SearchProduct(){
     const [results,setResults]=useState(null);
     const [loading,setLoading]=useState(false);
     const [error,setError]=useState(null);
-    const [searchTerm,setSearchTerm]=useState(null);
-    const [currentPage, setCurrentPage]=useState(1);
-
-    const plus=()=> {
-        setCurrentPage(currentPage+1);
-        searchByTerm();
-    }
-     const minus=()=> {
-         if(currentPage===1){
-            alert("🔔 마지막 페이지 입니다");
-         }else{
-            setCurrentPage(currentPage-1);
-         searchByTerm();
-         }
-         
-    }
+    const [searchTerm,setSearchTerm]=useState("검색어");
+    const [isInput,setIsInput]=useState(true);
+    const [a,b]=useState("");
+    useEffect(()=>{
+       
+        console.log("기존 검색어",sessionStorage.getItem("searchFood"));
+         setSearchTerm(sessionStorage.getItem("searchFood"));
+         if(sessionStorage.getItem("searchFood")==="검색어"){
+            setIsInput(false);
+        }
+        searchByTerm(sessionStorage.getItem("searchFood"));
+    },[]);
 
     const handleSubmit=event=>{
         event.preventDefault();
-        //const {searchTerm}=this.state;
         if(searchTerm!==""){
-            searchByTerm();
+            sessionStorage.setItem("searchFood",searchTerm);
+            searchByTerm(searchTerm);
         }
     }
-
-
-    const searchByTerm=async()=>{
+    const searchByTerm=async(searchTerm)=>{
+        console.log("searchByTerm",searchTerm);
         setLoading(true);
         try{
             const{data}=await foodApi.search(searchTerm);
-            for(var i=0;i<data.length;i++){
-                console.log(data[i]);
-            }
-        setResults(data);
+            
+            setResults(data);
 
         }catch(e){
             setError(e);
@@ -57,11 +50,17 @@ function SearchProduct(){
             <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
                 <a className="navbar-brand">제품명 찾기</a>
                 <form className="form-inline">
-                    <input className="form-control mr-sm-2" type="search"  placeholder="제품명을 입력하세요"
+                    {isInput?(<input className="form-control mr-sm-2" type="search"  placeholder={searchTerm}
+                      
+                       onChange={(e)=>{
+                            setSearchTerm(e.target.value);
+                       }}/>):(
+                           <input className="form-control mr-sm-2" type="search"  placeholder="제품명을 입력하세요"
                       
                        onChange={(e)=>{
                             setSearchTerm(e.target.value);
                        }}/>
+                       )}
                     <button onClick={handleSubmit} className="btn btn-outline-danger my-2 my-sm-0" type="submit">🔍</button>  
                 </form>
             </nav>
@@ -94,11 +93,6 @@ function SearchProduct(){
                                         </div> 
             
                                 ))}
-                                <div className="pageArrow">
-                                <button onClick={minus} className="leftArrow arrow">⬅</button>
-                                <span className="currentPage">{currentPage}</span>
-                                <button onClick={plus}className="rightArrow arrow">➡</button>
-                                </div>
                             </div>
                         ):<div>검색결과가 없습니다.</div>}
                         <div className="topButton"></div>
