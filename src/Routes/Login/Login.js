@@ -3,12 +3,15 @@ import axios from 'axios';
 import { Container, Card } from 'reactstrap';
 import './LoginStyle.scss';
 import { Link } from 'react-router-dom';
+
 var token;
 
 function Login() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  console.log('abababc  ');
   const login = () => {
+    console.log('aaaa');
     axios({
       url: 'http://13.124.55.59:8080/login',
       method: 'POST',
