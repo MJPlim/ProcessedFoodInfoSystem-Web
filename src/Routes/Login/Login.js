@@ -10,7 +10,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   console.log('abababc  ');
-  const checkThis = false;
   const login = () => {
     console.log('aaaa');
     axios({
@@ -27,7 +26,6 @@ function Login() {
         console.log(token);
         localStorage.setItem('authorization', token);
         alert('로그인 완료');
-        checkThis = true;
       })
       .catch((error) => {
         const status = error.response.status;
@@ -36,9 +34,6 @@ function Login() {
           alert('잘못된 정보입니다.');
         }
       });
-    if (checkThis) {
-      <Link to="/" />;
-    }
   };
 
   return (
