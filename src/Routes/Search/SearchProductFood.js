@@ -61,7 +61,7 @@ function SearchProduct() {
 
     // 검색어 입력시 keywords에 추가
     const handleAddKeyword = () => {
-        for (let i = 0; i < keywords.length; i++) {
+        for (let i = 0; i < 5; i++) {
             if (keywords[i].text === searchTerm) {
                 return;
             }
@@ -102,7 +102,7 @@ function SearchProduct() {
                     )}
                     <datalist id="searchHistory">
                         {
-                            keywords.map((item, index) => {
+                            keywords.slice(0,5).map((item, index) => {
                                 return <option key={index} value={item.text}/>
                             })
                         }
