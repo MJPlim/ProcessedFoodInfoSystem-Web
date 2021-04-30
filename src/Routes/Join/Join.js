@@ -25,7 +25,7 @@ function Join() {
                 console.log(response);
             })
             .then((json) => console.log(json));
-            alert("이메일을 확인하세요");
+            alert("인증메일이 발송되었습니다");
             history.pushState("/");
           
     };
