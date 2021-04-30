@@ -56,6 +56,9 @@ export default () => (
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />
+
+          {/* url잘못치면 메인으로 */}
+         <Redirect from="*" to="/"/>
       </Switch>
     </>
   </Router>
