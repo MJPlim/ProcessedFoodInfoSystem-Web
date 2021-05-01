@@ -27,15 +27,13 @@ function ChangePassword() {
       },
     })
       .then((response) => {
-        console.log('데이터 보내고 받는 것 까지 ㅇㅋㅇㅋ');
-        alert('완료임 response');
+        console.log(response);
+        alert('비밀번호 변경이 완료되었습니다');
       })
       .catch((error) => {
         const status = error.response.status;
         if (status === 400) {
           alert(status);
-        } else if (status === 200) {
-          alert('비밀번호 변경 완료');
         } else {
           alert('몰랑 왜이러냐');
         }
