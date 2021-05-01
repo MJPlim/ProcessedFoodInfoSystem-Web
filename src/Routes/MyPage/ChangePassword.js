@@ -45,6 +45,8 @@ function ChangePassword() {
       <Container>
         <Card body>
           <form>
+            <p>비밀번호 변경하기</p>
+            <hr />
             <div class="form-group">
               <label for="exampleDropdownFormEmail1">현재 비밀번호</label>
               <input
