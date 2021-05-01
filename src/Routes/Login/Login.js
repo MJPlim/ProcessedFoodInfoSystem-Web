@@ -19,6 +19,9 @@ function Login() {
         email: email,
         password: password,
       },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then((response) => {
         console.log(12345);
