@@ -111,7 +111,7 @@ function Login() {
                 <Card body>
                   
                  <button type="submit" class="btn btn-light btn-lg">
-                   <a href="http://kkati.tk:8080/oauth2/authorization/google"> 
+                   <a href="http://kkati.ml:8080/oauth2/authorization/google"> 
                           <FcGoogle size="30"/> 
                          구글로 로그인하기
                   </a>
