@@ -61,7 +61,7 @@ function SearchProduct() {
 
     // 검색어 입력시 keywords에 추가
     const handleAddKeyword = () => {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < searchTerm.length; i++) {       // 중복 저장 방지
             if (keywords[i].text === searchTerm) {
                 return;
             }
@@ -70,10 +70,10 @@ function SearchProduct() {
             id: Date.now(),
             text: searchTerm,
         }
-        // if (keywords.length > 10) {
-        //     console.log("크다")
-        //     keywords.length = 10;
-        // }
+        if (keywords.length > 100) {        // 최대 100건만 저장
+            console.log("크다")
+            keywords.length = 100;
+        }
         setKeywords([newKeyword, ...keywords]);
     }
 
