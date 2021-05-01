@@ -13,10 +13,7 @@ function SearchProduct() {
     const [isInput, setIsInput] = useState(true);
     const [a, b] = useState("");
     const [keywords, setKeywords] = useState(
-        JSON.parse(localStorage.getItem('keywords') || '[]'),
-    )       // 검색 기록을 위한 state
-    const [showKeywords, setShowKeywords] = useState(
-        JSON.parse(localStorage.getItem('keywords') || '[]'),
+        JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
     )       // 검색 기록을 위한 state
 
     useEffect(() => {
@@ -31,7 +28,7 @@ function SearchProduct() {
 
     useEffect(() => {
         //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
-        localStorage.setItem('keywords', JSON.stringify(keywords))
+        localStorage.setItem('keywordsFood', JSON.stringify(keywords))
     }, [keywords])
 
 
@@ -61,7 +58,7 @@ function SearchProduct() {
 
     // 검색어 입력시 keywords에 추가
     const handleAddKeyword = () => {
-        for (let i = 0; i < NUM_OF_SHOW_ROWS; i++) {       // 중복 저장 방지 (보여지는 부분 만큼만 처리)
+        for (let i = 0; i < Math.min(keywords.length, NUM_OF_SHOW_ROWS); i++) {       // 중복 저장 방지 (보여지는 부분 만큼만 처리)
             if (keywords[i].text === searchTerm) {
                 return;
             }
@@ -101,7 +98,7 @@ function SearchProduct() {
                     )}
                     <datalist id="searchHistory">
                         {
-                            keywords.slice(0,NUM_OF_SHOW_ROWS).map((item, index) => {
+                            keywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
                                 return <option key={index} value={item.text}/>
                             })
                         }
