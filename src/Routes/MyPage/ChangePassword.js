@@ -27,7 +27,10 @@ function ChangePassword() {
     })
       .then((response) => {
         console.log(response); // 200 : 패스워드 변경 완료
-        alert('비밀번호 변경이 완료되었습니다');
+        if (response.status === 200) {
+          alert('비밀번호 변경이 완료되었습니다');
+          location.href = '/';
+        }
       })
       .catch((error) => {
         const status = error.response.status;
