@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
 import './ChangePasswordStyle.scss';
-import {
-  Alert,
-  Button,
-  Card,
-  CardTitle,
-  Col,
-  Container,
-  Input,
-  Spinner,
-} from 'reactstrap';
 import axios from 'axios';
-import { findPasswordApi } from '../../api';
+
+var token;
 
 //modify-password 로 post
 // 400: 기존 패스워드와 동일합니다 or 패스워드가 일치하지 안습니다
 // 200 : 패스워드 변경 완료
-const ChangePassword = () => {
+function ChangePassword() {
   const [beforePassword, setBeforePassword] = useState('');
   const [afterPassword, setAfterPassword] = useState('');
+
+  token = localStorage.getItem('authorization');
 
   const passwordSubmit = () => {
     console.log('Start Submit');
@@ -28,9 +21,9 @@ const ChangePassword = () => {
       data: {
         beforePassword: beforePassword,
         afterPassword: afterPassword,
-        headers: {
-          authorization: localStorage.getItem('authorization'),
-        },
+      },
+      headers: {
+        Authorization: token,
       },
     })
       .then((response) => {
@@ -41,8 +34,10 @@ const ChangePassword = () => {
         const status = error.response.status;
         if (status === 400) {
           alert(status);
-        } else {
+        } else if (status === 200) {
           alert('비밀번호 변경 완료');
+        } else {
+          alert('몰랑 왜이러냐');
         }
       });
   };
@@ -74,6 +69,6 @@ const ChangePassword = () => {
       </form>
     </div>
   );
-};
+}
 
 export default ChangePassword;
