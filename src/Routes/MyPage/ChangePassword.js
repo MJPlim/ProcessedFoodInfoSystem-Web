@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ChangePasswordStyle.scss';
 import { Container, Card } from 'reactstrap';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 var token;
 
@@ -10,6 +11,8 @@ function ChangePassword() {
   const [afterPassword, setAfterPassword] = useState('');
 
   token = localStorage.getItem('authorization');
+
+  const history = useHistory();
 
   const passwordSubmit = () => {
     console.log('Start Submit');
@@ -29,7 +32,7 @@ function ChangePassword() {
         console.log(response); // 200 : 패스워드 변경 완료
         if (response.status === 200) {
           alert('비밀번호 변경이 완료되었습니다');
-          location.href = '/';
+          history.push('/');
         }
       })
       .catch((error) => {
