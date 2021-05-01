@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ChangePasswordStyle.scss';
+import { Container, Card } from 'reactstrap';
 import axios from 'axios';
 
 var token;
@@ -41,29 +42,44 @@ function ChangePassword() {
 
   return (
     <div className="changePassword">
-      <form>
-        <label>
-          <input
-            type="password"
-            onChange={(e) => {
-              setBeforePassword(e.target.value);
-            }}
-            placeholder="현재 비밀번호를 입력해주세요"
-          />
-        </label>
-        <label>
-          <input
-            type="password"
-            onChange={(e) => {
-              setAfterPassword(e.target.value);
-            }}
-            placeholder="희망 비밀번호를 입력해주세요"
-          />
-        </label>
-        <button onClick={passwordSubmit} type="submit">
-          변경하기
-        </button>
-      </form>
+      <Container>
+        <Card body>
+          <form>
+            <div class="form-group">
+              <label for="exampleDropdownFormEmail1">현재 비밀번호</label>
+              <input
+                type="password"
+                class="form-control"
+                id="exampleDropdownFormEmail1"
+                placeholder="현재 비밀번호를 입력해주세요"
+                onChange={(e) => {
+                  setBeforePassword(e.target.value);
+                }}
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleDropdownFormPassword1">변경 비밀번호</label>
+              <input
+                type="password"
+                class="form-control"
+                id="exampleDropdownFormPassword1"
+                placeholder="희망 비밀번호를 입력해주세요"
+                onChange={(e) => {
+                  setAfterPassword(e.target.value);
+                }}
+              />
+            </div>
+            <button
+              onClick={passwordSubmit}
+              type="submit"
+              class="btn btn-danger"
+            >
+              변경하기
+            </button>
+          </form>
+          <div class="dropdown-divider"></div>
+        </Card>
+      </Container>
     </div>
   );
 }
