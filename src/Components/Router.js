@@ -28,6 +28,7 @@ import LG from '../Routes/Login/Login';
 import Join from '../Routes/Join/Join';
 import DU from '../Routes/DeleteUser/DeleteUser';
 import MP from '../Routes/MyPage/MyPage';
+import CUP from '../Routes/MyPage/ChangePassword';
 
 export default () => (
   <Router>
@@ -53,12 +54,13 @@ export default () => (
         <Route path="/join" exact component={Join} />
         <Route path="/delete" exact component={DU} />
         <Route path="/mypage" exact component={MP} />
+        <Route path="/changePassword" exact component={CUP} />
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />
 
-          {/* url잘못치면 메인으로 */}
-         <Redirect from="*" to="/"/>
+        {/* url잘못치면 메인으로 */}
+        <Redirect from="*" to="/" />
       </Switch>
     </>
   </Router>
