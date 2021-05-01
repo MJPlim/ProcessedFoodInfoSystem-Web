@@ -4,9 +4,6 @@ import axios from 'axios';
 
 var token;
 
-//modify-password 로 post
-// 400: 기존 패스워드와 동일합니다 or 패스워드가 일치하지 안습니다
-// 200 : 패스워드 변경 완료
 function ChangePassword() {
   const [beforePassword, setBeforePassword] = useState('');
   const [afterPassword, setAfterPassword] = useState('');
@@ -17,23 +14,25 @@ function ChangePassword() {
     console.log('Start Submit');
     axios({
       url: 'http://13.124.55.59:8080/modify-password',
-      method: 'POST',
+      method: 'POST', //modify-password 로 post
       data: {
         beforePassword: beforePassword,
         afterPassword: afterPassword,
       },
       headers: {
         Authorization: token,
+        'Content-Type': 'application/json',
       },
     })
       .then((response) => {
-        console.log(response);
+        console.log(response); // 200 : 패스워드 변경 완료
         alert('비밀번호 변경이 완료되었습니다');
       })
       .catch((error) => {
         const status = error.response.status;
         if (status === 400) {
-          alert(status);
+          // 400: 기존 패스워드와 동일합니다 or 패스워드가 일치하지 안습니다
+          alert('동일한 비밀번호 혹은 현 비밀번호가 다릅니다.');
         } else {
           alert('몰랑 왜이러냐');
         }
