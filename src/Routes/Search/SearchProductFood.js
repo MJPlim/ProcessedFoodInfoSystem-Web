@@ -31,7 +31,6 @@ function SearchProduct() {
     useEffect(() => {
         //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
         localStorage.setItem('keywords', JSON.stringify(keywords))
-        console.log(keywords)
     }, [keywords])
 
 
@@ -71,7 +70,6 @@ function SearchProduct() {
             text: searchTerm,
         }
         if (keywords.length > 100) {        // 최대 100건만 저장
-            console.log("크다")
             keywords.length = 100;
         }
         setKeywords([newKeyword, ...keywords]);
