@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {foodApi} from "../../api";
 
 function SearchProduct() {
+    const NUM_OF_SHOW_ROWS = 5;
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -60,7 +61,7 @@ function SearchProduct() {
 
     // 검색어 입력시 keywords에 추가
     const handleAddKeyword = () => {
-        for (let i = 0; i < searchTerm.length; i++) {       // 중복 저장 방지
+        for (let i = 0; i < NUM_OF_SHOW_ROWS; i++) {       // 중복 저장 방지 (보여지는 부분 만큼만 처리)
             if (keywords[i].text === searchTerm) {
                 return;
             }
@@ -100,7 +101,7 @@ function SearchProduct() {
                     )}
                     <datalist id="searchHistory">
                         {
-                            keywords.slice(0,5).map((item, index) => {
+                            keywords.slice(0,NUM_OF_SHOW_ROWS).map((item, index) => {
                                 return <option key={index} value={item.text}/>
                             })
                         }
