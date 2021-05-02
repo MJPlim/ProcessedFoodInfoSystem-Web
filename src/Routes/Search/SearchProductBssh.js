@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import { Link } from "react-router-dom";
-import {bsshApi} from "../../api";
+import {bsshApi, getAdvertisementFoodApi} from "../../api";
 function SearchProduct(){
     const NUM_OF_SHOW_ROWS = 5;
     const [results,setResults]=useState(null);
@@ -13,6 +13,7 @@ function SearchProduct(){
     const [keywords, setKeywords] = useState(
         JSON.parse(localStorage.getItem('keywordsBssh') || '[]'),
     )       // 검색 기록을 위한 state
+    const [adFoods, setAdFoods] = useState(null);
 
     useEffect(()=>{      
         console.log("기존 검색어",sessionStorage.getItem("searchWord"));
@@ -22,6 +23,7 @@ function SearchProduct(){
             setIsInput(true);
         }
         searchByTerm(sessionStorage.getItem("searchWord"));
+        getAd();
     },[]);
     useEffect(() => {
         //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
@@ -35,6 +37,7 @@ function SearchProduct(){
         if(searchTerm!==""){
             sessionStorage.setItem("searchWord",searchTerm);
             searchByTerm(searchTerm);
+            getAd();
         }
     }
 
@@ -53,6 +56,22 @@ function SearchProduct(){
             setLoading(false);
         }
     };
+
+    const getAd = async () => {
+        console.log("getAD 실행");
+        setLoading(true);
+        try {
+            setAdFoods(null);
+            const {data} = await getAdvertisementFoodApi.getAdFood();
+            setAdFoods(data);
+
+        } catch (e) {
+            setError(e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     // 검색어 입력시 keywords에 추가
     const handleAddKeyword = () => {
@@ -105,8 +124,27 @@ function SearchProduct(){
                     <Spinner color="warning" />
                 ) : (
                     <>
-                        {results && results.length > 0 ? (
+                        {results && results.length > 0 && adFoods  ? (
                             <div title="Results" className="results">
+                                {/*광고 리스트 시작 */}
+                                {adFoods.map((result, index) => (
+                                    <div className="list-group" key={index}>
+                                        <button type="button" className="list-group-item list-group-item-action">
+                                            <Link to={`food/${result.food.foodId}`}>
+                                                <div className="searchResult">
+                                                    <div><img className="foodImg" src={result.food.foodImage.foodImageAddress}/></div>
+                                                    <div className="foodInfo">
+                                                        <div className="foodName">{result.food.foodName}</div>
+                                                        <div className="bshName">{result.food.manufacturerName}</div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                            <div className="bshName">광고상품</div>
+                                        </button>
+                                    </div>
+                                ))}
+                                {/*광고 리스트 끝 */}
+
                                 {results.map((result,index) => (
 
                                   

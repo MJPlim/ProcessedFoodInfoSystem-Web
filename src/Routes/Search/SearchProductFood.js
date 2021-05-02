@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {ListGroup, ListGroupItem, Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import {Link} from "react-router-dom";
-import {foodApi} from "../../api";
+import {foodApi, getAdvertisementFoodApi} from "../../api";
 
 function SearchProduct() {
     const NUM_OF_SHOW_ROWS = 5;
@@ -15,6 +15,7 @@ function SearchProduct() {
     const [keywords, setKeywords] = useState(
         JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
     )       // 검색 기록을 위한 state
+    const [adFoods, setAdFoods] = useState(null);
 
     useEffect(() => {
 
@@ -24,6 +25,7 @@ function SearchProduct() {
             setIsInput(false);
         }
         searchByTerm(sessionStorage.getItem("searchFood"));
+        getAd();
     }, []);
 
     useEffect(() => {
@@ -37,6 +39,7 @@ function SearchProduct() {
         if (searchTerm !== "") {
             sessionStorage.setItem("searchFood", searchTerm);
             searchByTerm(searchTerm);
+            getAd();
         }
     }
     const searchByTerm = async (searchTerm) => {
@@ -51,6 +54,21 @@ function SearchProduct() {
             setError(e);
             console.log(e);
 
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getAd = async () => {
+        console.log("getAD 실행");
+        setLoading(true);
+        try {
+            setAdFoods(null);
+            const {data} = await getAdvertisementFoodApi.getAdFood();
+            setAdFoods(data);
+
+        } catch (e) {
+            setError(e);
         } finally {
             setLoading(false);
         }
@@ -73,10 +91,8 @@ function SearchProduct() {
         setKeywords([newKeyword, ...keywords]);
     }
 
-
     return (
         <div className="SearchProduct">
-
             <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
                 <a className="navbar-brand">제품명 찾기</a>
                 <form className="form-inline">
@@ -115,11 +131,28 @@ function SearchProduct() {
                     <Spinner color="warning"/>
                 ) : (
                     <>
-                        {results && results.length > 0 ? (
+                        {results && results.length > 0 && adFoods  ? (
                             <div title="Results" className="results">
+                                {/*광고 리스트 시작 */}
+                                {adFoods.map((result, index) => (
+                                    <div className="list-group" key={index}>
+                                        <button type="button" className="list-group-item list-group-item-action">
+                                            <Link to={`food/${result.food.foodId}`}>
+                                                <div className="searchResult">
+                                                    <div><img className="foodImg" src={result.food.foodImage.foodImageAddress}/></div>
+                                                    <div className="foodInfo">
+                                                        <div className="foodName">{result.food.foodName}</div>
+                                                        <div className="bshName">{result.food.manufacturerName}</div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                            <div className="bshName">광고상품</div>
+                                        </button>
+                                    </div>
+                                ))}
+                                {/*광고 리스트 끝 */}
+
                                 {results.map((result, index) => (
-
-
                                     <div class="list-group" key={index}>
                                         <button type="button" class="list-group-item list-group-item-action">
                                             <Link to={`food/${result.foodId}`}>
