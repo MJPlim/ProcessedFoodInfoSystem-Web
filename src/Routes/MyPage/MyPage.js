@@ -16,9 +16,11 @@ const MyPage = () => {
             {/*이 부분은 추후에 추가되야 할 부분 !*/}
           </Col>
           <Col md="2">
-            <Button color="link" size="sm" className="changePassword">
-              비밀번호 변경하기
-            </Button>
+            <Link to="/changePassword">
+              <Button color="link" size="sm" className="changePassword">
+                비밀번호 변경하기
+              </Button>
+            </Link>
           </Col>
           <Col md="2">
             <Link to="/delete">
