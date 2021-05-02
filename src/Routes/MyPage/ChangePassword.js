@@ -77,6 +77,8 @@ function ChangePassword() {
                 }}
               />
             </div>
+          </form>
+          <div>
             <button
               onClick={passwordSubmit}
               type="submit"
@@ -84,7 +86,7 @@ function ChangePassword() {
             >
               변경하기
             </button>
-          </form>
+          </div>
           <div class="dropdown-divider"></div>
         </Card>
       </Container>

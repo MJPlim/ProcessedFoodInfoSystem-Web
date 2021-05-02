@@ -78,10 +78,12 @@ function Login() {
                 자동 로그인
               </label>
             </div>
+          </form>
+          <div>
             <button onClick={login} type="submit" class="btn btn-danger">
               로그인
             </button>
-          </form>
+          </div>
           <div class="dropdown-divider"></div>
           <Link class="dropdown-item" to="/join">
             회원가입하기
