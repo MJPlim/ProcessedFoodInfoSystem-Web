@@ -6,7 +6,7 @@ import axios from "axios";
 import {adFoodDetailApi, foodDetail, foodDetailApi} from "../../api";
 
 
-const FoodDetail = (props) => {
+const FoodDetail = ({match}) => {
         const [food, setFood] = useState(null);
 
         const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ const FoodDetail = (props) => {
             setStarRating(newRating);
             console.log(starRating)
         };
+        const id = match.params.id
 
         const onMoveToLink = () => {
             let link =
@@ -33,7 +34,7 @@ const FoodDetail = (props) => {
                     setLoading(true);
 
                     console.log("일반 식품")
-                    const response = await foodDetailApi.search(props.match.params.id);
+                    const response = await foodDetailApi.search(id);
                     setFood(response.data);
 
                 } catch (e) {
@@ -45,6 +46,7 @@ const FoodDetail = (props) => {
 
             const fetchADFood = async () => {
                 try {
+
                     setError(null);
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
@@ -52,7 +54,7 @@ const FoodDetail = (props) => {
 
                     console.log("광고 식품")
 
-                    const response = await adFoodDetailApi.search(props.location.state.id);
+                    const response = await adFoodDetailApi.search(id.substring(2));
                     setFood(response.data);
                 } catch (e) {
                     setError(e);
@@ -60,17 +62,15 @@ const FoodDetail = (props) => {
                 setLoading(false);
 
             };
-
-            if ((props.location.state !== undefined && props.location.state.isAD === true)) {
+            console.log('id:',id.substring(2))
+            if (id.substring(0,2) === "ad") {
                 fetchADFood();
-
             } else {
 
                 fetchFood();
             }
 
         }, []);
-        console.log(food);
 
         if (loading) return <div>로딩중..</div>;
         if (error) return <div>에러가 발생했습니다</div>;
