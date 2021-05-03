@@ -139,7 +139,7 @@ function SearchProduct() {
                                         <button type="button" className="list-group-item list-group-item-action">
                                             <Link to={`food/${result.food.foodId}`}>
                                                 <div className="searchResult">
-                                                    <div><img className="foodImg" src={result.food.foodImage.foodImageAddress}/></div>
+                                                    <div><img className="foodImg" src={result.food.foodImageAddress}/></div>
                                                     <div className="foodInfo">
                                                         <div className="foodName">{result.food.foodName}</div>
                                                         <div className="bshName">{result.food.manufacturerName}</div>
