@@ -3,27 +3,25 @@ import {Button, ButtonGroup, Col, Container, FormGroup, Input, Label, Row, Table
 import "./FoodDetail.scss"
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
-import {foodDetail, foodDetailApi} from "../../api";
+import {adFoodDetailApi, foodDetail, foodDetailApi} from "../../api";
 
 
-const FoodDetail = ({match}) => {
+const FoodDetail = (props) => {
         const [food, setFood] = useState(null);
 
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(null);
         const [starRating, setStarRating] = useState(0);
-        const {id} = match.params;
-
         const ratingChanged = (newRating) => {
             setStarRating(newRating);
             console.log(starRating)
         };
 
-    const onMoveToLink = () => {
-        let link =
-            `https://search.shopping.naver.com/search/all?query=` + food.foodName;
-        window.open(link, "_blank");
-    };
+        const onMoveToLink = () => {
+            let link =
+                `https://search.shopping.naver.com/search/all?query=` + food.foodName;
+            window.open(link, "_blank");
+        };
 
 
         useEffect(() => {
@@ -33,15 +31,19 @@ const FoodDetail = ({match}) => {
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
                     setLoading(true);
-                    const response = await foodDetailApi.search(id);
-                    setFood(response.data);
+                    if (props.location.state.isAD === true) {
+                        const response = await adFoodDetailApi.search(props.location.state.id);
+                        setFood(response.data);
+                    }  else if(props.location.state.isAD === false) {
+                        const response = await foodDetailApi.search(props.match.params.id);
+                        setFood(response.data);
+                    }
                 } catch (e) {
                     setError(e);
                 }
                 setLoading(false);
 
             };
-
             fetchFood();
         }, []);
         console.log(food);
