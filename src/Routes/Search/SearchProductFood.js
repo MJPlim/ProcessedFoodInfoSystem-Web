@@ -137,7 +137,12 @@ function SearchProduct() {
                                 {adFoods.map((result, index) => (
                                     <div className="list-group" key={index}>
                                         <button type="button" className="list-group-item list-group-item-action">
-                                            <Link to={`food/ad${result.id}`}>
+                                            <Link to={{
+                                                pathname: `food/${result.food.foodId}`,
+                                                state: {
+                                                    adId: result.id,
+                                                }
+                                            }}>
                                                 <div className="searchResult">
                                                     <div><img className="foodImg" src={result.food.foodImageAddress}/>
                                                     </div>

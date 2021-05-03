@@ -6,7 +6,7 @@ import axios from "axios";
 import {adFoodDetailApi, foodDetail, foodDetailApi} from "../../api";
 
 
-const FoodDetail = ({match}) => {
+const FoodDetail = (props) => {
         const [food, setFood] = useState(null);
 
         const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const FoodDetail = ({match}) => {
             setStarRating(newRating);
             console.log(starRating)
         };
-        const id = match.params.id
+        const foodId = props.match.params.id
 
         const onMoveToLink = () => {
             let link =
@@ -34,7 +34,7 @@ const FoodDetail = ({match}) => {
                     setLoading(true);
 
                     console.log("일반 식품")
-                    const response = await foodDetailApi.search(id);
+                    const response = await foodDetailApi.search(foodId);
                     setFood(response.data);
 
                 } catch (e) {
@@ -54,7 +54,7 @@ const FoodDetail = ({match}) => {
 
                     console.log("광고 식품")
 
-                    const response = await adFoodDetailApi.search(id.substring(2));
+                    const response = await adFoodDetailApi.search(props.location.state.adId);
                     setFood(response.data);
                 } catch (e) {
                     setError(e);
@@ -62,11 +62,11 @@ const FoodDetail = ({match}) => {
                 setLoading(false);
 
             };
-            console.log('id:',id.substring(2))
-            if (id.substring(0,2) === "ad") {
+
+
+            if (props.location.state !== undefined) {
                 fetchADFood();
             } else {
-
                 fetchFood();
             }
 
