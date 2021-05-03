@@ -31,20 +31,44 @@ const FoodDetail = (props) => {
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
                     setLoading(true);
-                    if (props.location.state.isAD === true) {
-                        const response = await adFoodDetailApi.search(props.location.state.id);
-                        setFood(response.data);
-                    }  else if(props.location.state.isAD === false) {
-                        const response = await foodDetailApi.search(props.match.params.id);
-                        setFood(response.data);
-                    }
+
+                    console.log("일반 식품")
+                    const response = await foodDetailApi.search(props.match.params.id);
+                    setFood(response.data);
+
                 } catch (e) {
                     setError(e);
                 }
                 setLoading(false);
 
             };
-            fetchFood();
+
+            const fetchADFood = async () => {
+                try {
+                    setError(null);
+                    setFood(null);
+                    // loading 상태를 true 로 바꿉니다.
+                    setLoading(true);
+
+                    console.log("광고 식품")
+
+                    const response = await adFoodDetailApi.search(props.location.state.id);
+                    setFood(response.data);
+                } catch (e) {
+                    setError(e);
+                }
+                setLoading(false);
+
+            };
+
+            if ((props.location.state !== undefined && props.location.state.isAD === true)) {
+                fetchADFood();
+
+            } else {
+
+                fetchFood();
+            }
+
         }, []);
         console.log(food);
 
