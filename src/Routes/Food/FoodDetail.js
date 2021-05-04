@@ -3,27 +3,26 @@ import {Button, ButtonGroup, Col, Container, FormGroup, Input, Label, Row, Table
 import "./FoodDetail.scss"
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
-import {foodDetail, foodDetailApi} from "../../api";
+import {adFoodDetailApi, foodDetail, foodDetailApi} from "../../api";
 
 
-const FoodDetail = ({match}) => {
+const FoodDetail = (props) => {
         const [food, setFood] = useState(null);
 
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(null);
         const [starRating, setStarRating] = useState(0);
-        const {id} = match.params;
-
         const ratingChanged = (newRating) => {
             setStarRating(newRating);
             console.log(starRating)
         };
+        const foodId = props.match.params.id
 
-    const onMoveToLink = () => {
-        let link =
-            `https://search.shopping.naver.com/search/all?query=` + food.foodName;
-        window.open(link, "_blank");
-    };
+        const onMoveToLink = () => {
+            let link =
+                `https://search.shopping.naver.com/search/all?query=` + food.foodName;
+            window.open(link, "_blank");
+        };
 
 
         useEffect(() => {
@@ -33,7 +32,29 @@ const FoodDetail = ({match}) => {
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
                     setLoading(true);
-                    const response = await foodDetailApi.search(id);
+
+                    console.log("일반 식품")
+                    const response = await foodDetailApi.search(foodId);
+                    setFood(response.data);
+
+                } catch (e) {
+                    setError(e);
+                }
+                setLoading(false);
+
+            };
+
+            const fetchADFood = async () => {
+                try {
+
+                    setError(null);
+                    setFood(null);
+                    // loading 상태를 true 로 바꿉니다.
+                    setLoading(true);
+
+                    console.log("광고 식품")
+
+                    const response = await adFoodDetailApi.search(props.location.state.adId);
                     setFood(response.data);
                 } catch (e) {
                     setError(e);
@@ -42,9 +63,14 @@ const FoodDetail = ({match}) => {
 
             };
 
-            fetchFood();
+
+            if (props.location.state !== undefined) {
+                fetchADFood();
+            } else {
+                fetchFood();
+            }
+
         }, []);
-        console.log(food);
 
         if (loading) return <div>로딩중..</div>;
         if (error) return <div>에러가 발생했습니다</div>;

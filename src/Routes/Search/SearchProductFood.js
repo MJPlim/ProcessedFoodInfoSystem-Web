@@ -136,15 +136,21 @@ function SearchProduct() {
                     <Spinner color="warning"/>
                 ) : (
                     <>
-                        {results && results.length > 0 && adFoods  ? (
+                        {results && results.length > 0 && adFoods ? (
                             <div title="Results" className="results">
                                 {/*광고 리스트 시작 */}
                                 {adFoods.map((result, index) => (
                                     <div className="list-group" key={index}>
                                         <button type="button" className="list-group-item list-group-item-action">
-                                            <Link to={`food/${result.food.foodId}`}>
+                                            <Link to={{
+                                                pathname: `food/${result.food.foodId}`,
+                                                state: {
+                                                    adId: result.id,
+                                                }
+                                            }}>
                                                 <div className="searchResult">
-                                                    <div><img className="foodImg" src={result.food.foodImageAddress}/></div>
+                                                    <div><img className="foodImg" src={result.food.foodImageAddress}/>
+                                                    </div>
                                                     <div className="foodInfo">
                                                         <div className="foodName">{result.food.foodName}</div>
                                                         <div className="bshName">{result.food.manufacturerName}</div>
