@@ -11,7 +11,10 @@ function SearchProduct() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("검색어");
     const [isInput, setIsInput] = useState(true);
-    const [a, b] = useState("");
+    
+    const [data, setData] = useState(
+       null
+    )       // 이전 검색 결과
     const [keywords, setKeywords] = useState(
         JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
     )       // 검색 기록을 위한 state
@@ -24,14 +27,15 @@ function SearchProduct() {
         if (sessionStorage.getItem("searchFood") === "검색어") {
             setIsInput(false);
         }
-        searchByTerm(sessionStorage.getItem("searchFood"));
         getAd();
     }, []);
 
     useEffect(() => {
         //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
         localStorage.setItem('keywordsFood', JSON.stringify(keywords))
-    }, [keywords])
+        const beforeData = JSON.parse(sessionStorage.getItem("data"));
+        setResults(beforeData);
+    }, [keywords,data])
 
 
     const handleSubmit = event => {
@@ -47,7 +51,8 @@ function SearchProduct() {
         setLoading(true);
         try {
             const {data} = await foodApi.search(searchTerm);
-
+            sessionStorage.setItem('data',JSON.stringify(data));
+            setData(sessionStorage.getItem('data'));
             setResults(data);
 
         } catch (e) {
