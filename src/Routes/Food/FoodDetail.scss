@@ -5,18 +5,22 @@
     padding-top: 30px;
   }
 
-  .title {
-    font-size: x-large;
-    font-weight: bold;
-    //padding-bottom: 10px;
-    border-bottom-style: solid;
-    border-bottom-color: black;
-  }
 
-  .offline {
-    padding-top: 15px;
-    float: right;
-    //padding-bottom: 10px;
+
+  .titleArea {
+    .title {
+      font-size: x-large;
+      font-weight: bold;
+      border-bottom-style: solid;
+      border-bottom-color: black;
+    }
+    .btn{
+      margin-top: 0;
+      float: right;
+    }
+    .newsButton{
+      margin-right: 3px !important;
+    }
   }
 
   .hr {

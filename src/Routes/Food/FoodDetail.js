@@ -24,6 +24,13 @@ const FoodDetail = (props) => {
             window.open(link, "_blank");
         };
 
+        const onMoveToNews = () => {
+            let link =
+                'https://search.naver.com/search.naver?query=' + food.manufacturerName + '&where=news'
+            console.log(link);
+            window.open(link, "_blank");
+        };
+
 
         useEffect(() => {
             const fetchFood = async () => {
@@ -62,8 +69,6 @@ const FoodDetail = (props) => {
                 setLoading(false);
 
             };
-
-
             if (props.location.state !== undefined) {
                 fetchADFood();
             } else {
@@ -80,14 +85,19 @@ const FoodDetail = (props) => {
             <div className="FoodDetail">
                 <Container>
                     {/* 타이틀 영역 시작*/}
-                    <Row>
-                        <Col md="10">
+                    <Row className="titleArea">
+                        <Col md="7">
                             <p className="title">상품정보</p>
                         </Col>
-                        <Col md="2">
-                            <Button className="offline" onClick={onMoveToLink}>
+                        <Col md="5">
+                            <Button className="linkButton" onClick={onMoveToLink}>
                                 상품 구매하러 가기
                             </Button>
+                            {food.manufacturerName !== '알수없음' ?
+                                <Button className="newsButton" onClick={onMoveToNews}>
+                                    제조사 뉴스
+                                </Button> : null}
+
                         </Col>
                     </Row>
 
