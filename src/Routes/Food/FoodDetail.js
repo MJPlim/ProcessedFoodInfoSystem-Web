@@ -1,22 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {Button, ButtonGroup, Col, Container, FormGroup, Input, Label, Row, Table} from "reactstrap";
+import {Button, ButtonGroup, Col, Container, Form, Input, Label, Row, Table} from "reactstrap";
 import "./FoodDetail.scss"
 import ReactStars from "react-rating-stars-component";
-import axios from "axios";
-import {adFoodDetailApi, foodDetail, foodDetailApi} from "../../api";
+import {adFoodDetailApi, foodDetailApi, postReviewApi} from "../../api";
 
 
 const FoodDetail = (props) => {
-        const [food, setFood] = useState(null);
+        const foodId = props.match.params.id
 
+        const [food, setFood] = useState(null);
+        const [review, setReview] = useState({
+            foodId: foodId,
+            reviewDescription: null,
+            reviewRating: 0
+        })
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(null);
-        const [starRating, setStarRating] = useState(0);
+        // const [starRating, setStarRating] = useState(0);
+        // const [reviewDescription, setReviewDescription] = useState(null);
+
+
         const ratingChanged = (newRating) => {
-            setStarRating(newRating);
-            console.log(starRating)
+            setReview({
+                ...review,
+                reviewRating: newRating
+            })
         };
-        const foodId = props.match.params.id
+
+
 
         const onMoveToLink = () => {
             let link =
@@ -31,6 +42,27 @@ const FoodDetail = (props) => {
             window.open(link, "_blank");
         };
 
+
+        const onClickPostReview = (e) => {
+            console.log(e)
+            e.preventDefault();
+            if (review.reviewRating === 0) {
+                alert('별점을 입력해주세요');
+            } else if (review.reviewDescription === undefined || review.reviewDescription === null) {
+                alert('후기 내용을 작성해주세요')
+            } else {
+                console.log(review)
+                postReviewApi.postReview(review).then(() => {
+                        alert('리뷰 작성 완료')
+                        e.target.reset();
+
+                    }
+                ).catch(e => {
+                    console.log(e.response);
+                })
+            }
+
+        }
 
         useEffect(() => {
             const fetchFood = async () => {
@@ -201,7 +233,7 @@ const FoodDetail = (props) => {
                                 </tr>
                             </Table>
 
-                            <FormGroup>
+                            <Form onSubmit={onClickPostReview}>
                                 <Label for="reviewFrom" className="reviewLabel">사용자 후기 작성하기</Label>
                                 <span className="starRating">
                                     <ReactStars
@@ -209,13 +241,20 @@ const FoodDetail = (props) => {
                                         onChange={ratingChanged}
                                         size={20}
                                         activeColor="#ffd700"
-                                        isHalf={true}
+                                        isHalf={false}
+                                        edit={true}
+
                                     />
                                 </span>
 
-                                <Input type="textarea" name="text" id="reviewFrom" rows="4"/>
-                            </FormGroup>
-                            <Button size="sm">작성</Button>
+                                <Input type="textarea" name="text" classname="reviewFrom" rows="4"
+                                       onChange={(e) => {
+                                           setReview({...review, reviewDescription: e.target.value});
+                                       }}
+                                />
+                                <Button type="submit" size="sm">작성</Button>
+                            </Form>
+
 
                         </Col>
                         {/*상품 정보 우측 영역 끝 */}
