@@ -26,7 +26,7 @@ const FoodDetail = (props) => {
 
         const onMoveToNews = () => {
             let link =
-                'https://search.naver.com/search.naver?query=' + food.manufacturerName + '&where=news'
+                'https://search.naver.com/search.naver?query=' + food.manufacturerName.split('_')[0] + '&where=news'
             console.log(link);
             window.open(link, "_blank");
         };
@@ -93,7 +93,7 @@ const FoodDetail = (props) => {
                             <Button className="linkButton" onClick={onMoveToLink}>
                                 상품 구매하러 가기
                             </Button>
-                            {food.manufacturerName !== '알수없음' ?
+                            {food.manufacturerName.split('_')[0] !== '알수없음' ?
                                 <Button className="newsButton" onClick={onMoveToNews}>
                                     제조사 뉴스
                                 </Button> : null}
@@ -127,7 +127,7 @@ const FoodDetail = (props) => {
                                                 제조사
                                             </th>
                                             <td>
-                                                {food.manufacturerName}
+                                                {food.manufacturerName.split('_')[0]}
                                             </td>
                                         </tr>
                                         <tr>
@@ -135,7 +135,7 @@ const FoodDetail = (props) => {
                                                 카테고리
                                             </th>
                                             <td>
-                                                {food.category}
+                                                {food.category.split('_')[0]}
                                             </td>
                                         </tr>
                                         <tr>
@@ -143,7 +143,7 @@ const FoodDetail = (props) => {
                                                 알레르기 성분
                                             </th>
                                             <td>
-                                                {food.allergyMaterials}
+                                                {food.allergyMaterials.split('_')[0]}
                                             </td>
                                         </tr>
                                     </Table>
