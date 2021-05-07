@@ -8,6 +8,9 @@ const MyPage = () => {
   const [address, setAddress] = useState('');
   const [birth, setBirth] = useState('');
 
+  var uN, uA, uB;
+
+  //저장한것
   const setUserInformation = () => {
     console.log('유저 정보 가져오기 메소드');
     axios
@@ -17,18 +20,31 @@ const MyPage = () => {
           authorization: localStorage.getItem('authorization'),
         },
       })
-      .then(function (response) {
-        setName(response.data.name);
+      .then((response) => {
+        console.log('데이터 받아서 넣는거 시작 ㅇ-ㅇ');
+        uN = response.data.name;
+        console.log(uN);
+        setName(uN);
         console.log('이름 세팅 ㅇㅋ');
-        setAddress(response.data.address);
+
+        uA = response.data.address;
+        console.log(uA);
+        setAddress(uA);
         console.log('주소도 ㅇㅋㅇㅋ');
-        setBirth(response.data.birth);
+        uB = response.data.birth;
+        console.log(uB);
+        setBirth(uB);
         console.log('생일까지 ㅇㅋㅇㅋ');
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   };
 
   return (
     <div className="MyPage">
+      {/*IIFE 즉시 실행 함수*/}
+      <div>{setUserInformation})</div>
       <Container>
         <Row>
           <Col md="6">
@@ -56,6 +72,9 @@ const MyPage = () => {
         <hr />
         {/* 밑으로는 사용자 개인 정보 보여주기*/}
       </Container>
+      <p>{name}</p>
+      <p>{address}</p>
+      <p>{birth}</p>
     </div>
   );
 };
