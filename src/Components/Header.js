@@ -10,14 +10,20 @@ function LoginState(props) {
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
-        <Link className="logoutBtn" onClick={()=>{
-           localStorage.setItem("authorization", null);
-           alert('로그아웃!');
-        }}>
+        <Link
+          className="logoutBtn"
+          onClick={() => {
+            localStorage.setItem('authorization', null);
+            alert('로그아웃!');
+          }}
+        >
           로그아웃
         </Link>
         <Link to="/mypage" className="myPageBtn">
           마이페이지
+        </Link>
+        <Link to="/myFavourite" className="myFavouriteBtn">
+          즐겨찾기
         </Link>
       </div>
     );

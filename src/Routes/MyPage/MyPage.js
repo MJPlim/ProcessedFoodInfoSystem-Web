@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 const MyPage = () => {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [birth, setBirth] = useState('');
+
+  const setUserInformation = () => {
+    console.log('유저 정보 가져오기 메소드');
+    axios
+      .get('http://13.124.55.59:8080/api/v1/user/user-info', {
+        params: {
+          'Content-Type': 'application/json',
+          authorization: localStorage.getItem('authorization'),
+        },
+      })
+      .then(function (response) {
+        setName(response.data.name);
+        console.log('이름 세팅 ㅇㅋ');
+        setAddress(response.data.address);
+        console.log('주소도 ㅇㅋㅇㅋ');
+        setBirth(response.data.birth);
+        console.log('생일까지 ㅇㅋㅇㅋ');
+      });
+  };
+
   return (
     <div className="MyPage">
       <Container>
