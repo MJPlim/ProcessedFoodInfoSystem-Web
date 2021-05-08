@@ -16,7 +16,7 @@ const MyPage = () => {
           <Col md="2">
             <Link to="/changeUserInfo">
               <Button color="link" size="sm" className="changeUserInfo">
-                회원정보변경하기
+                내 정보변경하기
               </Button>
             </Link>
           </Col>
