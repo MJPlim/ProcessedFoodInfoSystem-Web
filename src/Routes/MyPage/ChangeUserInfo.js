@@ -10,6 +10,34 @@ const ChangeUserInfo = () => {
 
   var token = localStorage.getItem('authorization');
 
+  var userInfoname = localStorage.getItem('name');
+  var userInfoaddress = localStorage.getItem('address');
+  var userInfobirth = localStorage.getItem('birth');
+
+  const setUserName = (e) => {
+    if (e.target.value === null || e.target.value === 'null') {
+      setName(userInfoname);
+    } else {
+      setName(e.target.value);
+    }
+  };
+
+  const setUserAddress = (e) => {
+    if (e.target.value === null || e.target.value === 'null') {
+      setAddress(userInfoaddress);
+    } else {
+      setAddress(e.target.value);
+    }
+  };
+
+  const setUserBirth = (e) => {
+    if (e.target.value === null || e.target.value === 'null') {
+      setBrith(userInfobirth);
+    } else {
+      setBrith(e.target.value);
+    }
+  };
+
   const changeInfo = () => {
     console.log('유저 정보 바꾸기 시작!! 보냄보냄');
     axios({
@@ -62,9 +90,7 @@ const ChangeUserInfo = () => {
               type="text"
               id="inputName"
               placeholder={localStorage.getItem('name')}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              onChange={setUserName}
             />
           </Col>
         </Row>
@@ -77,9 +103,7 @@ const ChangeUserInfo = () => {
               type="text"
               id="inputAddress"
               placeholder={localStorage.getItem('address')}
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
+              onChange={setUserAddress}
             />
           </Col>
         </Row>
@@ -91,9 +115,7 @@ const ChangeUserInfo = () => {
             <input
               type="text"
               placeholder={localStorage.getItem('birth')}
-              onChange={(e) => {
-                setBrith(e.target.value);
-              }}
+              onChange={setUserBirth}
             />
           </Col>
         </Row>
