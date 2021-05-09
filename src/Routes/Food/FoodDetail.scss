@@ -27,6 +27,18 @@
     .newsButton {
       margin-right: 3px !important;
     }
+
+    .favoriteButton {
+      background-color: transparent !important;
+      border-color: $lightorange !important;
+      color: $lightorange;
+      margin-right: 3px !important;
+      &:hover,  &:active {
+        background-color: transparent !important;
+        color: $lightorange !important;
+        border-color: $lightorange !important;
+      }
+    }
   }
 
   .hr {
@@ -84,8 +96,8 @@
     border-right-width: 0;
 
     &:hover, &:focus, &:active {
-      background-color: white !important;
-      color: $lightorange !important;
+      background-color: $lightorange !important;
+      color: white !important;
       border-color: $lightorange !important;
     }
   }

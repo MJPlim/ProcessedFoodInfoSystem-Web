@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {Button, ButtonGroup, Col, Container, Form, Input, Label, Row, Spinner, Table} from "reactstrap";
+import {Button, Col, Form, Input, Label, Row, Spinner, Table} from "reactstrap";
 import "./FoodDetail.scss"
 import ReactStars from "react-rating-stars-component";
 import {
+    addFavoriteApi,
     adFoodDetailApi,
+    checkFavoriteApi, deleteFavoriteApi,
     foodDetailApi,
     getReviewsByFoodId,
     getReviewsByFoodIdWithLogin,
     postReviewApi
 } from "../../api";
 import ReactPaginate from 'react-paginate';
-import {IoMdHeart, IoMdHeartEmpty, RiDeleteBinLine} from "react-icons/all";
+import {AiFillStar, AiOutlineStar, IoMdHeart, IoMdHeartEmpty} from "react-icons/all";
 
 
 const FoodDetail = (props) => {
@@ -24,9 +26,16 @@ const FoodDetail = (props) => {
         })
         const [reviews, setReviews] = useState(null);
         const [reviewCount, setReviewCount] = useState(null);
-        const [loading, setLoading] = useState(false);
-        const [error, setError] = useState(null);
+        const [foodLoading, setFoodLoading] = useState(false);
+        const [foodError, setFoodError] = useState(null);
+        const [reviewsLoading, setReviewsLoading] = useState(false);
+        const [reviewsError, setReviewsError] = useState(null);
+        const [favoriteLoading, setFavoriteLoading] = useState(false);
+        const [favoriteError, setFavoriteError] = useState(null);
+
         const [isLogin, setIsLogin] = useState(localStorage.getItem('authorization') !== 'null');
+
+        const [isFavorite, setIsFavorite] = useState(null);
 
 
         const ratingChanged = (newRating) => {
@@ -53,14 +62,12 @@ const FoodDetail = (props) => {
         const fetchReview = async () => {
             try {
 
-                setError(null);
-                setFood(null);
+                setReviewsError(null);
+                setReviews(null);
                 // loading 상태를 true 로 바꿉니다.
-                setLoading(true);
+                setReviewsLoading(true);
 
                 console.log("리뷰 불러오기")
-                console.log(localStorage.getItem('authorization'))
-
 
                 if (isLogin) {
                     console.log('로그인 리뷰')
@@ -76,9 +83,10 @@ const FoodDetail = (props) => {
 
 
             } catch (e) {
-                setError(e);
+                console.log('리뷰에러', e.response);
+                setReviewsError(e);
             }
-            setLoading(false);
+            setReviewsLoading(false);
 
         };
 
@@ -96,7 +104,7 @@ const FoodDetail = (props) => {
                 postReviewApi.postReview(review).then(async () => {
                         alert('리뷰 작성 완료')
                         e.target.reset();
-                        window.location.reload(false);
+                        window.location.reload(true);
                     }
                 ).catch(e => {
                     console.log(e.response);
@@ -106,8 +114,39 @@ const FoodDetail = (props) => {
         }
 
         const onClickPage = async (pageNum) => {
-            const response = await getReviewsByFoodId.getReviews(foodId, pageNum.selected + 1);
-            setReviews(response.data.readReviewResponse);
+            console.log('페이징 클릭 ')
+            if (isLogin) {
+                console.log('페이징 로그인 리뷰')
+                setReviewsLoading(true);
+                const response = await getReviewsByFoodIdWithLogin.getReviews(foodId, pageNum.selected + 1);
+                setReviewsLoading(false);
+                setReviews(response.data.readReviewResponse);
+            } else {
+                console.log('페이징 비로그인 리뷰');
+                setReviewsLoading(true);
+                const response = await getReviewsByFoodId.getReviews(foodId, pageNum.selected + 1);
+                setReviewsLoading(false);
+                setReviews(response.data.readReviewResponse);
+            }
+        }
+
+        const onClickFavoriteButton = async () => {
+            if (!isFavorite) {
+                await addFavoriteApi.addFavorite(foodId).then(async () => {
+                        setIsFavorite(!isFavorite);
+                    }
+                ).catch(e => {
+                    alert('즐겨찾기 등록 실패. 다시 시도 해주세요.')
+                })
+            } else if (isFavorite) {
+                await deleteFavoriteApi.deleteFavorite(foodId).then(async () => {
+                        setIsFavorite(!isFavorite);
+                    }
+                ).catch(e => {
+                    alert('즐겨찾기 해제 실패. 다시 시도 해주세요.')
+                })
+            }
+
         }
 
         const drawStar = (rating) => {
@@ -127,47 +166,69 @@ const FoodDetail = (props) => {
         }
 
         useEffect(() => {
-
+            setIsLogin(localStorage.getItem('authorization') !== 'null');
             console.log(localStorage.getItem('authorization'))
 
             const fetchFood = async () => {
                 try {
-                    setError(null);
+                    setFoodError(null);
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
-                    setLoading(true);
+                    setFoodLoading(true);
 
                     console.log("일반 식품")
                     const response = await foodDetailApi.search(foodId);
                     setFood(response.data);
 
                 } catch (e) {
-                    setError(e);
+                    setFoodError(e);
                 }
-                setLoading(false);
+                setFoodLoading(false);
 
             };
 
             const fetchADFood = async () => {
                 try {
 
-                    setError(null);
+                    setFoodError(null);
                     setFood(null);
                     // loading 상태를 true 로 바꿉니다.
-                    setLoading(true);
+                    setFoodLoading(true);
 
                     console.log("광고 식품")
 
                     const response = await adFoodDetailApi.search(props.location.state.adId);
                     setFood(response.data);
                 } catch (e) {
-                    setError(e);
+                    setFoodError(e);
                 }
-                setLoading(false);
+                setFoodLoading(false);
 
             };
 
+            const checkFavorite = async () => {
+                try {
+
+                    setFavoriteError(null);
+                    setIsFavorite(null);
+                    // loading 상태를 true 로 바꿉니다.
+                    setFavoriteLoading(true);
+
+                    const response = await checkFavoriteApi.checkFavorite(foodId);
+                    setIsFavorite(response.data);
+                    console.log('isFavorite', isFavorite);
+                } catch (e) {
+                    setFavoriteError(e);
+                }
+                setFavoriteLoading(false);
+
+            };
+
+
+
+
             fetchReview();
+            checkFavorite();
 
             if (props.location.state !== undefined) {
                 fetchADFood();
@@ -175,12 +236,13 @@ const FoodDetail = (props) => {
                 fetchFood();
             }
 
+
             console.log(reviews);
 
         }, []);
 
-        if (loading) return <div>로딩중..</div>;
-        if (error) return <div>에러가 발생했습니다</div>;
+        if (foodLoading) return <div>로딩중..</div>;
+        if (foodError) return <div>에러가 발생했습니다</div>;
         if (!food) return null;
 
         return (
@@ -199,6 +261,10 @@ const FoodDetail = (props) => {
                             <Button className="newsButton" onClick={onMoveToNews}>
                                 제조사 뉴스
                             </Button> : null}
+                        {isLogin ? <Button className="favoriteButton" onClick={onClickFavoriteButton}>
+                            {!isFavorite ? <AiOutlineStar size={'1.3em'}/> : <AiFillStar size={'1.3em'}/>}
+                        </Button> : null}
+
 
                     </Col>
                 </Row>
@@ -328,7 +394,7 @@ const FoodDetail = (props) => {
                                 <ReactPaginate pageCount={reviewCount.findReviewPageCount - 1} pageRangeDisplayed={4}
                                                marginPagesDisplayed={1}
                                                previousLabel={'이전'} nextLabel={'다음'}
-                                               initialPage={0} onPageChange={onClickPage}
+                                               onPageChange={onClickPage}
                                 />
                             </Col>
 
