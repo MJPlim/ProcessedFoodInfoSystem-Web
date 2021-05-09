@@ -5,14 +5,14 @@ import ReactStars from "react-rating-stars-component";
 import {
     addFavoriteApi,
     adFoodDetailApi,
-    checkFavoriteApi, deleteFavoriteApi,
+    checkFavoriteApi, deleteFavoriteApi, deleteReviewApi,
     foodDetailApi,
     getReviewsByFoodId,
     getReviewsByFoodIdWithLogin,
     postReviewApi
 } from "../../api";
 import ReactPaginate from 'react-paginate';
-import {AiFillStar, AiOutlineStar, IoMdHeart, IoMdHeartEmpty} from "react-icons/all";
+import {AiFillDelete, AiFillEdit, AiFillStar, AiOutlineStar, IoMdHeart, IoMdHeartEmpty} from "react-icons/all";
 
 
 const FoodDetail = (props) => {
@@ -112,6 +112,22 @@ const FoodDetail = (props) => {
             }
 
         }
+
+        const onClickDeleteReview = (review) => {
+            console.log(review)
+            if (window.confirm('정말 삭제 하시겠습니까?')) {
+                deleteReviewApi.deleteReview(review).then(async () => {
+                        alert('리뷰 삭제')
+                        window.location.reload(true);
+
+                    }
+                ).catch(e => {
+                    console.log(e.response);
+                });
+            } else {
+            }
+        }
+
 
         const onClickPage = async (pageNum) => {
             console.log('페이징 클릭 ')
@@ -226,14 +242,16 @@ const FoodDetail = (props) => {
 
 
             fetchReview();
-            checkFavorite();
+            if (isLogin) {
+                checkFavorite();
+            }
+
 
             if (props.location.state !== undefined) {
                 fetchADFood();
             } else {
                 fetchFood();
             }
-
 
             console.log(reviews);
 
@@ -343,9 +361,9 @@ const FoodDetail = (props) => {
                             </Row>
 
                             <Table className="reviewTable">
-                                <th width={"10%"}>별점</th>
+                                <th width={"15%"}>별점</th>
                                 <th width={"10%"}>작성자</th>
-                                <th width={"30%"}>내용</th>
+                                <th width={"25%"}>내용</th>
                                 <th width={"15%"}>작성일</th>
                                 <th width={"10%"}>좋아요</th>
                                 {isLogin === true ?
@@ -370,13 +388,27 @@ const FoodDetail = (props) => {
                                         </td>
                                         {isLogin === true ?
                                             (<td>
-                                                {review.userLikeCheck === false ? (
-                                                        <Button className={'likeButton'}>
-                                                            <IoMdHeartEmpty/>
-                                                        </Button>)
-                                                    : <Button className={'likeButton'}>
+                                                {review.userCheck && (
+                                                    <Button className={'editButton'}
+                                                            onClick={() => onClickDeleteReview(review)}>
+                                                        <AiFillEdit/>
+                                                    </Button>)}
+                                                {review.userCheck && (
+                                                    <Button className={'deleteButton'}
+                                                            onClick={() => onClickDeleteReview(review)}>
+                                                        <AiFillDelete/>
+                                                    </Button>)}
+
+
+                                                {review.userLikeCheck === false && review.userCheck === false && (
+                                                    <Button className={'likeButton'}>
+                                                        <IoMdHeartEmpty/>
+                                                    </Button>)}
+                                                {review.userLikeCheck === true && review.userCheck === false && (
+                                                    <Button className={'likeButton'}>
                                                         <IoMdHeart/>
-                                                    </Button>}
+                                                    </Button>)}
+
                                             </td>)
                                             : null}
                                     </tr>
