@@ -91,4 +91,14 @@ export const getReviewsByFoodIdWithLogin = {
         })
 
 }
-
+export const favouriteApi={
+    myFavourite:()=>
+        api.get("api/v1/user/favorite/list",{    
+        },
+        {
+            headers:{
+                Authorization: localStorage.getItem('authorization')
+            }
+        }
+    )
+};
