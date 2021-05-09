@@ -1,0 +1,28 @@
+.myFavourite{
+    display: flex;
+    flex-direction: column;
+     .results {
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+  }
+  .form-control{
+    border-color: #ed2f3b;
+  }
+.searchResult{
+  display: flex;
+}
+  .foodInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .foodName{
+    font-size: large;
+    font-weight: 700;
+
+  }
+
+}

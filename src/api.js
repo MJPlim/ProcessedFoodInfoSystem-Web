@@ -129,12 +129,11 @@ export const checkFavoriteApi = {
                 Authorization: localStorage.getItem('authorization')
             }
         })
-}
+};
 
 export const favouriteApi={
     myFavourite:()=>
-        api.get("api/v1/user/favorite/list",{
-            },
+        api.get("api/v1/user/favorite/list",
             {
                 headers:{
                     Authorization: localStorage.getItem('authorization')

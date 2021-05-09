@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {ListGroup, ListGroupItem, Spinner} from 'reactstrap';
-import "./SearchStyle.scss";
-import {Link} from "react-router-dom";
+
+import "./SearchStyle.scss";import {Link} from "react-router-dom";
 import {foodApi, getAdvertisementFoodApi} from "../../api";
 
 function SearchProduct() {
