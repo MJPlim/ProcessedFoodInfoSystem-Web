@@ -1,10 +1,14 @@
+@import "./src/styles/utils";
+
 .FoodDetail {
+  margin-left: 100px;
+  margin-right: 100px;
+
   .container {
-    padding-left: 40px;
-    padding-right: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
     padding-top: 30px;
   }
-
 
 
   .titleArea {
@@ -14,11 +18,13 @@
       border-bottom-style: solid;
       border-bottom-color: black;
     }
-    .btn{
+
+    .btn {
       margin-top: 0;
       float: right;
     }
-    .newsButton{
+
+    .newsButton {
       margin-right: 3px !important;
     }
   }
@@ -38,7 +44,10 @@
   }
 
   .reviewTable {
-    margin-top: 5px;
+    //margin-top: 5px;
+    table-layout: fixed;
+    text-align: center;
+
   }
 
   .reviewLabel {
@@ -61,5 +70,23 @@
 
   .reviewFrom {
     resize: none;
+  }
+
+  .likeButton {
+    background-color: white;
+    border-color: $lightorange;
+    color: $lightorange;
+    margin: 0;
+    padding: 0;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-bottom-width: 0;
+    border-right-width: 0;
+
+    &:hover, &:focus, &:active {
+      background-color: white !important;
+      color: $lightorange !important;
+      border-color: $lightorange !important;
+    }
   }
 }

@@ -67,6 +67,7 @@ export const postReviewApi = {//해당 url로 가는 함수들
             }
         )
 };
+
 export const favouriteApi={
     myFavourite:()=>
         api.get("api/v1/user/favorite/list",{    
@@ -78,3 +79,30 @@ export const favouriteApi={
         }
     )
 };
+
+
+export const getReviewsByFoodId = {
+    getReviews: (foodId, pageNum) =>
+        api.get("/readReview", {
+            params: {
+                foodId : foodId,
+                pageNum: pageNum
+            }
+        })
+
+}
+export const getReviewsByFoodIdWithLogin = {
+    getReviews: (foodId, pageNum) =>
+        api.get("/api/v1/user/readReview", {
+            params: {
+                foodId : foodId,
+                pageNum: pageNum
+            },
+            headers:{
+                Authorization: localStorage.getItem('authorization')
+            }
+        })
+
+}
+
+
