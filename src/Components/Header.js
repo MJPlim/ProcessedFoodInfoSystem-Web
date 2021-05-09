@@ -1,23 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import './HeaderStyle.scss';
+import axios from 'axios';
 
 function LoginState(props) {
   const checkLogin = props.auli;
   console.log(checkLogin);
   console.log('main main ');
+
+  var uN, uA, uB;
+
+  const setUserInformation = () => {
+    console.log('유저 정보 가져오기 메소드');
+    axios
+      .get('http://13.124.55.59:8080/api/v1/user/user-info', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: checkLogin,
+        },
+      })
+      .then((response) => {
+        console.log('데이터 받아서 넣는거 시작 ㅇ-ㅇ');
+
+        uN = response.data.name;
+        localStorage.setItem('name', uN);
+        console.log('이름 세팅 ㅇㅋ');
+
+        uA = response.data.address;
+        localStorage.setItem('address', uA);
+        console.log('주소도 ㅇㅋㅇㅋ');
+
+        uB = response.data.birth;
+        localStorage.setItem('birth', uB);
+        console.log('생일까지 ㅇㅋㅇㅋ');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
-        <Link className="logoutBtn" onClick={()=>{
-           localStorage.setItem("authorization", null);
-           alert('로그아웃!');
-        }}>
+        <Link
+          className="logoutBtn"
+          onClick={() => {
+            localStorage.setItem('authorization', null);
+            alert('로그아웃!');
+          }}
+        >
           로그아웃
         </Link>
-        <Link to="/mypage" className="myPageBtn">
+        <Link to="/mypage" className="myPageBtn" onClick={setUserInformation}>
           마이페이지
+        </Link>
+        <Link to="/myFavourite" className="myFavouriteBtn">
+          즐겨찾기
         </Link>
       </div>
     );
