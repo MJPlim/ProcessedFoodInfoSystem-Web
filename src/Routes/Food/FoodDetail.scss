@@ -56,7 +56,8 @@
   }
 
   .reviewTable {
-    //margin-top: 5px;
+    font-size: 1.1em;
+    margin-top: 15px;
     table-layout: fixed;
     text-align: center;
 
@@ -100,5 +101,21 @@
       color: white !important;
       border-color: $lightorange !important;
     }
+  }
+
+  .reviewPaginate{
+    font-size: medium;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+  }
+
+  .reviewPage{
+    color: black;
+  }
+
+  .reviewSelectedPage{
+    color: $lightorange;
+    font-weight: bold;
   }
 }

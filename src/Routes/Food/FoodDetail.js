@@ -225,8 +225,6 @@ const FoodDetail = (props) => {
             };
 
 
-
-
             fetchReview();
             checkFavorite();
 
@@ -345,16 +343,14 @@ const FoodDetail = (props) => {
                             </Row>
 
                             <Table className="reviewTable">
-                                <th>별점</th>
-                                <th>작성자</th>
-                                <th>내용</th>
-                                <th>작성일</th>
-                                <th>좋아요</th>
+                                <th width={"10%"}>별점</th>
+                                <th width={"10%"}>작성자</th>
+                                <th width={"30%"}>내용</th>
+                                <th width={"15%"}>작성일</th>
+                                <th width={"10%"}>좋아요</th>
                                 {isLogin === true ?
-                                    <th/>
+                                    <th width={"10%"}/>
                                     : null}
-
-
                                 {reviews.map((review, index) => (
                                     <tr key={index}>
                                         <td>
@@ -363,7 +359,7 @@ const FoodDetail = (props) => {
                                         <td>
                                             {review.userName}
                                         </td>
-                                        <td>
+                                        <td align={"left"}>
                                             {review.reviewDescription}
                                         </td>
                                         <td>
@@ -383,19 +379,24 @@ const FoodDetail = (props) => {
                                                     </Button>}
                                             </td>)
                                             : null}
-
                                     </tr>
                                 ))}
-
                             </Table>
 
 
-                            <Col>
-                                <ReactPaginate pageCount={reviewCount.findReviewPageCount - 1} pageRangeDisplayed={4}
-                                               marginPagesDisplayed={1}
-                                               previousLabel={'이전'} nextLabel={'다음'}
-                                               onPageChange={onClickPage}
-                                />
+                            <Col md={{size: 6, offset: 3}}>
+                                {reviewCount.findReviewPageCount > 2 ?
+                                    <ReactPaginate pageCount={reviewCount.findReviewPageCount - 1} pageRangeDisplayed={4}
+                                                   marginPagesDisplayed={1}
+                                                   previousLabel={'이전'} nextLabel={'다음'}
+                                                   containerClassName={'reviewPaginate'}
+                                                   pageClassName={'reviewPage'}
+                                                   activeClassName={'reviewSelectedPage'}
+                                                   onPageChange={onClickPage}
+
+                                    /> :
+                                    null}
+
                             </Col>
 
 
@@ -420,8 +421,6 @@ const FoodDetail = (props) => {
                                 />
                                 <Button type="submit" size="sm">작성</Button>
                             </Form>
-
-
                         </Col>
                     ) : (<Spinner color="warning"/>)}
                     {/*상품 정보 우측 영역 끝 */}
