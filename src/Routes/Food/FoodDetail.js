@@ -127,6 +127,9 @@ const FoodDetail = (props) => {
             } else {
             }
         }
+    const onClickReviewLikeButton = (review, index) => {
+        console.log(review, index);
+    }
 
 
         const onClickPage = async (pageNum) => {
@@ -399,15 +402,11 @@ const FoodDetail = (props) => {
                                                         <AiFillDelete/>
                                                     </Button>)}
 
-
-                                                {review.userLikeCheck === false && review.userCheck === false && (
-                                                    <Button className={'likeButton'}>
-                                                        <IoMdHeartEmpty/>
-                                                    </Button>)}
-                                                {review.userLikeCheck === true && review.userCheck === false && (
-                                                    <Button className={'likeButton'}>
-                                                        <IoMdHeart/>
-                                                    </Button>)}
+                                                {review.userCheck === false && <Button className="likeButton"
+                                                                                       onClick={() => onClickReviewLikeButton(review, index)}>
+                                                    {review.userLikeCheck === false && <IoMdHeartEmpty/>}
+                                                    {review.userLikeCheck === true && <IoMdHeart/>}
+                                                </Button>}
 
                                             </td>)
                                             : null}
