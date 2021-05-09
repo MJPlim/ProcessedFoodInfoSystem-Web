@@ -154,3 +154,19 @@ export const favouriteApi={
             }
         )
 };
+
+export const reviewLikeApi = {//해당 url로 가는 함수들
+    updateLike: (review) =>
+        api.post("/api/v1/user/updateReviewLike", {
+                likeCheck: review.userLikeCheck,
+                reviewId: review.reviewId
+            }
+            , {
+                headers: {
+                    Authorization: localStorage.getItem('authorization')
+                }
+            }
+        )
+};
+
+

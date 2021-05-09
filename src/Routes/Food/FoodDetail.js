@@ -9,7 +9,7 @@ import {
     foodDetailApi,
     getReviewsByFoodId,
     getReviewsByFoodIdWithLogin,
-    postReviewApi
+    postReviewApi, reviewLikeApi
 } from "../../api";
 import ReactPaginate from 'react-paginate';
 import {AiFillDelete, AiFillEdit, AiFillStar, AiOutlineStar, IoMdHeart, IoMdHeartEmpty} from "react-icons/all";
@@ -127,9 +127,21 @@ const FoodDetail = (props) => {
             } else {
             }
         }
-    const onClickReviewLikeButton = (review, index) => {
-        console.log(review, index);
-    }
+        const onClickReviewLikeButton = async (targetReview) => {
+            await reviewLikeApi.updateLike(targetReview).then(async () => {
+                setReviews(
+                    reviews.map(review =>
+                        review.reviewId === targetReview.reviewId ? (
+                                review.userLikeCheck === false ?
+                                    ({...review, userLikeCheck: !review.userLikeCheck, likeCount: review.likeCount + 1})
+                                    : {...review, userLikeCheck: !review.userLikeCheck, likeCount: review.likeCount - 1})
+                            : review
+                    )
+                )
+            }).catch(e => {
+                console.log('좋아요 에러', e);
+            });
+        }
 
 
         const onClickPage = async (pageNum) => {
@@ -403,7 +415,7 @@ const FoodDetail = (props) => {
                                                     </Button>)}
 
                                                 {review.userCheck === false && <Button className="likeButton"
-                                                                                       onClick={() => onClickReviewLikeButton(review, index)}>
+                                                                                       onClick={() => onClickReviewLikeButton(review)}>
                                                     {review.userLikeCheck === false && <IoMdHeartEmpty/>}
                                                     {review.userLikeCheck === true && <IoMdHeart/>}
                                                 </Button>}
