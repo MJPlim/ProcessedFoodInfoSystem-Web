@@ -141,3 +141,15 @@ export const favouriteApi={
             }
         )
 };
+export const sort={
+    sortBy:(foodName,sort)=>
+    api.get("api/v1/food/getFoodListBySorting",{
+         params:{
+            foodName:foodName,
+            pageNo:1,
+            size:10,
+            sort:sort
+    }
+    }
+   )
+}

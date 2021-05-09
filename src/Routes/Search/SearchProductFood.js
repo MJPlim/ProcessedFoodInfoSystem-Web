@@ -2,7 +2,11 @@ import React, {useEffect, useState} from "react";
 import {ListGroup, ListGroupItem, Spinner} from 'reactstrap';
 
 import "./SearchStyle.scss";import {Link} from "react-router-dom";
-import {foodApi, getAdvertisementFoodApi} from "../../api";
+import {foodApi,sort, getAdvertisementFoodApi} from "../../api";
+
+import {FaBuilding,FaCrown} from 'react-icons/fa';
+import {IoIosPaper} from 'react-icons/io';
+
 
 function SearchProduct() {
     const NUM_OF_SHOW_ROWS = 5;
@@ -11,7 +15,7 @@ function SearchProduct() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("검색어");
     const [isInput, setIsInput] = useState(true);
-    
+    const [sortType,setSortType]=useState("");
     const [data, setData] = useState(
        null
     )       // 이전 검색 결과
@@ -95,7 +99,19 @@ function SearchProduct() {
         }
         setKeywords([newKeyword, ...keywords]);
     }
-
+    const handleSort=async(e)=>{
+        setSortType(e.target.value);
+        setLoading(true);
+        try{
+            const {data:{resultList}}=await sort.sortBy(searchTerm,sortType);
+            console.log(resultList);
+            setResults(resultList);
+        } catch (e) {
+            setError(e);
+        } finally {
+            setLoading(false);
+        }
+    }
     return (
         <div className="SearchProduct">
             <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
@@ -162,7 +178,11 @@ function SearchProduct() {
                                     </div>
                                 ))}
                                 {/*광고 리스트 끝 */}
-
+                                <div className="selectType">
+                                           <button onClick={handleSort} value="ranking"><FaCrown></FaCrown>카티 랭킹순</button>                      
+                                           <button onClick={handleSort} value="reviewCount"><IoIosPaper></IoIosPaper>리뷰순</button>     
+                                           <button onClick={handleSort} value="manufacturer"><FaBuilding></FaBuilding>제조사 별</button>     
+                                </div>
                                 {results.map((result, index) => (
                                     <div class="list-group" key={index}>
                                         <button type="button" class="list-group-item list-group-item-action">
