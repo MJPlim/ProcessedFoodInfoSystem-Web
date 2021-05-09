@@ -67,4 +67,14 @@ export const postReviewApi = {//해당 url로 가는 함수들
             }
         )
 };
-
+export const favouriteApi={
+    myFavourite:()=>
+        api.get("api/v1/user/favorite/list",{    
+        },
+        {
+            headers:{
+                Authorization: localStorage.getItem('authorization')
+            }
+        }
+    )
+};
