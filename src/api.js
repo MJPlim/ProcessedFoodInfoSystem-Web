@@ -82,23 +82,63 @@ export const getReviewsByFoodIdWithLogin = {
     getReviews: (foodId, pageNum) =>
         api.get("/api/v1/user/readReview", {
             params: {
-                foodId : foodId,
+                foodId: foodId,
                 pageNum: pageNum
             },
-            headers:{
+            headers: {
                 Authorization: localStorage.getItem('authorization')
             }
         })
-
 }
-export const favouriteApi={
-    myFavourite:()=>
-        api.get("api/v1/user/favorite/list",{    
-        },
-        {
-            headers:{
+
+export const addFavoriteApi = {//해당 url로 가는 함수들
+    addFavorite: (foodId) =>
+        api.post("/api/v1/user/favorite/addFavorite", {}
+            , {
+                params: {
+                    foodId: foodId,
+                },
+                headers: {
+                    Authorization: localStorage.getItem('authorization')
+                }
+            }
+        )
+};
+
+export const deleteFavoriteApi = {//해당 url로 가는 함수들
+    deleteFavorite: (foodId) =>
+        api.delete("/api/v1/user/favorite/deleteFavorite",
+            {
+                params: {
+                    foodId: foodId,
+                },
+                headers: {
+                    Authorization: localStorage.getItem('authorization')
+                }
+            }
+        )
+};
+
+export const checkFavoriteApi = {
+    checkFavorite: (foodId) =>
+        api.get("/api/v1/user/favorite/checkFavorite", {
+            params: {
+                foodId: foodId,
+            },
+            headers: {
                 Authorization: localStorage.getItem('authorization')
             }
-        }
-    )
+        })
+}
+
+export const favouriteApi={
+    myFavourite:()=>
+        api.get("api/v1/user/favorite/list",{
+            },
+            {
+                headers:{
+                    Authorization: localStorage.getItem('authorization')
+                }
+            }
+        )
 };
