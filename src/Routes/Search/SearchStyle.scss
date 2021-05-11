@@ -1,5 +1,16 @@
 .SearchProduct {
    height: 100%;
+   .btnSort:focus{
+      color: #ed2f3b;
+   }
+   .btnSort:hover{
+      color: #ed2f3b;
+   }
+   .btnSort{
+     border: none; outline:none;
+     background-color: white;
+     margin-top: 20px;
+   }
   .results {
     top: 20px;
     display: flex;
@@ -23,6 +34,7 @@
     font-weight: 700;
 
   }
+  
 
 
 

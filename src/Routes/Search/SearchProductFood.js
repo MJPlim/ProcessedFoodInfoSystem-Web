@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {ListGroup, ListGroupItem, Spinner} from 'reactstrap';
-
-import "./SearchStyle.scss";import {Link} from "react-router-dom";
-import {foodApi,sort, getAdvertisementFoodApi} from "../../api";
-
+import {Spinner} from 'reactstrap';
 import {FaBuilding,FaCrown} from 'react-icons/fa';
 import {IoIosPaper} from 'react-icons/io';
-
+import "./SearchStyle.scss";import {Link} from "react-router-dom";
+import {foodApi,sortApi, getAdvertisementFoodApi} from "../../api";
 
 function SearchProduct() {
+    var [enter,setEnter]=useState(1);
     const NUM_OF_SHOW_ROWS = 5;
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -25,7 +23,7 @@ function SearchProduct() {
     const [adFoods, setAdFoods] = useState(null);
 
     useEffect(() => {
-
+        console.log("검색어",searchTerm);
         console.log("기존 검색어", sessionStorage.getItem("searchFood"));
         setSearchTerm(sessionStorage.getItem("searchFood"));
         if (sessionStorage.getItem("searchFood") === "검색어") {
@@ -58,6 +56,8 @@ function SearchProduct() {
             sessionStorage.setItem('data',JSON.stringify(data));
             setData(sessionStorage.getItem('data'));
             setResults(data);
+            console.log("검색결과 데이터",data);
+            
 
         } catch (e) {
             setError(e);
@@ -100,39 +100,34 @@ function SearchProduct() {
         setKeywords([newKeyword, ...keywords]);
     }
     const handleSort=async(e)=>{
-        setSortType(e.target.value);
+        
+        console.log("sort by",e.target.value);
         setLoading(true);
         try{
-            const {data:{resultList}}=await sort.sortBy(searchTerm,sortType);
-            console.log(resultList);
+            const {data:{resultList}}=await sortApi.sortBy(searchTerm,e.target.value);
+            console.log("sort 검색어",searchTerm);
+            console.log("정렬된 데이터",resultList);
+            console.log("개수",resultList);
             setResults(resultList);
+            sessionStorage.setItem('data',JSON.stringify(resultList));
         } catch (e) {
             setError(e);
         } finally {
             setLoading(false);
         }
     }
+
     return (
         <div className="SearchProduct">
             <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
                 <a className="navbar-brand">제품명 찾기</a>
                 <form className="form-inline">
-                    {isInput ? (<input className="form-control mr-sm-2" type="search" list="searchHistory"
-                                       placeholder={searchTerm}
-
-                                       onChange={(e) => {
-                                           setSearchTerm(e.target.value);
-                                       }}
-                        />
-
-                    ) : (
-                        <input className="form-control mr-sm-2" type="search" list="searchHistory"
-                               placeholder="제품명을 입력하세요"
+                  <input className="form-control mr-sm-2" type="search" list="searchHistory"
+                               placeholder={searchTerm}
 
                                onChange={(e) => {
                                    setSearchTerm(e.target.value);
                                }}/>
-                    )}
                     <datalist id="searchHistory">
                         {
                             keywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
@@ -148,6 +143,11 @@ function SearchProduct() {
             </nav>
 
             <div className="resultSection">
+                  <div className="selectType">
+                                           <button className="btnSort"onClick={handleSort} value="ranking"><FaCrown></FaCrown>카티 랭킹순</button>                      
+                                           <button className="btnSort"onClick={handleSort} value="reviewCount"><IoIosPaper></IoIosPaper>리뷰순</button>     
+                                           <button className="btnSort"onClick={handleSort} value="manufacturer"><FaBuilding></FaBuilding>제조사 별</button>     
+                                </div>
                 {loading ? (
                     <Spinner color="warning"/>
                 ) : (
@@ -178,11 +178,7 @@ function SearchProduct() {
                                     </div>
                                 ))}
                                 {/*광고 리스트 끝 */}
-                                <div className="selectType">
-                                           <button onClick={handleSort} value="ranking"><FaCrown></FaCrown>카티 랭킹순</button>                      
-                                           <button onClick={handleSort} value="reviewCount"><IoIosPaper></IoIosPaper>리뷰순</button>     
-                                           <button onClick={handleSort} value="manufacturer"><FaBuilding></FaBuilding>제조사 별</button>     
-                                </div>
+                               
                                 {results.map((result, index) => (
                                     <div class="list-group" key={index}>
                                         <button type="button" class="list-group-item list-group-item-action">

@@ -141,7 +141,7 @@ export const favouriteApi={
             }
         )
 };
-export const sort={
+export const sortApi={
     sortBy:(foodName,sort)=>
     api.get("api/v1/food/getFoodListBySorting",{
          params:{
