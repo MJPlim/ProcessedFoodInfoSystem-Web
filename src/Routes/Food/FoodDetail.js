@@ -5,14 +5,22 @@ import ReactStars from "react-rating-stars-component";
 import {
     addFavoriteApi,
     adFoodDetailApi,
-    checkFavoriteApi, deleteFavoriteApi, deleteReviewApi,
+    checkFavoriteApi, deleteFavoriteApi, deleteReviewApi, editReviewApi,
     foodDetailApi,
     getReviewsByFoodId,
     getReviewsByFoodIdWithLogin,
     postReviewApi, reviewLikeApi
 } from "../../api";
 import ReactPaginate from 'react-paginate';
-import {AiFillDelete, AiFillEdit, AiFillStar, AiOutlineStar, IoMdHeart, IoMdHeartEmpty} from "react-icons/all";
+import {
+    AiFillDelete,
+    AiFillEdit,
+    AiFillStar,
+    AiOutlineStar,
+    FcCancel, GiCancel,
+    IoMdHeart,
+    IoMdHeartEmpty
+} from "react-icons/all";
 
 
 const FoodDetail = (props) => {
@@ -32,6 +40,11 @@ const FoodDetail = (props) => {
         const [reviewsError, setReviewsError] = useState(null);
         const [favoriteLoading, setFavoriteLoading] = useState(false);
         const [favoriteError, setFavoriteError] = useState(null);
+        const [editTargetReview, setEditTargetReview] = useState({
+            reviewId: -1,
+            reviewDescription: null,
+            reviewRating: 0
+        });
 
         const [isLogin, setIsLogin] = useState(localStorage.getItem('authorization') !== 'null');
 
@@ -41,6 +54,13 @@ const FoodDetail = (props) => {
         const ratingChanged = (newRating) => {
             setReview({
                 ...review,
+                reviewRating: newRating
+            })
+        };
+
+        const editRatingChanged = (newRating) => {
+            setEditTargetReview({
+                ...editTargetReview,
                 reviewRating: newRating
             })
         };
@@ -98,7 +118,7 @@ const FoodDetail = (props) => {
                 alert('로그인을 해주세요')
             } else if (review.reviewRating === 0) {
                 alert('별점을 입력해주세요');
-            } else if (review.reviewDescription === undefined || review.reviewDescription === null) {
+            } else if (review.reviewDescription === undefined || review.reviewDescription === null || review.reviewDescription.length === 0) {
                 alert('후기 내용을 작성해주세요');
             } else {
                 postReviewApi.postReview(review).then(async () => {
@@ -111,6 +131,46 @@ const FoodDetail = (props) => {
                 });
             }
 
+        }
+        const onClickPostEditReview = (targetReview) => {
+            console.log(targetReview);
+            editReviewApi.editReview(editTargetReview).then(async () => {
+
+                setReviews(
+                    reviews.map(review =>
+                        review.reviewId === targetReview.reviewId ? (
+                                {
+                                    ...review,
+                                    reviewDescription: targetReview.reviewDescription,
+                                    reviewRating: targetReview.reviewRating
+                                }
+                            )
+                            : review
+                    )
+                )
+                setEditTargetReview({
+                    reviewId: -1,
+                    reviewDescription: null,
+                    reviewRating: 0
+                });
+                alert("리뷰가 수정되었습니다.");
+            }).catch(e => {
+                console.log("리뷰 수정 에러", e);
+            })
+        };
+
+        const onClickEditReview = (review) => {
+            setEditTargetReview({
+                reviewId: -1,
+                reviewDescription: null,
+                reviewRating: 0
+            });
+            setEditTargetReview({
+                ...editTargetReview,
+                reviewId: review.reviewId,
+                reviewDescription: review.reviewDescription
+            });
+            console.log(editTargetReview);
         }
 
         const onClickDeleteReview = (review) => {
@@ -142,7 +202,6 @@ const FoodDetail = (props) => {
                 console.log('좋아요 에러', e);
             });
         }
-
 
         const onClickPage = async (pageNum) => {
             console.log('페이징 클릭 ')
@@ -179,6 +238,7 @@ const FoodDetail = (props) => {
             }
 
         }
+
 
         const drawStar = (rating) => {
             switch (rating) {
@@ -254,8 +314,6 @@ const FoodDetail = (props) => {
                 setFavoriteLoading(false);
 
             };
-
-
             fetchReview();
             if (isLogin) {
                 checkFavorite();
@@ -376,54 +434,101 @@ const FoodDetail = (props) => {
                             </Row>
 
                             <Table className="reviewTable">
-                                <th width={"15%"}>별점</th>
-                                <th width={"10%"}>작성자</th>
-                                <th width={"25%"}>내용</th>
-                                <th width={"15%"}>작성일</th>
-                                <th width={"10%"}>좋아요</th>
-                                {isLogin === true ?
-                                    <th width={"10%"}/>
-                                    : null}
+                                <thead>
+                                <tr>
+                                    <th width={"15%"}>별점</th>
+                                    <th width={"10%"}>작성자</th>
+                                    <th width={"25%"}>내용</th>
+                                    <th width={"15%"}>작성일</th>
+                                    <th width={"10%"}>좋아요</th>
+                                    {isLogin === true ?
+                                        <th width={"10%"}/>
+                                        : null}
+                                </tr>
+                                </thead>
+                                <tbody>
                                 {reviews.map((review, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            {drawStar(review.reviewRating)}
-                                        </td>
-                                        <td>
-                                            {review.userName}
-                                        </td>
-                                        <td align={"left"}>
-                                            {review.reviewDescription}
-                                        </td>
-                                        <td>
-                                            {review.reviewCreatedDate.split('T')[0]}
-                                        </td>
-                                        <td>
-                                            {review.likeCount}
-                                        </td>
-                                        {isLogin === true ?
-                                            (<td>
-                                                {review.userCheck && (
-                                                    <Button className={'editButton'}
-                                                            onClick={() => onClickDeleteReview(review)}>
-                                                        <AiFillEdit/>
-                                                    </Button>)}
-                                                {review.userCheck && (
-                                                    <Button className={'deleteButton'}
-                                                            onClick={() => onClickDeleteReview(review)}>
-                                                        <AiFillDelete/>
-                                                    </Button>)}
+                                    review.reviewId === editTargetReview.reviewId ? (
+                                        <tr key={index}>
+                                            <td colSpan={1}>
+                                                <ReactStars
+                                                    count={5}
+                                                    onChange={editRatingChanged}
+                                                    size={15}
+                                                    activeColor="#ffd700"
+                                                    isHalf={false}
+                                                    edit={true}/>
+                                            </td>
+                                            <td colSpan={4}>
+                                                <Input type="textarea" name="text" classname="reviewFrom" rows="4"
+                                                       value={editTargetReview.reviewDescription}
+                                                       onChange={(e) => {
+                                                           setEditTargetReview({
+                                                               ...editTargetReview,
+                                                               reviewDescription: e.target.value
+                                                           });
+                                                       }}
+                                                />
+                                            </td>
+                                            <td colSpan={1}>
+                                                <Button className={'editButton'}
+                                                        onClick={() => onClickPostEditReview(editTargetReview)}>
+                                                    <AiFillEdit/>
+                                                </Button>
+                                                <Button className={'editCancelButton'}
+                                                        onClick={() => setEditTargetReview({
+                                                            reviewId: -1,
+                                                            reviewDescription: null,
+                                                            reviewRating: 0
+                                                        })}>
+                                                    <GiCancel/>
+                                                </Button>
+                                            </td>
+                                        </tr>
 
-                                                {review.userCheck === false && <Button className="likeButton"
-                                                                                       onClick={() => onClickReviewLikeButton(review)}>
-                                                    {review.userLikeCheck === false && <IoMdHeartEmpty/>}
-                                                    {review.userLikeCheck === true && <IoMdHeart/>}
-                                                </Button>}
 
-                                            </td>)
-                                            : null}
-                                    </tr>
+                                    ) : (
+                                        <tr key={index}>
+                                            <td>
+                                                {drawStar(review.reviewRating)}
+                                            </td>
+                                            <td>
+                                                {review.userName}
+                                            </td>
+                                            <td align={"left"}>
+                                                {review.reviewDescription}
+                                            </td>
+                                            <td>
+                                                {review.reviewCreatedDate.split('T')[0]}
+                                            </td>
+                                            <td>
+                                                {review.likeCount}
+                                            </td>
+                                            {isLogin === true ?
+                                                (<td>
+                                                    {review.userCheck && (
+                                                        <Button className={'editButton'}
+                                                                onClick={() => onClickEditReview(review)}>
+                                                            <AiFillEdit/>
+                                                        </Button>)}
+                                                    {review.userCheck && (
+                                                        <Button className={'deleteButton'}
+                                                                onClick={() => onClickDeleteReview(review)}>
+                                                            <AiFillDelete/>
+                                                        </Button>)}
+
+                                                    {review.userCheck === false && <Button className="likeButton"
+                                                                                           onClick={() => onClickReviewLikeButton(review)}>
+                                                        {review.userLikeCheck === false && <IoMdHeartEmpty/>}
+                                                        {review.userLikeCheck === true && <IoMdHeart/>}
+                                                    </Button>}
+
+                                                </td>)
+                                                : null}
+                                        </tr>
+                                    )
                                 ))}
+                                </tbody>
                             </Table>
 
 
