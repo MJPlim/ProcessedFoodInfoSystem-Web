@@ -120,6 +120,8 @@ const FoodDetail = (props) => {
                 alert('별점을 입력해주세요');
             } else if (review.reviewDescription === undefined || review.reviewDescription === null || review.reviewDescription.length === 0) {
                 alert('후기 내용을 작성해주세요');
+            } else if (review.reviewDescription.length >= 500) {
+                alert('500자 이하로 작성해주세요.');
             } else {
                 postReviewApi.postReview(review).then(async () => {
                         alert('리뷰 작성 완료')
@@ -134,29 +136,39 @@ const FoodDetail = (props) => {
         }
         const onClickPostEditReview = (targetReview) => {
             console.log(targetReview);
-            editReviewApi.editReview(editTargetReview).then(async () => {
 
-                setReviews(
-                    reviews.map(review =>
-                        review.reviewId === targetReview.reviewId ? (
-                                {
-                                    ...review,
-                                    reviewDescription: targetReview.reviewDescription,
-                                    reviewRating: targetReview.reviewRating
-                                }
-                            )
-                            : review
+            if (targetReview.reviewRating === 0) {
+                alert('별점을 입력해주세요');
+            } else if (targetReview.reviewDescription === undefined || targetReview.reviewDescription === null || targetReview.reviewDescription.length === 0) {
+                alert('후기 내용을 작성해주세요');
+            } else if (targetReview.reviewDescription.length >= 500) {
+                alert('500자 이하로 작성해주세요.');
+            } else {
+                editReviewApi.editReview(editTargetReview).then(async () => {
+
+                    setReviews(
+                        reviews.map(review =>
+                            review.reviewId === targetReview.reviewId ? (
+                                    {
+                                        ...review,
+                                        reviewDescription: targetReview.reviewDescription,
+                                        reviewRating: targetReview.reviewRating
+                                    }
+                                )
+                                : review
+                        )
                     )
-                )
-                setEditTargetReview({
-                    reviewId: -1,
-                    reviewDescription: null,
-                    reviewRating: 0
-                });
-                alert("리뷰가 수정되었습니다.");
-            }).catch(e => {
-                console.log("리뷰 수정 에러", e);
-            })
+                    setEditTargetReview({
+                        reviewId: -1,
+                        reviewDescription: null,
+                        reviewRating: 0
+                    });
+                    alert("리뷰가 수정되었습니다.");
+                }).catch(e => {
+                    console.log("리뷰 수정 에러", e);
+                })
+            }
+
         };
 
         const onClickEditReview = (review) => {
