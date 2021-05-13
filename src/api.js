@@ -68,6 +68,21 @@ export const postReviewApi = {//해당 url로 가는 함수들
         )
 };
 
+export const editReviewApi = {//해당 url로 가는 함수들
+    editReview: (review) =>
+        api.post("/api/v1/user/updateReview", {
+                reviewId: review.reviewId,
+                reviewDescription: review.reviewDescription,
+                reviewRating: review.reviewRating
+            }
+            , {
+                headers: {
+                    Authorization: localStorage.getItem('authorization')
+                }
+            }
+        )
+};
+
 export const deleteReviewApi = {//해당 url로 가는 함수들
     deleteReview: (review) =>
         api.post("/api/v1/user/deleteReview", {
