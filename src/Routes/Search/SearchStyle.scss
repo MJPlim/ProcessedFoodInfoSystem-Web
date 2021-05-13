@@ -1,16 +1,8 @@
 .SearchProduct {
    height: 100%;
-   .btnSort:focus{
-      color: #ed2f3b;
-   }
-   .btnSort:hover{
-      color: #ed2f3b;
-   }
-   .btnSort{
-     border: none; outline:none;
-     background-color: white;
-     margin-top: 20px;
-   }
+   display: flex;
+   flex-direction: column;
+   padding: 10px;
   .results {
     top: 20px;
     display: flex;
@@ -18,11 +10,43 @@
     padding: 20px;
 
   }
+  .categoryGroup{
+    margin-top: 50px;
+     .category{
+    background-color: #ed2f3b;
+    color:white;
+  }
+  .list-group-item-action:hover{
+      color: #ed2f3b;
+  }
+  }
+ .selectType{
+   display: flex;
+   flex-direction: row;
+   margin-top: 30px;
+   .list-group-item:hover{
+      color: #ed2f3b;
+   }
+ }
+  .bottomSection{
+    display: flex;
+    flex-direction: row;
+  }
+  .resultSection{
+    display: flex;
+    flex-direction: column;    
+  }
   .form-control{
     border-color: #ed2f3b;
   }
 .searchResult{
   display: flex;
+}
+.errorPage{
+  display: flex;
+  width: 100%;
+  margin-left: 40%;
+  margin-top: 5%;
 }
   .foodInfo{
     display: flex;
@@ -34,10 +58,6 @@
     font-weight: 700;
 
   }
-  
-
-
-
   img {
     display: block;
     width: 100px;

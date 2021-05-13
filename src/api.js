@@ -153,3 +153,14 @@ export const sortApi={
     }
    )
 }
+export const categoryApi={
+    category:(category)=>
+    api.get("/api/v1/food/list/category",{
+        params:{
+            category:category,
+            pageNo:1,
+            size:10
+        }
+    }
+ )
+}

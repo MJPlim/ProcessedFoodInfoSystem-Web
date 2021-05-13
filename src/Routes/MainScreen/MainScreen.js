@@ -5,6 +5,10 @@ import './MainScreenStyle.scss';
 
 function MainScreen(){
    sessionStorage.clear(); 
-   return<div>MainScreen</div>
+   return(
+      <div >
+            MainScreen
+</div>
+   );
 }
 export default MainScreen;
