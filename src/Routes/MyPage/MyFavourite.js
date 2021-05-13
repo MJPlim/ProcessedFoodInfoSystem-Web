@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {favouriteApi} from "../../api";
 import {Link} from "react-router-dom";
 import "./MyFavouriteStyle.scss";
+import NoFavourite from "Routes/ErrorPage/NoFavourite";
 function MyFavourite(){
     const [data,setData]=useState(null);
     const [user,setUser]=useState(null);
@@ -29,7 +30,7 @@ function MyFavourite(){
     }, []);
     return(
         <div>
-            {data==null?<div>즐찾없음</div>:
+            {data===null?<div><NoFavourite></NoFavourite></div>:
             (
                 <div className="myFavourite">
                     {data.map((result, index) => (

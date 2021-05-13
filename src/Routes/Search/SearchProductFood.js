@@ -28,8 +28,9 @@ function SearchProduct() {
         setSearchTerm(sessionStorage.getItem("searchFood"));
         if (sessionStorage.getItem("searchFood") === "검색어") {
             setIsInput(false);
-        }if(searchTerm===null){
-            setData(null);
+        }if(searchTerm===null||sessionStorage.getItem("searchFood")===null){
+            sessionStorage.clear();
+            setResults(null);
         }
         getAd();
     }, []);
