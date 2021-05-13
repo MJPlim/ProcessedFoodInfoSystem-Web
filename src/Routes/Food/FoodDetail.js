@@ -129,7 +129,9 @@ const FoodDetail = (props) => {
                         window.location.reload(true);
                     }
                 ).catch(e => {
-                    console.log(e.response);
+
+                    console.log(e.response.data['error-message']);
+                    alert(e.response.data['error-message']);
                 });
             }
 
