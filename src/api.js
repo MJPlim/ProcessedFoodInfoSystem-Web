@@ -74,19 +74,6 @@ export const postReviewApi = {
     ),
 };
 
-export const favouriteApi = {
-  myFavourite: () =>
-    api.get(
-      'api/v1/user/favorite/list',
-      {},
-      {
-        headers: {
-          Authorization: localStorage.getItem('authorization'),
-        },
-      },
-    ),
-};
-
 export const editReviewApi = {
   //해당 url로 가는 함수들
   editReview: (review) =>
