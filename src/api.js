@@ -219,3 +219,7 @@ export const categoryApi = {
       },
     }),
 };
+
+export const getReviewRankingApi = {
+    getReviewRanking: () => api.get('/reviewRanking')
+};
