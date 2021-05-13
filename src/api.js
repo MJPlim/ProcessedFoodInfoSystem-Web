@@ -169,4 +169,27 @@ export const reviewLikeApi = {//해당 url로 가는 함수들
         )
 };
 
+export const sortApi={
+    sortBy:(foodName,sort)=>
+    api.get("api/v1/food/getFoodListBySorting",{
+         params:{
+            foodName:foodName,
+            pageNo:1,
+            size:10,
+            sort:sort
+    }
+    }
+   )
+}
+export const categoryApi={
+    category:(category)=>
+    api.get("/api/v1/food/list/category",{
+        params:{
+            category:category,
+            pageNo:1,
+            size:10
+        }
+    }
+ )
+}
 
