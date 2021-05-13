@@ -27,6 +27,19 @@
     .newsButton {
       margin-right: 3px !important;
     }
+
+    .favoriteButton {
+      background-color: transparent !important;
+      border-color: $lightorange !important;
+      color: $lightorange;
+      margin-right: 3px !important;
+
+      &:hover, &:active {
+        background-color: transparent !important;
+        color: $lightorange !important;
+        border-color: $lightorange !important;
+      }
+    }
   }
 
   .hr {
@@ -44,10 +57,11 @@
   }
 
   .reviewTable {
-    //margin-top: 5px;
+    font-size: 1.1em;
+    margin-top: 15px;
     table-layout: fixed;
-    text-align: center;
-
+    margin-left:auto;
+    margin-right:auto;
   }
 
   .reviewLabel {
@@ -73,7 +87,7 @@
   }
 
   .likeButton {
-    background-color: white;
+    background-color: transparent;
     border-color: $lightorange;
     color: $lightorange;
     margin: 0;
@@ -84,9 +98,79 @@
     border-right-width: 0;
 
     &:hover, &:focus, &:active {
-      background-color: white !important;
+      background-color: transparent !important;
       color: $lightorange !important;
       border-color: $lightorange !important;
     }
+  }
+
+  .deleteButton {
+    background-color: transparent;
+    border-color: $lightorange;
+    color: red;
+    margin: 0;
+    padding: 0;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-bottom-width: 0;
+    border-right-width: 0;
+
+    &:hover, &:focus, &:active {
+      background-color: transparent !important;
+      color: red !important;
+      border-color: $lightorange !important;
+    }
+  }
+
+  .editButton {
+    background-color: transparent;
+    border-color: darkblue;
+    color: darkblue;
+    padding: 0;
+    margin: 0 5px 0 0;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-bottom-width: 0;
+    border-right-width: 0;
+
+    &:hover, &:focus, &:active {
+      background-color: transparent !important;
+      color: darkblue !important;
+      border-color: darkblue !important;
+    }
+  }
+  .editCancelButton{
+    background-color: transparent;
+    border-color: $lightorange;
+    color: red;
+    margin: 0;
+    padding: 0;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-bottom-width: 0;
+    border-right-width: 0;
+
+    &:hover, &:focus, &:active {
+      background-color: transparent !important;
+      color: red !important;
+      border-color: $lightorange !important;
+    }
+  }
+
+
+  .reviewPaginate {
+    font-size: medium;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+  }
+
+  .reviewPage {
+    color: black;
+  }
+
+  .reviewSelectedPage {
+    color: $lightorange;
+    font-weight: bold;
   }
 }

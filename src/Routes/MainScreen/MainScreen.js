@@ -3,4 +3,12 @@ import axios from 'axios';
 import {Spinner} from 'reactstrap';
 import './MainScreenStyle.scss';
 
-export default()=>"MainScreen";
+function MainScreen(){
+   sessionStorage.clear(); 
+   return(
+      <div >
+            MainScreen
+</div>
+   );
+}
+export default MainScreen;
