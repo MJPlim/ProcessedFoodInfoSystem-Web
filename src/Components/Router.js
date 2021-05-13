@@ -16,7 +16,7 @@ import SPB from '../Routes/Search/SearchProductBssh';
 import CM from '../Routes/Community';
 
 import UR from '../Routes/UserRanking';
-import PR from '../Routes/ProductRanking';
+import PR from '../Routes/ProductRanking/ProductReviewRanking';
 import RV from '../Routes/Reviews';
 import WK from '../Routes/WhatsKati';
 import HU from '../Routes/HowToUse';
