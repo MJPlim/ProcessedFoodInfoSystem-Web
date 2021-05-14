@@ -52,8 +52,9 @@ const ReviewSummaryChart = ({reviewSummary}) => {
         }
 
         return (
-            <div>
-                <Bar data={data}
+            <div className={'reviewSummaryChart'}>
+                <Bar className={'chart'}
+                    data={data}
                      options={options}
                      width={300}
                      height={100}
