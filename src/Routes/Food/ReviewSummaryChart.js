@@ -19,29 +19,25 @@ const ReviewSummaryChart = ({reviewSummary}) => {
         const options = {
             responsive: true,
             indexAxis: 'y',
-            // scales: {
-            //     xAxes: [{
-            //         display: true,
-            //         scaleLabel: {
-            //             display: true,
-            //             labelString: 'x축'
-            //         },
-            //         ticks: {
-            //             autoSkip: false
-            //         }
-            //     }],
-            //     yAxes: [{
-            //         display: true,
-            //         ticks: {
-            //             suggestedMin: 0,
-            //         },
-            //         scaleLabel: {
-            //             display: true,
-            //             labelString: 'y축'
-            //         }
-            //     }]
-            // },
 
+            scales: {
+                x: {
+                    display: true,
+                    ticks: {
+                        min: 0,
+                        callback(label, index, labels) {
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+                        },
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                }
+            },
             animations: {
                 tension: {
                     duration: 2000,
@@ -49,11 +45,6 @@ const ReviewSummaryChart = ({reviewSummary}) => {
                     from: 1,
                     to: 0,
                     loop: false
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false,
                 }
             },
 
@@ -66,7 +57,7 @@ const ReviewSummaryChart = ({reviewSummary}) => {
                      options={options}
                      width={300}
                      height={100}
-                     />
+                />
             </div>
         )
             ;
