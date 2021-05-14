@@ -21,6 +21,7 @@ import {
     IoMdHeart,
     IoMdHeartEmpty
 } from "react-icons/all";
+import ReviewSummaryChart from "./ReviewSummaryChart";
 
 
 const FoodDetail = (props) => {
@@ -446,6 +447,11 @@ const FoodDetail = (props) => {
                                     사용자 총 평점 <span className="subTitle">{reviewSummary.avgRating}/5</span>
                                 </Col>
                             </Row>
+                            <Col lg="12">
+                                <ReviewSummaryChart reviewSummary={reviewSummary}/>
+                            </Col>
+
+
 
                             <Table className="reviewTable">
                                 <thead>
