@@ -31,6 +31,8 @@ import MP from '../Routes/MyPage/MyPage';
 import CUP from '../Routes/MyPage/ChangePassword';
 import MF from '../Routes/MyPage/MyFavourite';
 import CUI from '../Routes/MyPage/ChangeUserInfo';
+import UAI from '../Routes/MyPage/MyAllergies';
+import SE from '../Routes/MyPage/SecondEmail';
 
 export default () => (
   <Router>
@@ -59,6 +61,8 @@ export default () => (
         <Route path="/changePassword" exact component={CUP} />
         <Route path="/myFavourite" exact component={MF} />
         <Route path="/changeUserInfo" exact component={CUI} />
+        <Route path="/userAllergyInfo" exact component={UAI} />
+        <Route path="/secondEmail" exact component={SE} />
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />

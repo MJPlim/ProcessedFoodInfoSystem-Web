@@ -9,7 +9,7 @@ function LoginState(props) {
   console.log(checkLogin);
   console.log('main main ');
 
-  var uN, uA, uB;
+  var uN, uA, uB, userA;
 
   const setUserInformation = () => {
     console.log('유저 정보 가져오기 메소드');
@@ -34,6 +34,28 @@ function LoginState(props) {
         uB = response.data.birth;
         localStorage.setItem('birth', uB);
         console.log('생일까지 ㅇㅋㅇㅋ');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  //이거 사용안했음 혹시 몰라서 일단 내둠
+  const getUserAllergies = () => {
+    console.log('유저 알러지 가져오기 메소드');
+    axios
+      .get('http://13.124.55.59:8080/api/b1/user/readUserAllergy', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: checkLogin,
+        },
+      })
+      .then((response) => {
+        console.log('데이터 받아서 넣는거 시작 ㅇ-ㅇ');
+
+        uN = response.data.userA;
+        localStorage.setItem('allergy', userA);
+        console.log('이름 세팅 ㅇㅋ');
       })
       .catch(function (error) {
         console.log(error);
