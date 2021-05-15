@@ -32,6 +32,7 @@ function SecondEmail() {
       .catch((error) => {
         const status = error.response.status;
         console.log(status);
+        alert('이미 보안 이메일이 등록되어 있는 아디임 ㅇㅋ?');
       });
   };
 
