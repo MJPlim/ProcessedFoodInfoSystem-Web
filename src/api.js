@@ -191,6 +191,16 @@ export const getUserAllergyInfo = {
     }),
 };
 
+export const getWrittenReport = {
+  userReport: () =>
+    api.get('api/v1/user/summary', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
 export const setUserAllergyInfo = {
   //해당 url로 가는 함수들
   setAllergies: ([allergy]) =>

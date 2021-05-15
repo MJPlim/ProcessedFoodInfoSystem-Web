@@ -1,23 +1,27 @@
 import React, { useEffect, useState, useAsync } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { getUserAllergyInfo } from '../../api';
+import { getUserAllergyInfo, getWrittenReport } from '../../api';
 
 const MyPage = () => {
   const [data, setData] = useState(null);
+  const [writtenData, setWrittenData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log('여기그거임 사용자 알러지확인하는거');
+    console.log('여기그거임 사용자 알러지, 자기가 한거 확인하는거');
     try {
       setError(null);
       setLoading(true);
       console.log('사용자 알러지 반환');
       const { data } = getUserAllergyInfo.userAllergies();
+      const { userWrittenData } = getWrittenReport.userReport();
 
       setData(data);
+      setWrittenData({ userWrittenData });
       console.log('알러지 결과 반환', data);
+      console.log('유저 리뷰 정보 반환', writtenData);
     } catch (e) {
       setError(e);
       console.log(error);
@@ -110,6 +114,29 @@ const MyPage = () => {
                   <Col md="10">{result.data}</Col>
                 </Col>
               ))}
+            </Row>
+          )}
+        </Row>
+        <hr />
+        <br />
+        <br />
+        <Row>
+          {writtenData == null ? (
+            <Col md="12">사용자 개인 데이터 없음 </Col>
+          ) : (
+            <Row>
+              <Col md="4">
+                <div>사용자 즐겨찾기 개수</div>
+                <div>{writtenData.favorite_count}</div>
+              </Col>
+              <Col md="4">
+                <div>사용자 리뷰 개수</div>
+                <div>{writtenData.review_count}</div>
+              </Col>
+              <Col md="4">
+                <div>사용자 이름</div>
+                <div>{writtenData.user_name}</div>
+              </Col>
             </Row>
           )}
         </Row>
