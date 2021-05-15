@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './ChangePasswordStyle.scss';
 import { Container, Card } from 'reactstrap';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 
 var token;
 
@@ -10,8 +9,6 @@ function SecondEmail() {
   const [secondEmail, setSecondEmail] = useState('');
 
   token = localStorage.getItem('authorization');
-
-  const history = useHistory();
 
   const pushEmail = () => {
     console.log('이메일 설정부분');
@@ -39,7 +36,7 @@ function SecondEmail() {
   };
 
   return (
-    <div className="changePassword">
+    <div className="setEmail">
       <Container>
         <Card body>
           <form>
