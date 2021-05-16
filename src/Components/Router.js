@@ -12,7 +12,7 @@ import CP from '../Routes/CommercialProduct';
 import RP from '../Routes/RecommendedProduct';
 import SP from '../Routes/Search/SearchProduct';
 import SPF from '../Routes/Search/SearchProductFood';
-import SPB from '../Routes/Search/SearchProductBssh';
+
 import CM from '../Routes/Community';
 
 import UR from '../Routes/UserRanking';
@@ -42,8 +42,7 @@ export default () => (
         <Route path="/recommendedProduct" exact component={RP} />
         <Route path="/searchProduct" exact component={SP} />
         <Route path="/searchProduct/food" exact component={SPF} />
-        <Route path="/searchProduct/bssh" exact component={SPB} />
-
+       
         <Route path="/community" exact component={CM} />
         <Route path="/userRanking" exact component={UR} />
         <Route path="/productRanking" exact component={PR} />

@@ -3,9 +3,27 @@ import {Spinner} from 'reactstrap';
 import {FaBuilding,FaCrown} from 'react-icons/fa';
 import {IoIosPaper} from 'react-icons/io';
 import "./SearchStyle.scss";import {Link} from "react-router-dom";
-import {foodApi,sortApi,categoryApi,getAdvertisementFoodApi} from "../../api";
+import {foodApi,sortApi,categoryApi,getAdvertisementFoodApi, manufacturerApi} from "../../api";
 import NoResult from '../ErrorPage/NoResult';
-function SearchProduct() {
+
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  Input,
+  Button,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+ } from 'reactstrap';
+
+function SearchProduct(props) {
+    
+     const [dropdownOpen, setDropdownOpen] = useState(false);
+     const [splitButtonOpen, setSplitButtonOpen] = useState(false);
+     const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
+     const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
+    const [option,setOption]=useState("식품명");
 
     const NUM_OF_SHOW_ROWS = 5;
     const [results, setResults] = useState(null);
@@ -54,11 +72,21 @@ function SearchProduct() {
         console.log("searchByTerm", searchTerm);
         setLoading(true);
         try {
-            const {data} = await foodApi.search(searchTerm);
-            sessionStorage.setItem('data',JSON.stringify(data));
-            setData(sessionStorage.getItem('data'));
-            setResults(data);
-            console.log("검색결과 데이터",data);
+            if(option==="식품명"){
+                 const {data:{resultList}} = await foodApi.search(searchTerm);
+                 sessionStorage.setItem('data',JSON.stringify(resultList));
+                 setData(sessionStorage.getItem('data'));
+                 setResults(resultList);
+                 console.log("검색결과 데이터",resultList);
+            }else{
+                 const {data:{resultList}} = await manufacturerApi.search(searchTerm);
+                 sessionStorage.setItem('data',JSON.stringify(resultList));
+                 setData(sessionStorage.getItem('data'));
+                 setResults(resultList);
+                 console.log("검색결과 데이터",resultList);
+            }
+           
+           
             
 
         } catch (e) {
@@ -138,28 +166,33 @@ function SearchProduct() {
     return (
         <div className="SearchProduct">
           
-            <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
-                <a className="navbar-brand">제품명 찾기</a>
-                <form className="form-inline">
-                  <input className="form-control mr-sm-2" type="search" list="searchHistory"
-                               placeholder={searchTerm}
-
-                               onChange={(e) => {
+            
+               <InputGroup>
+        <InputGroupButtonDropdown addonType="prepend" isOpen={splitButtonOpen} toggle={toggleSplit}>
+          <Button className="dropdown" outline>{option}</Button>
+          <DropdownToggle className="dropdown dropdownArrow" split  />
+          <DropdownMenu className="dropdown">
+            <DropdownItem onClick={()=>setOption("식품명")}>식품명</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem onClick={()=>setOption("제조사명")}>제조사명</DropdownItem>
+          </DropdownMenu>
+        </InputGroupButtonDropdown>
+        <Input placeholder="검색어를 입력하세요"
+        onChange={(e) => {
                                    setSearchTerm(e.target.value);
-                               }}/>
-                    <datalist id="searchHistory">
+                               }}
+        type="search" list="searchHistory"
+        />
+         <datalist id="searchHistory">
                         {
                             keywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
                                 return <option key={index} value={item.text}/>
                             })
                         }
                     </datalist>
-                    <button onClick={handleSubmit} onClick={handleAddKeyword}
-                            className="btn btn-outline-danger my-2 my-sm-0" type="submit">🔍
-                    </button>
-
-                </form>
-            </nav>
+        <InputGroupAddon  addonType="append"><Button onClick={handleSubmit} >🔍</Button></InputGroupAddon>
+      </InputGroup>
+            
             <div className="bottomSection">
                     <div className="list-group categoryGroup">
                          <li class="list-group-item category">카테고리</li>
@@ -258,8 +291,10 @@ function SearchProduct() {
                                     </div>
 
                                 ))}
+                                
                                 </div>
                             </div>
+                            
                         ) : <div className="errorPage"><NoResult></NoResult></div>}
                        
 

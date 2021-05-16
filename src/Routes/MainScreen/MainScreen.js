@@ -7,8 +7,8 @@ function MainScreen(){
    sessionStorage.clear(); 
    return(
       <div >
-            MainScreen
-</div>
+      MainScreen
+      </div>
    );
 }
 export default MainScreen;

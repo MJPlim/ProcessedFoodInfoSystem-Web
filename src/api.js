@@ -6,16 +6,17 @@ const api = axios.create({
 
 export const foodApi = {//해당 url로 가는 함수들
     search: (term) =>
-        api.get("/api/v1/food/findFood/foodName", {
+        api.get("/api/v1/food/getFoodListBySorting", {
             params: {
-                foodName: term
+                foodName: term,
+                pageNo:1,
+                size:10
             }
         })
 };
-
-export const bsshApi = {//해당 url로 가는 함수들
+export const manufacturerApi = {//해당 url로 가는 함수들
     search: (term) =>
-        api.get("/api/v1/food/findFood/manufacturerName", {
+        api.get("/api/v1/food/getFoodListBySorting", {
             params: {
                 manufacturerName: term
             }
