@@ -20,9 +20,9 @@ const MyPage = () => {
       setError(null);
       setLoading(true);
       console.log('사용자 알러지 반환');
-      const { data } = getUserAllergyInfo.userAllergies();
+      const { information } = getUserAllergyInfo.userAllergies();
 
-      setData(data);
+      setData(information);
       console.log('알러지 결과 반환', data);
     } catch (e) {
       setError(e);
@@ -54,7 +54,7 @@ const MyPage = () => {
       .then((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <div className="MyPage">
