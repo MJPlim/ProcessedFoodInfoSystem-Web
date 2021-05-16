@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { MdAssignmentInd } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
+import { FaUsersCog } from 'react-icons/fa';
 
 var token;
 
@@ -101,6 +102,10 @@ function Login() {
             <Link class="dropdown-item" to="/join">
               <MdAssignmentInd size="20" color="#3a8082" />
               회원가입하기
+            </Link>
+            <Link class="dropdown-item" to="/findUser/email">
+              <FaUsersCog size="20" color="#3a8082" />
+              아이디 찾기
             </Link>
             <Link class="dropdown-item" to="/findUser/password">
               <RiLockPasswordFill size="20" color="#3a8082" />

@@ -181,6 +181,42 @@ export const favouriteApi = {
     }),
 };
 
+export const getUserAllergyInfo = {
+  userAllergies: () =>
+    api.get('api/v1/user/readUserAllergy', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
+export const getWrittenReport = {
+  userReport: () =>
+    api.get('api/v1/user/summary', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
+export const setUserAllergyInfo = {
+  //해당 url로 가는 함수들
+  setAllergies: ([allergy]) =>
+    api.post(
+      '/api/v1/user/createUserAllergy',
+      {
+        allergyList: [allergy],
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem('authorization'),
+        },
+      },
+    ),
+};
+
 export const reviewLikeApi = {
   //해당 url로 가는 함수들
   updateLike: (review) =>
@@ -221,5 +257,5 @@ export const categoryApi = {
 };
 
 export const getReviewRankingApi = {
-    getReviewRanking: () => api.get('/reviewRanking')
+  getReviewRanking: () => api.get('/reviewRanking'),
 };
