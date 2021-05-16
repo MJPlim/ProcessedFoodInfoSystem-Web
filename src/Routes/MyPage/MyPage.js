@@ -2,12 +2,17 @@ import React, { useEffect, useState, useAsync } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { getUserAllergyInfo, getWrittenReport } from '../../api';
+import axios from 'axios';
 
 const MyPage = () => {
   const [data, setData] = useState(null);
   const [writtenData, setWrittenData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [favouriteCount, setFavouriteCount] = useState('');
+  const [reviewCount, setReviewCount] = useState('');
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     console.log('여기그거임 사용자 알러지, 자기가 한거 확인하는거');
@@ -16,12 +21,9 @@ const MyPage = () => {
       setLoading(true);
       console.log('사용자 알러지 반환');
       const { data } = getUserAllergyInfo.userAllergies();
-      const { userWrittenData } = getWrittenReport.userReport();
 
       setData(data);
-      setWrittenData({ userWrittenData });
       console.log('알러지 결과 반환', data);
-      console.log('유저 리뷰 정보 반환', writtenData);
     } catch (e) {
       setError(e);
       console.log(error);
@@ -29,6 +31,30 @@ const MyPage = () => {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    console.log('여기는 사용자 자신 흔적 확인하는거');
+    axios
+      .get('http://13.124.55.59:8080/api/v1/user/summary', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('authorization'),
+        },
+      })
+      .then((response) => {
+        console.log(response.data.favorite_count);
+        setFavouriteCount(response.data.favorite_count);
+        console.log(response.data.review_count);
+        setReviewCount(response.data.review_count);
+        console.log(response.data.user_name);
+        setUserName(response.data.user_name);
+        const { userSummary } = [favouriteCount, reviewCount, userName];
+        setWrittenData({ userSummary });
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  });
 
   return (
     <div className="MyPage">
@@ -127,15 +153,21 @@ const MyPage = () => {
             <Row>
               <Col md="4">
                 <div>사용자 즐겨찾기 개수</div>
-                <div>{writtenData.favorite_count}</div>
+              </Col>
+              <Col md="8">
+                <div>{favouriteCount}</div>
               </Col>
               <Col md="4">
                 <div>사용자 리뷰 개수</div>
-                <div>{writtenData.review_count}</div>
+              </Col>
+              <Col md="8">
+                <div>{reviewCount}</div>
               </Col>
               <Col md="4">
                 <div>사용자 이름</div>
-                <div>{writtenData.user_name}</div>
+              </Col>
+              <Col md="8">
+                <div>{userName}</div>
               </Col>
             </Row>
           )}
