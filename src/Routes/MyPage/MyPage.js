@@ -5,14 +5,16 @@ import { getUserAllergyInfo, getWrittenReport } from '../../api';
 import axios from 'axios';
 
 const MyPage = () => {
-  const [userAllergyMaterials, setUserAllergyMaterials] = useState([]);
+  const [data, setData] = useState();
   const [writtenData, setWrittenData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [favouriteCount, setFavouriteCount] = useState('');
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
 
-  useEffect(() => {
+  useEffect(async() => {
     console.log('MyPage 에서 알아서 알러지 가져오는 부분임');
     axios
       .get('http://13.124.55.59:8080/api/v1/user/readUserAllergy', {
@@ -22,13 +24,10 @@ const MyPage = () => {
         },
       })
       .then((response) => {
-        console.log('가져온 기본');
-        console.log(response);
-        console.log('데이터뽑기');
-        console.log(response.data);
-        setUserAllergyMaterials(response.data);
-        console.log('데이터 들어간 거 확인하는거 위엔 서버 밑엔 우리');
-        console.log(userAllergyMaterials);
+       const result=response.data.userAllergyMaterials;
+       setData(result);
+       console.log("데이터: ",result);
+       console.log("데이터 개수: ",result.length);
       })
       .then((error) => {
         console.log(error);
@@ -36,18 +35,24 @@ const MyPage = () => {
       });
   }, []);
   // useEffect(async () => {
-  //   console.log(' 마이페이지 처음 들어갓을때 사용자 알러지 확인하는 부분');
-  //   console.log('789456123456789456123456789');
-  //   const { information } = await getUserAllergyInfo.userAllergies();
-  //   sessionStorage.setItem('userAllergy', JSON.stringify(information));
-  //   console.log('--------------------세션');
-  //   console.log(sessionStorage.getItem('userAllergy'));
-  //   const userAllergyInfo = JSON.parse(sessionStorage.getItem('userAllergy'));
-  //   setData(userAllergyInfo);
-  //   console.log('여기 알러지 담긴 데이터 부분 출력함');
-  //   console.log(data);
-  //   console.log('여기서 끊김');
-  // }, []);
+  //   try{
+  //     setLoading(true);
+  //       const { data:{allergyList} } = await getUserAllergyInfo.userAllergies();
+  //       console.log("알러지",allergyList);
+  //       sessionStorage.setItem('userAllergy', JSON.stringify(allergyList));
+    
+  //       console.log(sessionStorage.getItem('userAllergy'));
+  //   }catch(e){
+  //     setError(e);
+  //   }
+  
+  
+    //const userAllergyInfo = JSON.parse(sessionStorage.getItem('userAllergy'));
+   // setUserAllergyMaterials(allergyList);
+    //console.log('여기 알러지 담긴 데이터 부분 출력함');
+    //console.log("알러지",allergyList);
+    //console.log('여기서 끊김');
+  //}, []);
 
   useEffect(() => {
     console.log('여기는 사용자 자신 흔적 확인하는거');
@@ -150,12 +155,16 @@ const MyPage = () => {
         <br />
         <br />
         <Row>
-          {userAllergyMaterials.userAllergyMaterials == null ? (
+          {data === null ?(
             <Col md="12">알러지 데이터 없음 </Col>
           ) : (
             <Row>
-              <Col md="12">알러지데이터</Col>
-              <Col md="12">{userAllergyMaterials.userAllergyMaterials}</Col>
+              <Col md="12">{data.map((allergy,index)=>(
+                <div>
+                  {allergy}
+                </div>
+              ))}</Col>
+              <Col md="12"></Col>
             </Row>
           )}
         </Row>

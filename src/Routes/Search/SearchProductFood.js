@@ -273,7 +273,7 @@ function SearchProduct(props) {
                                     <button className="list-group-item list-group-item-action"onClick={handleSort} value="reviewCount"><IoIosPaper></IoIosPaper>리뷰순</button>     
                                     <button className="list-group-item list-group-item-action"onClick={handleSort} value="manufacturer"><FaBuilding></FaBuilding>제조사 별</button>     
                                 </div>
-                                <div className="result ">
+                                <div className="result">
                                 {results.map((result, index) => (
                                     <div class="list-group resultList" key={index}>
                                         <button type="button" class="list-group-item list-group-item-action">
