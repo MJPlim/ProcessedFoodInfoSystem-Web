@@ -73,37 +73,49 @@ function MyAllergies() {
       .catch((error) => {
         const status = error.response.status;
         console.log(status);
-        console.log(error.message);
       });
   };
   return (
     <div>
-      <form className="allergyTable" onSubmit={handleSubmit}>
-        <div>
-          <label for="inputAllergy">알러지 입력</label>
-          <input
-            type="text"
-            id="inputAllergy"
-            placeholder="알러지를 입력하세요"
-            // value={allergy}
-            onChange={onChange}
-          />
-        </div>
-        <hr />
-        <div>{allergy}</div>
-        <hr />
-      </form>
-      <button onClick={onClick}>
-        <MdAdd />
-      </button>
+      <p>알러지 종류</p>
+      <br />
+      <p>아몬드 우유 대두 밀 닭고기</p>
+      <p>쇠고기 새우 오징어 잣 소고기</p>
+      <p>돼지고기 메추리알 토마토 조개류 난류</p>
+      <p>호두 복숭아 땅콩 게</p>
+      <p>아황산류 메밀 계란</p>
       <hr />
+      <p>위의 알러지 종류만 가능합니다.</p>
       <hr />
       <br />
-      <div>{allergyList}</div>
-      <hr />
-      <hr />
-      <p>등록하는부분달거달거달거!!!! ㅎㅎ</p>
-      <button onClick={createAllergy}>등록!</button>
+      <div>
+        <form className="allergyTable" onSubmit={handleSubmit}>
+          <div>
+            <label for="inputAllergy">알러지 입력</label>
+            <input
+              type="text"
+              id="inputAllergy"
+              placeholder="알러지를 입력하세요"
+              // value={allergy}
+              onChange={onChange}
+            />
+          </div>
+          <hr />
+          <div>{allergy}</div>
+          <hr />
+        </form>
+        <button onClick={onClick}>
+          <MdAdd />
+        </button>
+        <hr />
+        <hr />
+        <br />
+        <div>{allergyList}</div>
+        <hr />
+        <hr />
+        <p>등록하는부분달거달거달거!!!! ㅎㅎ</p>
+        <button onClick={createAllergy}>등록!</button>
+      </div>
     </div>
   );
 }
