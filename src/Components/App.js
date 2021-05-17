@@ -20,7 +20,7 @@ class App extends Component {
         console.log('새롭게 토큰 받아오기 ------------------');
         localStorage.setItem('authorization', response.headers.authorization);
         console.log(localStorage.getItem('authorization'));
-        alert('새로운 토큰 잘 받아왔슴 땡큐 베리 머치');
+        console.log('새로운 토큰 잘 받아왔슴 땡큐 베리 머치');
       })
       .catch((error) => {
         const status = error.response.status;
