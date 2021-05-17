@@ -98,6 +98,7 @@ function MyAllergies() {
               placeholder="알러지를 입력하세요"
               // value={allergy}
               onChange={onChange}
+              onKeyPress={onKeyPress}
             />
           </div>
           <hr />
