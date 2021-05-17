@@ -150,10 +150,11 @@ const MyPage = () => {
         <br />
         <br />
         <Row>
-          {userAllergyMaterials == null ? (
+          {userAllergyMaterials.userAllergyMaterials == null ? (
             <Col md="12">알러지 데이터 없음 </Col>
           ) : (
             <Row>
+              <Col md="12">알러지데이터</Col>
               <Col md="12">{userAllergyMaterials.userAllergyMaterials}</Col>
             </Row>
           )}

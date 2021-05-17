@@ -16,6 +16,8 @@ function Login() {
   console.log('abababc  ');
   const login = () => {
     console.log('aaaa');
+    localStorage.setItem('userLoginEmail', email);
+    localStorage.setItem('userLoginPassword', password);
     axios({
       url: 'http://13.124.55.59:8080/login',
       method: 'POST',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import './HeaderStyle.scss';
@@ -6,10 +6,12 @@ import axios from 'axios';
 
 function LoginState(props) {
   const checkLogin = props.auli;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   console.log(checkLogin);
   console.log('main main ');
 
-  var uN, uA, uB, userA;
+  var uN, uA, uB, userA, token;
 
   const setUserInformation = () => {
     console.log('유저 정보 가져오기 메소드');
@@ -62,6 +64,43 @@ function LoginState(props) {
       });
   };
 
+  const loginAgain = () => {
+    console.log(
+      '메인에서 로그인 토큰 값이 들어가있으면 어차피 다시 받아야 하기에 다시해서 토큰 값 받아옴',
+    );
+
+    setEmail(localStorage.getItem('userLoginEmail'));
+    setPassword(localStorage.getItem('userLoginPassword'));
+
+    axios({
+      url: 'http://13.124.55.59:8080/login',
+      method: 'POST',
+      data: {
+        email: email,
+        password: password,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('새롭게 토큰 받아오기 ------------------');
+        token = response.headers.authorization;
+        console.log(token);
+        localStorage.setItem('authorization', token);
+        alert('새로운 토큰 잘 받아왔슴 땡큐 베리 머치');
+      })
+      .catch((error) => {
+        const status = error.response.status;
+        if (status === 401) {
+          //console.log("fail");
+          alert(
+            '입력된 정보가 잘못되었음 여기 헤더에서 하는 부분이니까 다시 살펴봐주셈.',
+          );
+        }
+      });
+  };
+
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
@@ -69,6 +108,8 @@ function LoginState(props) {
           className="logoutBtn"
           onClick={() => {
             localStorage.setItem('authorization', null);
+            localStorage.set('userLoginEmail', null);
+            localStorage.set('userLoginPassword', null);
             alert('로그아웃!');
           }}
         >
