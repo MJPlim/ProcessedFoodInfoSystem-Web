@@ -4,24 +4,24 @@ const api = axios.create({
   baseURL: 'http://13.124.55.59:8080/',
 });
 
-export const foodApi = {
-  //해당 url로 가는 함수들
-  search: (term) =>
-    api.get('/api/v1/food/findFood/foodName', {
-      params: {
-        foodName: term,
-      },
-    }),
-};
 
-export const bsshApi = {
-  //해당 url로 가는 함수들
-  search: (term) =>
-    api.get('/api/v1/food/findFood/manufacturerName', {
-      params: {
-        manufacturerName: term,
-      },
-    }),
+export const foodApi = {//해당 url로 가는 함수들
+    search: (term) =>
+        api.get("/api/v1/food/getFoodListBySorting", {
+            params: {
+                foodName: term,
+                pageNo:1,
+                size:10
+            }
+        })
+};
+export const manufacturerApi = {//해당 url로 가는 함수들
+    search: (term) =>
+        api.get("/api/v1/food/getFoodListBySorting", {
+            params: {
+                manufacturerName: term
+            }
+        })
 };
 
 export const foodDetailApi = {

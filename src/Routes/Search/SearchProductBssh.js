@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Spinner} from 'reactstrap';
 import "./SearchStyle.scss";
 import {Link} from "react-router-dom";
-import {bsshApi, getAdvertisementFoodApi} from "../../api";
+import {manufacturerApi, getAdvertisementFoodApi} from "../../api";
 
 function SearchProduct() {
     const NUM_OF_SHOW_ROWS = 5;
@@ -45,7 +45,7 @@ function SearchProduct() {
 
         setLoading(true);
         try {
-            const {data} = await bsshApi.search(searchTerm);
+            const {data} = await manufacturerApi.search(searchTerm);
 
             setResults(data);
         } catch (e) {
@@ -95,7 +95,15 @@ function SearchProduct() {
         <div className="SearchProduct">
 
             <nav onSubmit={handleSubmit} className="navbar navbar-light bg-light justify-content-between">
-                <a className="navbar-brand">제품명 찾기</a>
+              
+               <div class="input-group mb-3">
+  <div class="input-group-prepend" id="button-addon3">
+    <button class="btn btn-outline-secondary" type="button">Button</button>
+    <button class="btn btn-outline-secondary" type="button">Button</button>
+  </div>
+  <input type="text" class="form-control" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3"/>
+</div>
+                
                 <form className="form-inline">
                     {isInput ? (<input className="form-control mr-sm-2" type="search" placeholder={searchTerm}
                                        list="searchHistory"
