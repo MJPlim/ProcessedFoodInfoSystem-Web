@@ -73,6 +73,7 @@ function MyAllergies() {
       .catch((error) => {
         const status = error.response.status;
         console.log(status);
+        console.log(['error.error-message']);
       });
   };
   return (

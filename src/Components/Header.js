@@ -108,8 +108,8 @@ function LoginState(props) {
           className="logoutBtn"
           onClick={() => {
             localStorage.setItem('authorization', null);
-            localStorage.set('userLoginEmail', null);
-            localStorage.set('userLoginPassword', null);
+            localStorage.setItem('userLoginEmail', null);
+            localStorage.setItem('userLoginPassword', null);
             alert('로그아웃!');
           }}
         >
