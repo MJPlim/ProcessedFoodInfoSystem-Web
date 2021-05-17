@@ -21,6 +21,7 @@ import {
     IoMdHeart,
     IoMdHeartEmpty
 } from "react-icons/all";
+import ReviewSummaryChart from "./ReviewSummaryChart";
 
 
 const FoodDetail = (props) => {
@@ -33,7 +34,7 @@ const FoodDetail = (props) => {
             reviewRating: 0
         })
         const [reviews, setReviews] = useState(null);
-        const [reviewCount, setReviewCount] = useState(null);
+        const [reviewSummary, setReviewSummary] = useState(null);
         const [foodLoading, setFoodLoading] = useState(false);
         const [foodError, setFoodError] = useState(null);
         const [reviewsLoading, setReviewsLoading] = useState(false);
@@ -93,12 +94,12 @@ const FoodDetail = (props) => {
                     console.log('로그인 리뷰')
                     const response = await getReviewsByFoodIdWithLogin.getReviews(foodId, 1);
                     setReviews(response.data.readReviewResponse);
-                    setReviewCount(response.data.reviewCount);
+                    setReviewSummary(response.data.readSummaryResponse);
                 } else {
                     console.log('비로그인 리뷰');
                     const response = await getReviewsByFoodId.getReviews(foodId, 1);
                     setReviews(response.data.readReviewResponse);
-                    setReviewCount(response.data.reviewCount);
+                    setReviewSummary(response.data.readSummaryResponse);
                 }
 
 
@@ -438,14 +439,19 @@ const FoodDetail = (props) => {
 
 
                     {/*상품 정보 우측 영역 시작 */}
-                    {reviews !== null && reviewCount !== null ? (
+                    {reviews !== null && reviewSummary !== null ? (
                         <Col lg="6">
                             <Row>
                                 <Col>
-                                    리뷰 수 <span className="subTitle">{reviewCount.findReviewCount}   </span>
-                                    사용자 총 평점 <span className="subTitle">4.8/5</span>
+                                    리뷰 수 <span className="subTitle">{reviewSummary.reviewCount}   </span>
+                                    사용자 총 평점 <span className="subTitle">{reviewSummary.avgRating}/5</span>
                                 </Col>
                             </Row>
+                            <Col lg="12">
+                                <ReviewSummaryChart reviewSummary={reviewSummary}/>
+                            </Col>
+
+
 
                             <Table className="reviewTable">
                                 <thead>
@@ -547,8 +553,8 @@ const FoodDetail = (props) => {
 
 
                             <Col md={{size: 6, offset: 3}}>
-                                {reviewCount.findReviewPageCount > 2 ?
-                                    <ReactPaginate pageCount={reviewCount.findReviewPageCount - 1} pageRangeDisplayed={4}
+                                {reviewSummary.reviewPageCount > 2 ?
+                                    <ReactPaginate pageCount={reviewSummary.reviewPageCount - 1} pageRangeDisplayed={4}
                                                    marginPagesDisplayed={1}
                                                    previousLabel={'이전'} nextLabel={'다음'}
                                                    containerClassName={'reviewPaginate'}
