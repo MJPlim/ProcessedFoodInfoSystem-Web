@@ -239,11 +239,12 @@ function SearchProduct(props) {
                     <Spinner color="warning"/>
                 ) : (
                     <>
+                    
                         {results && results.length > 0 && adFoods ? (
                             <div title="Results" className="results">
                                 {/*광고 리스트 시작 */}
                                 {adFoods.map((result, index) => (
-                                    <div className="list-group" key={index}>
+                                    <div className="list-group resultPage" key={index}>
                                         <button type="button" className="list-group-item list-group-item-action">
                                             <Link to={{
                                                 pathname: `food/${result.food.foodId}`,
@@ -266,14 +267,14 @@ function SearchProduct(props) {
                                 ))}
                                 {/*광고 리스트 끝 */}
 
-                                <div className="selectType list-group">
+                                <div className="selectType list-group resultPage">
                                     <button className="list-group-item list-group-item-action "onClick={handleSort} value="ranking"><FaCrown></FaCrown>카티 랭킹순</button>                      
                                     <button className="list-group-item list-group-item-action"onClick={handleSort} value="reviewCount"><IoIosPaper></IoIosPaper>리뷰순</button>     
                                     <button className="list-group-item list-group-item-action"onClick={handleSort} value="manufacturer"><FaBuilding></FaBuilding>제조사 별</button>     
                                 </div>
-                                <div className="result">
+                                <div className="result ">
                                 {results.map((result, index) => (
-                                    <div class="list-group" key={index}>
+                                    <div class="list-group resultList" key={index}>
                                         <button type="button" class="list-group-item list-group-item-action">
                                             <Link to={`food/${result.foodId}`}>
                                                 <div className="searchResult">
@@ -297,12 +298,13 @@ function SearchProduct(props) {
                             
                         ) : <div className="errorPage"><NoResult></NoResult></div>}
                        
-
+                        
                     </>
                 )}
+                
                     </div>
                  </div>
-             
+
             
         </div>
     );
