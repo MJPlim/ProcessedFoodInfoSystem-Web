@@ -259,3 +259,7 @@ export const categoryApi = {
 export const getReviewRankingApi = {
   getReviewRanking: () => api.get('/reviewRanking'),
 };
+
+// export const sortByAllergyApi={
+//   sortAllergy:()=>api.get
+// }

@@ -159,12 +159,12 @@ const MyPage = () => {
             <Col md="12">알러지 데이터 없음 </Col>
           ) : (
             <Row>
-              <Col md="12">{data.map((allergy,index)=>(
+              {/* <Col md="12">{data.map((allergy,index)=>(
                 <div>
                   {allergy}
                 </div>
               ))}</Col>
-              <Col md="12"></Col>
+              <Col md="12"></Col> */}
             </Row>
           )}
         </Row>

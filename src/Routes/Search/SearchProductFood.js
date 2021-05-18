@@ -24,7 +24,7 @@ function SearchProduct(props) {
      const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
      const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
     const [option,setOption]=useState("식품명");
-
+    
     const NUM_OF_SHOW_ROWS = 5;
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -39,7 +39,8 @@ function SearchProduct(props) {
         JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
     )       // 검색 기록을 위한 state
     const [adFoods, setAdFoods] = useState(null);
-
+    const [allergyList,setAllergyList]=useState([]);
+    const allergies=[];
     useEffect(() => {
         console.log("검색어",searchTerm);
         console.log("기존 검색어", sessionStorage.getItem("searchFood"));
@@ -163,6 +164,14 @@ function SearchProduct(props) {
             setLoading(false);
         }
     }
+    const handleAllergySort=async(e)=>{
+        console.log("알러지추가");
+        
+        allergies.push(e.target.value);
+        setAllergyList(allergies);
+        console.log("알러지리스트",allergies);
+
+    }
 
     return (
         <div className="SearchProduct">
@@ -193,7 +202,11 @@ function SearchProduct(props) {
                     </datalist>
         <InputGroupAddon  addonType="append"><Button onClick={handleSubmit} >🔍</Button></InputGroupAddon>
       </InputGroup>
-            
+            <div>
+                <p className="filter" value="아몬드" onClick={handleAllergySort}>아몬드</p>
+                <p className="filter" value="우유" onClick={handleAllergySort}>우유</p>
+                <p className="filter" value="밀" onClick={handleAllergySort}>대두</p>
+            </div>
             <div className="bottomSection">
                     <div className="list-group categoryGroup">
                          <li class="list-group-item category">카테고리</li>
