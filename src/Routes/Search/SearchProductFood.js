@@ -205,7 +205,8 @@ function SearchProduct(props) {
             <div>
                 <p className="filter" value="아몬드" onClick={handleAllergySort}>아몬드</p>
                 <p className="filter" value="우유" onClick={handleAllergySort}>우유</p>
-                <p className="filter" value="밀" onClick={handleAllergySort}>대두</p>
+                <p className="filter" value="대두" onClick={handleAllergySort}>대두</p>
+                 <p className="filter" value="밀" onClick={handleAllergySort}>밀</p>
             </div>
             <div className="bottomSection">
                     <div className="list-group categoryGroup">
