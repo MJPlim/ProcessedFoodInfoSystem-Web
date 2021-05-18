@@ -1,4 +1,5 @@
 import axios from 'axios';
+import UserRanking from 'Routes/UserRanking';
 
 const api = axios.create({
   baseURL: 'http://13.124.55.59:8080/',
@@ -260,6 +261,24 @@ export const getReviewRankingApi = {
   getReviewRanking: () => api.get('/reviewRanking'),
 };
 
-// export const sortByAllergyApi={
-//   sortAllergy:()=>api.get
-// }
+export const allergyApi={
+  sortManufacturer:(sort,manufacturerName,allergies)=>api.get('/api/v1/food/getFoodListBySorting',{
+    params:{
+      pageNo:1,
+      size:10,
+      sort:sort,
+      manufacturerName:manufacturerName,
+      allergies:allergies.join(",")
+    }
+  }),
+   sortFood:(sort,foodName,allergies)=>api.get('/api/v1/food/getFoodListBySorting',{
+    params:{
+      pageNo:1,
+      size:10,
+      sort:sort,
+      manufacturerName:foodName,
+      allergies:allergies.join(",")
+    }
+  })
+
+}

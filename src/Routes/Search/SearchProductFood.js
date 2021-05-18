@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState } from 'react';
 import { Spinner } from 'reactstrap';
 import { FaBuilding, FaCrown } from 'react-icons/fa';
@@ -10,6 +13,7 @@ import {
   categoryApi,
   getAdvertisementFoodApi,
   manufacturerApi,
+  allergyApi
 } from '../../api';
 import NoResult from '../ErrorPage/NoResult';
 
@@ -37,15 +41,19 @@ function SearchProduct(props) {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('검색어');
   const [isInput, setIsInput] = useState(true);
-  const [sortType, setSortType] = useState('');
+  const [sortType, setSortType] = useState('ranking');
   const [data, setData] = useState(null); // 이전 검색 결과
   const [keywords, setKeywords] = useState(
     JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
   ); // 검색 기록을 위한 state
   const [adFoods, setAdFoods] = useState(null);
-  const [allergyList, setAllergyList] = useState([]);
-  const [allergies, setAllergies] = useState('');
+
+  //알러지추가
+  const allergyList=[];
+ 
+
   useEffect(() => {
+    console.log(allergyList);
     console.log('검색어', searchTerm);
     console.log('기존 검색어', sessionStorage.getItem('searchFood'));
     setSearchTerm(sessionStorage.getItem('searchFood'));
@@ -60,6 +68,7 @@ function SearchProduct(props) {
   }, []);
 
   useEffect(() => {
+     
     //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
     localStorage.setItem('keywordsFood', JSON.stringify(keywords));
     const beforeData = JSON.parse(sessionStorage.getItem('data'));
@@ -77,8 +86,29 @@ function SearchProduct(props) {
   const searchByTerm = async (searchTerm) => {
     console.log('searchByTerm', searchTerm);
     setLoading(true);
+    handleAddKeyword();
     try {
-      if (option === '식품명') {
+      if(allergyList.length!==0){
+         if (option === '식품명') {
+        const {
+          data: { resultList },
+        } = await allergyApi.sortFood(sortType,searchTerm,allergyList);
+        sessionStorage.setItem('data', JSON.stringify(resultList));
+        setData(sessionStorage.getItem('data'));
+        setResults(resultList);
+        console.log('검색결과 데이터', resultList);
+      } else {
+        const {
+          data: { resultList },
+        } = await allergyApi.sortManufacturer(sortType,searchTerm,allergyList);
+        sessionStorage.setItem('data', JSON.stringify(resultList));
+        setData(sessionStorage.getItem('data'));
+        setResults(resultList);
+        console.log('검색결과 데이터', resultList);
+      }
+      }else{
+        console.log("알러지없음");
+         if (option === '식품명') {
         const {
           data: { resultList },
         } = await foodApi.search(searchTerm);
@@ -95,6 +125,8 @@ function SearchProduct(props) {
         setResults(resultList);
         console.log('검색결과 데이터', resultList);
       }
+      }
+     
     } catch (e) {
       setError(e);
       console.log(e);
@@ -140,6 +172,7 @@ function SearchProduct(props) {
     console.log('sort by', e.target.value);
     setLoading(true);
     try {
+      setSortType(e.target.value);
       const {
         data: { resultList },
       } = await sortApi.sortBy(searchTerm, e.target.value);
@@ -172,12 +205,10 @@ function SearchProduct(props) {
       setLoading(false);
     }
   };
-  const handleAllergySort = (e) => {
-    console.log('알러지추가');
-
-    setAllergies(e.target.value);
-    setAllergyList([...allergyList, allergies]);
-    console.log('알러지리스트');
+  const handleAllergySort = async(e) => {
+    console.log('알러지추가',e.target.value);
+    sessionStorage.setItem('allergy',e.target.value);
+    allergyList.push(e.target.value);
     console.log(allergyList);
   };
 
@@ -220,20 +251,84 @@ function SearchProduct(props) {
           <Button onClick={handleSubmit}>🔍</Button>
         </InputGroupAddon>
       </InputGroup>
-      <div>
-        <p className="filter" value="a" onClick={handleAllergySort}>
+      <div className="allergies">
+        <div>알레르기</div>
+        <div className="group1">
+        <button className="filter" value="아몬드" onClick={handleAllergySort}>
           아몬드
-        </p>
-        <p className="filter" value="b" onClick={handleAllergySort}>
+        </button>
+        <button className="filter" value="우유" onClick={handleAllergySort}>
           우유
-        </p>
-        <p className="filter" value="c" onClick={handleAllergySort}>
+        </button>
+        <button className="filter" value="대두" onClick={handleAllergySort}>
           대두
-        </p>
-        <p className="filter" value="d" onClick={handleAllergySort}>
+        </button>
+        <button className="filter" value="밀" onClick={handleAllergySort}>
           밀
-        </p>
+        </button>
+         <button className="filter" value="닭고기" onClick={handleAllergySort}>
+          닭고기
+        </button>
+        </div>
+        <div className="group2">
+        <button className="filter" value="쇠고기" onClick={handleAllergySort}>
+          쇠고기
+        </button>
+        <button className="filter" value="새우" onClick={handleAllergySort}>
+          새우
+        </button>
+        <button className="filter" value="오징어" onClick={handleAllergySort}>
+          오징어
+        </button>
+         <button className="filter" value="잣" onClick={handleAllergySort}>
+          잣
+        </button>
+        <button className="filter" value="소고기" onClick={handleAllergySort}>
+          소고기
+        </button>
+        </div>
+        <div className="group3">
+        <button className="filter" value="돼지고기" onClick={handleAllergySort}>
+          돼지고기
+        </button>
+        <button className="filter" value="메추리알" onClick={handleAllergySort}>
+          메추리알
+        </button>
+         <button className="filter" value="토마토" onClick={handleAllergySort}>
+          토마토
+        </button>
+        <button className="filter" value="조개류" onClick={handleAllergySort}>
+          조개류
+        </button>
+        <button className="filter" value="난류" onClick={handleAllergySort}>
+          난류
+        </button>
+        </div>
+        <div className="group4">
+        <button className="filter" value="호두" onClick={handleAllergySort}>
+          호두
+        </button>
       </div>
+       <button className="filter" value="복숭아" onClick={handleAllergySort}>
+          복숭아
+        </button>
+        <button className="filter" value="땅콩" onClick={handleAllergySort}>
+          땅콩
+        </button>
+        <button className="filter" value="게" onClick={handleAllergySort}>
+          게
+        </button>
+        <button className="filter" value="이황산류" onClick={handleAllergySort}>
+          이황산류
+        </button>
+         <button className="filter" value="메밀" onClick={handleAllergySort}>
+          메밀
+        </button>
+        <button className="filter" value="계란" onClick={handleAllergySort}>
+          계란
+        </button>
+        </div>
+      
       <div className="bottomSection">
         <div className="list-group categoryGroup">
           <li class="list-group-item category">카테고리</li>
