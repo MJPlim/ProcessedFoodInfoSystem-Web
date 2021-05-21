@@ -601,4 +601,4 @@ const FoodDetail = (props) => {
     }
 ;
 
-export default FoodDetail;
+export default React.memo(FoodDetail);

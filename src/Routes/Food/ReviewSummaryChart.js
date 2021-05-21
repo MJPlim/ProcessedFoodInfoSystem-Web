@@ -38,15 +38,15 @@ const ReviewSummaryChart = ({reviewSummary}) => {
                     display: false,
                 }
             },
-            animations: {
-                tension: {
-                    duration: 2000,
-                    easing: 'linear',
-                    from: 1,
-                    to: 0,
-                    loop: false
-                }
-            },
+            // animations: {
+            //     tension: {
+            //         duration: 2000,
+            //         easing: 'linear',
+            //         from: 1,
+            //         to: 0,
+            //         loop: false
+            //     }
+            // },
 
             maintainAspectRatio: true // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
         }
@@ -65,4 +65,4 @@ const ReviewSummaryChart = ({reviewSummary}) => {
     }
 ;
 
-export default ReviewSummaryChart;
+export default React.memo(ReviewSummaryChart);
