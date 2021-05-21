@@ -174,16 +174,19 @@
     color: $lightorange;
     font-weight: bold;
   }
-.carousel {
-  height: 50%;
-  img {
-    z-index: 1;
+
+  .carousel {
+    height: 50%;
+    width: 100%;
+    img {
+      display: block;
+      margin: 0 auto;
+    }
   }
-}
+
   .carousel-control-next-icon,
   .carousel-control-prev-icon,
-  .carousel-indicators
-  {
+  .carousel-indicators {
     filter: invert(1) !important;
   }
 
@@ -192,7 +195,6 @@
       margin-top: 10px;
     }
   }
-
 
 
 }
