@@ -46,7 +46,7 @@ const FoodImageCarousel = ({ image, metaImage }) => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src}  />
+        <img src={item.src} onClick={()=> onClickItem(item.src)} style={{cursor:'pointer'}} />
       </CarouselItem>
 
     );
