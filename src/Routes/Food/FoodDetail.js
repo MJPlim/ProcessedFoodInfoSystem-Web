@@ -354,10 +354,10 @@ const FoodDetail = (props) => {
                 {/*<Container>*/}
                 {/* 타이틀 영역 시작*/}
                 <Row className="titleArea">
-                    <Col md="7">
-                        <p className="title">상품정보</p>
-                    </Col>
                     <Col md="5">
+                        <p className="title">{food.foodName}</p>
+                    </Col>
+                    <Col lg="7">
                         <Button className="linkButton" onClick={onMoveToLink}>
                             상품 구매하러 가기
                         </Button>
@@ -368,8 +368,6 @@ const FoodDetail = (props) => {
                         {isLogin ? <Button className="favoriteButton" onClick={onClickFavoriteButton}>
                             {!isFavorite ? <AiOutlineStar size={'1.3em'}/> : <AiFillStar size={'1.3em'}/>}
                         </Button> : null}
-
-
                     </Col>
                 </Row>
 
