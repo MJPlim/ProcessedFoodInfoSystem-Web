@@ -65,4 +65,4 @@ const ReviewSummaryChart = ({reviewSummary}) => {
     }
 ;
 
-export default ReviewSummaryChart;
+export default React.memo(ReviewSummaryChart);
