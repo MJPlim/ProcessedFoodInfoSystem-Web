@@ -42,7 +42,7 @@ const FoodReview = ({
       {reviews !== null && reviewSummary !== null ? (
         <div>
           <Row>
-            <Col>
+            <Col className='reviewSummary'>
               리뷰 수 <span className='subTitle'>{reviewSummary.reviewCount}   </span>
               사용자 총 평점 <span className='subTitle'>{reviewSummary.avgRating}/5</span>
             </Col>

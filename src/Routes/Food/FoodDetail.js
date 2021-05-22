@@ -358,7 +358,7 @@ const FoodDetail = (props) => {
 
 
           {/*상품 정보 우측 영역 시작 */}
-          <Col lg='6'>
+          <Col lg='6' className='reviewArea'>
             <FoodReview foodId={foodId} isLogin={isLogin} reviews={reviews} reviewSummary={reviewSummary}
                         editTargetReview={editTargetReview} onClickEditReview={(review) => onClickEditReview(review)}
                         onClickDeleteReview={(review) => onClickDeleteReview(review)}

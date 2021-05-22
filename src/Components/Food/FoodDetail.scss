@@ -48,7 +48,7 @@
 
   .hr_foodInfo {
     border: 0;
-    @media screen and (max-width: 970px){
+    @media screen and (max-width: 992px) {
       border-right: 0;
       border-bottom: 1px solid;
       padding-bottom: 10px;
@@ -60,15 +60,40 @@
   .rightBorderLine {
     border-right: 1px solid;
 
-    @media screen and (max-width: 970px){
+    @media screen and (max-width: 992px) {
       border-right: 0;
     }
   }
 
-  .subTitle {
-    font-size: large;
-    margin-bottom: 10px;
+  .reviewArea {
+    @media screen and (max-width: 992px) {
+      margin-top: 30px;
+    }
   }
+
+  .reviewSummary {
+    font-size: large;
+
+    .subTitle {
+      font-size: x-large !important;
+      margin-bottom: 10px;
+    }
+  }
+  .foodInfoTable{
+    font-size: medium;
+  }
+
+  .foodInfo {
+    .foodInfoDesc {
+      font-size: small;
+    }
+
+    .subTitle {
+      font-size: large !important;
+      margin-bottom: 10px;
+    }
+  }
+
 
   .reviewTable {
     font-size: 1.1em;
@@ -192,6 +217,7 @@
   .carousel {
     height: 50%;
     width: 100%;
+
     img {
       display: block;
       margin: 0 auto;

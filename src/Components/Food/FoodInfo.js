@@ -7,7 +7,7 @@ const FoodInfo = ({food}) => {
     <div>
       <Row className='bottomBorderLine'>
         <FoodImageCarousel image={food.foodImageAddress} metaImage={food.foodMeteImageAddress} />
-        <Table>
+        <Table className={'foodInfoTable'}>
           <tr>
             <th>
               상품명
@@ -47,11 +47,17 @@ const FoodInfo = ({food}) => {
       <Row className='foodInfo'>
         <Col sm='6'>
           <p className='subTitle'>성분</p>
-          {food.nutrient}
+          <span className={'foodInfoDesc'}>
+             {food.nutrient}
+          </span>
+
         </Col>
         <Col sm='6'>
           <p className='subTitle'>원료</p>
-          {food.materials}
+          <span className={'foodInfoDesc'}>
+             {food.materials}
+          </span>
+
         </Col>
       </Row>
       {/*상품 정보 좌측 하단 영역 끝 */}
