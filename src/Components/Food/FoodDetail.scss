@@ -1,4 +1,4 @@
-@import "../../styles/utils";
+@import "./src/styles/utils";
 
 .FoodDetail {
   margin-left: 100px;
@@ -46,9 +46,23 @@
     border-top: 1px solid;
   }
 
+  .hr_foodInfo {
+    border: 0;
+    @media screen and (max-width: 970px){
+      border-right: 0;
+      border-bottom: 1px solid;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+  }
+
+
   .rightBorderLine {
     border-right: 1px solid;
 
+    @media screen and (max-width: 970px){
+      border-right: 0;
+    }
   }
 
   .subTitle {
