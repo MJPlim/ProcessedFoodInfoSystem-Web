@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useAsync } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { getUserAllergyInfo, getWrittenReport } from '../../api';
+import {
+  getUserAllergyInfo,
+  getUserSummary,
+  getWrittenReport,
+} from '../../api';
 import axios from 'axios';
 
 const MyPage = () => {
@@ -16,73 +20,32 @@ const MyPage = () => {
 
   useEffect(() => {
     const gogogetAllergy = async () => {
-      try {
-        const { response } = await getUserAllergyInfo.userAllergies();
-        const result = response.data.userAllergyMaterials;
-        setData(result);
-      } catch (e) {
-        console.log(e);
-      }
+      getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          const result = response.data.userAllergyMaterials;
+          setData(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    const gogogetSummary = async () => {
+      getUserSummary
+        .userSummary()
+        .then((response) => {
+          setFavouriteCount(response.data.favorite_count);
+          setReviewCount(response.data.review_count);
+          setUserName(response.data.user_name);
+          const { userSummary } = [favouriteCount, reviewCount, userName];
+          setWrittenData({ userSummary });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
     gogogetAllergy();
-  }, []);
-
-  // useEffect(() => {
-  //   getUserAllergyInfo.userAllergies
-  //     .then((response) => {
-  //       const result = response.data.userAllergyMaterials;
-  //       setData(result);
-  //     })
-  //     .then((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // useEffect(async () => {
-  //   console.log('MyPage 에서 알아서 알러지 가져오는 부분임');
-  //   axios
-  //     .get('http://13.124.55.59:8080/api/v1/user/readUserAllergy', {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: localStorage.getItem('authorization'),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const result = response.data.userAllergyMaterials;
-  //       setData(result);
-  //       console.log('데이터: ', result);
-  //       console.log('데이터 개수: ', result.length);
-  //     })
-  //     .then((error) => {
-  //       console.log(error);
-  //       console.log('없으면 unde');
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    console.log('여기는 사용자 자신 흔적 확인하는거');
-    axios
-      .get('http://13.124.55.59:8080/api/v1/user/summary', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('authorization'),
-        },
-      })
-      .then((response) => {
-        console.log(response.data.favorite_count);
-        setFavouriteCount(response.data.favorite_count);
-        console.log(response.data.review_count);
-        setReviewCount(response.data.review_count);
-        console.log(response.data.user_name);
-        setUserName(response.data.user_name);
-        const { userSummary } = [favouriteCount, reviewCount, userName];
-        setWrittenData({ userSummary });
-      })
-      .then((error) => {
-        console.log('에러부분');
-        console.log(error);
-        console.log('----에러없으면 undefined임');
-      });
+    gogogetSummary();
   }, []);
 
   return (

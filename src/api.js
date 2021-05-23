@@ -101,6 +101,16 @@ export const getUserAllergyInfo = {
     }),
 };
 
+//유저 기록 가져오는 부분
+export const getUserSummary = {
+  userSummary: () =>
+    api.get('api/v1/user/summary', {
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
 //2차 보안 이메일 설정 부분
 export const setSecurityEmail = {
   securityEmail: (secondEmail) =>
@@ -342,24 +352,25 @@ export const getReviewRankingApi = {
   getReviewRanking: () => api.get('/reviewRanking'),
 };
 
-export const allergyApi={
-  sortManufacturer:(sort,manufacturerName,allergies)=>api.get('/api/v1/food/getFoodListBySorting',{
-    params:{
-      pageNo:1,
-      size:10,
-      sort:sort,
-      manufacturerName:manufacturerName,
-      allergies:allergies.join(",")
-    }
-  }),
-   sortFood:(sort,foodName,allergies)=>api.get('/api/v1/food/getFoodListBySorting',{
-    params:{
-      pageNo:1,
-      size:10,
-      sort:sort,
-      manufacturerName:foodName,
-      allergies:allergies.join(",")
-    }
-  })
-
-}
+export const allergyApi = {
+  sortManufacturer: (sort, manufacturerName, allergies) =>
+    api.get('/api/v1/food/getFoodListBySorting', {
+      params: {
+        pageNo: 1,
+        size: 10,
+        sort: sort,
+        manufacturerName: manufacturerName,
+        allergies: allergies.join(','),
+      },
+    }),
+  sortFood: (sort, foodName, allergies) =>
+    api.get('/api/v1/food/getFoodListBySorting', {
+      params: {
+        pageNo: 1,
+        size: 10,
+        sort: sort,
+        manufacturerName: foodName,
+        allergies: allergies.join(','),
+      },
+    }),
+};
