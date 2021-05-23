@@ -31,4 +31,17 @@
         outline: none;
         background-color:#ffff;
     }
+    .allergies{
+        display: flex;
+        flex-direction: row;
+        width: 800px;
+    }
+    .filter{
+        border:0;
+        outline: 0;
+        background-color: white;
+        width: 30px;
+        display: flex;
+        flex-direction: row;
+    }
 }

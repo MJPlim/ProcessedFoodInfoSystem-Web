@@ -109,6 +109,9 @@ const SearchTab=(props)=>{
      sortApi.sortBy(searchTerm,e.target.value);
 
    }
+   const handleAllergySort=async(e)=>{
+     console.log(e.target.value);
+   }
     return(
         <div className="tabResult">
 
@@ -133,7 +136,7 @@ const SearchTab=(props)=>{
             <button  onClick={handleSubmit} >🔍</button>
           </InputGroup>
         </div>
-
+       
       <div className="downSection">
           <div className="list-group categoryGroup">
            <li class="list-group-item category">간식</li>
