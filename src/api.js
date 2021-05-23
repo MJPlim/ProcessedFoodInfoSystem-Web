@@ -4,24 +4,25 @@ const api = axios.create({
   baseURL: 'http://13.124.55.59:8080/',
 });
 
-
-export const foodApi = {//해당 url로 가는 함수들
-    search: (term) =>
-        api.get("/api/v1/food/getFoodListBySorting", {
-            params: {
-                foodName: term,
-                pageNo:1,
-                size:10
-            }
-        })
+export const foodApi = {
+  //해당 url로 가는 함수들
+  search: (term) =>
+    api.get('/api/v1/food/getFoodListBySorting', {
+      params: {
+        foodName: term,
+        pageNo: 1,
+        size: 10,
+      },
+    }),
 };
-export const manufacturerApi = {//해당 url로 가는 함수들
-    search: (term) =>
-        api.get("/api/v1/food/getFoodListBySorting", {
-            params: {
-                manufacturerName: term
-            }
-        })
+export const manufacturerApi = {
+  //해당 url로 가는 함수들
+  search: (term) =>
+    api.get('/api/v1/food/getFoodListBySorting', {
+      params: {
+        manufacturerName: term,
+      },
+    }),
 };
 
 export const foodDetailApi = {
@@ -123,6 +124,18 @@ export const getReviewsByFoodIdWithLogin = {
       params: {
         foodId: foodId,
         pageNum: pageNum,
+      },
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
+export const userWithdrawal = {
+  deleteUser: (password) =>
+    api.post('/api/v1/user/withdraw', {
+      data: {
+        password: password,
       },
       headers: {
         Authorization: localStorage.getItem('authorization'),

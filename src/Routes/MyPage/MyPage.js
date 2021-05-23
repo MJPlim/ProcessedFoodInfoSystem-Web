@@ -14,7 +14,7 @@ const MyPage = () => {
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
 
-  useEffect(async() => {
+  useEffect(async () => {
     console.log('MyPage 에서 알아서 알러지 가져오는 부분임');
     axios
       .get('http://13.124.55.59:8080/api/v1/user/readUserAllergy', {
@@ -24,10 +24,10 @@ const MyPage = () => {
         },
       })
       .then((response) => {
-       const result=response.data.userAllergyMaterials;
-       setData(result);
-       console.log("데이터: ",result);
-       console.log("데이터 개수: ",result.length);
+        const result = response.data.userAllergyMaterials;
+        setData(result);
+        console.log('데이터: ', result);
+        console.log('데이터 개수: ', result.length);
       })
       .then((error) => {
         console.log(error);
@@ -40,18 +40,17 @@ const MyPage = () => {
   //       const { data:{allergyList} } = await getUserAllergyInfo.userAllergies();
   //       console.log("알러지",allergyList);
   //       sessionStorage.setItem('userAllergy', JSON.stringify(allergyList));
-    
+
   //       console.log(sessionStorage.getItem('userAllergy'));
   //   }catch(e){
   //     setError(e);
   //   }
-  
-  
-    //const userAllergyInfo = JSON.parse(sessionStorage.getItem('userAllergy'));
-   // setUserAllergyMaterials(allergyList);
-    //console.log('여기 알러지 담긴 데이터 부분 출력함');
-    //console.log("알러지",allergyList);
-    //console.log('여기서 끊김');
+
+  //const userAllergyInfo = JSON.parse(sessionStorage.getItem('userAllergy'));
+  // setUserAllergyMaterials(allergyList);
+  //console.log('여기 알러지 담긴 데이터 부분 출력함');
+  //console.log("알러지",allergyList);
+  //console.log('여기서 끊김');
   //}, []);
 
   useEffect(() => {
@@ -155,15 +154,11 @@ const MyPage = () => {
         <br />
         <br />
         <Row>
-          {data === null ?(
+          {data === null ? (
             <Col md="12">알러지 데이터 없음 </Col>
           ) : (
             <Row>
-              <Col md="12">{data.map((allergy,index)=>(
-                <div>
-                  {allergy}
-                </div>
-              ))}</Col>
+              <Col md="12">{data}</Col>
               <Col md="12"></Col>
             </Row>
           )}
