@@ -1,9 +1,34 @@
-.inputGroup{
+.tabResult{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 900px;
-}
-.input{
-    margin-top: 15px;
-}
-.result{
-    margin-top: 5%;
+    .downSection{
+        display: flex;
+        flex-direction: row;
+        margin-top: 5%;
+    }
+    .categoryGroup{
+        //margin-right: 5%;
+       // position:fixed;
+        left: 5%;
+        margin-right: 10%;
+        margin-left:0%;
+    }
+    .category{
+        background-color: red;
+        color: white;
+    }
+    .inputGroup{
+        width: 600px;
+    }
+    .sortBy{
+        display: flex;
+        flex-direction: row;
+    }
+    .dropDownBtn{
+        outline: none;
+        background-color:#ffff;
+    }
 }

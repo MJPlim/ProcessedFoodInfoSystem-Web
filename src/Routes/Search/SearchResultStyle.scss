@@ -2,7 +2,8 @@
     width: 100px;
     height: 100px;
 }
-.card{
+.result{
+    .card{
     box-sizing: border-box;
     .card-body{
         display: flex;
@@ -30,4 +31,5 @@
 }
 .card:hover{
     background-color: ivory;
+}
 }

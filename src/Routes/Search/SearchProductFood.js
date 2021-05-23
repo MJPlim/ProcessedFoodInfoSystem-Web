@@ -7,9 +7,7 @@ const SearchProductFood=(props)=>{
 
   return (
     <div className="searchPage">
-      <div className="searchTab">
-        <SearchTab/>
-      </div>
+        <SearchTab className="searchTab"/>
     </div>
   );
 }
