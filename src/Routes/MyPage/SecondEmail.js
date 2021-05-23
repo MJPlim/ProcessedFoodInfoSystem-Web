@@ -6,6 +6,10 @@ import { setSecurityEmail } from 'api';
 function SecondEmail() {
   const [secondEmail, setSecondEmail] = useState('');
 
+  const onChange = (e) => {
+    setSecondEmail(e.target.value);
+  };
+
   const pushEmail = async () => {
     try {
       await setSecurityEmail.securityEmail(secondEmail);
@@ -29,9 +33,7 @@ function SecondEmail() {
                 class="form-control"
                 id="exampleDropdownFormEmail1"
                 placeholder="설정할 이메일을 입력해주세요"
-                onChange={(e) => {
-                  setSecondEmail(e.target.value);
-                }}
+                onChange={onChange}
               />
             </div>
           </form>

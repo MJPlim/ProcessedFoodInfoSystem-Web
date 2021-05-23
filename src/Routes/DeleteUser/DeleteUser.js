@@ -9,6 +9,10 @@ function DeleteUser() {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
+  const onChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const withdrawal = async () => {
     try {
       await userWithdrawal.deleteUser(password);
@@ -37,9 +41,7 @@ function DeleteUser() {
                 class="form-control"
                 id="exampleDropdownFormPassword1"
                 placeholder="Password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                onChange={onChange}
               />
             </div>
           </Col>

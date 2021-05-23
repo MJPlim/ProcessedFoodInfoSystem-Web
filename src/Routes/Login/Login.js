@@ -30,6 +30,14 @@ function Login() {
       });
   };
 
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <div className="FindUser">
       <div className="katiLogin">
@@ -45,9 +53,7 @@ function Login() {
                   class="form-control"
                   id="exampleDropdownFormEmail1"
                   placeholder="email@example.com"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  onChange={onEmailChange}
                 />
               </div>
 
@@ -58,9 +64,7 @@ function Login() {
                   class="form-control"
                   id="exampleDropdownFormPassword1"
                   placeholder="Password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
+                  onChange={onPasswordChange}
                 />
               </div>
 

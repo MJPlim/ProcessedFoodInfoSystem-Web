@@ -12,6 +12,26 @@ function Join() {
   const [birth, setBrith] = useState('');
   const history = useHistory();
 
+  const onNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onBirthChange = (e) => {
+    setBrith(e.target.value);
+  };
+
   const register = async () => {
     try {
       await userJoin.userRegister(name, password, address, birth, email);
@@ -35,9 +55,7 @@ function Join() {
                 class="form-control"
                 id="inputAddress"
                 placeholder="이름을 입력하세요"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                onChange={onNameChange}
               />
             </div>
 
@@ -49,9 +67,7 @@ function Join() {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                onChange={onEmailChange}
               />
               <small id="emailHelp" class="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -65,9 +81,7 @@ function Join() {
                 class="form-control"
                 id="exampleInputPassword1"
                 placeholder="Password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                onChange={onPasswordChange}
               />
             </div>
 
@@ -78,9 +92,7 @@ function Join() {
                 class="form-control"
                 id="inputAddress"
                 placeholder="ex)서울"
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
+                onChange={onAddressChange}
               />
             </div>
 
@@ -91,9 +103,7 @@ function Join() {
                 class="form-control"
                 id="inputAddress"
                 placeholder="ex)1999-09-09"
-                onChange={(e) => {
-                  setBrith(e.target.value);
-                }}
+                onChange={onBirthChange}
               />
             </div>
 

@@ -24,6 +24,14 @@ function ChangePassword() {
     }
   };
 
+  const onBeforePassword = (e) => {
+    setBeforePassword(e.target.value);
+  };
+
+  const onAfterPassword = (e) => {
+    setAfterPassword(e.target.value);
+  };
+
   return (
     <div className="changePassword">
       <Container>
@@ -38,9 +46,7 @@ function ChangePassword() {
                 class="form-control"
                 id="exampleDropdownFormEmail1"
                 placeholder="현재 비밀번호를 입력해주세요"
-                onChange={(e) => {
-                  setBeforePassword(e.target.value);
-                }}
+                onChange={onBeforePassword}
               />
             </div>
             <div class="form-group">
@@ -50,9 +56,7 @@ function ChangePassword() {
                 class="form-control"
                 id="exampleDropdownFormPassword1"
                 placeholder="희망 비밀번호를 입력해주세요"
-                onChange={(e) => {
-                  setAfterPassword(e.target.value);
-                }}
+                onChange={onAfterPassword}
               />
             </div>
           </form>
