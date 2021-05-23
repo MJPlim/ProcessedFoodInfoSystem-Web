@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { changeUserInfoApi } from 'api';
 
 const ChangeUserInfo = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [birth, setBrith] = useState('');
-
-  var token = localStorage.getItem('authorization');
 
   var userInfoname = localStorage.getItem('name');
   var userInfoaddress = localStorage.getItem('address');
@@ -38,31 +37,27 @@ const ChangeUserInfo = () => {
     }
   };
 
-  const changeInfo = () => {
-    console.log('유저 정보 바꾸기 시작!! 보냄보냄');
-    axios({
-      url: 'http://13.124.55.59:8080/api/v1/user/modify-user-info',
-      method: 'POST',
-      data: {
-        address: address,
-        birth: birth,
-        name: name,
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    })
-      .then((response) => {
-        const status = response.status;
-        if (status === 200) {
-          alert('성공데스네~ 여기가 유저 정보 바꾸고 보내기까지 ㅇㅋ된 부분');
-        }
-      })
-      .catch((error) => {
-        const status = error.response.status;
-        alert(status);
-      });
+  const changeInfo = async () => {
+    try {
+      const response = await changeUserInfoApi.changeUserInfo(
+        address,
+        birth,
+        name,
+      );
+      if (response.status == 200) {
+        alert(
+          name +
+            '님' +
+            '  생일: ' +
+            birth +
+            '  주소:  ' +
+            address +
+            '로 변경되었습니다',
+        );
+      }
+    } catch (e) {
+      alert('실패하였습니다');
+    }
   };
 
   return (

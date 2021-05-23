@@ -6,6 +6,7 @@ import {
 } from 'react-icons/md';
 import './MyAllergies.scss';
 import axios from 'axios';
+import { setUserAllergyInfo } from 'api';
 
 function MyAllergies() {
   const [allergy, setAllergy] = useState('');
@@ -37,45 +38,15 @@ function MyAllergies() {
     console.log(allergyList);
   };
 
-  const checkArray = () => {
-    if (allergy == null) {
-      <div>입력된 데이터 없음</div>;
-    } else {
-      <div className="allergyItem">
-        <div className="checkBox">
-          <MdCheckBoxOutlineBlank />
-          <div className="text">여기에 알러지 들어옴</div>
-        </div>
-        <div className="remove">
-          <MdRemoveCircleOutline />
-        </div>
-      </div>;
+  const createAllergy = async () => {
+    try {
+      await setUserAllergyInfo.setAllergies(allergyList);
+      alert('등록되었습니다.');
+    } catch (e) {
+      alert(e.response.data['error-message']);
     }
   };
 
-  const createAllergy = () => {
-    console.log('알러지 보내는 부부부부부부부분');
-    axios({
-      url: 'http://13.124.55.59:8080/api/v1/user/createUserAllergy',
-      method: 'POST',
-      data: {
-        allergyList: allergyList,
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('authorization'),
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        console.log(response.message);
-      })
-      .catch((error) => {
-        const status = error.response.status;
-        console.log(status);
-        console.log(['error.error-message']);
-      });
-  };
   return (
     <div>
       <p>알러지 종류</p>

@@ -7,42 +7,35 @@ import { FcGoogle } from 'react-icons/fc';
 import { MdAssignmentInd } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { FaUsersCog } from 'react-icons/fa';
+import { userLogin } from 'api';
 
 var token;
 
 function Login() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  console.log('abababc  ');
+
   const login = () => {
-    console.log('aaaa');
     localStorage.setItem('userLoginEmail', email);
     localStorage.setItem('userLoginPassword', password);
-    axios({
-      url: 'http://13.124.55.59:8080/login',
-      method: 'POST',
-      data: {
-        email: email,
-        password: password,
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    userLogin
+      .userLoginApi(email, password)
       .then((response) => {
-        console.log(12345);
         token = response.headers.authorization;
-        console.log(token);
         localStorage.setItem('authorization', token);
         alert('로그인 완료');
       })
       .catch((error) => {
-        const status = error.response.status;
-        if (status === 401) {
-          //console.log("fail");
-          alert('잘못된 정보입니다.');
-        }
+        alert('잘못된 정보입니다', error);
       });
+  };
+
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   return (
@@ -60,9 +53,7 @@ function Login() {
                   class="form-control"
                   id="exampleDropdownFormEmail1"
                   placeholder="email@example.com"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  onChange={onEmailChange}
                 />
               </div>
 
@@ -73,9 +64,7 @@ function Login() {
                   class="form-control"
                   id="exampleDropdownFormPassword1"
                   placeholder="Password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
+                  onChange={onPasswordChange}
                 />
               </div>
 
