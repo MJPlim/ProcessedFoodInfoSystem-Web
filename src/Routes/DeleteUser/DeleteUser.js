@@ -9,73 +9,15 @@ function DeleteUser() {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  async function withdrawal() {
+  const withdrawal = async () => {
     try {
       await userWithdrawal.deleteUser(password);
+      alert('탈퇴완료');
     } catch (e) {
-      console.error(e);
+      console.log(e);
+      alert('탈퇴실패');
     }
-  }
-
-  //   const withdrawal = async () => {
-  //     try {
-  //       const aa = await userWithdrawal.deleteUser(password);
-  //       console.log(aa);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-
-  //   const withdrawal = async () => {
-  //     const byebye = await userWithdrawal.deleteUser(password);
-  //   };
-
-  //   const withdrawal = async () => {
-  //     await userWithdrawal
-  //       .deleteUser(password)
-  //       .then(async () => {
-  //         alert('ok');
-  //       })
-  //       .catch((e) => {
-  //         alert('실패');
-  //       });
-  //   };
-
-  //   const withdrawal = async () => {
-  //     await userWithdrawal
-  //       .deleteUser(password)
-  //       .then((response) => {
-  //         alert('탈퇴완료', response);
-  //       })
-  //       .catch((error) => {
-  //         alert('탈퇴실패', error.response.status);
-  //       });
-  //   };
-
-  //   const withdrawal = () => {
-  //     axios({
-  //       url: 'http://13.124.55.59:8080/api/v1/user/withdraw',
-  //       method: 'POST',
-  //       data: {
-  //         password: password,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem('authorization'),
-  //       },
-  //     })
-  //       .then((response) => {
-  //         console.log(response);
-  //         alert('탈퇴하셨습니다');
-  //         history.push('/'); //메인으로
-  //       })
-  //       .catch((error) => {
-  //         alert('비밀번호가 틀렸습니다.');
-  //         const status = error.response.status;
-  //         if (status === 401) {
-  //           //console.log("fail");
-  //         }
-  //       });
-  //   };
+  };
 
   return (
     <div className="FindUser">

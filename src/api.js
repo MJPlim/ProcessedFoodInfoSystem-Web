@@ -4,6 +4,112 @@ const api = axios.create({
   baseURL: 'http://13.124.55.59:8080/',
 });
 
+//User 관련 부분
+
+//아이디 삭제
+export const userWithdrawal = {
+  deleteUser: (password) =>
+    api.post(
+      '/api/v1/user/withdraw',
+      { password: password },
+      { headers: { Authorization: localStorage.getItem('authorization') } },
+    ),
+};
+
+//이메일 찾기 부분
+export const findEmail = {
+  findUserEmail: (secondEmail) =>
+    api.post(
+      '/find-email',
+      { secondEmail: secondEmail },
+      { headers: { Authorization: localStorage.getItem('authorization') } },
+    ),
+};
+
+//사용자 가입 부분
+export const userJoin = {
+  userRegister: (name, password, address, birth, email) =>
+    api.post(
+      '/signup',
+      {
+        name: name,
+        password: password,
+        address: address,
+        birth: birth,
+        email: email,
+      },
+      { headers: { 'Content-Type': 'application/json' } },
+    ),
+};
+
+//로그인 부분
+export const userLogin = {
+  userLoginApi: (email, password) =>
+    api.post(
+      '/login',
+      { email: email, password: password },
+      { headers: { 'Content-Type': 'application/json' } },
+    ),
+};
+
+//비밀번호 변경 부분
+export const userChangePW = {
+  changePW: (beforePassword, afterPassword) =>
+    api.post(
+      '/api/v1/user/modify-password',
+      { beforePassword: beforePassword, afterPassword: afterPassword },
+      { headers: { Authorization: localStorage.getItem('authorization') } },
+    ),
+};
+
+//유저 정보 변경 부분
+export const changeUserInfoApi = {
+  changeUserInfo: (address, birth, name) =>
+    api.post(
+      '/api/v1/user/modify-user-info',
+      { address: address, birth: birth, name: name },
+      {
+        headers: { Authorization: localStorage.getItem('authorization') },
+      },
+    ),
+};
+
+//유저 알러지 등록하는 부분
+export const setUserAllergyInfo = {
+  setAllergies: (allergyList) =>
+    api.post(
+      '/api/v1/user/createUserAllergy',
+      {
+        allergyList: allergyList,
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem('authorization'),
+        },
+      },
+    ),
+};
+
+//유저 알러지 가져오는 부분
+export const getUserAllergyInfo = {
+  userAllergies: () =>
+    api.get('api/v1/user/readUserAllergy', {
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
+//2차 보안 이메일 설정 부분
+export const setSecurityEmail = {
+  securityEmail: (secondEmail) =>
+    api.post(
+      '/api/v1/user/set-secondEmail',
+      { secondEmail: secondEmail },
+      { headers: { Authorization: localStorage.getItem('authorization') } },
+    ),
+};
+
 export const foodApi = {
   //해당 url로 가는 함수들
   search: (term) =>
@@ -131,18 +237,6 @@ export const getReviewsByFoodIdWithLogin = {
     }),
 };
 
-export const userWithdrawal = {
-  deleteUser: (password) =>
-    api.post('/api/v1/user/withdraw', {
-      data: {
-        password: password,
-      },
-      headers: {
-        Authorization: localStorage.getItem('authorization'),
-      },
-    }),
-};
-
 export const addFavoriteApi = {
   //해당 url로 가는 함수들
   addFavorite: (foodId) =>
@@ -194,16 +288,6 @@ export const favouriteApi = {
     }),
 };
 
-export const getUserAllergyInfo = {
-  userAllergies: () =>
-    api.get('api/v1/user/readUserAllergy', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('authorization'),
-      },
-    }),
-};
-
 export const getWrittenReport = {
   userReport: () =>
     api.get('api/v1/user/summary', {
@@ -212,22 +296,6 @@ export const getWrittenReport = {
         Authorization: localStorage.getItem('authorization'),
       },
     }),
-};
-
-export const setUserAllergyInfo = {
-  //해당 url로 가는 함수들
-  setAllergies: ([allergy]) =>
-    api.post(
-      '/api/v1/user/createUserAllergy',
-      {
-        allergyList: [allergy],
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem('authorization'),
-        },
-      },
-    ),
 };
 
 export const reviewLikeApi = {

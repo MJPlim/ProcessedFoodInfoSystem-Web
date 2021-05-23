@@ -11,6 +11,7 @@ import {
 import './FindUserStyle.scss';
 import isEmail from 'validator/es/lib/isEmail';
 import axios from 'axios';
+import { findEmail } from 'api';
 
 const FindEmail = () => {
   const [secondEmail, setSecondEmail] = useState('');
@@ -26,24 +27,16 @@ const FindEmail = () => {
       setMessage('잘못된 이메일 형식 입니다.');
     } else {
       setMessage(null);
-      axios({
-        url: 'http://13.124.55.59:8080/find-email',
-        method: 'POST',
-        data: {
-          secondEmail: secondEmail,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      findEmail
+        .findUserEmail(secondEmail)
         .then((response) => {
-          console.log(12345);
-          const status = response.status;
-          alert('보냄');
+          alert(
+            ' 입력하신 ' + secondEmail + '로 이메일을 발송했습니다',
+            response,
+          );
         })
         .catch((error) => {
-          const status = error.response.status;
-          alert(status);
+          alert('잘못된 이메일 주소입니다', error);
         });
     }
   };

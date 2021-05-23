@@ -14,6 +14,17 @@ const MyPage = () => {
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
 
+  // useEffect(() => {
+  //   getUserAllergyInfo.userAllergies
+  //     .then((response) => {
+  //       const result = response.data.userAllergyMaterials;
+  //       setData(result);
+  //     })
+  //     .then((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
   useEffect(async () => {
     console.log('MyPage 에서 알아서 알러지 가져오는 부분임');
     axios
@@ -34,24 +45,6 @@ const MyPage = () => {
         console.log('없으면 unde');
       });
   }, []);
-  // useEffect(async () => {
-  //   try{
-  //     setLoading(true);
-  //       const { data:{allergyList} } = await getUserAllergyInfo.userAllergies();
-  //       console.log("알러지",allergyList);
-  //       sessionStorage.setItem('userAllergy', JSON.stringify(allergyList));
-
-  //       console.log(sessionStorage.getItem('userAllergy'));
-  //   }catch(e){
-  //     setError(e);
-  //   }
-
-  //const userAllergyInfo = JSON.parse(sessionStorage.getItem('userAllergy'));
-  // setUserAllergyMaterials(allergyList);
-  //console.log('여기 알러지 담긴 데이터 부분 출력함');
-  //console.log("알러지",allergyList);
-  //console.log('여기서 끊김');
-  //}, []);
 
   useEffect(() => {
     console.log('여기는 사용자 자신 흔적 확인하는거');
