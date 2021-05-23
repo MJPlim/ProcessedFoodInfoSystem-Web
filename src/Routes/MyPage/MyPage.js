@@ -14,6 +14,18 @@ const MyPage = () => {
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
 
+  useEffect(() => {
+    const gogogetAllergy = async () => {
+      try {
+        const { response } = await getUserAllergyInfo.userAllergies();
+        const result = response.data.userAllergyMaterials;
+        setData(result);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+  }, []);
+
   // useEffect(() => {
   //   getUserAllergyInfo.userAllergies
   //     .then((response) => {
