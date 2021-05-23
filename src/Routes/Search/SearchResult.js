@@ -6,7 +6,7 @@ const SearchResult=({loading,result})=>{
       <div className="result">
           {loading? <div>Loading...</div>:
           <div>
-              {result? 
+              {result && result.length>0 ?
               result.map((result,index)=>(
                  <div class="card">
                 <Link class="card-link" to={`food/${result.foodId}`}>

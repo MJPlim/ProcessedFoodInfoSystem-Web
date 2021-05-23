@@ -2,9 +2,16 @@ import React,{useEffect,useState} from 'react';
 import './SearchTabStyle.scss';
 import {
   InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
   Input,
- Dropdown, DropdownToggle, DropdownMenu, DropdownItem
+  
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Collapse, Button, CardBody, Card
 } from 'reactstrap';
+
 import SearchResult from'./SearchResult';
 import {
   foodApi,
@@ -14,20 +21,25 @@ import {
   manufacturerApi,
   allergyApi
 } from '../../api';
-import { FaBuilding, FaCrown } from 'react-icons/fa';
+import { FaBuilding, FaCrown,FaAllergies } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
+
+
 const SearchTab=(props)=>{
-   // console.log("searchTab: ",searchTerm);
+
     
     //드롭다운 부분
-      const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [splitButtonOpen, setSplitButtonOpen] = useState(false);
+  const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
+  const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
+    //알러지 토글 부분
+   const [isOpen, setIsOpen] = useState(false);
 
-      const toggle = () => setDropdownOpen(prevState => !prevState);
-      const [lastClicked, setLastClicked] = useState(null);
-
+   const toggle = () => setIsOpen(!isOpen);
 
     //옵션 선택
-    const [option, setOption] = useState('null');
+    const [option, setOption] = useState('식품명');
     //초기 설정 부분
     const [error,setError]=useState(null);
     const [loading,setLoading]=useState(false);
@@ -36,8 +48,12 @@ const SearchTab=(props)=>{
     //검색결과 데이터
     const [result,setResult]=useState(null);
     //이전 검색 결과
-     const [data, setData] = useState(null); 
-
+    const [data, setData] = useState(null); 
+    //정렬방식 선택
+    const [sort,setSort]=useState('ranking');
+    //알레르기 배열
+    let allergyList=[];
+    const [allergies,setAllergies]=useState([]);
     //마운팅 될 때
     useEffect(()=>{
       if(sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')){
@@ -49,6 +65,7 @@ const SearchTab=(props)=>{
     },[data]);
     const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(allergyList);
     if (searchTerm !== null&& searchTerm.length!==0) {
       sessionStorage.setItem('searchTerm', searchTerm);
       try{
@@ -92,52 +109,96 @@ const SearchTab=(props)=>{
       setLoading(false);
     }
   };
-   const handleSort=async(e)=>{
-     console.log("정렬방법: ",e.target.value);
+   const handleSort=async(sortType)=>{
+     console.log("정렬방법: ",sortType);
      console.log("검색어:",searchTerm);
      try{
       setLoading(true);
-      const {data:{resultList}}=await  sortApi.sortBy(searchTerm,e.target.value);
+      const {data:{resultList}}=await  sortApi.sortBy(searchTerm,sortType);
       console.log(resultList);
       setResult(resultList);
       sessionStorage.setItem('data', JSON.stringify(resultList));
-     }catch(e){
-      setError(e);
+     }catch(sortType){
+      setError(sortType);
      }finally{
        setLoading(false);
      }
-     sortApi.sortBy(searchTerm,e.target.value);
+   }
+   const handleAllergy=(allergy)=>{
+     console.log("--알러지--",allergy);
+    allergyList.push(allergy);
+   }
 
-   }
-   const handleAllergySort=async(e)=>{
-     console.log(e.target.value);
-   }
     return(
         <div className="tabResult">
 
+          {/* 검색창 */}
          <div className="inputGroup">
-          <div class="form-check form-check-inline">
-            <input onClick={()=>setOption("식품명")} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-            <label className="form-check-label" for="inlineRadio1">식품명</label>
-          </div>
-          <div  className="form-check form-check-inline">
-            <input onClick={()=>setOption("제조사명")} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-            <label className="form-check-label" for="inlineRadio2">제조사명</label>
-          </div>
-          <InputGroup className="inputGroup">
-            <Input className="input"
-              placeholder="검색어를 입력하세요"
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-              type="search"
-              list="searchHistory"
-                 />
-            <button  onClick={handleSubmit} >🔍</button>
-          </InputGroup>
-        </div>
+            <InputGroup>
+        <InputGroupButtonDropdown
+          addonType="prepend"
+          isOpen={splitButtonOpen}
+          toggle={toggleSplit}
+        >
+          <Button className="dropdown" outline>
+            {option}
+          </Button>
+          <DropdownToggle className="dropdown dropdownArrow" split />
+          <DropdownMenu className="dropdown">
+            <DropdownItem onClick={() => setOption('식품명')}>
+              식품명
+            </DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem onClick={() => setOption('제조사명')}>
+              제조사명
+            </DropdownItem>
+          </DropdownMenu>
+        </InputGroupButtonDropdown>
+        <Input
+          placeholder="검색어를 입력하세요"
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+          type="search"
+          className="input"
+        />
        
+        <InputGroupAddon addonType="append">
+          <Button onClick={handleSubmit}>🔍</Button>
+        </InputGroupAddon>
+      </InputGroup>
+      <Button className="allergyBtn" onClick={toggle} >
+       <FaAllergies/> 
+      </Button>
+      <Collapse isOpen={isOpen}>
+        <Card>
+          <CardBody>
+          <p>알레르기를 체크하세요</p>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("아몬드")} class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            아몬드
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("우유")} class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            우유
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("밀")}  class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            밀
+          </label>
+          </div>
+          </CardBody>
+        </Card>
+      </Collapse>
+        </div>
+      
       <div className="downSection">
+            {/* 카테고리 */}
           <div className="list-group categoryGroup">
            <li class="list-group-item category">간식</li>
                <button
@@ -377,31 +438,30 @@ const SearchTab=(props)=>{
         
         </div>
           <div className="foodResult">
-            <div className="selectType list-group resultPage sortBy">
-                    <button
-                      className="list-group-item list-group-item-action "
-                      onClick={handleSort}
-                      value="ranking"
-                    >
-                      <FaCrown></FaCrown>카티 랭킹순
-                    </button>
-                    <button
-                      className="list-group-item list-group-item-action"
-                      onClick={handleSort}
-                      value="reviewCount"
-                    >
-                      <IoIosPaper></IoIosPaper>리뷰순
-                    </button>
-                    <button
-                      className="list-group-item list-group-item-action"
-                      onClick={handleSort}
-                      value="manufacturer"
-                    >
-                      <FaBuilding></FaBuilding>제조사 별
-                    </button>
-                   
-                  </div>
-                   <SearchResult className="searchResult" loading={loading} result={result} />
+            {/* 정렬방식 */}
+          <div className="selectType list-group resultPage sortBy">
+                   <div class="form-check">
+                  <input type="button" onClick={()=>handleSort("ranking")}class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+                 <label class="form-check-label" for="flexRadioDefault2">
+                      <FaCrown></FaCrown>랭킹순
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input type="button" onClick={()=>handleSort("reviewCount")} class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                     <IoIosPaper></IoIosPaper>리뷰순
+                 </label>
+                </div>
+
+                <div class="form-check">
+                  <input type="button" onClick={()=>handleSort("manufacturer")} class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    <FaBuilding></FaBuilding>제조사별
+                  </label>
+                </div>
+              </div>
+          <SearchResult className="searchResult" loading={loading} result={result} />
+          
           </div>
         
       </div>

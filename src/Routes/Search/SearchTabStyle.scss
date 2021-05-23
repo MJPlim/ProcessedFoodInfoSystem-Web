@@ -4,33 +4,51 @@
     justify-content: center;
     align-items: center;
     width: 900px;
+    .allergyBtn{
+     
+        margin-left: 5%;
+        display: flex;
+        align-items: center;
+    }
     .downSection{
         display: flex;
         flex-direction: row;
         margin-top: 5%;
     }
     .categoryGroup{
-        //margin-right: 5%;
-       // position:fixed;
-        left: 5%;
-        margin-right: 10%;
-        margin-left:0%;
+        position: relative;
+        right: 15%;
     }
     .category{
         background-color: red;
         color: white;
     }
+    .groupButton{
+        display: flex;
+         justify-items: center;
+        align-items: center;
+    }
     .inputGroup{
         width: 600px;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        .input{
+            top: 15px;
+        }
     }
     .sortBy{
         display: flex;
         flex-direction: row;
+        margin-bottom: 1%;
+      
+    }.form-check{
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        margin-right: 3%;
     }
-    .dropDownBtn{
-        outline: none;
-        background-color:#ffff;
-    }
+
     .allergies{
         display: flex;
         flex-direction: row;
@@ -43,5 +61,10 @@
         width: 30px;
         display: flex;
         flex-direction: row;
+    }
+    .foodResult{
+         position: relative;
+         right: 7.5%;
+         width: 700px;
     }
 }
