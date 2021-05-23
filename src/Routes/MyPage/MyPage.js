@@ -24,6 +24,7 @@ const MyPage = () => {
         console.log(e);
       }
     };
+    gogogetAllergy();
   }, []);
 
   // useEffect(() => {
@@ -37,26 +38,26 @@ const MyPage = () => {
   //     });
   // }, []);
 
-  useEffect(async () => {
-    console.log('MyPage 에서 알아서 알러지 가져오는 부분임');
-    axios
-      .get('http://13.124.55.59:8080/api/v1/user/readUserAllergy', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('authorization'),
-        },
-      })
-      .then((response) => {
-        const result = response.data.userAllergyMaterials;
-        setData(result);
-        console.log('데이터: ', result);
-        console.log('데이터 개수: ', result.length);
-      })
-      .then((error) => {
-        console.log(error);
-        console.log('없으면 unde');
-      });
-  }, []);
+  // useEffect(async () => {
+  //   console.log('MyPage 에서 알아서 알러지 가져오는 부분임');
+  //   axios
+  //     .get('http://13.124.55.59:8080/api/v1/user/readUserAllergy', {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: localStorage.getItem('authorization'),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const result = response.data.userAllergyMaterials;
+  //       setData(result);
+  //       console.log('데이터: ', result);
+  //       console.log('데이터 개수: ', result.length);
+  //     })
+  //     .then((error) => {
+  //       console.log(error);
+  //       console.log('없으면 unde');
+  //     });
+  // }, []);
 
   useEffect(() => {
     console.log('여기는 사용자 자신 흔적 확인하는거');
