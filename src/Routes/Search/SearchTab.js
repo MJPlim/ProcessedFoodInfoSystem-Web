@@ -56,6 +56,7 @@ const SearchTab=(props)=>{
     const [allergies,setAllergies]=useState([]);
     //마운팅 될 때
     useEffect(()=>{
+     
       if(sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')){
         setSearchTerm(sessionStorage.getItem('searchTerm'));
         console.log('이전 검색어: ',searchTerm);
@@ -63,24 +64,38 @@ const SearchTab=(props)=>{
         console.log('이전 검색 결과',result);
       }
     },[data]);
+
+    //검색버튼 누를때
     const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(allergyList);
     if (searchTerm !== null&& searchTerm.length!==0) {
       sessionStorage.setItem('searchTerm', searchTerm);
       try{
-        setLoading(true);
-        if(option==="식품명"){
-             const {data: { resultList }}=await foodApi.search(searchTerm);
-              sessionStorage.setItem('data', JSON.stringify(resultList));
-              
-              setResult(resultList);
-              console.log('검색결과 데이터', resultList);
+        if(allergyList.length!==0){
+          console.log("알러지 잇음!");
+          if(option==='식품명'){
+            const {data:{resultList}}=await allergyApi.sortFood(sort,searchTerm,allergyList);
+            sessionStorage.setItem('data', JSON.stringify(resultList));
+            setResult(resultList);
+          }else{
+            const {data:{resultList}}=await allergyApi.sortFood(sort,searchTerm,allergyList);
+            sessionStorage.setItem('data', JSON.stringify(resultList));
+            setResult(resultList);
+          }        
         }else{
-             const {data: { resultList }}=await manufacturerApi.search(searchTerm);
+          console.log('알러지 없음!');
+          if(option==='식품명'){
+            const {data:{resultList}}=await foodApi.search(searchTerm);
+            sessionStorage.setItem('data', JSON.stringify(resultList));
+            setResult(resultList);
+          }else{
+             const {data:{resultList}}=await manufacturerApi.search(searchTerm);
+             sessionStorage.setItem('data', JSON.stringify(resultList));
              setResult(resultList);
-              sessionStorage.setItem('data', JSON.stringify(resultList));
+          }
         }
+         
       }catch(e){
         setError(e);
       }finally{
@@ -91,6 +106,7 @@ const SearchTab=(props)=>{
         setError("검색결과가 없습니다!");
     }
   };
+    //카테고리 정렬
     const handleCategory = async (e) => {
     console.log('category', e.target.value);
     setSearchTerm(e.target.value);
@@ -109,6 +125,7 @@ const SearchTab=(props)=>{
       setLoading(false);
     }
   };
+   //정렬방법
    const handleSort=async(sortType)=>{
      console.log("정렬방법: ",sortType);
      console.log("검색어:",searchTerm);
@@ -124,8 +141,9 @@ const SearchTab=(props)=>{
        setLoading(false);
      }
    }
+   //알러지 추가
    const handleAllergy=(allergy)=>{
-     console.log("--알러지--",allergy);
+     console.log("--알러지--",allergyList);
     allergyList.push(allergy);
    }
 
@@ -154,14 +172,23 @@ const SearchTab=(props)=>{
             </DropdownItem>
           </DropdownMenu>
         </InputGroupButtonDropdown>
-        <Input
+        {searchTerm===null ?  <Input
           placeholder="검색어를 입력하세요"
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
           type="search"
           className="input"
+        />:
+         <Input
+          placeholder={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+          type="search"
+          className="input"
         />
+        }
        
         <InputGroupAddon addonType="append">
           <Button onClick={handleSubmit}>🔍</Button>
@@ -174,23 +201,139 @@ const SearchTab=(props)=>{
         <Card>
           <CardBody>
           <p>알레르기를 체크하세요</p>
+          <div className="allergyType">
           <div class="form-check">
-          <input onClick={()=>handleAllergy("아몬드")} class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <input onClick={()=>handleAllergy("아몬드")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
           <label class="form-check-label" for="defaultCheck1">
             아몬드
           </label>
           </div>
           <div class="form-check">
-          <input onClick={()=>handleAllergy("우유")} class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <input onClick={()=>handleAllergy("우유")} class="form-check-input" type="checkbox" id="defaultCheck1"/>
           <label class="form-check-label" for="defaultCheck1">
             우유
           </label>
           </div>
           <div class="form-check">
-          <input onClick={()=>handleAllergy("밀")}  class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+          <input onClick={()=>handleAllergy("대두")}  class="form-check-input" type="checkbox" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            대두
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("밀")} class="form-check-input" type="checkbox" id="defaultCheck1"/>
           <label class="form-check-label" for="defaultCheck1">
             밀
           </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("닭고기")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            닭고기
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("쇠고기")}  class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            쇠고기
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("새우")} class="form-check-input" type="checkbox" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            새우
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("오징어")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            오징어
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("잣")}  class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            잣
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("소고기")} class="form-check-input" type="checkbox" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            소고기
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("돼지고기")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            돼지고기
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("메추리알")}  class="form-check-input" type="checkbox" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            메추리알
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("토마토")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            토마토
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("조개류")} class="form-check-input" type="checkbox" id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            조개류
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("난류")}  class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            난류
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("호두")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            호두
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("복숭아")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            복숭아
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("땅콩")}  class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            땅콩
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("게")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            게
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("이산황류")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            이황산류
+          </label>
+          </div>
+          <div class="form-check">
+          <input onClick={()=>handleAllergy("메밀")}  class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            메밀
+          </label>
+          </div>
+           <div class="form-check">
+          <input onClick={()=>handleAllergy("계란")} class="form-check-input" type="checkbox"  id="defaultCheck1"/>
+          <label class="form-check-label" for="defaultCheck1">
+            계란
+          </label>
+          </div>
           </div>
           </CardBody>
         </Card>
