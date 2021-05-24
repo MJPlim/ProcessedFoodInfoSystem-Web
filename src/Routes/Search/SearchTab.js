@@ -58,8 +58,11 @@ const SearchTab = (props) => {
   // 광고 식품 데이터
   const [adFoods, setAdFoods] = useState(null);
   // 검색 기록을 위한 state
-  const [keywords, setKeywords] = useState(
-    JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
+  const [foodKeywords, setFoodKeywords] = useState(
+    JSON.parse(localStorage.getItem('keywordsFoodForName') || '[]'),
+  );
+  const [bsshKeywords, setBsshKeywords] = useState(
+    JSON.parse(localStorage.getItem('keywordsFoodForBssh') || '[]'),
   );
 
   //마운팅 될 때
@@ -67,7 +70,8 @@ const SearchTab = (props) => {
 
     if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
       //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
-      localStorage.setItem('keywordsFood', JSON.stringify(keywords));
+      localStorage.setItem('keywordsFoodForName', JSON.stringify(foodKeywords));
+      localStorage.setItem('keywordsFoodForBssh', JSON.stringify(bsshKeywords));
 
       setSearchTerm(sessionStorage.getItem('searchTerm'));
       console.log('이전 검색어: ', searchTerm);
@@ -76,9 +80,7 @@ const SearchTab = (props) => {
 
       console.log('이전 검색 결과', result);
     }
-  }, [data, keywords]);
-
-
+  }, [data, foodKeywords, bsshKeywords]);
 
 
   //검색버튼 누를때
@@ -117,6 +119,7 @@ const SearchTab = (props) => {
       } finally {
         setLoading(false);
       }
+      handleAddKeyword();
       getAd();
     } else {
       setError('검색결과가 없습니다!');
@@ -138,21 +141,40 @@ const SearchTab = (props) => {
 
   // 검색어 입력시 keywords에 추가
   const handleAddKeyword = () => {
-    for (let i = 0; i < Math.min(keywords.length, NUM_OF_SHOW_ROWS); i++) {
-      // 중복 저장 방지 (보여지는 부분 만큼만 처리)
-      if (keywords[i].text === searchTerm) {
-        return;
+    if (option === '식품명') {
+      for (let i = 0; i < Math.min(foodKeywords.length, NUM_OF_SHOW_ROWS); i++) {
+        // 중복 저장 방지 (보여지는 부분 만큼만 처리)
+        if (foodKeywords[i].text === searchTerm) {
+          return;
+        }
       }
+      const newKeyword = {
+        id: Date.now(),
+        text: searchTerm,
+      };
+      if (foodKeywords.length > 100) {
+        // 최대 100건만 저장
+        foodKeywords.length = 100;
+      }
+      setFoodKeywords([newKeyword, ...foodKeywords]);
+    } else {
+      for (let i = 0; i < Math.min(bsshKeywords.length, NUM_OF_SHOW_ROWS); i++) {
+        // 중복 저장 방지 (보여지는 부분 만큼만 처리)
+        if (bsshKeywords[i].text === searchTerm) {
+          return;
+        }
+      }
+      const newKeyword = {
+        id: Date.now(),
+        text: searchTerm,
+      };
+      if (bsshKeywords.length > 100) {
+        // 최대 100건만 저장
+        bsshKeywords.length = 100;
+      }
+      setBsshKeywords([newKeyword, ...bsshKeywords]);
     }
-    const newKeyword = {
-      id: Date.now(),
-      text: searchTerm,
-    };
-    if (keywords.length > 100) {
-      // 최대 100건만 저장
-      keywords.length = 100;
-    }
-    setKeywords([newKeyword, ...keywords]);
+
   };
 
 
@@ -237,18 +259,29 @@ const SearchTab = (props) => {
                 setSearchTerm(e.target.value);
               }}
               type='search'
-              list="searchHistory"
+              list='searchHistory'
               className='input'
             />
           }
-          <datalist id="searchHistory">
-            {keywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
-              return <option key={index} value={item.text} />;
-            })}
+          <datalist id='searchHistory'>
+            {option === '식품명' ? (
+              <>
+                {foodKeywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
+                  return <option key={index} value={item.text} />;
+                })}
+              </>
+            ) : (
+              <>
+                {bsshKeywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
+                  return <option key={index} value={item.text} />;
+                })}
+              </>
+            )}
+
           </datalist>
 
           <InputGroupAddon addonType='append'>
-            <Button onClick={handleSubmit} onClick={handleAddKeyword}>🔍</Button>
+            <Button onClick={handleSubmit} >🔍</Button>
           </InputGroupAddon>
         </InputGroup>
         <Button className='allergyBtn' onClick={toggle}>
