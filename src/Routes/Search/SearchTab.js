@@ -27,7 +27,7 @@ import AdFoodResult from './AdFoodResult';
 
 
 const SearchTab = (props) => {
-
+  const NUM_OF_SHOW_ROWS = 5; // 최대 저장 검색어
 
   //드롭다운 부분
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -57,11 +57,18 @@ const SearchTab = (props) => {
   const [allergies, setAllergies] = useState([]);
   // 광고 식품 데이터
   const [adFoods, setAdFoods] = useState(null);
+  // 검색 기록을 위한 state
+  const [keywords, setKeywords] = useState(
+    JSON.parse(localStorage.getItem('keywordsFood') || '[]'),
+  );
 
   //마운팅 될 때
   useEffect(() => {
 
     if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
+      //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
+      localStorage.setItem('keywordsFood', JSON.stringify(keywords));
+
       setSearchTerm(sessionStorage.getItem('searchTerm'));
       console.log('이전 검색어: ', searchTerm);
       setResult(JSON.parse(sessionStorage.getItem('data')));
@@ -69,7 +76,10 @@ const SearchTab = (props) => {
 
       console.log('이전 검색 결과', result);
     }
-  }, [data]);
+  }, [data, keywords]);
+
+
+
 
   //검색버튼 누를때
   const handleSubmit = async (event) => {
@@ -125,6 +135,27 @@ const SearchTab = (props) => {
       setError(e);
     });
   };
+
+  // 검색어 입력시 keywords에 추가
+  const handleAddKeyword = () => {
+    for (let i = 0; i < Math.min(keywords.length, NUM_OF_SHOW_ROWS); i++) {
+      // 중복 저장 방지 (보여지는 부분 만큼만 처리)
+      if (keywords[i].text === searchTerm) {
+        return;
+      }
+    }
+    const newKeyword = {
+      id: Date.now(),
+      text: searchTerm,
+    };
+    if (keywords.length > 100) {
+      // 최대 100건만 저장
+      keywords.length = 100;
+    }
+    setKeywords([newKeyword, ...keywords]);
+  };
+
+
   //카테고리 정렬
   const handleCategory = async (e) => {
     console.log('category', e.target.value);
@@ -206,12 +237,18 @@ const SearchTab = (props) => {
                 setSearchTerm(e.target.value);
               }}
               type='search'
+              list="searchHistory"
               className='input'
             />
           }
+          <datalist id="searchHistory">
+            {keywords.slice(0, NUM_OF_SHOW_ROWS).map((item, index) => {
+              return <option key={index} value={item.text} />;
+            })}
+          </datalist>
 
           <InputGroupAddon addonType='append'>
-            <Button onClick={handleSubmit}>🔍</Button>
+            <Button onClick={handleSubmit} onClick={handleAddKeyword}>🔍</Button>
           </InputGroupAddon>
         </InputGroup>
         <Button className='allergyBtn' onClick={toggle}>
