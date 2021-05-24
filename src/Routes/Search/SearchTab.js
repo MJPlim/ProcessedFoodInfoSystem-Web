@@ -181,7 +181,7 @@ const SearchTab=(props)=>{
           className="input"
         />:
          <Input
-          placeholder={searchTerm}
+          value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
