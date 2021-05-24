@@ -10,7 +10,6 @@ import Header from './Header';
 import MS from '../Routes/MainScreen/MainScreen';
 import CP from '../Routes/CommercialProduct';
 import RP from '../Routes/RecommendedProduct';
-import SP from '../Routes/Search/SearchProduct';
 import SPF from '../Routes/Search/SearchProductFood';
 
 import CM from '../Routes/Community';
@@ -42,7 +41,7 @@ export default () => (
         <Route path="/" exact component={MS} />
         <Route path="/commercialProduct" exact component={CP} />
         <Route path="/recommendedProduct" exact component={RP} />
-        <Route path="/searchProduct" exact component={SP} />
+ 
         <Route path="/searchProduct/food" exact component={SPF} />
        
         <Route path="/community" exact component={CM} />
