@@ -36,7 +36,6 @@ const SearchTab = (props) => {
   const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
   //알러지 토글 부분
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
 
   //옵션 선택
@@ -67,7 +66,10 @@ const SearchTab = (props) => {
 
   //마운팅 될 때
   useEffect(() => {
-
+    if(sessionStorage.getItem('allergies')){
+      allergyList=sessionStorage.getItem('allergies');
+      console.log('알러지 설정: ',allergyList);
+    }
     if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
       //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
       localStorage.setItem('keywordsFoodForName', JSON.stringify(foodKeywords));
@@ -86,7 +88,7 @@ const SearchTab = (props) => {
   //검색버튼 누를때
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(allergyList);
+    console.log('체크된 알러지',allergyList);
     if (searchTerm !== null && searchTerm.length !== 0) {
       sessionStorage.setItem('searchTerm', searchTerm);
       try {
@@ -216,8 +218,20 @@ const SearchTab = (props) => {
   };
   //알러지 추가
   const handleAllergy = (allergy) => {
-    console.log('--알러지--', allergyList);
-    allergyList.push(allergy);
+     console.log('알러지리스트',allergyList);
+    var idx=-1;
+    for(var i=0;i<allergyList.length;i++){
+      if(allergy===allergyList[i]){
+        idx=i;
+      }
+    }
+    if(idx===-1){
+      allergyList.push(allergy);
+    }else{
+      allergyList.splice(idx,1);
+    }
+    sessionStorage.setItem('allergies',allergyList);
+    console.log('알러지리스트',allergyList);
   };
 
   return (
@@ -694,6 +708,7 @@ const SearchTab = (props) => {
         </div>
         <div className='foodResult'>
           {/* 정렬방식 */}
+           <AdFoodResult className='resultSection' loading={loading} result={adFoods} />
           <div className='selectType list-group resultPage sortBy'>
             <div class='form-check'>
               <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
@@ -718,7 +733,7 @@ const SearchTab = (props) => {
               </label>
             </div>
           </div>
-          <AdFoodResult className='resultSection' loading={loading} result={adFoods} />
+         
           <SearchResult className='searchResult' loading={loading} result={result} />
 
 
