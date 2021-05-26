@@ -708,7 +708,7 @@ const SearchTab = (props) => {
         </div>
         <div className='foodResult'>
           {/* 정렬방식 */}
-           <AdFoodResult className='resultSection' loading={loading} result={adFoods} />
+
           <div className='selectType list-group resultPage sortBy'>
             <div class='form-check'>
               <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
@@ -733,7 +733,7 @@ const SearchTab = (props) => {
               </label>
             </div>
           </div>
-         
+          <AdFoodResult className='resultSection' loading={loading} result={adFoods} />
           <SearchResult className='searchResult' loading={loading} result={result} />
 
 
