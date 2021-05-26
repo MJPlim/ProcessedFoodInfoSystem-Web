@@ -17,6 +17,7 @@ import {
 import FoodDetailTitle from '../../Components/Food/FoodDetailTitle';
 import FoodInfo from '../../Components/Food/FoodInfo';
 import FoodReview from '../../Components/Food/FoodReview';
+import FoodImageCarousel from '../../Components/Food/FoodImageCarousel';
 
 const FoodDetail = (props) => {
     const foodId = props.match.params.id;
@@ -343,22 +344,26 @@ const FoodDetail = (props) => {
 
     return (
       <div className='FoodDetail'>
-        {/* 타이틀 영역 시작*/}
-        <FoodDetailTitle food={food} isLogin={isLogin} isFavorite={isFavorite} onMoveToLink={() => onMoveToLink()}
-                         onMoveToNews={() => onMoveToNews()} onClickFavoriteButton={() => onClickFavoriteButton()} />
 
-        <hr className='hr' />
+        <div className={'hr'} />
+
         {/* 타이틀 영역 끝 */}
         <Row>
           {/*상품 정보 좌측 영역 시작 */}
-          <Col lg='6' className='rightBorderLine'>
-            <FoodInfo food={food} />
+          <Col lg='6'>
+            <FoodImageCarousel image={food.foodImageAddress} metaImage={food.foodMeteImageAddress} />
+
           </Col>
           {/*상품 정보 좌측 영역 끝 */}
 
 
           {/*상품 정보 우측 영역 시작 */}
-          <Col lg='6' className='reviewArea'>
+          <Col lg='6'>
+            <FoodInfo food={food} onMoveToLink={() => onMoveToLink()} onMoveToNews={() => onMoveToNews()}
+                      isLogin={isLogin} isFavorite={isFavorite}
+                      onClickFavoriteButton={() => onClickFavoriteButton()} />
+          </Col>
+          <Col lg='12' className='reviewArea'>
             <FoodReview foodId={foodId} isLogin={isLogin} reviews={reviews} reviewSummary={reviewSummary}
                         editTargetReview={editTargetReview} onClickEditReview={(review) => onClickEditReview(review)}
                         onClickDeleteReview={(review) => onClickDeleteReview(review)}
@@ -371,6 +376,7 @@ const FoodDetail = (props) => {
                         onChangeEditReview={(e) => onChangeEditReview(e)}
                         onChangeEditCancel={() => onChangeEditCancel()} onChangeReview={(e) => onChangeReview(e)} />
           </Col>
+
         </Row>
       </div>
     );
