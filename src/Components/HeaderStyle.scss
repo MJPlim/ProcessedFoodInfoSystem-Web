@@ -1,113 +1,172 @@
 @import 'styles/utils';
 
-header {
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  list-style: none;
-}
-.topsection {
-  display: flex;
-  justify-content: space-around;
-  justify-items: right;
-  align-items: center;
-  background-color: #fbc779;
-  height: 50px;
+@font-face {
+  font-family: 'engGood';
+  src: url('../styles/fonts/engGood.ttf');
 }
 
-.logo {
-  justify-content: center;
-  align-items: center;
+@font-face {
+  font-family: 'buttonFont';
+  src: url('../styles/fonts/buttonFont.ttf');
 }
 
-.serviceName {
-  font-size: 100px;
-  text-align: center;
+@font-face {
+  font-family: 'naviFont';
+  src: url('../styles/fonts/naviFont.ttf');
 }
 
-.homeImage {
-  justify-content: center;
-  align-items: center;
-  height: 50px;
+@font-face {
+  font-family: 'thickEng';
+  src: url('../styles/fonts/thickEng.ttf');
 }
 
-.buttonGroup {
-  display: inline-block;
-  text-align: right;
-  justify-content: right;
-  align-items: right;
-  margin-left: 40px;
-  margin-right: 10px;
-  font-size: 12px;
-  font-weight: bolder;
-  :hover {
-    border-bottom: black ridge 1px;
-    color: dimgray;
+@font-face {
+  font-family: 'popFont';
+  src: url('../styles/fonts/popFont.ttf');
+}
+
+@font-face {
+  font-family: 'typo';
+  src: url('../styles/fonts/typo.ttf');
+}
+
+@font-face {
+  font-family: 'ss';
+  src: url('../styles/fonts/ss.ttf');
+}
+
+@font-face {
+  font-family: 'tway';
+  src: url('../styles/fonts/tway.ttf');
+}
+
+@font-face {
+  font-family: 'dm';
+  src: url('../styles/fonts/dm.ttf');
+}
+
+.header {
+  header {
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    list-style: none;
   }
-}
-
-.loginBtn {
-  margin-right: 10px;
-  margin-left: 200px;
-  text-align: right;
-  align-content: right;
-  justify-content: right;
-}
-.joinBtn {
-  margin-right: 10px;
-}
-.myPageBtn {
-  margin-right: 10px;
-}
-.myFavouriteBtn {
-  margin-right: 10px;
-}
-.deleteBtn {
-  margin-right: 10px;
-}
-.logoutBtn {
-  margin-right: 10px;
-}
-input::placeholder {
-  font-size: 8px;
-}
-
-.navigationGroup {
-  display: inline-block;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin: auto;
-}
-
-.mainBrand {
-  display: inline-block;
-  text-align: center;
-  justify-content: center;
-  margin-left: 200px;
-  padding-top: 0%;
-  margin-right: 10px;
-}
-
-.links {
-  display: inline-block;
-  text-align: center;
-  justify-content: center;
-  margin-left: 200px;
-  margin-right: 10px;
-  font-size: 13px;
-  font-weight: bolder;
-  :hover {
-    border-bottom: black ridge 1px;
-    color: orangered;
+  .topsection {
+    display: flex;
+    justify-content: space-around;
+    justify-items: right;
+    align-items: center;
+    background-color: #fbc779;
+    height: 50px;
   }
-}
 
-.searchSection {
-  display: inline-block;
-  text-align: right;
-  justify-content: right;
-  align-items: right;
-  margin-left: 150px;
+  .logo {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .serviceName {
+    margin-top: 45px;
+    margin-bottom: 45px;
+    font-size: 100px;
+    font-family: 'thickEng';
+    text-align: center;
+    text-align: bold;
+  }
+
+  .homeImage {
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
+
+  .buttonGroup,
+  .buttons {
+    display: inline-block;
+    text-align: right;
+    justify-content: right;
+    align-items: right;
+    margin-left: 50px;
+    margin-right: 10px;
+    font-size: 15px;
+    font-weight: lighter;
+    font-family: 'tway';
+    color: black;
+    :hover {
+      border-bottom: dodgerblue ridge 1px;
+      color: dimgray;
+    }
+  }
+
+  .loginBtn {
+    margin-right: 10px;
+    margin-left: 1000px;
+    text-align: right;
+    align-content: right;
+    justify-content: right;
+  }
+  .joinBtn {
+    margin-right: 10px;
+  }
+  .myPageBtn {
+    margin-right: 10px;
+  }
+  .myFavouriteBtn {
+    margin-right: 10px;
+  }
+  .deleteBtn {
+    margin-right: 10px;
+  }
+  .logoutBtn {
+    margin-right: 10px;
+  }
+  input::placeholder {
+    font-size: 8px;
+  }
+
+  .navigationGroup {
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    border-top: grey dotted 1px;
+    border-bottom: grey dotted 1px;
+    width: 100%;
+  }
+
+  .mainBrand {
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    margin-left: 200px;
+    padding-top: 0%;
+    margin-right: 10px;
+  }
+
+  .links {
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    margin-left: 250px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'tway';
+    color: black;
+    :hover {
+      border-bottom: black ridge 1px;
+      color: orangered;
+    }
+  }
+
+  .searchSection {
+    display: inline-block;
+    text-align: right;
+    justify-content: right;
+    align-items: right;
+    margin-left: 150px;
+  }
 }
