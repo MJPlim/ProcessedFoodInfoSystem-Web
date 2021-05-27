@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import './HeaderStyle.scss';
 import axios from 'axios';
 import { Col } from 'reactstrap';
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 function LoginState(props) {
   const checkLogin = props.auli;
@@ -100,7 +101,7 @@ export default withRouter(({ location: { pathname } }) => (
     <div>
       <div className="logoPosition" current={pathname === '/'}>
         <Link className="logo" to="/">
-          katiwfwf
+          katiwfwfwfwfwfw
         </Link>
       </div>
       <div className="searchTab">
@@ -117,6 +118,18 @@ export default withRouter(({ location: { pathname } }) => (
 
     <div>
       <ul>
+        <Navbar bg="light" variant="light">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
+          <Form inline>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-primary">Search</Button>
+          </Form>
+        </Navbar>
         <Item current={pathname === '/'}>
           <Link to="/">메인</Link>
         </Item>

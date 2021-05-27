@@ -24,12 +24,7 @@ class App extends Component {
       })
       .catch((error) => {
         const status = error.response.status;
-        if (status === 401) {
-          //console.log("fail");
-          alert(
-            '입력된 정보가 잘못되었음 여기 app에서 componentWillMount에서 하는 부분이니까 다시 살펴봐주셈.',
-          );
-        }
+        console.log(status);
       });
   }
 
