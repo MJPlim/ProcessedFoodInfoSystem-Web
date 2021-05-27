@@ -108,7 +108,7 @@ const Item = styled.li`
 //컴포넌트에서 라우터에 접근 현재 어떤 컴포넌트인지 라우터도 알수 있음!
 export default withRouter(({ location: { pathname } }) => (
   <header>
-    <div className="header">
+    <div className="headerJS">
       <Container>
         <Row>
           <div className="topsection">

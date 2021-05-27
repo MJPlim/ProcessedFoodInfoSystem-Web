@@ -15,19 +15,22 @@ import {
   NavDropdown,
   Image,
 } from 'react-bootstrap';
+import showImage from '../../image/needcomment.PNG';
 
 function MainScreen() {
   return (
-    <Container>
-      <Row>
-        <Col xs={6} md={12}>
-          aa
-        </Col>
-      </Row>
-      <Row>
-        <p>아메리카노</p>
-      </Row>
-    </Container>
+    <div className="mainScreen">
+      <Container>
+        <Row>
+          <Col xs={6} md={12}>
+            <Image className="showImage" src={showImage} rounded />
+          </Col>
+        </Row>
+        <Row>
+          <p>아메리카노</p>
+        </Row>
+      </Container>
+    </div>
   );
 }
 

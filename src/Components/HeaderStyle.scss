@@ -45,13 +45,14 @@
   src: url('../styles/fonts/dm.ttf');
 }
 
-.header {
+.headerJS {
   header {
     top: 0;
     display: flex;
     flex-direction: column;
     justify-items: center;
     list-style: none;
+    width: 100%;
   }
   .topsection {
     display: flex;
@@ -60,6 +61,7 @@
     align-items: center;
     background-color: #fbc779;
     height: 50px;
+    width: 100%;
   }
 
   .logo {
