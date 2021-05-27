@@ -3,13 +3,22 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import './HeaderStyle.scss';
 import axios from 'axios';
-import { Col } from 'reactstrap';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import {
+  Row,
+  Container,
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  Col,
+  InputGroup,
+  NavDropdown,
+} from 'react-bootstrap';
+import logoImage from '../image/kati.PNG';
 
 function LoginState(props) {
   const checkLogin = props.auli;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   console.log(checkLogin);
   console.log('main main ');
 
@@ -48,7 +57,7 @@ function LoginState(props) {
     return (
       <div className="buttons">
         <Link
-          className="logoutBtn"
+          className="logoutBtn, buttonGroup"
           onClick={() => {
             localStorage.setItem('authorization', null);
             localStorage.setItem('userLoginEmail', null);
@@ -58,10 +67,14 @@ function LoginState(props) {
         >
           로그아웃
         </Link>
-        <Link to="/mypage" className="myPageBtn" onClick={setUserInformation}>
+        <Link
+          to="/mypage"
+          className="myPageBtn, buttonGroup"
+          onClick={setUserInformation}
+        >
           마이페이지
         </Link>
-        <Link to="/myFavourite" className="myFavouriteBtn">
+        <Link to="/myFavourite" className="myFavouriteBtn, buttonGroup">
           즐겨찾기
         </Link>
       </div>
@@ -69,10 +82,10 @@ function LoginState(props) {
   } else if (checkLogin === 'null') {
     return (
       <div className="buttons">
-        <Link to="/login" className="loginBtn">
+        <Link to="/login" className="loginBtn, buttonGroup">
           로그인
         </Link>
-        <Link to="/join" className="joinBtn">
+        <Link to="/join" className="joinBtn, buttonGroup">
           회원가입
         </Link>
       </div>
@@ -95,80 +108,68 @@ const Item = styled.li`
 //컴포넌트에서 라우터에 접근 현재 어떤 컴포넌트인지 라우터도 알수 있음!
 export default withRouter(({ location: { pathname } }) => (
   <header>
-    <div className="topsection">
-      <LoginState auli={localStorage.getItem('authorization')} />
-    </div>
-    <div>
-      <div className="logoPosition" current={pathname === '/'}>
-        <Link className="logo" to="/">
-          katiwfwfwfwfwfw
-        </Link>
-      </div>
-      <div className="searchTab">
-        <input
-          className="searchInput"
-          placeholder="제품명 또는 회사명을 입력하세요"
-        />
-        <button className="searchBtn">🔍</button>
-      </div>
-    </div>
+    <Container>
+      <Row>
+        <div className="topsection">
+          <LoginState auli={localStorage.getItem('authorization')} />
+        </div>
+      </Row>
+
+      <Navbar className="mainNav" bg="light" variant="light"></Navbar>
+      <Row>
+        <div>
+          <Link className="logo" to="/">
+            <p className="serviceName">K A T I</p>
+          </Link>
+        </div>
+      </Row>
+    </Container>
     <br />
-    <hr />
     <br />
 
-    <div>
-      <ul>
-        <Navbar bg="light" variant="light">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-primary">Search</Button>
-          </Form>
-        </Navbar>
-        <Item current={pathname === '/'}>
-          <Link to="/">메인</Link>
-        </Item>
-        <Item current={pathname === '/commercialProduct'}>
-          <Link to="/commercialProduct">광고상품</Link>
-        </Item>
-        {/* 
-      <Item current={pathname === '/recommendedProduct'}>
-        <Link to="/recommendedProduct">추천상품</Link>
-      </Item>
-       */}
-        <Item current={pathname.includes('/searchProduct/food')}>
-          <Link to="/searchProduct/food">상품찾기</Link>
-        </Item>
-        {/*
-      <Item current={pathname === '/community'}>
-        <Link to="/community">커뮤니티</Link>
-      </Item>
-      */}
-        {/*
-      <Item current={pathname === '/userRanking'}>
-        <Link to="/userRanking">유저랭킹</Link>
-      </Item>
-      */}
-        <Item current={pathname === '/productRanking'}>
-          <Link to="/productRanking">제품랭킹</Link>
-        </Item>
-        <Item current={pathname === '/reviews'}>
-          <Link to="/reviews">리뷰</Link>
-        </Item>
-        {/*
-      <Item current={pathname === '/whatsKati'}>
-        <Link to="/whatsKati">카티란?</Link>
-      </Item>
-      <Item current={pathname === '/howToUse'}>
-        <Link to="/howToUse">카티사용법</Link>
-      </Item>
-      */}
-      </ul>
-    </div>
+    <Navbar className="mainNav" bg="light" variant="light"></Navbar>
+
+    <Navbar bg="light" expand="lg" className="navigationGroup">
+      <Navbar.Brand className="mainBrand">
+        <Link to="/">
+          <img className="homeImage" src={logoImage} />
+        </Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mainLink">
+          <Nav.Link className="links">
+            <Link to="/commercialProduct">광고상품</Link>
+          </Nav.Link>
+          <Nav.Link className="links">
+            <Link to="/searchProduct/food">상품찾기</Link>
+          </Nav.Link>
+          <Nav.Link className="links">
+            <Link to="/productRanking">제품랭킹</Link>
+          </Nav.Link>
+          <Nav.Link className="links">
+            <Link to="/reviews">리뷰</Link>
+          </Nav.Link>
+          <NavDropdown
+            className="searchSection"
+            title="선택"
+            id="basic-nav-dropdown"
+          >
+            <NavDropdown.Item href="#action/3.1">상품명</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">제조사</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action/3.4">선택안함</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+        <Form inline>
+          <FormControl
+            type="text"
+            placeholder="검색어를 입력해주세요"
+            className="mr-sm-2"
+          />
+        </Form>
+        <Button variant="outline-success">검색</Button>
+      </Navbar.Collapse>
+    </Navbar>
   </header>
 ));
