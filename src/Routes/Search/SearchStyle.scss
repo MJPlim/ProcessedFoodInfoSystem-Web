@@ -1,51 +1,10 @@
-.SearchProduct {
-   height: 100%;
-  .results {
-    top: 20px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-
-  }
-  .form-control{
-    border-color: #ed2f3b;
-  }
-.searchResult{
+.searchPage{
+  padding: 3%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
-  .foodInfo{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-  .foodName{
-    font-size: large;
-    font-weight: 700;
-
-  }
-
-
-
-  img {
-    display: block;
-    width: 100px;
-    height: 100px;
-  }
-
-  .prdName {
-    font-weight: 700;
-    font-size: 16px;
-  }
-
-  .selection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-    .btn{
-      width: 200px;
-      height: 200px;
-    }
-  }
-
+.searchTab{
+  width: 900px;
 }

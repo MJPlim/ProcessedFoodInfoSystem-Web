@@ -1,0 +1,35 @@
+.foodImg{
+    width: 100px;
+    height: 100px;
+}
+.result{
+    .card{
+    box-sizing: border-box;
+    .card-body{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .card-title{
+        font-weight: 900;
+        font-size: large;
+    }
+    .card-text{
+           margin-bottom: 6px;
+    }
+    .go-detail{
+        background-color:#ed2f3b;
+        color:white;
+        width: 100px;
+        height: 50px;
+        border-radius: 1em;
+    }
+    .go-detail{
+            cursor: pointer;
+    }
+}
+.card:hover{
+    background-color: ivory;
+}
+}
