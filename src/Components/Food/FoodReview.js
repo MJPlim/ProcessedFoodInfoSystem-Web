@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Form, Input, Label, Row, Spinner, Table } from 'reactstrap';
+import { Button, Card, CardText, CardTitle, Col, Form, Input, Label, Row, Spinner, Table } from 'reactstrap';
 import ReviewSummaryChart from './ReviewSummaryChart';
 import ReactStars from 'react-rating-stars-component';
 import { AiFillDelete, AiFillEdit, GiCancel, IoMdHeart, IoMdHeartEmpty } from 'react-icons/all';
@@ -38,18 +38,30 @@ const FoodReview = ({
     }
   };
   return (
-    <div>
+    <div className={'foodReview'}>
       {reviews !== null && reviewSummary !== null ? (
         <div>
-          <Row>
-            <Col className='reviewSummary'>
-              리뷰 수 <span className='subTitle'>{reviewSummary.reviewCount}   </span>
-              사용자 총 평점 <span className='subTitle'>{reviewSummary.avgRating}/5</span>
+          {/*<Row>*/}
+          {/*  <Col className='reviewSummary'>*/}
+          {/*    리뷰 수 <span className='subTitle'>{reviewSummary.reviewCount}   </span>*/}
+          {/*    사용자 총 평점 <span className='subTitle'>{reviewSummary.avgRating}/5</span>*/}
+          {/*  </Col>*/}
+          {/*</Row>*/}
+
+          <Row className = {'reviewInfo'}>
+            <Col sm='6'>
+              <Card body className={'reviewSummary'}>
+                <CardTitle tag="h5">Special Title Treatment</CardTitle>
+                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+              </Card>
             </Col>
-          </Row>
-          <Col lg='12'>
-            <ReviewSummaryChart reviewSummary={reviewSummary} />
+            <Col sm='6'>
+              <Card body  className={'reviewSummary'}>
+                <ReviewSummaryChart reviewSummary={reviewSummary} />
+              </Card>
+
           </Col>
+          </Row>
 
 
           <Table className='reviewTable'>
@@ -99,7 +111,7 @@ const FoodReview = ({
 
               ) : (
                 <tr key={index}>
-                  <td>
+                  <td style={{color:'orange'}}>
                     {drawStar(review.reviewRating)}
                   </td>
                   <td>
@@ -142,7 +154,8 @@ const FoodReview = ({
           </Table>
 
 
-          <Col md={{ size: 6, offset: 3 }}>
+          {/*<Col md={{ size: 8, offset: 2 }}>*/}
+          <Col md={'12'} className={'pageDiv'}>
             {reviewSummary.reviewPageCount > 2 ?
               <ReactPaginate pageCount={reviewSummary.reviewPageCount - 1} pageRangeDisplayed={4}
                              marginPagesDisplayed={1}
@@ -151,16 +164,16 @@ const FoodReview = ({
                              pageClassName={'reviewPage'}
                              activeClassName={'reviewSelectedPage'}
                              onPageChange={onClickPage}
-
               /> :
               null}
 
           </Col>
 
 
-          <Form onSubmit={onClickPostReview}>
-            <Label for='reviewFrom' className='reviewLabel'>사용자 후기 작성하기</Label>
-            <span className='starRating'>
+          <Col lg={'12'}>
+            <Form onSubmit={onClickPostReview}>
+              <Label for='reviewFrom' className='reviewLabel'>사용자 후기 작성하기</Label>
+              <span className='starRating'>
         <ReactStars
           count={5}
           onChange={ratingChanged}
@@ -172,11 +185,13 @@ const FoodReview = ({
         />
         </span>
 
-            <Input type='textarea' name='text' classname='reviewFrom' rows='4'
-                   onChange={(e) => onChangeReview(e)}
-            />
-            <Button type='submit' size='sm'>작성</Button>
-          </Form>
+              <Input type='textarea' name='text' classname='reviewFrom' rows='4'
+                     onChange={(e) => onChangeReview(e)}
+              />
+              <Button type='submit' size='sm'>작성</Button>
+            </Form>
+          </Col>
+
         </div>
       ) : (<Spinner color='warning' />)}
       {/*상품 정보 우측 영역 끝 */}
