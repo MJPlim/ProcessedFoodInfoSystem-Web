@@ -76,6 +76,7 @@
     font-family: 'thickEng';
     text-align: center;
     text-align: bold;
+    width: 100%;
   }
 
   .homeImage {
@@ -126,6 +127,10 @@
   }
   input::placeholder {
     font-size: 8px;
+  }
+
+  .navMom {
+    width: 100%;
   }
 
   .navigationGroup {
