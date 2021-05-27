@@ -106,13 +106,13 @@ const SearchTab = (props) => {
         } else {
           console.log('알러지 없음!');
           if (option === '식품명') {
-            const { data: { resultList } } = await foodApi.search(searchTerm);
-            sessionStorage.setItem('data', JSON.stringify(resultList));
-            setResult(resultList);
+            const { data: { data } } = await foodApi.search(searchTerm);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            setResult(data);
           } else {
-            const { data: { resultList } } = await manufacturerApi.search(searchTerm);
-            sessionStorage.setItem('data', JSON.stringify(resultList));
-            setResult(resultList);
+            const { data: { data } } = await manufacturerApi.search(searchTerm);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            setResult(data);
           }
         }
 
@@ -189,8 +189,7 @@ const SearchTab = (props) => {
     try {
       const {
         data: { data },
-      } = await categoryApi.category(e.target.value);
-      console.log(data);
+      } =await foodApi.search(e.target.value);
       setResult(data);
       getAd();
       sessionStorage.setItem('data', JSON.stringify(data));
@@ -708,7 +707,7 @@ const SearchTab = (props) => {
         </div>
         <div className='foodResult'>
           {/* 정렬방식 */}
-
+           <AdFoodResult className='resultSection' loading={loading} result={adFoods} />
           <div className='selectType list-group resultPage sortBy'>
             <div class='form-check'>
               <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
@@ -733,7 +732,7 @@ const SearchTab = (props) => {
               </label>
             </div>
           </div>
-          <AdFoodResult className='resultSection' loading={loading} result={adFoods} />
+         
           <SearchResult className='searchResult' loading={loading} result={result} />
 
 

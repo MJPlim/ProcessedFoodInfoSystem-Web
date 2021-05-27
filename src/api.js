@@ -129,6 +129,7 @@ export const foodApi = {
         foodName: term,
         pageNo: 1,
         size: 10,
+        sort:'ranking'
       },
     }),
 };
@@ -138,6 +139,9 @@ export const manufacturerApi = {
     api.get('/api/v1/food/getFoodListBySorting', {
       params: {
         manufacturerName: term,
+        pageNo: 1,
+        size: 10,
+        sort:'ranking'
       },
     }),
 };
@@ -344,6 +348,7 @@ export const categoryApi = {
         category: category,
         pageNo: 1,
         size: 10,
+        sort:'ranking'
       },
     }),
 };
