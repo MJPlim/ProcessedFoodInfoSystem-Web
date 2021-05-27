@@ -156,8 +156,8 @@ export default withRouter(({ location: { pathname } }) => (
             placeholder="검색어를 입력해주세요"
             className="mr-sm-2"
           />
+          <Button variant="outline-success">검색</Button>
         </Form>
-        <Button variant="outline-success">검색</Button>
       </Navbar>
     </div>
   </header>
