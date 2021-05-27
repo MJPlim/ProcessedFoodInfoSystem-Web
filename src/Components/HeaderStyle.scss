@@ -17,6 +17,8 @@ header {
 }
 .logoPosition {
   margin-left: 10px;
+  margin-right: 10px;
+  float: left;
 }
 .logo {
   font-size: 50px;
@@ -24,8 +26,11 @@ header {
   color: $red;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
+
 .searchTab {
+  margin-left: 10px;
   display: flex;
+  float: right;
   align-items: center;
 }
 .searchInput {
@@ -34,6 +39,7 @@ header {
   height: 25px;
   outline: none;
 }
+
 .searchBtn {
   height: 25px;
   background-color: white;
