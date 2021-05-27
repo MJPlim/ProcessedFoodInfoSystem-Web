@@ -9,13 +9,12 @@ import {
   Navbar,
   Nav,
   Form,
-  FormControl,
   Button,
-  Col,
-  InputGroup,
-  NavDropdown,
-} from 'react-bootstrap';
-import logoImage from '../image/kati.PNG';
+  FormGroup,
+  Dropdown,
+  DropdownItem,
+  NavLink,
+} from 'reactstrap';
 
 function LoginState(props) {
   const checkLogin = props.auli;
@@ -129,41 +128,36 @@ export default withRouter(({ location: { pathname } }) => (
       <Navbar className="mainNav" bg="light" variant="light"></Navbar>
 
       <Navbar bg="light" expand="lg" className="navigationGroup">
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mainLink">
-            <Nav.Link className="links">
-              <Link to="/commercialProduct">광고상품</Link>
-            </Nav.Link>
-            <Nav.Link className="links">
-              <Link to="/searchProduct/food">상품찾기</Link>
-            </Nav.Link>
-            <Nav.Link className="links">
-              <Link to="/productRanking">제품랭킹</Link>
-            </Nav.Link>
-            <Nav.Link className="links">
-              <Link to="/reviews">리뷰</Link>
-            </Nav.Link>
-            <NavDropdown
-              className="searchSection"
-              title="선택"
-              id="basic-nav-dropdown"
-            >
-              <NavDropdown.Item href="#action/3.1">상품명</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">제조사</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">선택안함</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Form inline>
-            <FormControl
-              type="text"
-              placeholder="검색어를 입력해주세요"
-              className="mr-sm-2"
-            />
-          </Form>
-          <Button variant="outline-success">검색</Button>
-        </Navbar.Collapse>
+        <Nav className="mainLink">
+          <NavLink className="links">
+            <Link to="/commercialProduct">광고상품</Link>
+          </NavLink>
+          <NavLink className="links">
+            <Link to="/searchProduct/food">상품찾기</Link>
+          </NavLink>
+          <NavLink className="links">
+            <Link to="/productRanking">제품랭킹</Link>
+          </NavLink>
+          <NavLink className="links">
+            <Link to="/reviews">리뷰</Link>
+          </NavLink>
+          <Dropdown
+            className="searchSection"
+            title="선택"
+            id="basic-nav-dropdown"
+          >
+            <DropdownItem href="#action/3.1">상품명</DropdownItem>
+            <DropdownItem href="#action/3.2">제조사</DropdownItem>
+          </Dropdown>
+        </Nav>
+        <Form inline>
+          <FormGroup
+            type="text"
+            placeholder="검색어를 입력해주세요"
+            className="mr-sm-2"
+          />
+        </Form>
+        <Button variant="outline-success">검색</Button>
       </Navbar>
     </div>
   </header>
