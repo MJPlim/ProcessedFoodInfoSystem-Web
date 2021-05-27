@@ -1,71 +1,86 @@
 @import "./src/styles/utils";
 
 .FoodDetail {
-  margin-left: 100px;
-  margin-right: 100px;
+  //margin-left: 100px;
+  //margin-right: 100px;
 
-  .container {
-    margin-left: 30px;
-    margin-right: 30px;
-    padding-top: 30px;
-  }
-
-
-  .titleArea {
-    .title {
-      font-size: x-large;
-      font-weight: bold;
-      border-bottom-style: solid;
-      border-bottom-color: black;
-    }
-
-    .btn {
-      margin-top: 0;
-      float: right;
-    }
-
-    .newsButton {
-      margin-right: 3px !important;
-    }
-
-    .favoriteButton {
-      background-color: transparent !important;
-      border-color: $lightorange !important;
-      color: $lightorange;
-      margin-right: 3px !important;
-
-      &:hover, &:active {
-        background-color: transparent !important;
-        color: $lightorange !important;
-        border-color: $lightorange !important;
-      }
-    }
-  }
+  width: 75%;
+  margin: auto;
 
   .hr {
+    margin: 0;
     border-top: 1px solid;
+    border-color: gray;
+    width: 100%;
   }
 
-  .hr_foodInfo {
-    border: 0;
-    @media screen and (max-width: 992px) {
-      border-right: 0;
-      border-bottom: 1px solid;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+  .foodInfoArea {
+    .category {
+      margin-top: 30px;
+      font-size: medium;
+      margin-bottom: 5px;
     }
-  }
 
-
-  .rightBorderLine {
-    border-right: 1px solid;
-
-    @media screen and (max-width: 992px) {
-      border-right: 0;
+    .foodName {
+      margin-top: 10px;
+      font-size: x-large;
+      font-weight: bold;
     }
-  }
 
-  .reviewArea {
+    .manufacturerName {
+      margin-top: 10px;
+      font-size: large;
+      //margin-bottom: 50px;
+    }
+
+    .allergyMaterials {
+      margin-top: 10px;
+      font-size: large;
+    }
+
+    .foodInfoTable {
+      margin-top: 20px;
+      font-size: medium;
+
+    }
+    .btnArea {
+      position: absolute;
+      bottom: 0;
+      width: 90%;
+      margin: auto;
+      .newsButton, .linkButton {
+        width: 100%;
+        background-color: $lightorange !important;
+        border-color: $lightorange !important;
+        color: white;
+        margin-right: 3px !important;
+
+        &:hover, &:active {
+          background-color: $orange !important;
+          color: white !important;
+          border-color: $orange !important;
+        }
+      }
+
+      .favoriteButton {
+        //float: right;
+
+        background-color: transparent !important;
+        border-color: $lightorange !important;
+        color: $lightorange;
+        margin-right: 3px !important;
+
+        &:hover, &:active {
+          background-color: transparent !important;
+          color: $lightorange !important;
+          border-color: $lightorange !important;
+        }
+      }
+
+      @media screen and (max-width: 1200px) {
+        position: relative;
+      }
+    }
     @media screen and (max-width: 992px) {
       margin-top: 30px;
     }
@@ -79,9 +94,7 @@
       margin-bottom: 10px;
     }
   }
-  .foodInfoTable{
-    font-size: medium;
-  }
+
 
   .foodInfo {
     .foodInfoDesc {
@@ -215,19 +228,20 @@
   }
 
   .carousel {
-    height: 50%;
+    height: 100%;
     width: 100%;
 
     img {
       display: block;
       margin: 0 auto;
+      width: 100%;
     }
   }
 
   .carousel-control-next-icon,
   .carousel-control-prev-icon,
   .carousel-indicators {
-    filter: invert(1) !important;
+    filter: invert(50%) !important;
   }
 
   .reviewSummaryChart {
