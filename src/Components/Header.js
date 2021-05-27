@@ -3,11 +3,22 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import './HeaderStyle.scss';
 import axios from 'axios';
+import {
+  Row,
+  Container,
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  Col,
+  InputGroup,
+  NavDropdown,
+} from 'react-bootstrap';
+import logoImage from '../image/kati.PNG';
 
 function LoginState(props) {
   const checkLogin = props.auli;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   console.log(checkLogin);
   console.log('main main ');
 
@@ -42,70 +53,11 @@ function LoginState(props) {
       });
   };
 
-  //이거 사용안했음 혹시 몰라서 일단 내둠
-  const getUserAllergies = () => {
-    console.log('유저 알러지 가져오기 메소드');
-    axios
-      .get('http://13.124.55.59:8080/api/b1/user/readUserAllergy', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: checkLogin,
-        },
-      })
-      .then((response) => {
-        console.log('데이터 받아서 넣는거 시작 ㅇ-ㅇ');
-
-        uN = response.data.userA;
-        localStorage.setItem('allergy', userA);
-        console.log('이름 세팅 ㅇㅋ');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const loginAgain = () => {
-    console.log(
-      '메인에서 로그인 토큰 값이 들어가있으면 어차피 다시 받아야 하기에 다시해서 토큰 값 받아옴',
-    );
-
-    setEmail(localStorage.getItem('userLoginEmail'));
-    setPassword(localStorage.getItem('userLoginPassword'));
-
-    axios({
-      url: 'http://13.124.55.59:8080/login',
-      method: 'POST',
-      data: {
-        email: email,
-        password: password,
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        console.log('새롭게 토큰 받아오기 ------------------');
-        token = response.headers.authorization;
-        console.log(token);
-        localStorage.setItem('authorization', token);
-        alert('새로운 토큰 잘 받아왔슴 땡큐 베리 머치');
-      })
-      .catch((error) => {
-        const status = error.response.status;
-        if (status === 401) {
-          //console.log("fail");
-          alert(
-            '입력된 정보가 잘못되었음 여기 헤더에서 하는 부분이니까 다시 살펴봐주셈.',
-          );
-        }
-      });
-  };
-
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
         <Link
-          className="logoutBtn"
+          className="logoutBtn, buttonGroup"
           onClick={() => {
             localStorage.setItem('authorization', null);
             localStorage.setItem('userLoginEmail', null);
@@ -115,10 +67,14 @@ function LoginState(props) {
         >
           로그아웃
         </Link>
-        <Link to="/mypage" className="myPageBtn" onClick={setUserInformation}>
+        <Link
+          to="/mypage"
+          className="myPageBtn, buttonGroup"
+          onClick={setUserInformation}
+        >
           마이페이지
         </Link>
-        <Link to="/myFavourite" className="myFavouriteBtn">
+        <Link to="/myFavourite" className="myFavouriteBtn, buttonGroup">
           즐겨찾기
         </Link>
       </div>
@@ -126,10 +82,10 @@ function LoginState(props) {
   } else if (checkLogin === 'null') {
     return (
       <div className="buttons">
-        <Link to="/login" className="loginBtn">
+        <Link to="/login" className="loginBtn, buttonGroup">
           로그인
         </Link>
-        <Link to="/join" className="joinBtn">
+        <Link to="/join" className="joinBtn, buttonGroup">
           회원가입
         </Link>
       </div>
@@ -152,50 +108,63 @@ const Item = styled.li`
 //컴포넌트에서 라우터에 접근 현재 어떤 컴포넌트인지 라우터도 알수 있음!
 export default withRouter(({ location: { pathname } }) => (
   <header>
-    <div className="topsection">
-      <li className="logoPosition" current={pathname === '/'}>
-        <Link className="logo" to="/">
-          kati
-        </Link>
-      </li>
-      <div className="searchTab">
-        {/* <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
-        <button className="searchBtn">🔍</button> */}
-      </div>
-      <LoginState auli={localStorage.getItem('authorization')} />
-    </div>
+    <div className="headerJS">
+      <Container>
+        <Row>
+          <div className="topsection">
+            <LoginState auli={localStorage.getItem('authorization')} />
+          </div>
+        </Row>
 
-    <ul>
-      <Item current={pathname === '/'}>
-        <Link to="/">메인</Link>
-      </Item>
-      <Item current={pathname === '/commercialProduct'}>
-        <Link to="/commercialProduct">광고상품</Link>
-      </Item>
-      <Item current={pathname === '/recommendedProduct'}>
-        <Link to="/recommendedProduct">추천상품</Link>
-      </Item>
-      <Item current={pathname.includes('/searchProduct/food')}>
-        <Link to="/searchProduct/food">상품찾기</Link>
-      </Item>
-      <Item current={pathname === '/community'}>
-        <Link to="/community">커뮤니티</Link>
-      </Item>
-      <Item current={pathname === '/userRanking'}>
-        <Link to="/userRanking">유저랭킹</Link>
-      </Item>
-      <Item current={pathname === '/productRanking'}>
-        <Link to="/productRanking">제품랭킹</Link>
-      </Item>
-      <Item current={pathname === '/reviews'}>
-        <Link to="/reviews">리뷰</Link>
-      </Item>
-      <Item current={pathname === '/whatsKati'}>
-        <Link to="/whatsKati">카티란?</Link>
-      </Item>
-      <Item current={pathname === '/howToUse'}>
-        <Link to="/howToUse">카티사용법</Link>
-      </Item>
-    </ul>
+        <Navbar className="mainNav" bg="light" variant="light"></Navbar>
+        <Row>
+          <div>
+            <Link className="logo" to="/">
+              <p className="serviceName">K A T I</p>
+            </Link>
+          </div>
+        </Row>
+      </Container>
+
+      <Navbar className="mainNav" bg="light" variant="light"></Navbar>
+
+      <Navbar bg="light" expand="lg" className="navigationGroup">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mainLink">
+            <Nav.Link className="links">
+              <Link to="/commercialProduct">광고상품</Link>
+            </Nav.Link>
+            <Nav.Link className="links">
+              <Link to="/searchProduct/food">상품찾기</Link>
+            </Nav.Link>
+            <Nav.Link className="links">
+              <Link to="/productRanking">제품랭킹</Link>
+            </Nav.Link>
+            <Nav.Link className="links">
+              <Link to="/reviews">리뷰</Link>
+            </Nav.Link>
+            <NavDropdown
+              className="searchSection"
+              title="선택"
+              id="basic-nav-dropdown"
+            >
+              <NavDropdown.Item href="#action/3.1">상품명</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">제조사</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">선택안함</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Form inline>
+            <FormControl
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              className="mr-sm-2"
+            />
+          </Form>
+          <Button variant="outline-success">검색</Button>
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
   </header>
 ));
