@@ -41,7 +41,7 @@ const FoodInfo = ({ food, onMoveToLink, onMoveToNews, isLogin, isFavorite, onCli
               {!isFavorite ? <AiOutlineStar size={'1.3em'} /> : <AiFillStar size={'1.3em'} />}
             </Button> : null}
           </Col>
-          <Col sm='10'>
+          <Col sm={isLogin ? '10' : '12'}>
             {food.manufacturerName.split('_')[0] !== '알수없음' ?
               <Button className='newsButton' onClick={onMoveToNews}>
                 제조사 뉴스
