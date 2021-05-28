@@ -48,8 +48,7 @@ function MainScreen() {
   const [product, setProduct] = useState(null);
   const [ad, setAd] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
+  const [adLoad, setAdLoad] = useState(true);
 
   const updateProductRanking = async () => {
     await getProductRanking
@@ -65,6 +64,7 @@ function MainScreen() {
       .atMainPage()
       .then((response) => {
         setAd(response.data);
+        setAdLoad(false);
       })
       .catch((e) => {
         console.log(e);
@@ -74,82 +74,76 @@ function MainScreen() {
     updateProductRanking();
   }, []);
 
-  const onMoveToLink = (url) => {
-    let link = `https://search.shopping.naver.com/search/all?query=` + url;
-  };
-
-  const onMoveToNews = (url) => {
-    let link =
-      'https://search.naver.com/search.naver?query=' +
-      url.split('_')[0] +
-      '&where=news';
-    console.log(link);
-  };
-
   return (
     <div className="mainScreen">
       <br />
       <br />
       <Container>
-        <div className="setUp">
-          <div className="cardGroup">
-            {ad.map((result) => (
-              <Card className="eachAdCard">
-                <CardBody className="adcardTop">
-                  <CardTitle tag="h5">{result.food.foodName}</CardTitle>
-                  <CardSubtitle tag="h6" className="mb-2 text-muted">
-                    {result.food.category}
-                  </CardSubtitle>
-                </CardBody>
-                <Link
-                  to={{
-                    pathname: `searchProduct/food/${result.food.foodId}`,
-                  }}
-                >
-                  <img
-                    className="adImage"
-                    width="40%"
-                    height="40%"
-                    src={result.food.foodImageAddress}
-                  />
-                </Link>
-                {/* <img
-                  width="100%"
-                  src="/assets/318x180.svg"
-                  alt="Card image cap"
-                /> */}
-                <CardBody className="showProps">
-                  <CardText>{result.food.manufacturerName}</CardText>
-                  <br />
-                  <br />
-                  <Badge
-                    href={
-                      `https://search.shopping.naver.com/search/all?query=` +
-                      result.food.foodName
-                    }
-                    target="_blank"
-                    color="dark"
-                    className="badgeAdContent"
+        {!adLoad && (
+          <div className="setUp">
+            <div className="cardGroup">
+              {ad.map((result) => (
+                <Card className="eachAdCard">
+                  <CardBody className="adcardTop">
+                    <CardTitle tag="h5">
+                      {result.food.foodName}
+                      <b className="adProduct"> 광고상품</b>
+                    </CardTitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                      {result.food.category}
+                    </CardSubtitle>
+                  </CardBody>
+                  <Link
+                    to={{
+                      pathname: `searchProduct/food/${result.food.foodId}`,
+                    }}
                   >
-                    구매
-                  </Badge>
-                  <Badge
-                    href={
-                      'https://search.naver.com/search.naver?query=' +
-                      result.food.foodName.split('_')[0] +
-                      '&where=news'
-                    }
-                    target="_blank"
-                    color="warning"
-                    className="badgeAdContent"
-                  >
-                    이슈확인
-                  </Badge>
-                </CardBody>
-              </Card>
-            ))}
+                    <img
+                      className="adImage"
+                      width="40%"
+                      height="40%"
+                      src={result.food.foodImageAddress}
+                    />
+                  </Link>
+                  {/* <img
+         width="100%"
+         src="/assets/318x180.svg"
+         alt="Card image cap"
+       /> */}
+                  <CardBody className="showProps">
+                    <CardText>{result.food.manufacturerName}</CardText>
+                    <br />
+                    <br />
+                    <Badge
+                      href={
+                        `https://search.shopping.naver.com/search/all?query=` +
+                        result.food.foodName
+                      }
+                      target="_blank"
+                      color="dark"
+                      className="badgeAdContent"
+                    >
+                      구매
+                    </Badge>
+                    <Badge
+                      href={
+                        'https://search.naver.com/search.naver?query=' +
+                        result.food.foodName.split('_')[0] +
+                        '&where=news'
+                      }
+                      target="_blank"
+                      color="warning"
+                      className="badgeAdContent"
+                    >
+                      이슈확인
+                    </Badge>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
         <br />
         <hr />
         <br />
