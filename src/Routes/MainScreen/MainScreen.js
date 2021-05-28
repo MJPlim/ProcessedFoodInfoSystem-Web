@@ -93,6 +93,7 @@ function MainScreen() {
       <Container>
         <div className="setUp">
           <div className="cardGroup">
+            {' '}
             {ad.map((result) => (
               <Card className="eachAdCard">
                 <CardBody className="adcardTop">
@@ -101,7 +102,11 @@ function MainScreen() {
                     {result.food.category}
                   </CardSubtitle>
                 </CardBody>
-                <Link to={`food/${result.food.foodId}`}>
+                <Link
+                  to={{
+                    pathname: `searchProduct/food/${result.food.foodId}`,
+                  }}
+                >
                   <img
                     className="adImage"
                     width="40%"
@@ -233,11 +238,18 @@ function MainScreen() {
                       여기에 종류
                     </CardSubtitle>
                   </CardBody>
-                  {/* <img
-                  width="100%"
-                  src="/assets/318x180.svg"
-                  alt="Card image cap"
-                /> */}
+                  {/*  <Link
+                  to={{
+                    pathname: `searchProduct/food/${item.foodId}`,
+                  }}
+                >
+                  <img
+                    className="adImage"
+                    width="40%"
+                    height="40%"
+                    src={item.foodImageAddress}
+                  />
+                </Link> */}
                   <p>여기에 사진</p>
                   <CardBody className="showProps">
                     <CardText>인기 점수: {item.avgRating * 20}</CardText>
