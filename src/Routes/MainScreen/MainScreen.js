@@ -93,7 +93,6 @@ function MainScreen() {
       <Container>
         <div className="setUp">
           <div className="cardGroup">
-            {' '}
             {ad.map((result) => (
               <Card className="eachAdCard">
                 <CardBody className="adcardTop">
@@ -235,26 +234,24 @@ function MainScreen() {
                   <CardBody className="cardTop">
                     <CardTitle tag="h5">{item.foodName}</CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
-                      여기에 종류
+                      {item.category}
                     </CardSubtitle>
                   </CardBody>
-                  {/*  <Link
-                  to={{
-                    pathname: `searchProduct/food/${item.foodId}`,
-                  }}
-                >
-                  <img
-                    className="adImage"
-                    width="40%"
-                    height="40%"
-                    src={item.foodImageAddress}
-                  />
-                </Link> */}
-                  <p>여기에 사진</p>
+                  <Link
+                    to={{
+                      pathname: `searchProduct/food/${item.foodId}`,
+                    }}
+                  >
+                    <img
+                      className="rankImage"
+                      width="40%"
+                      height="40%"
+                      src={item.foodImageAddress}
+                    />
+                  </Link>
                   <CardBody className="showProps">
                     <CardText>인기 점수: {item.avgRating * 20}</CardText>
-                    <br />
-                    <br />
+
                     <Badge
                       href={
                         `https://search.shopping.naver.com/search/all?query=` +
