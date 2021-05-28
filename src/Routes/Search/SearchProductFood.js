@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './SearchStyle.scss';
+import ad1 from '../../image/ad1.jpg';
+import ad2 from '../../image/ad2.jpg';
+import ad3 from '../../image/ad3.jpg';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButtonDropdown,
   Input,
-
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Collapse, Button, CardBody, Card,
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
 } from 'reactstrap';
 
 import SearchResult from './SearchResult';
@@ -24,8 +31,57 @@ import { IoIosPaper } from 'react-icons/io';
 import{RiSearch2Line}from 'react-icons/ri';
 import AdFoodResult from './AdFoodResult';
 
-
+const items = [
+  {//ad1 내가 대충 만든 광고페이지임ㅋ...
+    src: {ad1},
+    altText: 'Slide 1',
+    caption: 'Slide 1'
+  },
+  {//여긴 샘플
+    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
+    altText: 'Slide 2',
+    caption: 'Slide 2'
+  },
+  {
+    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
+    altText: 'Slide 3',
+    caption: 'Slide 3'
+  }
+];
 const SearchTab = (props) => {
+  //광고부분
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  }
+  const slides = items.map((item) => {
+    return (
+      <CarouselItem
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.src}
+      >
+        <img src={item.src} alt={item.altText} />
+        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+      </CarouselItem>
+    );
+  });
+
   const NUM_OF_SHOW_ROWS = 5; // 최대 저장 검색어
 
   //드롭다운 부분
@@ -115,7 +171,36 @@ const SearchTab = (props) => {
       setError('검색결과가 없습니다!');
     }
   };
-
+  //카테고리 누를때
+const handleCategory = async (e) => {
+    setSearchTerm(e.target.value);
+    if (searchTerm !== null && searchTerm.length !== 0) {
+      sessionStorage.setItem('searchTerm', searchTerm);
+      try {
+     
+          if (option === '식품명') {
+            const { data: { data } } = await foodApi.search(searchTerm, sort, allergyList);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            setResult(data);
+            console.log("검색결과",data);
+          } else {
+            const { data: { data } } = await manufacturerApi.search( searchTerm,sort, allergyList);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            setResult(data);
+            console.log("검색결과",data);
+          }
+       
+      } catch (e) {
+        setError(e);
+      } finally {
+        setLoading(false);
+      }
+      handleAddKeyword();
+      getAd();
+    } else {
+      setError('검색결과가 없습니다!');
+    }
+  };
   // 광고 불러오기
   const getAd = async () => {
     console.log('getAD 실행');
@@ -167,26 +252,6 @@ const SearchTab = (props) => {
 
   };
 
-
-  //카테고리 정렬
-  const handleCategory = async (e) => {
-    console.log('category', e.target.value);
-    setSearchTerm(e.target.value);
-    sessionStorage.setItem('searchFood', searchTerm);
-    setLoading(true);
-    try {
-      const {
-        data: { data },
-      } =await foodApi.search(e.target.value);
-      setResult(data);
-      getAd();
-      sessionStorage.setItem('data', JSON.stringify(data));
-    } catch (e) {
-      setError(e);
-    } finally {
-      setLoading(false);
-    }
-  };
   //정렬방법
   const handleSort = async (sortType) => {
     console.log('정렬방법: ', sortType);
@@ -259,8 +324,8 @@ const SearchTab = (props) => {
 
           </datalist>
              <InputGroupAddon addonType='append'>
-            <button size="40"onClick={handleSubmit} className="searchBtn">
-              <RiSearch2Line></RiSearch2Line>
+            <button onClick={handleSubmit} className="searchBtn">
+              <RiSearch2Line size="40"></RiSearch2Line>
             </button>
           </InputGroupAddon>
       </header>
@@ -355,7 +420,7 @@ const SearchTab = (props) => {
           <li class='list-group-item category'>농수산물</li>
           <button
             type='button'
-            value='계란'
+            value='유제품'
             className='list-group-item list-group-item-action'
             onClick={handleCategory}
           >
@@ -503,9 +568,25 @@ const SearchTab = (props) => {
             기타가공품
           </button>
          </div>
-        <div className="item__result">
+        <div className="item__items">
+          <div className="item__result">
+            {/* 광고부분 */}
+           <Carousel
+      activeIndex={activeIndex}
+      next={next}
+      previous={previous}
+    >
+      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+      {slides}
+      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+    </Carousel>
+          {/* 결과부분 */}
           <SearchResult className='searchResult' loading={loading} result={result}/>
+          </div>
+
         </div>
+       
        
       </div>
       
