@@ -48,19 +48,25 @@ const FoodReview = ({
           {/*  </Col>*/}
           {/*</Row>*/}
 
-          <Row className = {'reviewInfo'}>
-            <Col sm='6'>
-              <Card body className={'reviewSummary'}>
-                <CardTitle tag="h5">Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <Row className={'reviewInfo'}>
+            <Col sm='3'>
+              <Card body className={'reviewCount'}>
+                <CardTitle className={'title'}>리뷰 수</CardTitle>
+                <CardText className={'point'}>{reviewSummary.reviewCount}개</CardText>
+              </Card>
+            </Col>
+            <Col sm='3'>
+              <Card body className={'avgRating'}>
+                <CardTitle className={'title'}>평균 점수</CardTitle>
+                <CardText className={'point'}>{reviewSummary.avgRating}점</CardText>
               </Card>
             </Col>
             <Col sm='6'>
-              <Card body  className={'reviewSummary'}>
+              <Card body className={'reviewSummary'}>
                 <ReviewSummaryChart reviewSummary={reviewSummary} />
               </Card>
 
-          </Col>
+            </Col>
           </Row>
 
 
@@ -83,10 +89,11 @@ const FoodReview = ({
                 <tr key={index}>
                   <td colSpan={1}>
                     <ReactStars
+                      classNames ={'starRating'}
                       count={5}
                       onChange={editRatingChanged}
                       size={15}
-                      activeColor='#ffd700'
+                      activeColor='#fe9b5a'
                       isHalf={false}
                       edit={true} />
                   </td>
@@ -111,7 +118,7 @@ const FoodReview = ({
 
               ) : (
                 <tr key={index}>
-                  <td style={{color:'orange'}}>
+                  <td style={{ color: '#fe9b5a', fontSize: '1.1em'}}>
                     {drawStar(review.reviewRating)}
                   </td>
                   <td>
@@ -178,7 +185,7 @@ const FoodReview = ({
           count={5}
           onChange={ratingChanged}
           size={20}
-          activeColor='#ffd700'
+          activeColor='#fe9b5a'
           isHalf={false}
           edit={true}
 
@@ -188,7 +195,7 @@ const FoodReview = ({
               <Input type='textarea' name='text' classname='reviewFrom' rows='4'
                      onChange={(e) => onChangeReview(e)}
               />
-              <Button type='submit' size='sm'>작성</Button>
+              <Button type='submit' size='sm' className={'reviewSubmitButton'}>작성</Button>
             </Form>
           </Col>
 
