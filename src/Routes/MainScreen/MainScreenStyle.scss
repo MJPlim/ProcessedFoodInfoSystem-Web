@@ -1,5 +1,30 @@
+@import 'styles/utils';
+
 .mainScreen {
   .showImage {
     width: 100%;
+  }
+  .productSet {
+    height: 20px;
+    display: inline-block;
+    justify-content: right;
+    text-align: right;
+    align-items: right;
+  }
+  .titleBar {
+    font-family: 'mpb';
+    font-size: 20px;
+  }
+
+  .cardGroup {
+    width: 100%;
+  }
+  .eachCard {
+    width: 200px;
+    height: 200px;
+    border-radius: 30px;
+    position: relative;
+    display: inline-block;
+    margin: 10px 10px 10px 10px;
   }
 }

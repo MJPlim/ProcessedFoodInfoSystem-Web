@@ -123,27 +123,27 @@ export const setSecurityEmail = {
 
 export const foodApi = {
   //해당 url로 가는 함수들
-  search: (term,sort,allergies) =>
+  search: (term, sort, allergies) =>
     api.get('/api/v1/food/getFoodListBySorting', {
       params: {
         foodName: term,
         pageNo: 1,
         size: 10,
-        sort:sort,
-        allergies:allergies.join(',')
+        sort: sort,
+        allergies: allergies.join(','),
       },
     }),
 };
 export const manufacturerApi = {
   //해당 url로 가는 함수들
-  search: (term,sort,allergies) =>
+  search: (term, sort, allergies) =>
     api.get('/api/v1/food/getFoodListBySorting', {
       params: {
         manufacturerName: term,
         pageNo: 1,
         size: 10,
-        sort:sort,
-        allergies:allergies.join(',')
+        sort: sort,
+        allergies: allergies.join(','),
       },
     }),
 };
@@ -350,13 +350,17 @@ export const categoryApi = {
         category: category,
         pageNo: 1,
         size: 10,
-        sort:'ranking'
+        sort: 'ranking',
       },
     }),
 };
 
 export const getReviewRankingApi = {
   getReviewRanking: () => api.get('/reviewRanking'),
+};
+
+export const getProductRanking = {
+  mainPage: () => api.get('/reviewRanking'),
 };
 
 export const allergyApi = {
