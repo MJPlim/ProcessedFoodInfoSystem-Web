@@ -32,6 +32,7 @@ import MF from '../Routes/MyPage/MyFavourite';
 import CUI from '../Routes/MyPage/ChangeUserInfo';
 import UAI from '../Routes/MyPage/MyAllergies';
 import SE from '../Routes/MyPage/SecondEmail';
+import AB from '../Routes/MainScreen/About';
 
 export default () => (
   <Router>
@@ -41,9 +42,9 @@ export default () => (
         <Route path="/" exact component={MS} />
         <Route path="/commercialProduct" exact component={CP} />
         <Route path="/recommendedProduct" exact component={RP} />
- 
+
         <Route path="/searchProduct/food" exact component={SPF} />
-       
+
         <Route path="/community" exact component={CM} />
         <Route path="/userRanking" exact component={UR} />
         <Route path="/productRanking" exact component={PR} />
@@ -61,6 +62,7 @@ export default () => (
         <Route path="/changeUserInfo" exact component={CUI} />
         <Route path="/userAllergyInfo" exact component={UAI} />
         <Route path="/secondEmail" exact component={SE} />
+        <Route path="/about" exact component={AB} />
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />

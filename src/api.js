@@ -363,6 +363,10 @@ export const getProductRanking = {
   mainPage: () => api.get('/reviewRanking'),
 };
 
+export const getAd = {
+  atMainPage: () => api.get('/api/v1/advertisement/ads'),
+};
+
 export const allergyApi = {
   sortManufacturer: (sort, manufacturerName, allergies) =>
     api.get('/api/v1/food/getFoodListBySorting', {

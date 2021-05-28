@@ -142,23 +142,10 @@ export default withRouter(({ location: { pathname } }) => (
             <NavLink className="links">
               <Link to="/reviews">리뷰</Link>
             </NavLink>
-            <Dropdown
-              className="searchSection"
-              title="선택"
-              id="basic-nav-dropdown"
-            >
-              <DropdownItem href="#action/3.1">상품명</DropdownItem>
-              <DropdownItem href="#action/3.2">제조사</DropdownItem>
-            </Dropdown>
+            <NavLink className="links">
+              <Link to="/about">KATI 개발팀</Link>
+            </NavLink>
           </Nav>
-          <Form inline>
-            <FormGroup
-              type="text"
-              placeholder="검색어를 입력해주세요"
-              className="mr-sm-2"
-            />
-            <Button variant="outline-success">검색</Button>
-          </Form>
         </Navbar>
       </div>
     </div>

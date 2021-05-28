@@ -1,59 +1,5 @@
 @import 'styles/utils';
 
-@font-face {
-  font-family: 'engGood';
-  src: url('../styles/fonts/engGood.ttf');
-}
-
-@font-face {
-  font-family: 'buttonFont';
-  src: url('../styles/fonts/buttonFont.ttf');
-}
-
-@font-face {
-  font-family: 'naviFont';
-  src: url('../styles/fonts/naviFont.ttf');
-}
-
-@font-face {
-  font-family: 'thickEng';
-  src: url('../styles/fonts/thickEng.ttf');
-}
-
-@font-face {
-  font-family: 'popFont';
-  src: url('../styles/fonts/popFont.ttf');
-}
-
-@font-face {
-  font-family: 'typo';
-  src: url('../styles/fonts/typo.ttf');
-}
-
-@font-face {
-  font-family: 'ss';
-  src: url('../styles/fonts/ss.ttf');
-}
-
-@font-face {
-  font-family: 'tway';
-  src: url('../styles/fonts/tway.ttf');
-}
-
-@font-face {
-  font-family: 'dm';
-  src: url('../styles/fonts/dm.ttf');
-}
-
-@font-face {
-  font-family: 'mpb';
-  src: url('../styles/fonts/MPb.ttf');
-}
-@font-face {
-  font-family: 'mpl';
-  src: url('../styles/fonts/MPl.ttf');
-}
-
 .headerJS {
   header {
     top: 0;
@@ -167,7 +113,7 @@
     text-align: center;
     justify-content: center;
     margin-left: 150px;
-    margin-right: 10px;
+    margin-right: 100px;
     font-size: 20px;
     font-weight: 500;
     font-family: 'tway';
