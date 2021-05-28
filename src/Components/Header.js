@@ -117,9 +117,9 @@ export default withRouter(({ location: { pathname } }) => (
 
         <Navbar className="mainNav" bg="light" variant="light"></Navbar>
         <Row>
-          <div>
+          <div className="serviceName">
             <Link className="logo" to="/">
-              <p className="serviceName">K A T I</p>
+              <p>K A T I</p>
             </Link>
           </div>
         </Row>
@@ -127,38 +127,40 @@ export default withRouter(({ location: { pathname } }) => (
 
       <Navbar className="mainNav" bg="light" variant="light"></Navbar>
 
-      <Navbar bg="light" expand="lg" className="navigationGroup">
-        <Nav className="mainLink">
-          <NavLink className="links">
-            <Link to="/commercialProduct">광고상품</Link>
-          </NavLink>
-          <NavLink className="links">
-            <Link to="/searchProduct/food">상품찾기</Link>
-          </NavLink>
-          <NavLink className="links">
-            <Link to="/productRanking">제품랭킹</Link>
-          </NavLink>
-          <NavLink className="links">
-            <Link to="/reviews">리뷰</Link>
-          </NavLink>
-          <Dropdown
-            className="searchSection"
-            title="선택"
-            id="basic-nav-dropdown"
-          >
-            <DropdownItem href="#action/3.1">상품명</DropdownItem>
-            <DropdownItem href="#action/3.2">제조사</DropdownItem>
-          </Dropdown>
-        </Nav>
-        <Form inline>
-          <FormGroup
-            type="text"
-            placeholder="검색어를 입력해주세요"
-            className="mr-sm-2"
-          />
-          <Button variant="outline-success">검색</Button>
-        </Form>
-      </Navbar>
+      <div className="navMom">
+        <Navbar bg="light" expand="lg" className="navigationGroup">
+          <Nav className="mainLink">
+            <NavLink className="links">
+              <Link to="/commercialProduct">광고상품</Link>
+            </NavLink>
+            <NavLink className="links">
+              <Link to="/searchProduct/food">상품찾기</Link>
+            </NavLink>
+            <NavLink className="links">
+              <Link to="/productRanking">제품랭킹</Link>
+            </NavLink>
+            <NavLink className="links">
+              <Link to="/reviews">리뷰</Link>
+            </NavLink>
+            <Dropdown
+              className="searchSection"
+              title="선택"
+              id="basic-nav-dropdown"
+            >
+              <DropdownItem href="#action/3.1">상품명</DropdownItem>
+              <DropdownItem href="#action/3.2">제조사</DropdownItem>
+            </Dropdown>
+          </Nav>
+          <Form inline>
+            <FormGroup
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              className="mr-sm-2"
+            />
+            <Button variant="outline-success">검색</Button>
+          </Form>
+        </Navbar>
+      </div>
     </div>
   </header>
 ));

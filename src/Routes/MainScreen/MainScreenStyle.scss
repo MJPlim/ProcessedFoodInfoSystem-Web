@@ -1,5 +1,73 @@
+@import 'styles/utils';
+
 .mainScreen {
+  height: 2000px;
   .showImage {
     width: 100%;
+  }
+  .productSet {
+    height: 20px;
+    display: inline-block;
+    justify-content: right;
+    text-align: right;
+    align-items: right;
+  }
+  .titleBar {
+    font-family: 'mpb';
+    font-size: 20px;
+  }
+
+  .cardGroup {
+    width: 100%;
+  }
+  .cardTop {
+    font-family: 'MPl';
+    font-size: 15px;
+  }
+  .eachCard {
+    width: 200px;
+    height: 200px;
+    border-radius: 30px;
+    position: relative;
+    display: inline-block;
+    margin: 10px 10px 10px 10px;
+    font-family: 'MPl';
+    font-size: 13px;
+  }
+
+  .showProps {
+    margin-left: 15px;
+  }
+
+  .badgeContent {
+    margin-top: 2px;
+    margin-right: 10px;
+  }
+  .description {
+    width: 100%;
+  }
+  .menuTabs {
+    font-family: 'MPb';
+    margin-bottom: 10px;
+  }
+  .shownDescription {
+    margin-top: 10px;
+    font-family: 'MPl';
+  }
+  .marginSet {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 13px;
+  }
+  .tableTop {
+    font-size: 15px;
+    color: darkolivegreen;
+    font-weight: bold;
+    border-bottom: black solid 1px;
+  }
+  .copyright {
+    text-align: center;
+    font-family: 'MPb';
+    font-size: 8px;
   }
 }
