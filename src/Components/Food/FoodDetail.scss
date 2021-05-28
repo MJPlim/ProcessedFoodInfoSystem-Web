@@ -298,6 +298,7 @@
     .foodInfo {
       margin-top: 20px;
       .nutrient, .materials {
+        word-break: keep-all;
         height: 100%;
         width: 100%;
 

@@ -1,8 +1,10 @@
 @import "./src/styles/utils";
 
 .Ranking {
-  margin-left: 100px;
-  margin-right: 100px;
+  width: 75%;
+  margin: 20px auto auto;
+  font-family: 'tway';
+
 
   .container {
     margin-left: 30px;
@@ -25,45 +27,104 @@
     border-top: 1px solid;
   }
 
-  .RankingListItem {
-    width: 100% !important;
 
-    .rankNum {
-      font-weight: bold;
-      font-size: large;
-      margin-right: 10px;
+  .topRating {
+    width: 100%;
+    text-align: center;
+    margin: auto auto 60px;
+
+    .topRatingCard {
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+      border-radius: 10%;
+
+      .title {
+        font-size: large;
+        word-break: keep-all;
+      }
+
+      .trophy {
+        margin: auto;
+        font-size: x-large;
+        display: inline;
+      }
+      .avgRating{
+        font-size: medium;
+        display: inline;
+      }
 
       &.first {
-        margin-right: 3px;
-        color: gold;
+        .trophy {
+          color: gold;
+        }
       }
 
       &.second {
-        margin-right: 3px;
-        color: silver;
+        .trophy {
+          color: silver;
+        }
       }
 
       &.third {
-        margin-right: 3px;
-        color: saddlebrown;
+        .trophy {
+          color: saddlebrown;
+        }
       }
-    }
 
-    .foodName {
-      font-size: medium;
-    }
+      img {
+        width: 100%;
+      }
 
-    .ratingStar {
-      float: right;
-      font-size: large;
-      color: $yellow;
-      margin-right: 5px;
-    }
-
-    .avgRating {
-      float: right;
-      font-size: large;
     }
   }
+
+
+  .RankingList {
+    width: 100%;
+
+    .RankingListItem {
+      width: 100%;
+
+      .rankNum {
+        font-weight: bold;
+        font-size: large;
+        margin-right: 10px;
+
+        &.first {
+          margin-right: 3px;
+          color: gold;
+        }
+
+        &.second {
+          margin-right: 3px;
+          color: silver;
+        }
+
+        &.third {
+          margin-right: 3px;
+          color: saddlebrown;
+        }
+      }
+
+      .foodName {
+        font-size: medium;
+      }
+
+      .ratingStar {
+        float: right;
+        font-size: large;
+        color: $yellow;
+        margin-right: 5px;
+      }
+
+      .avgRating {
+        float: right;
+        font-size: large;
+      }
+    }
+  }
+
 
 }
