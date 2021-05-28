@@ -5,17 +5,20 @@ const SearchResult=({loading,result})=>{
     return(
       <div className="result">
           {loading? <div>Loading...</div>:
-          <div>
+          <div className="result__container">
               {result && result.length>0 ?
               result.map((result,index)=>(
-                 <div class="card">
-                <Link class="card-link" to={`food/${result.foodId}`}>
-                    <div class="card-body">
+                 <div className="card">
+              
+                    <div className="card-body">
                         <img className="foodImg"src={result.foodImageAddress}/>
-                        <h5 class="card-title">{result.foodName}</h5>
-                        <p class="card-text">{(result.manufacturerName).substring(0,9)}...</p>
+                        <h5 className="card-title">{result.foodName}</h5>
+                        <p className="card-text">{(result.manufacturerName).substring(0,9)}...</p>
+                        <Link className="card-link" to={`food/${result.foodId}`}>
+                        <button className="go__detail">상세보기</button>
+                        </Link>
                     </div>
-                    </Link>
+                    
                 </div>
                 
                )):<div>No result</div>
