@@ -94,12 +94,12 @@ function MyFavourite() {
                     />
                   </Link>
                   <CardBody className="showProps">
-                    <CardText>인기 점수: {food.food.reviewRate * 20}</CardText>
+                    <CardText>추천 개수: {food.food.reviewCount}</CardText>
 
                     <Badge
                       href={
                         `https://search.shopping.naver.com/search/all?query=` +
-                        food.foodName
+                        food.food.foodName
                       }
                       target="_blank"
                       color="dark"
