@@ -14,6 +14,7 @@ import {
   Button,
   Badge,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import showImage from '../../image/needcomment.PNG';
 import productSet from '../../image/kati.PNG';
 import icon1 from '../../image/icon2.PNG';
@@ -28,8 +29,8 @@ import { getProductRanking } from '../../api';
 import { useEffect } from 'react/cjs/react.development';
 
 function MainScreen() {
-  const [product, setProduct] = useState('');
-  const [loading, setLoading] = useState('');
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const updateProductRanking = async () => {
     await getProductRanking
@@ -59,30 +60,49 @@ function MainScreen() {
         <br />
         <Row>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon1} />
+            <Link>
+              <img className="icons" src={icon1} />
+            </Link>
           </Col>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon2} />
+            <Link>
+              <img className="icons" src={icon2} />
+            </Link>
           </Col>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon3} />
+            <Link>
+              {' '}
+              <img className="icons" src={icon3} />
+            </Link>
           </Col>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon4} />
+            <Link>
+              <img className="icons" src={icon4} />
+            </Link>
           </Col>
         </Row>
         <Row>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon5} />
+            <Link>
+              <img className="icons" src={icon5} />
+            </Link>
           </Col>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon6} />
+            <Link>
+              {' '}
+              <img className="icons" src={icon6} />
+            </Link>
           </Col>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon7} />
+            <Link>
+              {' '}
+              <img className="icons" src={icon7} />
+            </Link>
           </Col>
           <Col xs={6} md={3}>
-            <img className="icons" src={icon8} />
+            <Link>
+              <img className="icons" src={icon8} />
+            </Link>
           </Col>
         </Row>
         <br />
@@ -108,7 +128,7 @@ function MainScreen() {
             <div className="cardGroup">
               {product.map((item) => (
                 <Card className="eachCard">
-                  <CardBody>
+                  <CardBody className="cardTop">
                     <CardTitle tag="h5">{item.foodName}</CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">
                       여기에 종류
@@ -120,12 +140,14 @@ function MainScreen() {
                   alt="Card image cap"
                 /> */}
                   <p>여기에 사진</p>
-                  <CardBody>
-                    <CardText>별점{item.avgRating}</CardText>
-                    <Badge href="#" color="dark">
+                  <CardBody className="showProps">
+                    <CardText>인기 점수: {item.avgRating * 20}</CardText>
+                    <br />
+                    <br />
+                    <Badge href="#" color="dark" className="badgeContent">
                       구매
                     </Badge>
-                    <Badge href="#" color="dark">
+                    <Badge href="#" color="warning" className="badgeContent">
                       이슈확인
                     </Badge>
                   </CardBody>

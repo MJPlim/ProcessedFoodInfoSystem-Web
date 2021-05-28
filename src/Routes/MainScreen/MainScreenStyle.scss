@@ -19,6 +19,10 @@
   .cardGroup {
     width: 100%;
   }
+  .cardTop {
+    font-family: 'MPl';
+    font-size: 15px;
+  }
   .eachCard {
     width: 200px;
     height: 200px;
@@ -26,5 +30,16 @@
     position: relative;
     display: inline-block;
     margin: 10px 10px 10px 10px;
+    font-family: 'MPl';
+    font-size: 13px;
+  }
+
+  .showProps {
+    margin-left: 15px;
+  }
+
+  .badgeContent {
+    margin-top: 2px;
+    margin-right: 10px;
   }
 }
