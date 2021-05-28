@@ -23,6 +23,11 @@ import {
   Popover,
   PopoverHeader,
   PopoverBody,
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption,
 } from 'reactstrap';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -43,6 +48,8 @@ function MainScreen() {
   const [product, setProduct] = useState(null);
   const [ad, setAd] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
   const updateProductRanking = async () => {
     await getProductRanking
@@ -67,6 +74,18 @@ function MainScreen() {
     updateProductRanking();
   }, []);
 
+  const onMoveToLink = (url) => {
+    let link = `https://search.shopping.naver.com/search/all?query=` + url;
+  };
+
+  const onMoveToNews = (url) => {
+    let link =
+      'https://search.naver.com/search.naver?query=' +
+      url.split('_')[0] +
+      '&where=news';
+    console.log(link);
+  };
+
   return (
     <div className="mainScreen">
       <br />
@@ -75,27 +94,51 @@ function MainScreen() {
         <div className="setUp">
           <div className="cardGroup">
             {ad.map((result) => (
-              <Card className="eachCard">
-                <CardBody className="cardTop">
+              <Card className="eachAdCard">
+                <CardBody className="adcardTop">
                   <CardTitle tag="h5">{result.food.foodName}</CardTitle>
                   <CardSubtitle tag="h6" className="mb-2 text-muted">
                     {result.food.category}
                   </CardSubtitle>
                 </CardBody>
-                <img width="100" src={result.food.foodImageAddress} />
+                <Link to={`food/${result.food.foodId}`}>
+                  <img
+                    className="adImage"
+                    width="40%"
+                    height="40%"
+                    src={result.food.foodImageAddress}
+                  />
+                </Link>
                 {/* <img
                   width="100%"
                   src="/assets/318x180.svg"
                   alt="Card image cap"
                 /> */}
                 <CardBody className="showProps">
-                  <CardText>인기 점수: {result.food.reviewRate * 20}</CardText>
+                  <CardText>{result.food.manufacturerName}</CardText>
                   <br />
                   <br />
-                  <Badge href="#" color="dark" className="badgeContent">
+                  <Badge
+                    href={
+                      `https://search.shopping.naver.com/search/all?query=` +
+                      result.food.foodName
+                    }
+                    target="_blank"
+                    color="dark"
+                    className="badgeAdContent"
+                  >
                     구매
                   </Badge>
-                  <Badge href="#" color="warning" className="badgeContent">
+                  <Badge
+                    href={
+                      'https://search.naver.com/search.naver?query=' +
+                      result.food.foodName.split('_')[0] +
+                      '&where=news'
+                    }
+                    target="_blank"
+                    color="warning"
+                    className="badgeAdContent"
+                  >
                     이슈확인
                   </Badge>
                 </CardBody>
@@ -200,10 +243,27 @@ function MainScreen() {
                     <CardText>인기 점수: {item.avgRating * 20}</CardText>
                     <br />
                     <br />
-                    <Badge href="#" color="dark" className="badgeContent">
+                    <Badge
+                      href={
+                        `https://search.shopping.naver.com/search/all?query=` +
+                        item.foodName
+                      }
+                      target="_blank"
+                      color="dark"
+                      className="badgeContent"
+                    >
                       구매
                     </Badge>
-                    <Badge href="#" color="warning" className="badgeContent">
+                    <Badge
+                      href={
+                        'https://search.naver.com/search.naver?query=' +
+                        item.foodName.split('_')[0] +
+                        '&where=news'
+                      }
+                      target="_blank"
+                      color="warning"
+                      className="badgeContent"
+                    >
                       이슈확인
                     </Badge>
                   </CardBody>
