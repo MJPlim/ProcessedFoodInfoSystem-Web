@@ -3,6 +3,7 @@ import './SearchStyle.scss';
 import ad1 from '../../image/ad1.jpg';
 import ad2 from '../../image/ad2.jpg';
 import ad3 from '../../image/ad3.jpg';
+import ad4 from '../../image/ad4.jpg';
 import {
   InputGroup,
   InputGroupAddon,
@@ -32,21 +33,15 @@ import{RiSearch2Line}from 'react-icons/ri';
 import AdFoodResult from './AdFoodResult';
 
 const items = [
-  {//ad1 내가 대충 만든 광고페이지임ㅋ...
-    src: {ad1},
-    altText: 'Slide 1',
-    caption: 'Slide 1'
-  },
-  {//여긴 샘플
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 2',
-    caption: 'Slide 2'
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 3',
-    caption: 'Slide 3'
-  }
+   {
+      src: ad1,
+    },
+    {
+      src: ad2,
+    },
+    {
+      src:ad4
+    }
 ];
 const SearchTab = (props) => {
   //광고부분
@@ -411,7 +406,7 @@ const handleCategory = async (e) => {
           <li class='list-group-item category'>유제품</li>
           <button
             type='button'
-            value='계란'
+            value='유제품'
             className='list-group-item list-group-item-action'
             onClick={handleCategory}
           >
@@ -420,7 +415,7 @@ const handleCategory = async (e) => {
           <li class='list-group-item category'>농수산물</li>
           <button
             type='button'
-            value='유제품'
+            value='계란'
             className='list-group-item list-group-item-action'
             onClick={handleCategory}
           >
@@ -580,12 +575,40 @@ const handleCategory = async (e) => {
       {slides}
       <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
       <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-    </Carousel>
-          {/* 결과부분 */}
-          <SearchResult className='searchResult' loading={loading} result={result}/>
-          </div>
+      </Carousel>
+      
+       <div className='selectType list-group resultPage sortBy'>
+         <p className="result">검색결과</p>
+         <div className="form-check__group">
+            <div class='form-check'>
+              <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
+                     name='flexRadioDefault' id='flexRadioDefault2' />
+              <label class='form-check-label' for='flexRadioDefault2'>
+                <FaCrown></FaCrown>랭킹순
+              </label>
+            </div>
+            <div class='form-check'>
+              <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
+                     name='flexRadioDefault' id='flexRadioDefault2' />
+              <label class='form-check-label' for='flexRadioDefault2'>
+                <IoIosPaper></IoIosPaper>리뷰순
+              </label>
+            </div>
 
-        </div>
+            <div class='form-check'>
+              <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
+                     name='flexRadioDefault' id='flexRadioDefault2' />
+              <label class='form-check-label' for='flexRadioDefault2'>
+                <FaBuilding></FaBuilding>제조사별
+              </label>
+            </div>
+          </div>
+          </div>
+          {/* 결과부분 */}
+        <SearchResult className='searchResult' loading={loading} result={result}/>
+      </div>
+
+    </div>
        
        
       </div>
