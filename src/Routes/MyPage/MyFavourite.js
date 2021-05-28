@@ -56,6 +56,8 @@ function MyFavourite() {
     getFavourite();
   }, []);
 
+  const onClick = (e) => {};
+
   return (
     <div>
       <Container>
@@ -94,8 +96,6 @@ function MyFavourite() {
                     />
                   </Link>
                   <CardBody className="showProps">
-                    <CardText>추천 개수: {food.food.reviewCount}</CardText>
-
                     <Badge
                       href={
                         `https://search.shopping.naver.com/search/all?query=` +
@@ -107,9 +107,9 @@ function MyFavourite() {
                     >
                       구매
                     </Badge>
-                    <Badge color="warning" className="badgeContent">
+                    <Button color="danger" size="sm">
                       지우기
-                    </Badge>
+                    </Button>
                   </CardBody>
                 </Card>
               ))}
