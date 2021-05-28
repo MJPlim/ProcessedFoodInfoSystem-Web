@@ -1,6 +1,7 @@
 @import 'styles/utils';
 
 .mainScreen {
+  height: 2000px;
   .showImage {
     width: 100%;
   }
@@ -41,5 +42,32 @@
   .badgeContent {
     margin-top: 2px;
     margin-right: 10px;
+  }
+  .description {
+    width: 100%;
+  }
+  .menuTabs {
+    font-family: 'MPb';
+    margin-bottom: 10px;
+  }
+  .shownDescription {
+    margin-top: 10px;
+    font-family: 'MPl';
+  }
+  .marginSet {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 13px;
+  }
+  .tableTop {
+    font-size: 15px;
+    color: darkolivegreen;
+    font-weight: bold;
+    border-bottom: black solid 1px;
+  }
+  .copyright {
+    text-align: center;
+    font-family: 'MPb';
+    font-size: 8px;
   }
 }
