@@ -275,18 +275,7 @@ function MainScreen() {
             </div>
           )}
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div className="description"></div>
-        <br />
-        <br />
-        <div className="copyright">
-          <p>Copyright ⓒ 2021 명지대학교 PLIM. All Rights Reserved.</p>
-        </div>
+
       </Container>
     </div>
   );

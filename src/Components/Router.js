@@ -33,6 +33,7 @@ import CUI from '../Routes/MyPage/ChangeUserInfo';
 import UAI from '../Routes/MyPage/MyAllergies';
 import SE from '../Routes/MyPage/SecondEmail';
 import AB from '../Routes/MainScreen/About';
+import Footer from './Footer';
 
 export default () => (
   <Router>
@@ -70,6 +71,7 @@ export default () => (
         {/* url잘못치면 메인으로 */}
         <Redirect from="*" to="/" />
       </Switch>
+      <Footer/>
     </>
   </Router>
 );
