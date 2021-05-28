@@ -31,7 +31,7 @@
   .topRating {
     width: 100%;
     text-align: center;
-    margin: auto auto 60px;
+    margin: auto auto 1%;
 
     .topRatingCard {
       height: 100%;
@@ -51,6 +51,7 @@
         display: inline;
       }
       .avgRating{
+        margin: auto auto auto 10px;
         font-size: medium;
         display: inline;
       }
