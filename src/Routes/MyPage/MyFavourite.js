@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { favouriteApi } from '../../api';
+import { deleteFavoriteApi, favouriteApi } from '../../api';
 import { Link } from 'react-router-dom';
 import './MyFavouriteStyle.scss';
 import productSet from '../../image/kati.PNG';
@@ -56,7 +56,10 @@ function MyFavourite() {
     getFavourite();
   }, []);
 
-  const onClick = (e) => {};
+  const deleteF = async (foodId, e) => {
+    await deleteFavoriteApi.deleteFavorite(foodId);
+    getFavourite();
+  };
 
   return (
     <div>
@@ -73,7 +76,11 @@ function MyFavourite() {
             </Col>
           </Row>
           <hr />
-          {!loading && (
+          {loading ? (
+            <div>
+              <p>즐겨찾기추가해주셈</p>
+            </div>
+          ) : (
             <div className="cardGroup">
               {data.map((food) => (
                 <Card className="eachCard">
@@ -96,7 +103,7 @@ function MyFavourite() {
                     />
                   </Link>
                   <CardBody className="showProps">
-                    <Badge
+                    <Button
                       href={
                         `https://search.shopping.naver.com/search/all?query=` +
                         food.food.foodName
@@ -104,10 +111,17 @@ function MyFavourite() {
                       target="_blank"
                       color="dark"
                       className="badgeContent"
+                      size="sm"
+                      className="buttonF"
                     >
                       구매
-                    </Badge>
-                    <Button color="danger" size="sm">
+                    </Button>
+                    <Button
+                      color="danger"
+                      size="sm"
+                      className="buttonF"
+                      onClick={(e) => deleteF(food.food.foodId, e)}
+                    >
                       지우기
                     </Button>
                   </CardBody>
