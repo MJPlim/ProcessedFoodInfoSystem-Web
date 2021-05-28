@@ -5,7 +5,7 @@ const SearchResult=({loading,result})=>{
     return(
       <div className="result">
           {loading? <div>Loading...</div>:
-          <div>
+          <div className="result__container">
               {result && result.length>0 ?
               result.map((result,index)=>(
                  <div class="card">

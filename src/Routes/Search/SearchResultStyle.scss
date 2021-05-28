@@ -1,35 +1,22 @@
-.foodImg{
-    width: 100px;
-    height: 100px;
-}
-.result{
-    .card{
-    box-sizing: border-box;
+.result__container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    gap: 10px 20px;
+    align-items: center;
     .card-body{
         display: flex;
-        justify-content: space-around;
+        flex-direction: column;
         align-items: center;
-    }
+        justify-items: center;
 
-    .card-title{
-        font-weight: 900;
-        font-size: large;
+        .foodImg{
+        width: 40%;
+        height: 80%;
+        }
+        .card-title{
+            font-weight: 800;
+            font-size: larger;
+        }
     }
-    .card-text{
-           margin-bottom: 6px;
-    }
-    .go-detail{
-        background-color:#ed2f3b;
-        color:white;
-        width: 100px;
-        height: 50px;
-        border-radius: 1em;
-    }
-    .go-detail{
-            cursor: pointer;
-    }
-}
-.card:hover{
-    background-color: ivory;
-}
+    
 }
