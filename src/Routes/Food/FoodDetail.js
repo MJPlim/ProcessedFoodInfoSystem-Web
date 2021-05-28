@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Nav, NavItem, Row, TabContent, TabPane, NavLink } from 'reactstrap';
+import { Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import '../../Components/Food/FoodDetail.scss';
 import {
   addFavoriteApi,
@@ -14,7 +14,6 @@ import {
   postReviewApi,
   reviewLikeApi,
 } from '../../api';
-import FoodDetailTitle from '../../Components/Food/FoodDetailTitle';
 import FoodInfo from '../../Components/Food/FoodInfo';
 import FoodReview from '../../Components/Food/FoodReview';
 import FoodImageCarousel from '../../Components/Food/FoodImageCarousel';
@@ -347,86 +346,84 @@ const FoodDetail = (props) => {
     if (foodError) return <div>에러가 발생했습니다</div>;
     if (!food) return null;
 
-  return (
-    <div className='FoodDetail'>
+    return (
+      <div className='FoodDetail'>
 
-      <div className={'hr'} />
+        <Row>
+          <Col lg='6'>
+            <FoodImageCarousel image={food.foodImageAddress} metaImage={food.foodMeteImageAddress} />
 
-      <Row>
-        <Col lg='6'>
-          <FoodImageCarousel image={food.foodImageAddress} metaImage={food.foodMeteImageAddress} />
-
-        </Col>
-        <Col lg='6'>
-          <FoodInfo food={food} onMoveToLink={() => onMoveToLink()} onMoveToNews={() => onMoveToNews()}
-                    isLogin={isLogin} isFavorite={isFavorite}
-                    onClickFavoriteButton={() => onClickFavoriteButton()} />
-        </Col>
+          </Col>
+          <Col lg='6'>
+            <FoodInfo food={food} onMoveToLink={() => onMoveToLink()} onMoveToNews={() => onMoveToNews()}
+                      isLogin={isLogin} isFavorite={isFavorite}
+                      onClickFavoriteButton={() => onClickFavoriteButton()} />
+          </Col>
 
 
-        <Col lg='12' className='bottomArea'>
-          <Nav tabs>
-            <NavItem>
-              <NavLink
-                className={activeTab === '1' ? 'active' : ''}
-                onClick={() => {
-                  toggle('1');
-                }}
-              >
-                상세정보
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={activeTab === '2' ? 'active' : ''}
-                onClick={() => {
-                  toggle('2');
-                }}
-              >
-                리뷰 ({!reviewsLoading ? reviewSummary.reviewCount : null} )
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <TabContent activeTab={activeTab}>
-            <TabPane tabId='1'>
-              <Row>
-                <Col sm='12'>
-                  <FoodInfoDetail food={food} />
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tabId='2'>
-              <Row>
-                <Col sm='12'>
-                  <FoodReview foodId={foodId} isLogin={isLogin} reviews={reviews} reviewSummary={reviewSummary}
-                              editTargetReview={editTargetReview}
-                              onClickEditReview={(review) => onClickEditReview(review)}
-                              onClickDeleteReview={(review) => onClickDeleteReview(review)}
-                              onClickReviewLikeButton={(targetReview) => onClickReviewLikeButton(targetReview)}
-                              onClickPage={(pageNum) => onClickPage(pageNum)}
-                              onClickPostReview={(e) => onClickPostReview(e)}
-                              onClickPostEditReview={(editTargetReview) => onClickPostEditReview(editTargetReview)}
-                              ratingChanged={(newRating) => ratingChanged(newRating)}
-                              editRatingChanged={(newRating) => editRatingChanged(newRating)}
-                              onChangeEditReview={(e) => onChangeEditReview(e)}
-                              onChangeEditCancel={() => onChangeEditCancel()}
-                              onChangeReview={(e) => onChangeReview(e)} />
-                </Col>
-              </Row>
-            </TabPane>
-          </TabContent>
-        </Col>
+          <Col lg='12' className='bottomArea'>
+            <Nav tabs className={'bottomTab'}>
+              <NavItem>
+                <NavLink
+                  className={activeTab === '1' ? 'active' : ''}
+                  onClick={() => {
+                    toggle('1');
+                  }}
+                >
+                  상세정보
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={activeTab === '2' ? 'active' : ''}
+                  onClick={() => {
+                    toggle('2');
+                  }}
+                >
+                  리뷰 ({!reviewsLoading ? reviewSummary.reviewCount : null} )
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <TabContent activeTab={activeTab}>
+              <TabPane tabId='1'>
+                <Row>
+                  <Col sm='12'>
+                    <FoodInfoDetail food={food} />
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId='2'>
+                <Row>
+                  <Col sm='12'>
+                    <FoodReview foodId={foodId} isLogin={isLogin} reviews={reviews} reviewSummary={reviewSummary}
+                                editTargetReview={editTargetReview}
+                                onClickEditReview={(review) => onClickEditReview(review)}
+                                onClickDeleteReview={(review) => onClickDeleteReview(review)}
+                                onClickReviewLikeButton={(targetReview) => onClickReviewLikeButton(targetReview)}
+                                onClickPage={(pageNum) => onClickPage(pageNum)}
+                                onClickPostReview={(e) => onClickPostReview(e)}
+                                onClickPostEditReview={(editTargetReview) => onClickPostEditReview(editTargetReview)}
+                                ratingChanged={(newRating) => ratingChanged(newRating)}
+                                editRatingChanged={(newRating) => editRatingChanged(newRating)}
+                                onChangeEditReview={(e) => onChangeEditReview(e)}
+                                onChangeEditCancel={() => onChangeEditCancel()}
+                                onChangeReview={(e) => onChangeReview(e)} />
+                  </Col>
+                </Row>
+              </TabPane>
+            </TabContent>
+          </Col>
 
-        <Col lg='12' className='reviewArea'>
+          <Col lg='12' className='reviewArea'>
 
-        </Col>
+          </Col>
 
-        <Col lg='12' className='reviewArea'>
+          <Col lg='12' className='reviewArea'>
 
-        </Col>
-      </Row>
-    </div>
-  );
+          </Col>
+        </Row>
+      </div>
+    );
   }
 ;
 

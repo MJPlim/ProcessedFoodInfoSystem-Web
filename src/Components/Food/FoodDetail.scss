@@ -6,6 +6,7 @@
 
   width: 75%;
   margin: auto;
+  font-family: 'tway';
 
   .hr {
     margin: 0;
@@ -90,28 +91,44 @@
   }
 
   .foodReview {
-    .pageDiv{
+    .pageDiv {
       text-align: center;
     }
+
     .reviewPaginate {
       width: 100%;
       font-size: medium;
       margin: 10px auto 30px;
-      display:inline-block !important;
+      display: inline-block !important;
 
       li {
         margin: 15px;
-        display:inline-block !important;
+        display: inline-block !important;
       }
     }
-    .reviewInfo{
+
+    .reviewInfo {
       margin-top: 10px;
+
       .reviewSummary {
         height: 100%;
         font-size: large;
         //margin-top: 30px;
       }
+        height: 100%;
+        .reviewCount, .avgRating {
+          text-align: center;
+          height: 100%;
+          width: 100%;
 
+          .title{
+            font-size: large;
+          }
+          .point{
+            font-size: x-large;
+            margin: auto;
+          }
+        }
     }
 
 
@@ -121,11 +138,21 @@
     }
 
     .reviewTable {
-      font-size: 1.1em;
+      font-size: 1.2em;
       margin-top: 15px;
       table-layout: fixed;
       margin-left: auto;
       margin-right: auto;
+      text-align: center;
+
+      .starRating{
+        margin: auto;
+      }
+
+      @media all and (max-width:479px) {
+        font-size: 0.1em;
+      }
+
     }
 
     .reviewLabel {
@@ -217,6 +244,21 @@
         border-color: $lightorange !important;
       }
     }
+    .reviewSubmitButton{
+      width: 20%;
+      float: right;
+      background-color: $lightorange !important;
+      border-color: $lightorange !important;
+      color: white;
+      margin-bottom: 20px !important;
+
+
+      &:hover, &:active {
+        background-color: $orange !important;
+        color: white !important;
+        border-color: $orange !important;
+      }
+    }
 
 
     .reviewPage {
@@ -236,26 +278,40 @@
 
   }
 
-  .bottomArea{
+  .bottomArea {
+    margin-top: 30px;
     @media screen and (max-width: 992px) {
       margin-top: 30px;
     }
+    .bottomTab{
+      li{
+        font-size: medium;
+        width: 50%;
+        height: 100%
+      }
+    }
   }
 
-.foodInfoDetail{
-  margin-bottom: 50px;
-  .foodInfo {
+  .foodInfoDetail {
+    margin-bottom: 50px;
+
+    .foodInfo {
       margin-top: 20px;
-    .foodInfoDesc {
-      font-size: small;
-    }
+      .nutrient, .materials {
+        height: 100%;
+        width: 100%;
 
-    .subTitle {
-      font-size: large !important;
-      margin-bottom: 10px;
+        .title{
+          font-size: x-large;
+        }
+        .foodInfoDesc{
+          font-size: medium;
+        }
+      }
+
+
     }
   }
-}
 
   .carousel {
     height: 100%;
