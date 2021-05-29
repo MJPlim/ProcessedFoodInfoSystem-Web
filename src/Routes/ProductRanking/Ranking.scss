@@ -93,37 +93,6 @@
     .RankingTableRow {
       font-size: large;
 
-      .rankNum {
-        font-weight: bold;
-
-        margin-right: 10px;
-
-        &.first {
-          margin-right: 3px;
-          color: gold;
-        }
-
-        &.second {
-          margin-right: 3px;
-          color: silver;
-        }
-
-        &.third {
-          margin-right: 3px;
-          color: saddlebrown;
-        }
-      }
-
-      .foodName {
-        font-size: medium;
-      }
-
-      .category {
-        display: inline-block;
-        width: 50%;
-        margin: auto;
-      }
-
       .ratingStar {
         //float: right;
         font-size: large;
@@ -131,10 +100,6 @@
         margin-right: 5px;
       }
 
-      .avgRating {
-        float: right;
-        font-size: large;
-      }
     }
   }
 
