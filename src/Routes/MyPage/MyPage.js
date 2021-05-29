@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CardText, Col, Container, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { getUserAllergyInfo, getUserSummary } from '../../api';
+import { editReviewApi, getReviewByUserIDApi, getUserAllergyInfo, getUserSummary } from '../../api';
 import './MyPageStyle.scss';
+import UserReviews from './UserReviews';
 
 const MyPage = () => {
   const [data, setData] = useState([]);
   const [writtenData, setWrittenData] = useState(null);
-  const [allergyLoading, setAllergyLoading] = useState(false);
-  const [userLoading, setUserLoading] = useState(false);
+  const [allergyLoading, setAllergyLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [toggleReview, setToggleReview] = useState(false);
 
   const [favouriteCount, setFavouriteCount] = useState('');
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
 
+
+
+
+
   useEffect(() => {
     const gogogetAllergy = async () => {
-      setAllergyLoading(false);
-      getUserAllergyInfo
+      setAllergyLoading(true);
+     await getUserAllergyInfo
         .userAllergies()
         .then((response) => {
           const result = response.data.userAllergyMaterials;
           setData(result);
-          setAllergyLoading(true);
+          setAllergyLoading(false);
         })
         .catch((error) => {
           console.log(error);
         });
     };
     const gogogetSummary = async () => {
-      setUserLoading(false);
-      getUserSummary
+      setUserLoading(true);
+      await getUserSummary
         .userSummary()
         .then((response) => {
-          setUserLoading(true);
+          setUserLoading(false);
           setFavouriteCount(response.data.favorite_count);
           setReviewCount(response.data.review_count);
           setUserName(response.data.user_name);
@@ -47,9 +53,15 @@ const MyPage = () => {
     };
     gogogetAllergy();
     gogogetSummary();
+
   }, []);
 
-  if (!userLoading || !allergyLoading) return null;
+  const onclickReview = () => {
+    setToggleReview(prevState => (!prevState));
+  };
+
+
+  if (userLoading || allergyLoading ) return null;
 
   return (
     <div className='MyPage'>
@@ -94,10 +106,10 @@ const MyPage = () => {
         {/* 밑으로는 사용자 개인 정보 보여주기*/}
         <div className={'userInfoArea'}>
           <Table>
-            <tr>
-              <th width={'20%'}>이메일</th>
-              <td width={'80%'}>{localStorage.getItem('userLoginEmail')}</td>
-            </tr>
+            {/*<tr>*/}
+            {/*  <th width={'20%'}>이메일</th>*/}
+            {/*  <td width={'80%'}>{localStorage.getItem('userLoginEmail')}</td>*/}
+            {/*</tr>*/}
             <tr>
               <th width={'20%'}>이름</th>
               <td width={'80%'}>{localStorage.getItem('name')}</td>
@@ -119,11 +131,12 @@ const MyPage = () => {
             </tr>
             <tr>
               <th width={'20%'}>리뷰 개수</th>
-              <td width={'80%'}>{reviewCount}</td>
+              <td width={'80%'} style={{ cursor: 'pointer' }} onClick={onclickReview}>{reviewCount} (자세히 보기)</td>
             </tr>
           </Table>
-
+          {toggleReview && <UserReviews/>}
           <hr />
+
         </div>
         <br />
         <br />

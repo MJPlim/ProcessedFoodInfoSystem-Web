@@ -389,3 +389,13 @@ export const allergyApi = {
       },
     }),
 };
+
+
+export const getReviewByUserIDApi = {
+  getReviews: () =>
+    api.get('/api/v1/user/readReviewByUserID', {
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};

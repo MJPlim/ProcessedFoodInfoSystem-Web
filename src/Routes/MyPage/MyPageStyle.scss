@@ -1,3 +1,5 @@
+@import "./src/styles/utils";
+
 .MyPage {
   word-break: keep-all;
   margin: 20px auto auto;
@@ -14,7 +16,7 @@
   }
   .userInfoArea{
     margin-top: 2%;
-    font-size: large;
+    font-size: medium;
   }
 
   .userAllergyArea{
@@ -29,6 +31,92 @@
       font-size: medium;
 
     }
+  }
+  .reviewTable {
+    font-size: small;
+    margin-top: 15px;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    .starRating{
+      margin: auto;
+    }
+
+    .deleteButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: red;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: red !important;
+        border-color: $lightorange !important;
+      }
+    }
+
+    .editButton {
+      background-color: transparent;
+      border-color: darkblue;
+      color: darkblue;
+      padding: 0;
+      margin: 0 5px 0 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: darkblue !important;
+        border-color: darkblue !important;
+      }
+    }
+
+    .editCancelButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: red;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: red !important;
+        border-color: $lightorange !important;
+      }
+    }
+    .reviewSubmitButton{
+      width: 20%;
+      float: right;
+      background-color: $lightorange !important;
+      border-color: $lightorange !important;
+      color: white;
+      margin-bottom: 20px !important;
+
+
+      &:hover, &:active {
+        background-color: $orange !important;
+        color: white !important;
+        border-color: $orange !important;
+      }
+    }
+
+    @media all and (max-width:479px) {
+      font-size: 0.1em;
+    }
+
   }
 
   .userSummaryArea{

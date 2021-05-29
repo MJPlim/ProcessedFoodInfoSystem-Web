@@ -114,8 +114,6 @@ const FoodReview = ({
                     </Button>
                   </td>
                 </tr>
-
-
               ) : (
                 <tr key={index}>
                   <td style={{ color: '#fe9b5a', fontSize: '1.1em'}}>
