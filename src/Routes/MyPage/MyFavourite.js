@@ -37,19 +37,18 @@ function MyFavourite() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [checkLoading, setCheckLoading] = useState(true);
 
   const getFavourite = async () => {
     await favouriteApi
       .myFavourite()
       .then((response) => {
         setData(response.data);
-        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
-        setLoading(true);
       });
+    setCheck(data);
   };
 
   useEffect(() => {
@@ -59,6 +58,14 @@ function MyFavourite() {
   const deleteF = async (foodId, e) => {
     await deleteFavoriteApi.deleteFavorite(foodId);
     getFavourite();
+  };
+
+  const setCheck = (data) => {
+    if (data === []) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
   };
 
   return (
