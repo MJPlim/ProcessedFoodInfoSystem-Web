@@ -123,11 +123,11 @@ export const setSecurityEmail = {
 
 export const foodApi = {
   //해당 url로 가는 함수들
-  search: (term, sort, allergies) =>
+  search: (term, page,sort, allergies) =>
     api.get('/api/v1/food/getFoodListBySorting', {
       params: {
         foodName: term,
-        pageNo: 1,
+        pageNo: page,
         size: 10,
         sort: sort,
         allergies: allergies.join(','),
@@ -344,13 +344,13 @@ export const sortApi = {
     }),
 };
 export const categoryApi = {
-  category: (category) =>
+  category: (category,allergies) =>
     api.get('/api/v1/food/list/category', {
       params: {
         category: category,
-        pageNo: 1,
+        page: 1,
         size: 10,
-        sort: 'ranking',
+        allergies: allergies,
       },
     }),
 };
