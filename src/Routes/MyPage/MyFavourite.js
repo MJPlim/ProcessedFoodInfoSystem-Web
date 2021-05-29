@@ -8,29 +8,10 @@ import {
   Container,
   Col,
   Card,
-  CardImage,
   CardBody,
   CardTitle,
   CardSubtitle,
-  CardText,
-  CardLink,
   Button,
-  Badge,
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Table,
-  Fade,
-  Popover,
-  PopoverHeader,
-  PopoverBody,
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption,
 } from 'reactstrap';
 
 function MyFavourite() {
@@ -44,7 +25,18 @@ function MyFavourite() {
   }, []);
 
   useEffect(() => {
-    setCheck(data);
+    try {
+      console.log(data);
+      if (data.length >= 1) {
+        console.log('ok');
+        setLoading(false);
+      } else if (data.length < 1) {
+        console.log('no');
+        setLoading(true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }, [data]);
 
   const getFavourite = async () => {
@@ -88,7 +80,15 @@ function MyFavourite() {
           <hr />
           {loading ? (
             <div>
-              <p>즐겨찾기추가해주셈</p>
+              <br />
+              <br />
+              <br />
+              <li className="addF">즐겨찾기 상품이 없습니다</li>
+              <Link className="addFB" to="/searchProduct/food">
+                <Button outline color="warning" size="sm" block>
+                  즐겨찾기 추가하러가기
+                </Button>
+              </Link>
             </div>
           ) : (
             <div className="cardGroup">

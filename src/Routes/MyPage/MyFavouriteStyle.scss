@@ -1,6 +1,6 @@
 .myFavourite {
   width: 100%;
-  margin-left: 10%;
+  margin-left: 1%;
   margin-top: 2%;
   .showImage {
     width: 100%;
@@ -128,5 +128,13 @@
     height: 20px;
     margin-right: 25px;
     font-size: 10px;
+  }
+  .addF {
+    margin-left: 120px;
+    font-size: 20px;
+    color: red;
+  }
+  .addFB {
+    margin-left: 100px;
   }
 }
