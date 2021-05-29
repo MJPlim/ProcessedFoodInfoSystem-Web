@@ -50,7 +50,8 @@
         font-size: x-large;
         display: inline;
       }
-      .avgRating{
+
+      .avgRating {
         margin: auto auto auto 10px;
         font-size: medium;
         display: inline;
@@ -82,48 +83,23 @@
   }
 
 
-  .RankingList {
+  .RankingTable {
     width: 100%;
+    text-align: center;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
 
-    .RankingListItem {
-      width: 100%;
-
-      .rankNum {
-        font-weight: bold;
-        font-size: large;
-        margin-right: 10px;
-
-        &.first {
-          margin-right: 3px;
-          color: gold;
-        }
-
-        &.second {
-          margin-right: 3px;
-          color: silver;
-        }
-
-        &.third {
-          margin-right: 3px;
-          color: saddlebrown;
-        }
-      }
-
-      .foodName {
-        font-size: medium;
-      }
+    .RankingTableRow {
+      font-size: large;
 
       .ratingStar {
-        float: right;
+        //float: right;
         font-size: large;
         color: $yellow;
         margin-right: 5px;
       }
 
-      .avgRating {
-        float: right;
-        font-size: large;
-      }
     }
   }
 
