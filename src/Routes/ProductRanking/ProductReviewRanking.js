@@ -9,7 +9,7 @@ import {
   ListGroupItem,
   ListGroupItemHeading,
   ListGroupItemText,
-  Row,
+  Row, Table,
 } from 'reactstrap';
 import './Ranking.scss';
 import { AiFillStar, AiOutlineStar, FaTrophy } from 'react-icons/all';
@@ -51,19 +51,6 @@ const ProductReviewRanking = () => {
 
           <Row className={'topRating'}>
             <Col sm={4}>
-              <Card body className={'second topRatingCard'}>
-                <FaTrophy className={'trophy'} />
-                <CardText className={'avgRating'}>{rankingList[1].avgRating}</CardText>
-                <Link to={{
-                  pathname: `searchProduct/food/${rankingList[1].foodId}`,
-                }}>
-                  <img src={rankingList[1].foodImageAddress} />
-                  <CardTitle className={'title'}>{rankingList[1].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[1].category}</CardText>
-                </Link>
-              </Card>
-            </Col>
-            <Col sm={4}>
               <Card body className={'first topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[0].avgRating}</CardText>
@@ -73,6 +60,19 @@ const ProductReviewRanking = () => {
                   <img src={rankingList[0].foodImageAddress} />
                   <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
                   <CardText className={'category'}> {rankingList[0].category}</CardText>
+                </Link>
+              </Card>
+            </Col>
+            <Col sm={4}>
+              <Card body className={'second topRatingCard'}>
+                <FaTrophy className={'trophy'} />
+                <CardText className={'avgRating'}>{rankingList[1].avgRating}</CardText>
+                <Link to={{
+                  pathname: `searchProduct/food/${rankingList[1].foodId}`,
+                }}>
+                  <img src={rankingList[1].foodImageAddress} />
+                  <CardTitle className={'title'}>{rankingList[1].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[1].category}</CardText>
                 </Link>
               </Card>
             </Col>
@@ -91,31 +91,39 @@ const ProductReviewRanking = () => {
             </Col>
           </Row>
 
-          <ListGroup className={'RankingList'}>
+          <Table className={'RankingTable'}>
+            <thead>
+            <tr>
+              <th width={'10%'}>순위</th>
+              <th width={'35%'}>제품 명</th>
+              <th width={'35%'}>카테고리</th>
+              <th width={'15%'}>평균 점수</th>
+            </tr>
+            </thead>
+            <tbody>
             {rankingList.map((item, index) => (
-                <div>
+                <>
                   {index === 0 || index === 1 || index === 2 ?
                     null
                     :
-                    <ListGroupItem className={'RankingListItem'} key={index}>
-                      <Link to={{
-                        pathname: `searchProduct/food/${item.foodId}`,
-                      }}>
+                    <tr className={'RankingTableRow'} key={index}>
 
+                      <th scope='row'>{index + 1}</th>
+                      <td>
+                        <Link to={{
+                          pathname: `searchProduct/food/${item.foodId}`,
+                        }}>{item.foodName}
+                        </Link></td>
+                      <td>{item.category}</td>
+                      <td><AiFillStar className={'ratingStar'} />{item.avgRating}</td>
+                    </tr>
 
-                        <text className={'rankNum'}>{index + 1}</text>
-
-                        <text className={'foodName'}> {item.foodName}</text>
-                      </Link>
-                      <text className={'avgRating'}>{item.avgRating}</text>
-                      <AiFillStar className={'ratingStar'} />
-                    </ListGroupItem>
                   }
-
-                </div>
+                </>
               ),
             )}
-          </ListGroup>
+            </tbody>
+          </Table>
         </div>
       )}
 

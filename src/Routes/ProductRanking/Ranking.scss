@@ -50,7 +50,8 @@
         font-size: x-large;
         display: inline;
       }
-      .avgRating{
+
+      .avgRating {
         margin: auto auto auto 10px;
         font-size: medium;
         display: inline;
@@ -82,15 +83,19 @@
   }
 
 
-  .RankingList {
+  .RankingTable {
     width: 100%;
+    text-align: center;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
 
-    .RankingListItem {
-      width: 100%;
+    .RankingTableRow {
+      font-size: large;
 
       .rankNum {
         font-weight: bold;
-        font-size: large;
+
         margin-right: 10px;
 
         &.first {
@@ -113,8 +118,14 @@
         font-size: medium;
       }
 
+      .category {
+        display: inline-block;
+        width: 50%;
+        margin: auto;
+      }
+
       .ratingStar {
-        float: right;
+        //float: right;
         font-size: large;
         color: $yellow;
         margin-right: 5px;
