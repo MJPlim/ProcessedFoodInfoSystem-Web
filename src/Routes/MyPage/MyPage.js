@@ -1,17 +1,14 @@
-import React, { useEffect, useState, useAsync } from 'react';
-import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, CardText, Col, Container, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import {
-  getUserAllergyInfo,
-  getUserSummary,
-  getWrittenReport,
-} from '../../api';
-import axios from 'axios';
+import { getUserAllergyInfo, getUserSummary } from '../../api';
+import './MyPageStyle.scss';
 
 const MyPage = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [writtenData, setWrittenData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [allergyLoading, setAllergyLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [favouriteCount, setFavouriteCount] = useState('');
@@ -20,20 +17,24 @@ const MyPage = () => {
 
   useEffect(() => {
     const gogogetAllergy = async () => {
+      setAllergyLoading(false);
       getUserAllergyInfo
         .userAllergies()
         .then((response) => {
           const result = response.data.userAllergyMaterials;
           setData(result);
+          setAllergyLoading(true);
         })
         .catch((error) => {
           console.log(error);
         });
     };
     const gogogetSummary = async () => {
+      setUserLoading(false);
       getUserSummary
         .userSummary()
         .then((response) => {
+          setUserLoading(true);
           setFavouriteCount(response.data.favorite_count);
           setReviewCount(response.data.review_count);
           setUserName(response.data.user_name);
@@ -48,119 +49,107 @@ const MyPage = () => {
     gogogetSummary();
   }, []);
 
+  if (!userLoading || !allergyLoading) return null;
+
   return (
-    <div className="MyPage">
+    <div className='MyPage'>
       {/* IIFE 즉시 실행 함수
       <div>{setUserInformation})</div> */}
       <Container>
-        <Row>
-          <Col md="2">
-            <p className="shownPage">마이페이지</p>
-          </Col>
-          <Col md="2">
-            <Link to="/changeUserInfo">
-              <Button color="link" size="sm" className="changeUserInfo">
+        <Col md='12'>
+          <p className='shownPage'>마이페이지</p>
+        </Col>
+
+
+        <Row className={'myPageMenu'}>
+          <Col sm='3'>
+            <Link to='/changeUserInfo'>
+              <Button color='link' size='sm' className='changeUserInfo'>
                 내 정보변경하기
               </Button>
             </Link>
           </Col>
-          <Col md="2">
-            <Link to="/userAllergyInfo">
-              <Button color="link" size="sm" className="changeUserAllergyInfo">
+          <Col sm='3'>
+            <Link to='/userAllergyInfo'>
+              <Button color='link' size='sm' className='changeUserAllergyInfo'>
                 알러지 정보 변경하기
               </Button>
             </Link>
           </Col>
-          <Col md="2">
-            <Link to="/changePassword">
-              <Button color="link" size="sm" className="changePassword">
+          <Col sm='3'>
+            <Link to='/changePassword'>
+              <Button color='link' size='sm' className='changePassword'>
                 비밀번호 변경하기
               </Button>
             </Link>
           </Col>
-          <Col md="2">
-            <Link to="/secondEmail">
-              <Button color="link" size="sm" className="setSecondEmail">
+          <Col sm='3'>
+            <Link to='/secondEmail'>
+              <Button color='link' size='sm' className='setSecondEmail'>
                 2차 보안 설정하기
               </Button>
             </Link>
           </Col>
-          <Col md="2">
-            <Link to="/delete">
-              <Button color="danger" size="sm">
-                회원탈퇴
-              </Button>
-            </Link>
-          </Col>
         </Row>
-        <hr />
         {/* 밑으로는 사용자 개인 정보 보여주기*/}
-        <Row>
-          <Col md="2">
-            <p className="userName">이름 : </p>
-          </Col>
-          <Col md="10">
-            <p>{localStorage.getItem('name')}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="2">
-            <p className="userName">주소 : </p>
-          </Col>
-          <Col md="10">
-            <p>{localStorage.getItem('address')}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="2">
-            <p className="userName">생일 : </p>
-          </Col>
-          <Col md="10">
-            <p>{localStorage.getItem('birth')}</p>
-          </Col>
-        </Row>
-        <hr />
+        <div className={'userInfoArea'}>
+          <Table>
+            <tr>
+              <th width={'20%'}>이메일</th>
+              <td width={'80%'}>{localStorage.getItem('userLoginEmail')}</td>
+            </tr>
+            <tr>
+              <th width={'20%'}>이름</th>
+              <td width={'80%'}>{localStorage.getItem('name')}</td>
+            </tr>
+            <tr>
+              <th>주소</th>
+              <td>{localStorage.getItem('address')}</td>
+            </tr>
+            <tr>
+              <th>생일</th>
+              <td>{localStorage.getItem('birth')}</td>
+            </tr>
+            <tr>
+              <th width={'20%'}>즐겨찾기 개수</th>
+              <td width={'80%'}>
+                <Link to='/myFavourite'>
+                  {favouriteCount}
+                </Link></td>
+            </tr>
+            <tr>
+              <th width={'20%'}>리뷰 개수</th>
+              <td width={'80%'}>{reviewCount}</td>
+            </tr>
+          </Table>
+
+          <hr />
+        </div>
         <br />
         <br />
-        <Row>
-          {data === null ? (
-            <Col md="12">알러지 데이터 없음 </Col>
+        <div className={'userAllergyArea'}>
+          <p className={'title'}>알러지 정보</p>
+          {data === [] ? (
+            <Col md='12'>알러지 데이터 없음 </Col>
           ) : (
-            <Row>
-              <Col md="12">{data}</Col>
-              <Col md="12"></Col>
-            </Row>
+            <div>
+              {data.map((item, index) => (
+                <Card body key={index} className={'allergyItem'}>
+                  <CardText>{item}</CardText>
+                </Card>
+              ))}
+            </div>
           )}
-        </Row>
-        <hr />
-        <br />
-        <br />
-        <Row>
-          {writtenData == null ? (
-            <Col md="12">사용자 개인 데이터 없음 </Col>
-          ) : (
-            <Row>
-              <Col md="4">
-                <div>사용자 즐겨찾기 개수</div>
-              </Col>
-              <Col md="8">
-                <div>{favouriteCount}</div>
-              </Col>
-              <Col md="4">
-                <div>사용자 리뷰 개수</div>
-              </Col>
-              <Col md="8">
-                <div>{reviewCount}</div>
-              </Col>
-              <Col md="4">
-                <div>사용자 이름</div>
-              </Col>
-              <Col md="8">
-                <div>{userName}</div>
-              </Col>
-            </Row>
-          )}
-        </Row>
+        </div>
+
+
+        <div className={'deleteArea'}>
+          <Link to='/delete'>
+            <Button color='danger' size='sm'>
+              회원탈퇴
+            </Button>
+          </Link>
+        </div>
       </Container>
     </div>
   );

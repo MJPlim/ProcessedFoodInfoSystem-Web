@@ -1,0 +1,43 @@
+.MyPage {
+  word-break: keep-all;
+  margin: 20px auto auto;
+
+  .shownPage {
+    font-size: x-large;
+  }
+  .myPageMenu {
+    width: 100%;
+    margin: 1% auto auto;
+    text-align: center;
+    font-size: large;
+
+  }
+  .userInfoArea{
+    margin-top: 2%;
+    font-size: large;
+  }
+
+  .userAllergyArea{
+    .title{
+      font-size: x-large;
+      margin-bottom: 2%;
+    }
+    .allergyItem {
+      display: inline-block;
+      background-color: white;
+      margin-right: 1%;
+      font-size: medium;
+
+    }
+  }
+
+  .userSummaryArea{
+
+  }
+
+
+  .deleteArea {
+    margin: auto;
+
+  }
+}
