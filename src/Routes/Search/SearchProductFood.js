@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './SearchStyle.scss';
-import ad1 from '../../image/ad1.jpg';
-import ad2 from '../../image/ad2.jpg';
-import ad3 from '../../image/ad3.jpg';
-import ad4 from '../../image/ad4.jpg';
+import 간식 from '../../image/categoryImg/간식.jpg';
+import 과일 from '../../image/categoryImg/과일.jpg';
+import 김치 from '../../image/categoryImg/김치.jpg';
+import 유제품 from '../../image/categoryImg/유제품.jpg';
+import 음료 from '../../image/categoryImg/음료.jpg';
+import 조미료 from '../../image/categoryImg/조미료.jpg';
 import {
-  InputGroup,
   InputGroupAddon,
-  InputGroupButtonDropdown,
   Input,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Collapse, Button, CardBody, Card,
   Carousel,
   CarouselItem,
   CarouselControl,
@@ -26,24 +22,36 @@ import {
   sortApi,
   getAdvertisementFoodApi,
   manufacturerApi,
+  categoryApi
 } from '../../api';
 import { FaBuilding, FaCrown, FaAllergies } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import{RiSearch2Line}from 'react-icons/ri';
 import AdFoodResult from './AdFoodResult';
+import Pagination from 'rc-pagination';
+import ReactPaginate from 'react-paginate';
 
 const items = [
    {
-      src: ad1,
+      src: 간식,
     },
     {
-      src: ad2,
+      src: 과일,
     },
     {
-      src:ad4
+      src:유제품,
+    },
+     {
+      src: 김치,
+    },
+    {
+      src: 음료,
+    },
+    {
+      src:조미료
     }
 ];
-const SearchTab = (props) => {
+const SearchTab = () => {
   //광고부분
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -114,6 +122,12 @@ const SearchTab = (props) => {
     JSON.parse(localStorage.getItem('keywordsFoodForBssh') || '[]'),
   );
 
+  //페이징 부분
+  const [pageSize,setPageSize]=useState(10);
+  const [totalItems,setTotalItems]=useState(0);
+  const [currentPage,setCurrentPage]=useState(1);
+  const [lastPage,setLastPage]=useState(1);
+
   //마운팅 될 때
   useEffect(() => {
     if(sessionStorage.getItem('allergies')){
@@ -144,15 +158,22 @@ const SearchTab = (props) => {
       try {
      
           if (option === '식품명') {
-            const { data: { data } } = await foodApi.search(searchTerm, sort, allergyList);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            setResult(data);
-            console.log("검색결과",data);
+             const {data}= await foodApi.search(searchTerm, currentPage,sort, allergyList);
+             setTotalItems(data.total_elements);
+             setLastPage(data.total_page);
+             
+             console.log("결과",data.data);
+             sessionStorage.setItem('data', JSON.stringify(data.data));
+             setResult(data.data);
+     
           } else {
-            const { data: { data } } = await manufacturerApi.search( searchTerm,sort, allergyList);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            setResult(data);
-            console.log("검색결과",data);
+            const { data: { data } } = await manufacturerApi.search( searchTerm,currentPage,sort, allergyList);
+           setTotalItems(data.total_elements);
+             setLastPage(data.total_page);
+             
+             console.log("결과",data.data);
+             sessionStorage.setItem('data', JSON.stringify(data.data));
+             setResult(data.data);
           }
        
       } catch (e) {
@@ -173,17 +194,10 @@ const handleCategory = async (e) => {
       sessionStorage.setItem('searchTerm', searchTerm);
       try {
      
-          if (option === '식품명') {
-            const { data: { data } } = await foodApi.search(searchTerm, sort, allergyList);
+            const { data: { data } } = await categoryApi.category(searchTerm,allergyList);
             sessionStorage.setItem('data', JSON.stringify(data));
             setResult(data);
             console.log("검색결과",data);
-          } else {
-            const { data: { data } } = await manufacturerApi.search( searchTerm,sort, allergyList);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            setResult(data);
-            console.log("검색결과",data);
-          }
        
       } catch (e) {
         setError(e);
@@ -281,6 +295,7 @@ const handleCategory = async (e) => {
     console.log('알러지리스트',allergyList);
   };
 
+  
   return (
     <div className="container">
       <header className="item__header">
@@ -607,6 +622,9 @@ const handleCategory = async (e) => {
           </div>
           {/* 결과부분 */}
         <SearchResult className='searchResult' loading={loading} result={result}/>
+         <div className="item__paging">
+               
+         </div>
       </div>
 
     </div>
@@ -614,7 +632,7 @@ const handleCategory = async (e) => {
        
       </div>
       
-      <div className="item__paging">페이징</div>
+     
     </div>
   );
 };
