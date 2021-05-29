@@ -1,8 +1,9 @@
 .result__container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px 20px;
+    
     align-items: center;
+    gap: 50px 20px;
         .card-body{
         display: flex;
         height: 300px;
@@ -29,10 +30,11 @@
             background-color: #fcc207;
             position: inherit;
             bottom: 2%;
+            padding: 10px;
         }
     }
     .card-body:hover{
-            box-shadow: 2px 2px 5px 4px (1,1,1,0.1);
+            box-shadow: 2px 2px 5px 4px gray;
         }
     
   
