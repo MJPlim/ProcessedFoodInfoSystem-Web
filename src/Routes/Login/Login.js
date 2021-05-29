@@ -14,10 +14,10 @@ var token;
 function Login() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [bChecked, setChecked] = useState(false);
+  const [bSave, setSave] = useState(false);
 
   const login = () => {
-    localStorage.setItem('userLoginEmail', email);
-    localStorage.setItem('userLoginPassword', password);
     userLogin
       .userLoginApi(email, password)
       .then((response) => {
@@ -28,6 +28,26 @@ function Login() {
       .catch((error) => {
         alert('잘못된 정보입니다', error);
       });
+    if (bSave) {
+      localStorage.setItem('userLoginEmail', email);
+      localStorage.setItem('userLoginPassword', password);
+    } else if (!bSave) {
+      localStorage.setItem('userLoginEmail', null);
+      localStorage.setItem('userLoginPassword', null);
+    }
+  };
+
+  const checkedItemHandler = (isChecked) => {
+    if (isChecked) {
+      setSave(true);
+    } else if (!isChecked) {
+      setSave(false);
+    }
+  };
+
+  const checkHandler = ({ target }) => {
+    setChecked(!bChecked);
+    checkedItemHandler(target.checked);
   };
 
   const onPasswordChange = (e) => {
@@ -73,6 +93,7 @@ function Login() {
                   type="checkbox"
                   className="form-check-input"
                   id="dropdownCheck"
+                  onChange={(e) => checkHandler(e)}
                 />
                 <label className="form-check-label" for="dropdownCheck">
                   자동 로그인
