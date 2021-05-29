@@ -39,6 +39,14 @@ function MyFavourite() {
   const [loading, setLoading] = useState(true);
   const [checkLoading, setCheckLoading] = useState(true);
 
+  useEffect(() => {
+    getFavourite();
+  }, []);
+
+  useEffect(() => {
+    setCheck(data);
+  }, [data]);
+
   const getFavourite = async () => {
     await favouriteApi
       .myFavourite()
@@ -48,12 +56,7 @@ function MyFavourite() {
       .catch((e) => {
         console.log(e);
       });
-    setCheck(data);
   };
-
-  useEffect(() => {
-    getFavourite();
-  }, []);
 
   const deleteF = async (foodId, e) => {
     await deleteFavoriteApi.deleteFavorite(foodId);
@@ -61,7 +64,7 @@ function MyFavourite() {
   };
 
   const setCheck = (data) => {
-    if (data === []) {
+    if (data.length < 1) {
       setLoading(true);
     } else {
       setLoading(false);
