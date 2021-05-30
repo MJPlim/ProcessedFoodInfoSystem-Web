@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './SearchStyle.scss';
-import ad1 from '../../image/ad1.jpg';
-import ad2 from '../../image/ad2.jpg';
-import ad3 from '../../image/ad3.jpg';
-import ad4 from '../../image/ad4.jpg';
+import 간식 from '../../image/categoryImg/간식.jpg';
+import 과일 from '../../image/categoryImg/과일.jpg';
+import 김치 from '../../image/categoryImg/김치.jpg';
+import 유제품 from '../../image/categoryImg/유제품.jpg';
+import 음료 from '../../image/categoryImg/음료.jpg';
+import 조미료 from '../../image/categoryImg/조미료.jpg';
 import {
-  InputGroup,
   InputGroupAddon,
-  InputGroupButtonDropdown,
   Input,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Collapse, Button, CardBody, Card,
   Carousel,
   CarouselItem,
   CarouselControl,
@@ -26,24 +22,38 @@ import {
   sortApi,
   getAdvertisementFoodApi,
   manufacturerApi,
+  categoryApi,
+  getUserAllergyInfo
 } from '../../api';
 import { FaBuilding, FaCrown, FaAllergies } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import{RiSearch2Line}from 'react-icons/ri';
 import AdFoodResult from './AdFoodResult';
+import Pagination from 'rc-pagination';
+import ReactPaginate from 'react-paginate';
 
 const items = [
    {
-      src: ad1,
+      src: 간식,
     },
     {
-      src: ad2,
+      src: 과일,
     },
     {
-      src:ad4
+      src:유제품,
+    },
+     {
+      src: 김치,
+    },
+    {
+      src: 음료,
+    },
+    {
+      src:조미료
     }
 ];
-const SearchTab = (props) => {
+const SearchTab = () => {
+ 
   //광고부분
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -85,9 +95,10 @@ const SearchTab = (props) => {
   const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
   const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
   //알러지 토글 부분
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-
+ //알러지
+  const [allergyLoading,setAllergyLoading]=useState(false);
+  const [allergyList,setAllergyList]=useState([]);
+  
   //옵션 선택
   const [option, setOption] = useState('식품명');
   //초기 설정 부분
@@ -101,8 +112,7 @@ const SearchTab = (props) => {
   const [data, setData] = useState(null);
   //정렬방식 선택
   const [sort, setSort] = useState('ranking');
-  //알레르기 배열
-  let allergyList = [];
+
   const [allergies, setAllergies] = useState([]);
   // 광고 식품 데이터
   const [adFoods, setAdFoods] = useState(null);
@@ -114,12 +124,15 @@ const SearchTab = (props) => {
     JSON.parse(localStorage.getItem('keywordsFoodForBssh') || '[]'),
   );
 
+  //페이징 부분
+  const [pageSize,setPageSize]=useState(10);
+  const [totalItems,setTotalItems]=useState(0);
+  const [currentPage,setCurrentPage]=useState(1);
+  const [lastPage,setLastPage]=useState(1);
+
   //마운팅 될 때
   useEffect(() => {
-    if(sessionStorage.getItem('allergies')){
-      allergyList=sessionStorage.getItem('allergies');
-      console.log('알러지 설정: ',allergyList);
-    }
+
     if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
       //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
       localStorage.setItem('keywordsFoodForName', JSON.stringify(foodKeywords));
@@ -132,6 +145,7 @@ const SearchTab = (props) => {
 
       console.log('이전 검색 결과', result);
     }
+   
   }, [data, foodKeywords, bsshKeywords]);
 
 
@@ -144,15 +158,22 @@ const SearchTab = (props) => {
       try {
      
           if (option === '식품명') {
-            const { data: { data } } = await foodApi.search(searchTerm, sort, allergyList);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            setResult(data);
-            console.log("검색결과",data);
+             const {data}= await foodApi.search(searchTerm, currentPage,sort, allergyList);
+             setTotalItems(data.total_elements);
+             setLastPage(data.total_page);
+             
+             console.log("결과",data.data);
+             sessionStorage.setItem('data', JSON.stringify(data.data));
+             setResult(data.data);
+     
           } else {
-            const { data: { data } } = await manufacturerApi.search( searchTerm,sort, allergyList);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            setResult(data);
-            console.log("검색결과",data);
+            const { data: { data } } = await manufacturerApi.search( searchTerm,currentPage,sort, allergyList);
+           setTotalItems(data.total_elements);
+             setLastPage(data.total_page);
+             
+             console.log("결과",data.data);
+             sessionStorage.setItem('data', JSON.stringify(data.data));
+             setResult(data.data);
           }
        
       } catch (e) {
@@ -173,17 +194,10 @@ const handleCategory = async (e) => {
       sessionStorage.setItem('searchTerm', searchTerm);
       try {
      
-          if (option === '식품명') {
-            const { data: { data } } = await foodApi.search(searchTerm, sort, allergyList);
+            const { data: { data } } = await categoryApi.category(searchTerm,allergyList);
             sessionStorage.setItem('data', JSON.stringify(data));
             setResult(data);
             console.log("검색결과",data);
-          } else {
-            const { data: { data } } = await manufacturerApi.search( searchTerm,sort, allergyList);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            setResult(data);
-            console.log("검색결과",data);
-          }
        
       } catch (e) {
         setError(e);
@@ -264,23 +278,25 @@ const handleCategory = async (e) => {
     }
   };
   //알러지 추가
-  const handleAllergy = (allergy) => {
-     console.log('알러지리스트',allergyList);
-    var idx=-1;
-    for(var i=0;i<allergyList.length;i++){
-      if(allergy===allergyList[i]){
-        idx=i;
-      }
-    }
-    if(idx===-1){
-      allergyList.push(allergy);
-    }else{
-      allergyList.splice(idx,1);
-    }
-    sessionStorage.setItem('allergies',allergyList);
-    console.log('알러지리스트',allergyList);
+  const handleAllergy = async() => {
+   
+      setAllergyLoading(true);
+     await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          const result = response.data.userAllergyMaterials;
+          console.log(result);
+          setAllergyList(result);
+         
+        })
+        .catch((error) => {
+          alert("로그인을 하세요");
+        });
+
+    
   };
 
+  
   return (
     <div className="container">
       <header className="item__header">
@@ -323,6 +339,9 @@ const handleCategory = async (e) => {
               <RiSearch2Line size="40"></RiSearch2Line>
             </button>
           </InputGroupAddon>
+          <button onClick={handleAllergy}>
+            <FaAllergies/>
+          </button>
       </header>
       <div className="item__main">
          <div className="item__category list-group categoryGroup">
@@ -607,6 +626,9 @@ const handleCategory = async (e) => {
           </div>
           {/* 결과부분 */}
         <SearchResult className='searchResult' loading={loading} result={result}/>
+         <div className="item__paging">
+               
+         </div>
       </div>
 
     </div>
@@ -614,7 +636,7 @@ const handleCategory = async (e) => {
        
       </div>
       
-      <div className="item__paging">페이징</div>
+     
     </div>
   );
 };
