@@ -126,7 +126,6 @@ function Join() {
                   popperPlacement='bottom-start'
                   showYearDropdown={'true'}
                   showMonthDropdown={'true'}
-                  // scrollableYearDropdown={'true'}
                   dropdownMode={'select'}
                   locale='ko'
                 />
