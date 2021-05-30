@@ -137,9 +137,6 @@ export default withRouter(({ location: { pathname } }) => (
               <Link to="/productRanking">제품랭킹</Link>
             </NavLink>
             <NavLink className="links">
-              <Link to="/reviews">리뷰</Link>
-            </NavLink>
-            <NavLink className="links">
               <Link to="/about">KATI 개발팀</Link>
             </NavLink>
           </Nav>
