@@ -32,9 +32,13 @@ function Login(props) {
     if (bSave) {
       localStorage.setItem('userLoginEmail', email);
       localStorage.setItem('userLoginPassword', password);
+      localStorage.setItem('userBEmail', email);
+      localStorage.setItem('userBPassword', password);
     } else if (!bSave) {
       localStorage.setItem('userLoginEmail', null);
       localStorage.setItem('userLoginPassword', null);
+      localStorage.setItem('userBEmail', email);
+      localStorage.setItem('userBPassword', password);
     }
   };
 
