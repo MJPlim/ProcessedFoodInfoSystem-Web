@@ -120,12 +120,15 @@ const ChangeUserInfo = (props) => {
               <th>생일</th>
               <td>
                 <DatePicker
-                  className='birthDayPicker'
+                  wrapperClassName='birthDayPicker'
                   dateFormat='yyyy-MM-dd'
                   selected={new Date(birth)}
                   maxDate={new Date()}
                   onChange={(date) => setUserBirth(date)}
                   locale='ko'
+                  showYearDropdown={'true'}
+                  showMonthDropdown={'true'}
+                  dropdownMode={'select'}
                 /></td>
             </tr>
           </Table>
