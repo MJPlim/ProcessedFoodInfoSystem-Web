@@ -93,11 +93,14 @@ function MainScreen() {
                       {result.food.category}
                     </CardSubtitle>
                   </CardBody>
-                  <Link
-                    to={{
-                      pathname: `searchProduct/food/${result.food.foodId}`,
-                    }}
-                  >
+                    <Link
+                      to={{
+                        pathname: `searchProduct/food/${result.food.foodId}`,
+                        state: {
+                          adId: result.id,
+                        },
+                      }}
+                    >
                     <img
                       className="adImage"
                       width="40%"
