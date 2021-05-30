@@ -25,6 +25,8 @@ import {
   PopoverHeader,
   PopoverBody,
 } from 'reactstrap';
+import dev1 from '../../image/dev1.jpg';
+import dev2 from '../../image/dev2.jpg';
 
 function About() {
   const [activeTab, setActiveTab] = useState('1');
@@ -84,16 +86,20 @@ function About() {
                 <th>학과</th>
               </tr>
               <tr>
-                <th></th>
+                <th>
+                  <img className="devImage" src={dev1} />
+                </th>
                 <th>60150068</th>
                 <th>박정훈</th>
                 <th>중어중문학과</th>
               </tr>
               <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>
+                  <img className="devImage" src={dev2} />
+                </th>
+                <th>60161605</th>
+                <th>박이건</th>
+                <th>융합소프트웨어학부</th>
               </tr>
               <tr>
                 <th></th>
@@ -157,7 +163,6 @@ function About() {
               </tr>
             </thead>
           </Table>
-          <p>뭘넣지</p>
         </TabPane>
         <TabPane tabId="2">
           <Row>
