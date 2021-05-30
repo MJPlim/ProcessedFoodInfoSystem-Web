@@ -111,6 +111,19 @@ export const getUserSummary = {
     }),
 };
 
+//대분류 소트
+export const bigCategory = {
+  gotoCategory: (category, page, sort, size) =>
+    api.get('api/v1/food/list/widecategory', {
+      params: {
+        category: category,
+        page: page,
+        sort: sort,
+        size: size,
+      },
+    }),
+};
+
 //2차 보안 이메일 설정 부분
 export const setSecurityEmail = {
   securityEmail: (secondEmail) =>
@@ -123,7 +136,7 @@ export const setSecurityEmail = {
 
 export const foodApi = {
   //해당 url로 가는 함수들
-  search: (term, page,sort, allergies) =>
+  search: (term, page, sort, allergies) =>
     api.get('/api/v1/food/getFoodListBySorting', {
       params: {
         foodName: term,
@@ -344,7 +357,7 @@ export const sortApi = {
     }),
 };
 export const categoryApi = {
-  category: (category,allergies) =>
+  category: (category, allergies) =>
     api.get('/api/v1/food/list/category', {
       params: {
         category: category,
@@ -389,7 +402,6 @@ export const allergyApi = {
       },
     }),
 };
-
 
 export const getReviewByUserIDApi = {
   getReviews: (pageNum) =>
