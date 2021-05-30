@@ -168,4 +168,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default React.memo(MyPage);

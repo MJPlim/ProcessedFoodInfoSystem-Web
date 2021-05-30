@@ -392,8 +392,11 @@ export const allergyApi = {
 
 
 export const getReviewByUserIDApi = {
-  getReviews: () =>
+  getReviews: (pageNum) =>
     api.get('/api/v1/user/readReviewByUserID', {
+      params: {
+        pageNum: pageNum,
+      },
       headers: {
         Authorization: localStorage.getItem('authorization'),
       },

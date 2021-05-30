@@ -7,6 +7,7 @@
   .shownPage {
     font-size: x-large;
   }
+
   .myPageMenu {
     width: 100%;
     margin: 1% auto auto;
@@ -14,16 +15,18 @@
     font-size: large;
 
   }
-  .userInfoArea{
+
+  .userInfoArea {
     margin-top: 2%;
     font-size: medium;
   }
 
-  .userAllergyArea{
-    .title{
+  .userAllergyArea {
+    .title {
       font-size: x-large;
       margin-bottom: 2%;
     }
+
     .allergyItem {
       display: inline-block;
       background-color: white;
@@ -32,6 +35,7 @@
 
     }
   }
+
   .reviewTable {
     font-size: small;
     margin-top: 15px;
@@ -40,7 +44,7 @@
     margin-right: auto;
     text-align: center;
 
-    .starRating{
+    .starRating {
       margin: auto;
     }
 
@@ -97,7 +101,8 @@
         border-color: $lightorange !important;
       }
     }
-    .reviewSubmitButton{
+
+    .reviewSubmitButton {
       width: 20%;
       float: right;
       background-color: $lightorange !important;
@@ -113,16 +118,36 @@
       }
     }
 
-    @media all and (max-width:479px) {
+    @media all and (max-width: 479px) {
       font-size: 0.1em;
     }
 
   }
 
-  .userSummaryArea{
-
+  .pageDiv {
+    text-align: center;
   }
 
+  .reviewPaginate {
+    width: 100%;
+    font-size: medium;
+    margin: 10px auto 30px;
+    display: inline-block !important;
+
+    li {
+      margin: 15px;
+      display: inline-block !important;
+    }
+
+    .reviewPage {
+      color: black;
+    }
+
+    .reviewSelectedPage {
+      color: $lightorange !important;
+      font-weight: bold;
+    }
+  }
 
   .deleteArea {
     margin: auto;

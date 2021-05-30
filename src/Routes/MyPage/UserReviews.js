@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Table } from 'reactstrap';
+import { Button, Col, Input, Table } from 'reactstrap';
 import ReactStars from 'react-rating-stars-component';
 import { AiFillDelete, AiFillEdit, GiCancel } from 'react-icons/all';
 import { deleteReviewApi, editReviewApi, getReviewByUserIDApi } from '../../api';
 import { Link } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 
 const UserReviews = () => {
-  let pageCount = 0;
   const [editTargetReview, setEditTargetReview] = useState({
     reviewId: -1,
     reviewDescription: null,
@@ -14,21 +14,12 @@ const UserReviews = () => {
   });
   const [userReviews, setUserReviews] = useState({
     data: null,
-    pageSize: 5,
-    currentPage: 1,
+    pageSize: 10,
+    userReviewsCount: 0,
   });
+  const [userReviewsCount, setUserReviewsCount] = useState(0);
   const [userReviewsLoading, setUserReviewsLoading] = useState(true);
 
-  const getReviews = async () => {
-    setUserReviewsLoading(true);
-    await getReviewByUserIDApi.getReviews().then(res => {
-      console.log(res.data);
-      setUserReviews({ ...userReviews, data: res.data });
-      setUserReviewsLoading(false);
-    }).catch(e => {
-      console.log('리뷰 정보 에러', e.response);
-    });
-  };
 
   const onClickPostEditReview = (targetReview) => {
     console.log(targetReview);
@@ -89,14 +80,26 @@ const UserReviews = () => {
     });
   };
 
+  const getReviews = async (pageNum, state) => {
+    if (state === 'init') {
+      setUserReviewsLoading(true);
+    }
+
+    await getReviewByUserIDApi.getReviews(pageNum).then(res => {
+      console.log(res.data);
+      setUserReviews({ ...userReviews, data: res.data.userReviewList, userReviewsCount: res.data.userReviewCount });
+      setUserReviewsLoading(false);
+    }).catch(e => {
+      console.log('리뷰 정보 에러', e.response);
+    });
+  };
   useEffect(() => {
-    getReviews();
+    getReviews(1, 'init');
   }, []);
 
   useEffect(() => {
     try {
-      pageCount = Math.ceil(userReviews.data.length / userReviews.pageSize);
-      console.log(pageCount);
+      setUserReviewsCount(Math.ceil(userReviews.userReviewsCount / userReviews.pageSize));
     } catch (e) {
       console.log(e);
     }
@@ -146,8 +149,14 @@ const UserReviews = () => {
     }
   };
 
+  const onClickPage = async (pageNum) => {
+    console.log('페이징 클릭 ', pageNum);
+    await getReviews(pageNum.selected + 1);
 
-  if (userReviewsLoading) return null;
+  };
+
+
+  // if (userReviewsLoading) return null;
   return (
     <div className={'userReviewsTable'}>
       <Table className='reviewTable'>
@@ -162,78 +171,95 @@ const UserReviews = () => {
         </tr>
         </thead>
         <tbody>
+        {!userReviewsLoading && <>
+          {userReviews.data.map((review, index) => (
+            review.reviewId === editTargetReview.reviewId ? (
+              <tr key={index}>
+                <td colSpan={1}>
+                  <ReactStars
+                    classNames={'starRating'}
+                    count={5}
+                    onChange={editRatingChanged}
+                    size={12}
+                    activeColor='#fe9b5a'
+                    isHalf={false}
+                    edit={true} />
+                </td>
+                <td colSpan={4}>
+                  <Input type='textarea' name='text' classname='reviewFrom' rows='4'
+                         value={editTargetReview.reviewDescription}
+                         onChange={(e) => onChangeEditReview(e)}
+                  />
+                </td>
+                <td colSpan={1}>
+                  <Button className={'editButton'}
+                          onClick={() => onClickPostEditReview(editTargetReview)}>
+                    <AiFillEdit />
+                  </Button>
+                  <Button className={'editCancelButton'}
+                          onClick={() => onChangeEditCancel()}>
+                    <GiCancel />
+                  </Button>
+                </td>
+              </tr>
 
-        {userReviews.data.map((review, index) => (
-          review.reviewId === editTargetReview.reviewId ? (
-            <tr key={index}>
-              <td colSpan={1}>
-                <ReactStars
-                  classNames={'starRating'}
-                  count={5}
-                  onChange={editRatingChanged}
-                  size={12}
-                  activeColor='#fe9b5a'
-                  isHalf={false}
-                  edit={true} />
-              </td>
-              <td colSpan={4}>
-                <Input type='textarea' name='text' classname='reviewFrom' rows='4'
-                       value={editTargetReview.reviewDescription}
-                       onChange={(e) => onChangeEditReview(e)}
-                />
-              </td>
-              <td colSpan={1}>
-                <Button className={'editButton'}
-                        onClick={() => onClickPostEditReview(editTargetReview)}>
-                  <AiFillEdit />
-                </Button>
-                <Button className={'editCancelButton'}
-                        onClick={() => onChangeEditCancel()}>
-                  <GiCancel />
-                </Button>
-              </td>
-            </tr>
 
+            ) : (
+              <tr key={index}>
+                <td style={{ color: '#fe9b5a', fontSize: '1.1em' }}>
+                  {drawStar(review.reviewRating)}
+                </td>
+                <td>
+                  <Link to={{
+                    pathname: `searchProduct/food/${review.foodId}`,
+                  }} target='_blank'>
+                    {review.foodName}
+                  </Link>
+                </td>
+                <td align={'left'}>
+                  {review.reviewDescription}
+                </td>
+                <td>
+                  {review.reviewCreatedDate.split('T')[0]}
+                </td>
+                <td>
+                  {review.likeCount}
+                </td>
+                <td>
 
-          ) : (
-            <tr key={index}>
-              <td style={{ color: '#fe9b5a', fontSize: '1.1em' }}>
-                {drawStar(review.reviewRating)}
-              </td>
-              <td>
-                <Link to={{
-                  pathname: `searchProduct/food/${review.foodId}`,
-                }} target='_blank'>
-                  {review.foodName}
-                </Link>
-              </td>
-              <td align={'left'}>
-                {review.reviewDescription}
-              </td>
-              <td>
-                {review.reviewCreatedDate.split('T')[0]}
-              </td>
-              <td>
-                {review.likeCount}
-              </td>
-              <td>
+                  <Button className={'editButton'}
+                          onClick={() => onClickEditReview(review)}>
+                    <AiFillEdit />
+                  </Button>
 
-                <Button className={'editButton'}
-                        onClick={() => onClickEditReview(review)}>
-                  <AiFillEdit />
-                </Button>
+                  <Button className={'deleteButton'}
+                          onClick={() => onClickDeleteReview(review)}>
+                    <AiFillDelete />
+                  </Button>
+                </td>
+              </tr>
+            )
+          ))}
+        </>}
 
-                <Button className={'deleteButton'}
-                        onClick={() => onClickDeleteReview(review)}>
-                  <AiFillDelete />
-                </Button>
-              </td>
-            </tr>
-          )
-        ))}
 
         </tbody>
       </Table>
+
+
+      <Col md={'12'} className={'pageDiv'}>
+        {userReviewsCount > 2 ?
+          <ReactPaginate pageCount={userReviewsCount} pageRangeDisplayed={4}
+                         marginPagesDisplayed={1}
+                         previousLabel={'이전'} nextLabel={'다음'}
+                         containerClassName={'reviewPaginate'}
+                         pageClassName={'reviewPage'}
+                         activeClassName={'reviewSelectedPage'}
+                         onPageChange={(pageNum) => onClickPage(pageNum)}
+          /> :
+          null}
+
+      </Col>
     </div>
   );
 };
