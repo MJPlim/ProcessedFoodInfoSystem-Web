@@ -117,11 +117,10 @@ function Join() {
                 onChange={onBirthChange}
               />
             </div>
-
-            <button type="submit" class="btn btn-danger" onClick={register}>
-              회원가입
-            </button>
           </form>
+          <button type="submit" class="btn btn-danger" onClick={register}>
+            회원가입
+          </button>
         </Card>
       </Container>
     </div>
