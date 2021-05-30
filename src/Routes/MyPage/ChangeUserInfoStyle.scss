@@ -1,0 +1,57 @@
+@import "./src/styles/utils";
+
+.changeUserInfo {
+  width: 75%;
+  margin: 2% auto auto;
+
+  .shownChange {
+    font-size: x-large;
+  }
+
+  .changeInfoTable {
+    font-size: medium;
+    margin: 2% auto auto;
+    width: 100%;
+
+    input {
+      height: 100%;
+    }
+  }
+
+  .buttonArea {
+    display: block;
+    margin: auto;
+
+    .submitButton {
+      //width: 20%;
+      margin-left: 10px;
+      background-color: $lightorange !important;
+      border-color: $lightorange !important;
+      color: white;
+      margin-bottom: 20px !important;
+
+
+      &:hover, &:active {
+        background-color: $orange !important;
+        color: white !important;
+        border-color: $orange !important;
+      }
+    }
+
+    .cancelButton{
+      background-color: transparent !important;
+      border-color: $red !important;
+      color: $red;
+      margin-bottom: 20px !important;
+
+
+      &:hover, &:active {
+        background-color: $orange !important;
+        color: white !important;
+        border-color: $orange !important;
+      }
+    }
+  }
+
+
+}

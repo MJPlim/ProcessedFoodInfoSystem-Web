@@ -414,3 +414,12 @@ export const getReviewByUserIDApi = {
       },
     }),
 };
+
+export const getUserInfoApi = {
+  gerUserInfo: () =>
+    api.get('/api/v1/user/user-info', {
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
