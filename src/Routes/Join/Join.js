@@ -32,14 +32,25 @@ function Join() {
     setBrith(e.target.value);
   };
 
-  const register = async () => {
-    try {
-      await userJoin.userRegister(name, password, address, birth, email);
-      alert('입력하신 ' + email + '주소로 인증메일이 발송되었습니다');
-    } catch (e) {
-      console.log(e);
-      alert('틀린 정보입니다.');
-    }
+  // const register = async () => {
+  //   try {
+  //     await userJoin.userRegister(name, password, address, birth, email);
+  //     alert('입력하신 ' + email + '주소로 인증메일이 발송되었습니다');
+  //   } catch (e) {
+  //     console.log(e);
+  //     alert('틀린 정보입니다.');
+  //   }
+  // };
+
+  const register = () => {
+    userJoin
+      .userRegister(name, password, address, birth, email)
+      .then((response) => {
+        alert('입력하신 ' + email + '주소로 인증메일이 발송되었습니다');
+      })
+      .catch((error) => {
+        alert('잘못된 정보입니다', error);
+      });
   };
 
   return (
