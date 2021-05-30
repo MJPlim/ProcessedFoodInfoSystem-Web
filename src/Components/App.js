@@ -24,6 +24,7 @@ class App extends Component {
       .catch((error) => {
         const status = error.response.status;
         console.log(status);
+        localStorage.setItem('authorization', 'null');
       });
   }
 
