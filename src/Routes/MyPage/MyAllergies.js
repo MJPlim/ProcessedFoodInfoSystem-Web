@@ -20,11 +20,63 @@ import {
   FormGroup,
   Label,
   Input,
+  ButtonToggle,
 } from 'reactstrap';
+import { getUserAllergyInfo } from '../../api';
 
 function MyAllergies() {
   const [allergy, setAllergy] = useState('');
   const [allergyList, setAllergyList] = useState([]);
+  const [data, setData] = useState([]);
+  const [allergyLoading, setAllergyLoading] = useState(true);
+  const [checkC, setCheckC] = useState(false);
+  const [shownAllergy1, setShownAllergy1] = useState([
+    '아몬드',
+    '우유',
+    '대두',
+    '밀',
+    '닭고기',
+    '쇠고기',
+  ]);
+  const [shownAllergy2, setShownAllergy2] = useState([
+    '새우',
+    '오징어',
+    '잣',
+    '소고기',
+    '돼지고기',
+    '메추리알',
+  ]);
+  const [shownAllergy3, setShownAllergy3] = useState([
+    '토마토',
+    '조개류',
+    '난류',
+    '호두',
+    '복숭아',
+    '땅콩',
+  ]);
+  const [shownAllergy4, setShownAllergy4] = useState([
+    '게',
+    '아황산류',
+    '메밀',
+    '계란',
+  ]);
+
+  useEffect(() => {
+    const gogogetAllergy = async () => {
+      await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          const result = response.data.userAllergyMaterials;
+          setData(result);
+          setAllergyLoading(false);
+          console.log(data, '알러지');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    gogogetAllergy();
+  }, []);
 
   useEffect(() => {
     try {
@@ -50,7 +102,11 @@ function MyAllergies() {
     }
   };
 
-  const onCheck = () => {};
+  const unCheckAll = () => {
+    setAllergyList([]);
+    createAllergy();
+    window.location.replace('/userAllergyInfo');
+  };
 
   const onRemove = (name) => {
     setAllergyList(allergyList.filter((allergy) => allergy !== name));
@@ -87,14 +143,14 @@ function MyAllergies() {
       <Container>
         <div>
           <Row>
-            <Col md="8">
+            <Col md="10">
               <p className="changeAllergyInfo">알러리 정보 변경하기</p>
             </Col>
-            <Col md="2">
-              <Button color="primary" size="sm">
+            {/* <Col md="2">
+              <Button color="primary" size="sm" onClick={unCheckAll}>
                 전부해제
               </Button>
-            </Col>
+            </Col> */}
             <Col md="2">
               <Link to="/mypage">
                 <Button color="danger" size="sm">
@@ -106,212 +162,114 @@ function MyAllergies() {
         </div>
         <br />
         <br />
-        <div>
-          <Form className="checkboxGroup">
-            <Row>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="아몬드" onChange={onChange} />
-                    아몬드
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="우유" onChange={onChange} />
-                    우유
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="대두" onChange={onChange} />
-                    대두
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="밀" onChange={onChange} /> 밀
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="닭고기" onChange={onChange} />
-                    닭고기
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="쇠고기" onChange={onChange} />
-                    쇠고기
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="새우" onChange={onChange} />
-                    새우
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="오징어" onChange={onChange} />
-                    오징어
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="잣" onChange={onChange} /> 잣
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="소고기" onChange={onChange} />{' '}
-                    소고기
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input
-                      type="checkbox"
-                      name="돼지고기"
-                      onChange={onChange}
-                    />{' '}
-                    돼지고기
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input
-                      type="checkbox"
-                      name="메추리알"
-                      onChange={onChange}
-                    />{' '}
-                    메추리알
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="토마토" onChange={onChange} />{' '}
-                    토마토
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="조개류" onChange={onChange} />{' '}
-                    조개류
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="난류" onChange={onChange} />{' '}
-                    난류
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="호두" onChange={onChange} />{' '}
-                    호두
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="복숭아" onChange={onChange} />{' '}
-                    복숭아
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="땅콩" onChange={onChange} />
-                    땅콩
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="게" onChange={onChange} /> 게
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input
-                      type="checkbox"
-                      name="아황산류"
-                      onChange={onChange}
-                    />
-                    아황산류
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="메밀" onChange={onChange} />{' '}
-                    메밀
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col md="2">
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" name="계란" onChange={onChange} />{' '}
-                    계란
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
-          </Form>
-          <Button
-            outline
-            color="warning"
-            size="sm"
-            block
-            onClick={createAllergy}
-          >
-            저장하기
-          </Button>
-        </div>
+        {!allergyLoading && (
+          <div>
+            <Form className="checkboxGroup">
+              {/* <Row>
+                {shownAllergy1
+                  .filter((index) => {
+                    data.filter((data) => {
+                      if (index == data) {
+                        setCheckC(true);
+                        console.log(checkC, '필터 부분');
+                      } else if (index == data) {
+                        setCheckC(false);
+                        console.log(checkC, '필터 부분');
+                      }
+                    });
+                  })
+                  .map((index) => (
+                    <Col md="2">
+                      <FormGroup check inline>
+                        <Label check>
+                          <Input
+                            type="checkbox"
+                            name={index}
+                            checked={checkC}
+                            onChange={onChange}
+                          />
+                          {index}
+                        </Label>
+                      </FormGroup>
+                    </Col>
+                  ))}
+              </Row> */}
+              <Row>
+                {shownAllergy1.map((index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name={index}
+                          onChange={onChange}
+                        />
+                        {index}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+              <Row>
+                {shownAllergy2.map((index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name={index}
+                          onChange={onChange}
+                        />
+                        {index}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+              <Row>
+                {shownAllergy3.map((index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name={index}
+                          onChange={onChange}
+                        />
+                        {index}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+              <Row>
+                {shownAllergy4.map((index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name={index}
+                          onChange={onChange}
+                        />
+                        {index}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+            </Form>
+            <Button
+              outline
+              color="warning"
+              size="sm"
+              block
+              onClick={createAllergy}
+            >
+              저장하기
+            </Button>
+          </div>
+        )}
       </Container>
     </div>
   );
