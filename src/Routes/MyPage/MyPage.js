@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CardText, Col, Container, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { editReviewApi, getReviewByUserIDApi, getUserAllergyInfo, getUserSummary } from '../../api';
+import { getUserAllergyInfo, getUserInfoApi, getUserSummary } from '../../api';
 import './MyPageStyle.scss';
 import UserReviews from './UserReviews';
 
@@ -16,15 +16,34 @@ const MyPage = () => {
   const [favouriteCount, setFavouriteCount] = useState('');
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
+  const [userInfo, setUserInfo] = useState({
+    name: null,
+    address: null,
+    birth: null,
+  });
 
+  const { name, address, birth } = userInfo;
 
-
+  const getUSerInfo = async () => {
+    await getUserInfoApi.gerUserInfo().then(res => {
+      console.log(res.data);
+      setUserInfo(
+        {
+          name: res.data.name,
+          address: res.data.address,
+          birth: res.data.birth,
+        },
+      );
+    }).catch(e => {
+      console.log('유저 정보 에러', e.response);
+    });
+  };
 
 
   useEffect(() => {
     const gogogetAllergy = async () => {
       setAllergyLoading(true);
-     await getUserAllergyInfo
+      await getUserAllergyInfo
         .userAllergies()
         .then((response) => {
           const result = response.data.userAllergyMaterials;
@@ -53,7 +72,7 @@ const MyPage = () => {
     };
     gogogetAllergy();
     gogogetSummary();
-
+    getUSerInfo();
   }, []);
 
   const onclickReview = () => {
@@ -61,7 +80,7 @@ const MyPage = () => {
   };
 
 
-  if (userLoading || allergyLoading ) return null;
+  if (userLoading || allergyLoading) return null;
 
   return (
     <div className='MyPage'>
@@ -76,7 +95,7 @@ const MyPage = () => {
         <Row className={'myPageMenu'}>
           <Col sm='3'>
             <Link to='/changeUserInfo'>
-              <Button color='link' size='sm' className='changeUserInfo'>
+              <Button color='link' size='sm' className='changeInfo'>
                 내 정보변경하기
               </Button>
             </Link>
@@ -112,15 +131,15 @@ const MyPage = () => {
             {/*</tr>*/}
             <tr>
               <th width={'20%'}>이름</th>
-              <td width={'80%'}>{localStorage.getItem('name')}</td>
+              <td width={'80%'}>{name}</td>
             </tr>
             <tr>
               <th>주소</th>
-              <td>{localStorage.getItem('address')}</td>
+              <td>{address}</td>
             </tr>
             <tr>
               <th>생일</th>
-              <td>{localStorage.getItem('birth')}</td>
+              <td>{birth}</td>
             </tr>
             <tr>
               <th width={'20%'}>즐겨찾기 개수</th>
@@ -134,7 +153,7 @@ const MyPage = () => {
               <td width={'80%'} style={{ cursor: 'pointer' }} onClick={onclickReview}>{reviewCount} (자세히 보기)</td>
             </tr>
           </Table>
-          {toggleReview && <UserReviews/>}
+          {toggleReview && <UserReviews />}
           <hr />
 
         </div>
