@@ -4,6 +4,7 @@
     font-family: 'MPl';
     grid-template-columns: 1fr 5fr;
     align-items: stretch;
+    padding: 5%;
    // column-gap: 5px;
     .category__list{
         display: flex;
@@ -14,6 +15,9 @@
         }
     }
     .category__show{
+        .navbar{
+            margin-top: 50px;
+        }
         .category__line{
             align-items: center;
             .category_title{
@@ -36,7 +40,12 @@
             padding: 10px;
             border-radius: 50%;
             margin-bottom: 10px;
+            background-color: white;
            
+            }
+            .item__img{
+                width: 100px;
+                height: 100px;
             }
             .category__name{
                  font-size: large;
@@ -45,5 +54,11 @@
        
     }
     }
-    
+     .form-check__group{
+        display: flex;
+        flex-direction: row;
+        .form-check-label{
+            margin-right:2px;
+        }
+    }
 }

@@ -55,7 +55,6 @@ export default () => (
 
         <Route path="/searchProduct/food" exact component={SPF} />
 
-
         <Route path="/searchProduct/food/:id" exact component={FD} />
         <Route path="/searchProduct/bssh/:id" exact component={FD} />
         <Route path="/login" exact component={LG} />
@@ -71,20 +70,21 @@ export default () => (
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />
+        <Route path="/productRanking" exact component={PR} />
 
-        <Route path="/category/snack" exact component={SNACK}/>
-        <Route path="/category/milk" exact component={MILK}/>
-        <Route path="/category/tea" exact component={TEA}/>
-        <Route path="/category/food" exact component={FOOD}/>
-        <Route path="/category/kimchi" exact component={KIMCHI}/>
-        <Route path="/category/con" exact component={CON}/>
-        <Route path="/category/mealKit" exact component={MKIT}/>
-        <Route path="/category/etc" exact component={ETC}/>
+        <Route path="/category/snack" exact component={SNACK} />
+        <Route path="/category/milk" exact component={MILK} />
+        <Route path="/category/tea" exact component={TEA} />
+        <Route path="/category/food" exact component={FOOD} />
+        <Route path="/category/kimchi" exact component={KIMCHI} />
+        <Route path="/category/con" exact component={CON} />
+        <Route path="/category/mealKit" exact component={MKIT} />
+        <Route path="/category/etc" exact component={ETC} />
 
         {/* url잘못치면 메인으로 */}
         <Redirect from="*" to="/" />
       </Switch>
-      <Footer/>
+      <Footer />
     </>
   </Router>
 );

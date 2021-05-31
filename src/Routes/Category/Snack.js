@@ -1,38 +1,101 @@
 import './CategoryStyle.scss';
 import icon1 from '../../image/icon2.PNG';
-import {bigCategory} from "../../api";
+import {bigCategory,categoryApi} from "../../api";
 import { useEffect,useState } from 'react';
 import CategoryResult from "./CategoryResult";
 import snackImg from "../../image/categoryImg/snack1.jpg";
 import { Link } from 'react-router-dom';
 import {BsFillGridFill,BsChevronRight} from 'react-icons/bs';
-
+import { FaBuilding, FaCrown } from 'react-icons/fa';
+import { IoIosPaper } from 'react-icons/io';
+import SearchResult from '../Search/SearchResult';
+import 과자 from "../../image/categoryImg/snack/과자.png";
+import 떡 from "../../image/categoryImg/snack/떡.png";
+import 빵 from "../../image/categoryImg/snack/빵.png";
+import 젤리 from "../../image/categoryImg/snack/젤리.png";
+import 아이스크림 from "../../image/categoryImg/snack/아이스크림.png";
+import 초콜릿 from "../../image/categoryImg/snack/초콜릿.png";
 const Snack=()=>{
     const [result,setResult]=useState([]);
+    const [totalResult,setTotalResult]=useState(0);
     const [error,setError]=useState(false);
     const [loading,setLoading]=useState(false);
     const [categoryName,setCategoryName]=useState("");
+    const [sort,setSort]=useState();
     useEffect(async()=>{
-        const getBigCategory=async()=>{
-            setCategoryName("간식");
-            try{
-                setLoading(true);
-                const {data:{data}}= await bigCategory.gotoCategory("간식",1,"ranking",10);
-                setResult(data);
-
-            }catch(e){
-                setError(e);
-                console.log(e);
-            }finally{
-                setLoading(false);
-            }
+      console.log("마운트!");
+      if(sessionStorage.getItem('categoryData')){
+        setResult(JSON.parse(sessionStorage.getItem('categoryData')));
+        setTotalResult(sessionStorage.getItem('totalItems'));
+        console.log(result);
+      }
+      
+        if(sessionStorage.getItem('categoryName')==="간식"){
+          getBigCategory(sort);
         }
-        getBigCategory();
+        
         
     },[]);
 
-    const handleCategory=()=>{
-        console.log("sda");
+    const getBigCategory=async(sort)=>{
+      setCategoryName("간식");
+      sessionStorage.setItem('categoryName',"간식");
+            
+      try{
+          setLoading(true);
+          const {data}= await bigCategory.gotoCategory("간식",1,sort,10);
+          setTotalResult(data.total_elements);
+          setResult(data.data);
+        sessionStorage.setItem('categoryData', JSON.stringify(data.data));
+
+      }catch(e){
+          setError(e);
+          console.log(e);
+      }finally{
+          setLoading(false);
+      }
+  }
+
+    const handleSort = async (sortType) => {
+    setSort(sortType);
+    sessionStorage.setItem("sort",sortType);
+    if(sessionStorage.getItem('categoryData')=='간식'){
+        getBigCategory(sort);
+    }else{
+        try{
+            setLoading(true);
+            const {data} = await categoryApi.category(categoryName,1,10,sortType);
+            sessionStorage.setItem('totalItems',data.total_elements);
+            sessionStorage.setItem('categoryData', JSON.stringify(data.data));
+            sessionStorage.setItem('sortType',sortType);
+            setResult(data.data);
+            setTotalResult(data.total_elements);
+           
+         }catch(e){
+            setError(e);
+         }finally{
+            setLoading(false);
+         }
+    }
+  };
+    const handleCategory=async(e)=>{
+         sessionStorage.setItem('category', e.target.value);
+         setCategoryName(e.target.value);
+         console.log("버튼",categoryName);
+         
+         try{
+            setLoading(true);
+            const {data} = await categoryApi.category(categoryName,1,10,sort);
+            sessionStorage.setItem('totalItems',data.total_elements);
+            sessionStorage.setItem('categoryData', JSON.stringify(data.data));
+            setResult(data);
+            setTotalResult(data.total_elements);
+            console.log("소분류: ",data);
+         }catch(e){
+            setError(e);
+         }finally{
+            setLoading(false);
+         }
     }
     return (
         <div className="category__container">
@@ -296,34 +359,74 @@ const Snack=()=>{
                 </div>
                 <div className="category__items">
                     <div className="item">
-                         <button className="category__item">사진넣을거</button>
+                         <button value="과자"onClick={handleCategory} className="category__item">
+                           <img className="item__img" src={과자}/>
+                         </button>
                          <p className="category__name">과자</p>
                     </div>
                      <div className="item">
-                         <button className="category__item">사진넣을거</button>
-                         <p className="category__name">사탕/껌/젤리</p>
+                         <button value="사탕/껌/젤리"onClick={handleCategory} className="category__item">
+                           <img className="item__img" src={젤리}/>
+                         </button>
+                          <p className="category__name">사탕/껌/젤리</p>
                     </div>
                      <div className="item">
-                         <button className="category__item">사진넣을거</button>
+                         <button value="떡" onClick={handleCategory} className="category__item">
+                            <img className="item__img" src={떡}/>
+                         </button>
                           <p className="category__name">떡</p>
                     </div>
                      <div className="item">
-                         <button className="category__item">사진넣을거</button>
+                         <button value="빵"onClick={handleCategory} className="category__item">
+                           <img className="item__img" src={빵}/>
+                         </button>
                           <p className="category__name">빵</p>
                     </div>
                      <div className="item">
-                         <button className="category__item">사진넣을거</button>
+                         <button value="아이스크림"onClick={handleCategory} className="category__item">
+                            <img className="item__img"src={아이스크림}/>
+                         </button>
+                         
                           <p className="category__name">아이스크림</p>
                     </div>
                       <div className="item">
-                         <button className="category__item">사진넣을거</button>
+                         <button value="초콜릿" onClick={handleCategory} className="category__item">
+                           <img className="item__img"src={초콜릿}/>
+                         </button>
                           <p className="category__name">초콜릿</p>
                     </div>
             
             </div>
              <div>
-                <CategoryResult category={categoryName} loading={loading} result={result}/>
+                <nav class="navbar navbar-light bg-light justify-content-between">
+              <a class="navbar-brand">검색결과({totalResult})</a>
+              <div className="form-check__group">
+                    <div class='form-check'>
+                      <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
+                            name='flexRadioDefault' id='flexRadioDefault2' />
+                      <label class='form-check-label' for='flexRadioDefault2'>
+                        오름차순
+                      </label>
+                    </div>
+                    <div class='form-check'>
+                      <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
+                            name='flexRadioDefault' id='flexRadioDefault2' />
+                      <label class='form-check-label' for='flexRadioDefault2'>
+                        내림차순
+                      </label>
+                    </div>
+
+                    <div class='form-check'>
+                      <input type='button' onClick={() => handleSort('viewCount')} class='form-check-input' type='radio'
+                            name='flexRadioDefault' id='flexRadioDefault2' />
+                      <label class='form-check-label' for='flexRadioDefault2'>
+                        조회수
+                      </label>
+                    </div>
+              </div>
+        </nav>
             </div>
+             <SearchResult className='searchResult' loading={loading} result={result} sort={sort}/>
             </div>
         </div>
     );
