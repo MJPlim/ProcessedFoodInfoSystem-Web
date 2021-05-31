@@ -9,16 +9,17 @@
   .item__header{
     
     margin-top: 10%;
-    width: fit-content;
+    width: 100%;
     border: 0;
-    border-bottom: 3px solid red;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
   
     .input{
       border: 0;
       text-align: center;
       margin-top: 2px;
       font-size: x-large;
+       border-bottom: 3px solid red;
     }
   
     .searchBtn{
@@ -26,11 +27,16 @@
       background: 0;
     }
     .allergyBtn{
-     display:block; width:200px; height:40px; line-height:40px; border:1px #3399dd solid;; margin:15px auto; background-color:#66aaff; text-align:center; cursor: pointer; color:#333; transition:all 0.9s, color 0.3;
+      width: 40px;
+      height: 40px;
+      outline: 0;
+      border: 0;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0);
 
 
     }
-    .allergyBtn:hover{ box-shadow: 0 80px 0 0 rgba(0,0,0,0.25) inset, 0 -80px 0 0 rgba(0,0,0,0.25) inset; }
+    .allergyBtn:active{  background-color:#3a8082 ;}
   }
   .item__main{
     display: grid;
