@@ -14,7 +14,7 @@ const SearchResult=({loading,result})=>{
                         <img className="foodImg"src={result.foodImageAddress}/>
                         <h5 className="card-title">{result.foodName}</h5>
                         <p className="card-text">{(result.manufacturerName).substring(0,9)}...</p>
-                        <Link className="card-link" to={`food/${result.foodId}`}>
+                        <Link className="card-link" to={`/searchProduct/food/${result.foodId}`}>
                         <button className="go__detail">상세보기</button>
                         </Link>
                     </div>
