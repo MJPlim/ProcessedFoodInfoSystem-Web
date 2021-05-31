@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, Col, Container, Row } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Alert, Card, Col, Container, Row } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { userJoin } from 'api';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -10,9 +10,13 @@ import ko from 'date-fns/locale/ko';
 function Join() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [conPassword, setConPassword] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   const [birth, setBirth] = useState(moment(new Date).format('yyyy-MM-DD'));
+  const [error, setError] = useState({
+    conPasswordError: null,
+  });
   const history = useHistory();
 
   registerLocale('ko', ko);
@@ -24,6 +28,10 @@ function Join() {
 
   const onPasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const onConPasswordChange = (e) => {
+    setConPassword(e.target.value);
   };
 
   const onAddressChange = (e) => {
@@ -39,14 +47,28 @@ function Join() {
   };
 
   const register = async () => {
-    try {
-      await userJoin.userRegister(name, password, address, birth, email);
-      alert('입력하신 ' + email + '주소로 인증메일이 발송되었습니다');
-    } catch (e) {
-      console.log(e);
+    if (conPassword === '' || error.conPasswordError !== null) {
       alert('틀린 정보입니다.');
+
+    } else {
+      try {
+        await userJoin.userRegister(name, password, address, birth, email);
+        alert('입력하신 ' + email + '주소로 인증메일이 발송되었습니다');
+      } catch (e) {
+        console.log(e);
+        alert('틀린 정보입니다.');
+      }
     }
+
   };
+
+  useEffect(() => {
+    if (conPassword !== password) {
+      setError({ ...error, conPasswordError: '비밀번호가 일치하지 않습니다.' });
+    } else {
+      setError({ ...error, conPasswordError: null });
+    }
+  }, [conPassword]);
 
   // const register = () => {
   //   userJoin
@@ -102,8 +124,22 @@ function Join() {
               />
             </div>
 
+            <div className='form-group'>
+              <label htmlFor='exampleInputPassword1'>Confirm Password</label>
+              <input
+                type='password'
+                className='form-control'
+                id='exampleInputPassword1'
+                placeholder='Confirm Password'
+                onChange={onConPasswordChange}
+              />
+            </div>
+
+            {error.conPasswordError !== null && <Alert color={'danger'}>{error.conPasswordError} </Alert>}
+
+
             <div class='form-group'>
-              <label for='inputAddress'>주소</label>
+              <label for='inputAddress'>Address</label>
               <input
                 type='text'
                 class='form-control'
@@ -114,7 +150,7 @@ function Join() {
             </div>
 
             <div class='form-group'>
-              <label for='inputBirth'>생년월일</label>
+              <label for='inputBirth'>Birth</label>
               <Row className={'pickerRow'}>
                 <DatePicker
                   id='inputBirth'
