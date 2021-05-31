@@ -29,7 +29,14 @@ function MyAllergies() {
   const [allergyList, setAllergyList] = useState([]);
   const [data, setData] = useState([]);
   const [allergyLoading, setAllergyLoading] = useState(true);
-  const [checkC, setCheckC] = useState(false);
+  const [checkC, setCheckC] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [shownAllergy1, setShownAllergy1] = useState([
     '아몬드',
     '우유',
@@ -62,21 +69,31 @@ function MyAllergies() {
   ]);
 
   useEffect(() => {
-    const gogogetAllergy = async () => {
-      await getUserAllergyInfo
-        .userAllergies()
-        .then((response) => {
-          const result = response.data.userAllergyMaterials;
-          setData(result);
-          setAllergyLoading(false);
-          console.log(data, '알러지');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    gogogetAllergy();
-  }, []);
+    try {
+      gogogetAllergy();
+    } catch (e) {
+      console.log(e);
+    }
+  }, [!allergyLoading]);
+
+  // const checkSetup = (shownAllergy1, data) => {
+  //   setCheckC(checkC.filter((shownAllergy1 === data) {return Boolean});
+  //   console.log('checkSetup 작동', checkC);
+  // };
+
+  const gogogetAllergy = async () => {
+    await getUserAllergyInfo
+      .userAllergies()
+      .then((response) => {
+        const result = response.data.userAllergyMaterials;
+        setData(result);
+        setAllergyLoading(false);
+        console.log(data, '기존 알러지');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     try {
@@ -130,7 +147,8 @@ function MyAllergies() {
   const createAllergy = async () => {
     try {
       await setUserAllergyInfo.setAllergies(allergyList);
-      alert('등록되었습니다.');
+      alert('저장되었습니다.');
+      window.location.replace('/mypage');
     } catch (e) {
       alert(e.response.data['error-message']);
     }

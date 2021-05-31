@@ -34,6 +34,9 @@ function ChangePassword() {
 
   return (
     <div className="changePassword">
+      <br />
+      <br />
+      <br />
       <Container>
         <Card body>
           <form>

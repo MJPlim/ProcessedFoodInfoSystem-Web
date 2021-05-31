@@ -21,6 +21,9 @@ function SecondEmail() {
 
   return (
     <div className="setEmail">
+      <br />
+      <br />
+      <br />
       <Container>
         <Card body>
           <form>
