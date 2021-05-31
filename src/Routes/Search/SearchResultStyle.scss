@@ -30,11 +30,13 @@
             background-color: #fcc207;
             position: inherit;
             bottom: 2%;
-            padding: 10px;
+
+            padding: 3px;
         }
     }
     .card-body:hover{
-            box-shadow: 2px 2px 5px 4px gray;
+            box-shadow: 2px 2px 5px 4px rgba(1,1,1,0.3);
+
         }
     
   

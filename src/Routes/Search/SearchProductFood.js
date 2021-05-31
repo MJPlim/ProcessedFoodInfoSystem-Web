@@ -25,9 +25,10 @@ import {
   categoryApi,
   getUserAllergyInfo
 } from '../../api';
-import { FaBuilding, FaCrown, FaAllergies } from 'react-icons/fa';
+import { FaBuilding, FaCrown } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import{RiSearch2Line}from 'react-icons/ri';
+import {AiOutlineFilter} from 'react-icons/ai';
 import AdFoodResult from './AdFoodResult';
 import Pagination from 'rc-pagination';
 import ReactPaginate from 'react-paginate';
@@ -300,7 +301,7 @@ const handleCategory = async (e) => {
   return (
     <div className="container">
       <header className="item__header">
-         {searchTerm === null ? <Input
+         {searchTerm === null ? <input
               placeholder='검색어를 입력하세요'
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -339,8 +340,8 @@ const handleCategory = async (e) => {
               <RiSearch2Line size="40"></RiSearch2Line>
             </button>
           </InputGroupAddon>
-          <button onClick={handleAllergy}>
-            <FaAllergies/>
+          <button  className="allergyBtn" onClick={handleAllergy} data-toggle="tooltip" data-placement="bottom" title="알레르기 필터 기능입니다.">
+            <AiOutlineFilter size="40"/>
           </button>
       </header>
       <div className="item__main">
@@ -584,21 +585,10 @@ const handleCategory = async (e) => {
          </div>
         <div className="item__items">
           <div className="item__result">
-            {/* 광고부분 */}
-           <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-      interval="3000"
-    >
-      <CarouselIndicators  items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-      </Carousel>
+        
       
        <div className='selectType list-group resultPage sortBy'>
-         <p className="result">검색결과</p>
+         <p className="result">검색결과({totalItems})</p>
          <div className="form-check__group">
             <div class='form-check'>
               <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
