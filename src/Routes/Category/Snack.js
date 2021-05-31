@@ -3,7 +3,6 @@ import icon1 from '../../image/icon2.PNG';
 import {bigCategory,categoryApi} from "../../api";
 import { useEffect,useState } from 'react';
 import CategoryResult from "./CategoryResult";
-import snackImg from "../../image/categoryImg/snack1.jpg";
 import { Link } from 'react-router-dom';
 import {BsFillGridFill,BsChevronRight} from 'react-icons/bs';
 import { FaBuilding, FaCrown } from 'react-icons/fa';
@@ -39,7 +38,7 @@ const Snack=()=>{
 
     const getBigCategory=async(sort)=>{
       setCategoryName("간식");
-      sessionStorage.setItem('categoryName',"간식");
+      sessionStorage.setItem('category',"간식");
             
       try{
           setLoading(true);
@@ -67,10 +66,9 @@ const Snack=()=>{
             const {data} = await categoryApi.category(categoryName,1,10,sortType);
             sessionStorage.setItem('totalItems',data.total_elements);
             sessionStorage.setItem('categoryData', JSON.stringify(data.data));
-            sessionStorage.setItem('sortType',sortType);
-            setResult(data.data);
+            setResult(data);
             setTotalResult(data.total_elements);
-           
+            console.log("소분류: ",data);
          }catch(e){
             setError(e);
          }finally{
@@ -81,14 +79,13 @@ const Snack=()=>{
     const handleCategory=async(e)=>{
          sessionStorage.setItem('category', e.target.value);
          setCategoryName(e.target.value);
-         console.log("버튼",categoryName);
-         
+         console.log("버튼",e.target.value);
          try{
             setLoading(true);
-            const {data} = await categoryApi.category(categoryName,1,10,sort);
+            const {data} = await categoryApi.category(e.target.value);
             sessionStorage.setItem('totalItems',data.total_elements);
             sessionStorage.setItem('categoryData', JSON.stringify(data.data));
-            setResult(data);
+            setResult(data.data);
             setTotalResult(data.total_elements);
             console.log("소분류: ",data);
          }catch(e){
@@ -358,7 +355,7 @@ const Snack=()=>{
                 <p className="category__title"> <BsFillGridFill/> CATEGORY <BsChevronRight/> 간식</p><hr></hr>
                 </div>
                 <div className="category__items">
-                    <div className="item">
+                     <div className="item">
                          <button value="과자"onClick={handleCategory} className="category__item">
                            <img className="item__img" src={과자}/>
                          </button>
@@ -405,22 +402,22 @@ const Snack=()=>{
                       <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
                             name='flexRadioDefault' id='flexRadioDefault2' />
                       <label class='form-check-label' for='flexRadioDefault2'>
-                        오름차순
+                        <FaCrown></FaCrown>랭킹순
                       </label>
                     </div>
                     <div class='form-check'>
                       <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
                             name='flexRadioDefault' id='flexRadioDefault2' />
                       <label class='form-check-label' for='flexRadioDefault2'>
-                        내림차순
+                        <IoIosPaper></IoIosPaper>리뷰순
                       </label>
                     </div>
 
                     <div class='form-check'>
-                      <input type='button' onClick={() => handleSort('viewCount')} class='form-check-input' type='radio'
+                      <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
                             name='flexRadioDefault' id='flexRadioDefault2' />
                       <label class='form-check-label' for='flexRadioDefault2'>
-                        조회수
+                        <FaBuilding></FaBuilding>제조사별
                       </label>
                     </div>
               </div>
