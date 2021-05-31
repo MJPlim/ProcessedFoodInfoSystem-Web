@@ -15,7 +15,7 @@ import {
   DropdownItem,
   NavLink,
 } from 'reactstrap';
-import logo from '../image/logo.png';
+import logo from '../image/logo.PNG';
 function LoginState(props) {
   const checkLogin = props.auli;
   console.log(checkLogin);
