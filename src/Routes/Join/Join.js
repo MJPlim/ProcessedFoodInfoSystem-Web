@@ -68,7 +68,7 @@ function Join() {
     } else {
       setError({ ...error, conPasswordError: null });
     }
-  }, [conPassword]);
+  }, [password, conPassword]);
 
   // const register = () => {
   //   userJoin
