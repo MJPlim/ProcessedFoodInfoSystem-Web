@@ -28,6 +28,9 @@ import {
 import dev1 from '../../image/dev1.jpg';
 import dev2 from '../../image/dev2.jpg';
 import dev3 from '../../image/dev3.jpg';
+import dev4 from '../../image/dev4.jpg';
+import dev5 from '../../image/dev5.jpg';
+import dev6 from '../../image/dev6.jpg';
 
 function About() {
   const [activeTab, setActiveTab] = useState('1');
@@ -128,7 +131,7 @@ function About() {
               </tr>
               <tr>
                 <th>
-                  <img className="devImage" src={dev5} />
+                  <img className="devImage" src={dev6} />
                 </th>
                 <th>60181626</th>
                 <th>김송은</th>
