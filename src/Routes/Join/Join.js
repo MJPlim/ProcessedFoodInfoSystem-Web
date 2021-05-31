@@ -49,7 +49,6 @@ function Join() {
   const register = async () => {
     if (conPassword === '' || error.conPasswordError !== null) {
       alert('틀린 정보입니다.');
-
     } else {
       try {
         await userJoin.userRegister(name, password, address, birth, email);
@@ -88,7 +87,7 @@ function Join() {
         <Card body>
           <form>
             <div class='form-group'>
-              <label for='inputAddress'>name</label>
+              <label for='inputAddress'>이름</label>
               <input
                 type='text'
                 class='form-control'
@@ -99,7 +98,7 @@ function Join() {
             </div>
 
             <div class='form-group'>
-              <label for='exampleInputEmail1'>Email address</label>
+              <label for='exampleInputEmail1'>이메일</label>
               <input
                 type='email'
                 class='form-control'
@@ -114,7 +113,7 @@ function Join() {
             </div>
 
             <div class='form-group'>
-              <label for='exampleInputPassword1'>Password</label>
+              <label for='exampleInputPassword1'>비밀번호</label>
               <input
                 type='password'
                 class='form-control'
@@ -125,7 +124,7 @@ function Join() {
             </div>
 
             <div className='form-group'>
-              <label htmlFor='exampleInputPassword1'>Confirm Password</label>
+              <label htmlFor='exampleInputPassword1'>비밀번호 확인</label>
               <input
                 type='password'
                 className='form-control'
@@ -139,7 +138,7 @@ function Join() {
 
 
             <div class='form-group'>
-              <label for='inputAddress'>Address</label>
+              <label for='inputAddress'>주소</label>
               <input
                 type='text'
                 class='form-control'
@@ -150,7 +149,7 @@ function Join() {
             </div>
 
             <div class='form-group'>
-              <label for='inputBirth'>Birth</label>
+              <label for='inputBirth'>생년월일</label>
               <Row className={'pickerRow'}>
                 <DatePicker
                   id='inputBirth'
