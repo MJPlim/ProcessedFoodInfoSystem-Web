@@ -33,6 +33,15 @@ import CUI from '../Routes/MyPage/ChangeUserInfo';
 import UAI from '../Routes/MyPage/MyAllergies';
 import SE from '../Routes/MyPage/SecondEmail';
 
+import SNACK from '../Routes/Category/Snack';
+import MILK from '../Routes/Category/Milk';
+import TEA from '../Routes/Category/Tea';
+import FOOD from '../Routes/Category/Food';
+import KIMCHI from '../Routes/Category/Kimchi';
+import CON from '../Routes/Category/Condiment';
+import MKIT from '../Routes/Category/MealKit';
+import ETC from '../Routes/Category/Etc';
+
 export default () => (
   <Router>
     <>
@@ -43,13 +52,7 @@ export default () => (
         <Route path="/recommendedProduct" exact component={RP} />
  
         <Route path="/searchProduct/food" exact component={SPF} />
-       
-        <Route path="/community" exact component={CM} />
-        <Route path="/userRanking" exact component={UR} />
-        <Route path="/productRanking" exact component={PR} />
-        <Route path="/reviews" exact component={RV} />
-        <Route path="/whatsKati" exact component={WK} />
-        <Route path="/howToUse" exact component={HU} />
+
         <Route path="/searchProduct/food/:id" exact component={FD} />
         <Route path="/searchProduct/bssh/:id" exact component={FD} />
         <Route path="/login" exact component={LG} />
@@ -64,6 +67,15 @@ export default () => (
 
         <Route path="/findUser/email" exact component={FUE} />
         <Route path="/findUser/password" exact component={FUP} />
+
+        <Route path="/category/snack" exact component={SNACK}/>
+        <Route path="/category/milk" exact component={MILK}/>
+        <Route path="/category/tea" exact component={TEA}/>
+        <Route path="/category/food" exact component={FOOD}/>
+        <Route path="/category/kimchi" exact component={KIMCHI}/>
+        <Route path="/category/con" exact component={CON}/>
+        <Route path="/category/mealKit" exact component={MKIT}/>
+        <Route path="/category/etc" exact component={ETC}/>
 
         {/* url잘못치면 메인으로 */}
         <Redirect from="*" to="/" />

@@ -22,7 +22,9 @@ import {
   sortApi,
   getAdvertisementFoodApi,
   manufacturerApi,
-  categoryApi
+  categoryApi,
+  getUserAllergyInfo,
+  bigCategory
 } from '../../api';
 import { FaBuilding, FaCrown, FaAllergies } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
@@ -52,6 +54,7 @@ const items = [
     }
 ];
 const SearchTab = () => {
+ 
   //광고부분
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -93,9 +96,10 @@ const SearchTab = () => {
   const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
   const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
   //알러지 토글 부분
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-
+ //알러지
+  const [allergyLoading,setAllergyLoading]=useState(false);
+  const [allergyList,setAllergyList]=useState([]);
+  
   //옵션 선택
   const [option, setOption] = useState('식품명');
   //초기 설정 부분
@@ -109,8 +113,7 @@ const SearchTab = () => {
   const [data, setData] = useState(null);
   //정렬방식 선택
   const [sort, setSort] = useState('ranking');
-  //알레르기 배열
-  let allergyList = [];
+
   const [allergies, setAllergies] = useState([]);
   // 광고 식품 데이터
   const [adFoods, setAdFoods] = useState(null);
@@ -130,10 +133,7 @@ const SearchTab = () => {
 
   //마운팅 될 때
   useEffect(() => {
-    if(sessionStorage.getItem('allergies')){
-      allergyList=sessionStorage.getItem('allergies');
-      console.log('알러지 설정: ',allergyList);
-    }
+
     if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
       //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
       localStorage.setItem('keywordsFoodForName', JSON.stringify(foodKeywords));
@@ -146,6 +146,7 @@ const SearchTab = () => {
 
       console.log('이전 검색 결과', result);
     }
+   
   }, [data, foodKeywords, bsshKeywords]);
 
 
@@ -278,21 +279,22 @@ const handleCategory = async (e) => {
     }
   };
   //알러지 추가
-  const handleAllergy = (allergy) => {
-     console.log('알러지리스트',allergyList);
-    var idx=-1;
-    for(var i=0;i<allergyList.length;i++){
-      if(allergy===allergyList[i]){
-        idx=i;
-      }
-    }
-    if(idx===-1){
-      allergyList.push(allergy);
-    }else{
-      allergyList.splice(idx,1);
-    }
-    sessionStorage.setItem('allergies',allergyList);
-    console.log('알러지리스트',allergyList);
+  const handleAllergy = async() => {
+   
+      setAllergyLoading(true);
+     await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          const result = response.data.userAllergyMaterials;
+          console.log(result);
+          setAllergyList(result);
+         
+        })
+        .catch((error) => {
+          alert("로그인을 하세요");
+        });
+
+    
   };
 
   
@@ -338,6 +340,10 @@ const handleCategory = async (e) => {
               <RiSearch2Line size="40"></RiSearch2Line>
             </button>
           </InputGroupAddon>
+         <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"/>
+  <label class="form-check-label" for="flexSwitchCheckChecked">알레르기 필터</label>
+</div>
       </header>
       <div className="item__main">
          <div className="item__category list-group categoryGroup">
@@ -580,21 +586,10 @@ const handleCategory = async (e) => {
          </div>
         <div className="item__items">
           <div className="item__result">
-            {/* 광고부분 */}
-           <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-      interval="3000"
-    >
-      <CarouselIndicators  items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-      </Carousel>
+
       
        <div className='selectType list-group resultPage sortBy'>
-         <p className="result">검색결과</p>
+         <p className="result">검색결과({})</p>
          <div className="form-check__group">
             <div class='form-check'>
               <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'

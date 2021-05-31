@@ -98,48 +98,58 @@ function MainScreen() {
 기타가공품 */}
         <Row>
           <Col xs={6} md={3}>
-            <Link>
-              <img className="icons" src={icon1} />
+
+            <Link to="/category/snack">
+              <img className='icons' src={icon1} />
+              간식
             </Link>
           </Col>
           <Col xs={6} md={3}>
-            <Link>
-              <img className="icons" src={icon2} />
+            <Link to="/category/tea">
+              <img className='icons' src={icon2} />
+              차/음료
             </Link>
           </Col>
           <Col xs={6} md={3}>
-            <Link>
+            <Link to="/category/milk">
               {' '}
-              <img className="icons" src={icon3} />
+
+              <img className='icons' src={icon3} />
+              유제품
             </Link>
           </Col>
           <Col xs={6} md={3}>
-            <Link>
-              <img className="icons" src={icon4} />
+            <Link to="/category/kimchi">
+              <img className='icons' src={icon4} />
             </Link>
           </Col>
         </Row>
         <Row>
           <Col xs={6} md={3}>
-            <Link>
-              <img className="icons" src={icon5} />
+
+            <Link to="/category/food">
+              <img className='icons' src={icon5} />
+              농수산물
             </Link>
           </Col>
           <Col xs={6} md={3}>
-            <Link>
+            <Link to="/category/mealKit">
               {' '}
               <img className="icons" src={icon6} />
             </Link>
           </Col>
           <Col xs={6} md={3}>
-            <Link>
+            <Link to="/category/con">
               {' '}
-              <img className="icons" src={icon7} />
+
+              <img className='icons' src={icon7} />
+              조미료
             </Link>
           </Col>
           <Col xs={6} md={3}>
-            <Link>
-              <img className="icons" src={icon8} />
+            <Link to="/category/etc">
+              <img className='icons' src={icon8} />
+              기타
             </Link>
           </Col>
         </Row>
