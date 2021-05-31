@@ -15,7 +15,7 @@ import {
   DropdownItem,
   NavLink,
 } from 'reactstrap';
-
+import logo from '../image/logo.png';
 function LoginState(props) {
   const checkLogin = props.auli;
   console.log(checkLogin);
@@ -121,7 +121,7 @@ export default withRouter(({ location: { pathname } }) => (
         <Row>
           <div className="serviceName">
             <Link className="logo" to="/">
-              <p>K A T I</p>
+             <img src={logo}/>
             </Link>
           </div>
         </Row>
