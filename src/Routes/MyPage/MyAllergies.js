@@ -71,7 +71,7 @@ function MyAllergies() {
   useEffect(() => {
     try {
       gogogetAllergy();
-      setAllergyList([...allergyList, data]);
+      // setAllergyList([...allergyList, data]);
       console.log(allergyList, 'useEffect 기존 Data 알러지리스트');
     } catch (e) {
       console.log(e);
