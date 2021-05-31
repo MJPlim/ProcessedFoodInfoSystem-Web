@@ -27,8 +27,8 @@ function ChangePassword(props) {
         props.history.goBack();
         if (localStorage.getItem('userLoginPassword') !== 'null') {
           localStorage.setItem('userLoginPassword', afterPassword);
-          localStorage.setItem('userBPassword', afterPassword);
         }
+        localStorage.setItem('userBPassword', afterPassword);
         alert('변경 완료');
       }).catch(e => {
         console.log(e.response);
