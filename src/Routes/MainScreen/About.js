@@ -27,6 +27,7 @@ import {
 } from 'reactstrap';
 import dev1 from '../../image/dev1.jpg';
 import dev2 from '../../image/dev2.jpg';
+import dev3 from '../../image/dev3.jpg';
 
 function About() {
   const [activeTab, setActiveTab] = useState('1');
@@ -102,28 +103,36 @@ function About() {
                 <th>융합소프트웨어학부</th>
               </tr>
               <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>
+                  <img className="devImage" src={dev3} />
+                </th>
+                <th>60180998</th>
+                <th>이서현</th>
+                <th>경영학과</th>
               </tr>
               <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>
+                  <img className="devImage" src={dev4} />
+                </th>
+                <th>60181665</th>
+                <th>정상현</th>
+                <th>융합소프트웨어학부</th>
               </tr>
               <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>
+                  <img className="devImage" src={dev5} />
+                </th>
+                <th>60181640</th>
+                <th>박정욱</th>
+                <th>융합소프트웨어학부</th>
               </tr>
               <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>
+                  <img className="devImage" src={dev5} />
+                </th>
+                <th>60181626</th>
+                <th>김송은</th>
+                <th>융합소프트웨어학부</th>
               </tr>
               <tr>
                 <th></th>
