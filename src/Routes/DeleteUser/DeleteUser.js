@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Button, Card, CardTitle, Col, Container } from 'reactstrap';
+import { Alert, Button, Card, CardTitle, Col, Container, Jumbotron } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
-import { userWithdrawal } from 'api';
-import { IoChatboxEllipsesOutline } from 'react-icons/io5';
+import { deleteReviewApi, userWithdrawal } from 'api';
+import './DeleteUserStyle.scss';
 
-function DeleteUser() {
+function DeleteUser(props) {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
@@ -14,39 +13,56 @@ function DeleteUser() {
   };
 
   const withdrawal = async () => {
-    try {
-      await userWithdrawal.deleteUser(password);
-      alert('탈퇴완료');
-    } catch (e) {
-      console.log(e);
-      alert('탈퇴실패');
+    if (window.confirm('정말 탈퇴하시겠습니까?')) {
+      await userWithdrawal.deleteUser(password).then(async () => {
+          alert('회원 탈퇴 완료');
+          localStorage.setItem('authorization', null);
+          localStorage.setItem('userLoginEmail', null);
+          localStorage.setItem('userLoginPassword', null);
+          localStorage.setItem('userBEmail', null);
+          localStorage.setItem('userBPassword', null);
+          props.history.goBack();
+        },
+      ).catch(e => {
+        alert('탈퇴실패');
+      });
+    } else {
     }
   };
 
   return (
-    <div className="FindUser">
+    <div className='DeleteUser'>
       <Container>
-        <p className="title">탈퇴하기</p>
+
+        <p className='title'>탈퇴하기</p>
+
+
         <Card body>
+          <Alert className={'deleteUSerAlert'} color='danger'>
+            <p className='alertTitle'>탈퇴 시 유의사항</p>
+
+            <p className='lead'>개인 정보 삭제 안내</p>
+            <li className='lead'>작성하신 리뷰 정보는 탈퇴 후에도 삭제되지 않습니다.</li>
+          </Alert>
           <Col>
-            <CardTitle className="card-title">
-              비밀번호를 입력해주세요.
+            <CardTitle className='card-title'>
+              본인확인
             </CardTitle>
           </Col>
-          <Col md="6">
-            <div class="form-group">
-              <label for="exampleDropdownFormPassword1">비밀번호</label>
+          <Col md='6'>
+            <div class='form-group'>
+              {/*<label className={'passwordLabel'} for="exampleDropdownFormPassword1">비밀번호</label>*/}
               <input
-                type="password"
-                class="form-control"
-                id="exampleDropdownFormPassword1"
-                placeholder="Password"
+                type='password'
+                class='form-control'
+                id='exampleDropdownFormPassword1'
+                placeholder='비밀번호 입력'
                 onChange={onChange}
               />
             </div>
           </Col>
           <Col>
-            <Button onClick={withdrawal} className="submitButton">
+            <Button onClick={withdrawal} className='submitButton'>
               탈퇴하기
             </Button>
           </Col>
