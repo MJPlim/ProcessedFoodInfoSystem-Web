@@ -25,14 +25,15 @@ function ChangePassword(props) {
     } else {
       await userChangePW.changePW(beforePassword, afterPassword).then(() => {
         props.history.goBack();
+        if (localStorage.getItem('userLoginPassword') !== 'null') {
+          localStorage.setItem('userLoginPassword', afterPassword);
+          localStorage.setItem('userBPassword', afterPassword);
+        }
         alert('변경 완료');
-
-
       }).catch(e => {
         console.log(e.response);
         alert('입력하신 비밀번호가 동일 혹은 다릅니다');
       });
-
     }
   };
 
