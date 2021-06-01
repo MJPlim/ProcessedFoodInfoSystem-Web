@@ -31,6 +31,7 @@ import dev3 from '../../image/dev3.jpg';
 import dev4 from '../../image/dev4.jpg';
 import dev5 from '../../image/dev5.jpg';
 import dev6 from '../../image/dev6.jpg';
+import dev7 from '../../image/dev7.JPG';
 
 function About() {
   const [activeTab, setActiveTab] = useState('1');
@@ -138,22 +139,12 @@ function About() {
                 <th>융합소프트웨어학부</th>
               </tr>
               <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>
+                  <img className="devImage" src={dev7} />
+                </th>
+                <th>60160395</th>
+                <th>윤예은</th>
+                <th>문예창작학과</th>
               </tr>
               <tr>
                 <th></th>
