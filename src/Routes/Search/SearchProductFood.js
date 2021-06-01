@@ -3,7 +3,7 @@ import './SearchStyle.scss';
 import 간식 from '../../image/categoryImg/간식.jpg';
 import 과일 from '../../image/categoryImg/과일.jpg';
 import 김치 from '../../image/categoryImg/김치.jpg';
-import 유제품 from '../../image/categoryImg/유제품.jpg';
+//import 유제품 from '../../image/categoryImg/유제품.jpg';
 import 음료 from '../../image/categoryImg/음료.jpg';
 import 조미료 from '../../image/categoryImg/조미료.jpg';
 import {
@@ -39,9 +39,6 @@ const items = [
     },
     {
       src: 과일,
-    },
-    {
-      src:유제품,
     },
      {
       src: 김치,
