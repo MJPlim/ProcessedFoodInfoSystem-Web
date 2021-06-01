@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react';
 import CategoryResult from './CategoryResult';
 import { Link } from 'react-router-dom';
 import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
-import { FaBuilding, FaCrown } from 'react-icons/fa';
-import { IoIosPaper } from 'react-icons/io';
+import { FaBuilding } from 'react-icons/fa';
+import {HiEye} from 'react-icons/hi';
+import {GiFruitBowl}from 'react-icons/gi';
 import SearchResult from '../Search/SearchResult';
 import 과자 from '../../image/categoryImg/snack/과자.png';
 import 떡 from '../../image/categoryImg/snack/떡.png';
@@ -58,7 +59,9 @@ const Snack = () => {
   };
 
   const handleSort = async (sortType) => {
-    
+    setSort(sortType);
+    console.log(sort);
+    getSmallCategory();
   };
   const handleCategory = async (e) => {
     console.log('소분류 클릭');
@@ -70,7 +73,7 @@ const Snack = () => {
   const getSmallCategory = async () => {
     try {
       setLoading(true);
-      const { data } = await categoryApi.category(categoryName);
+      const { data } = await categoryApi.category(categoryName,1,10,sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
       setResult(data.data);
@@ -88,7 +91,7 @@ const Snack = () => {
         getSmallCategory();
     }
   
-  }, [categoryName]);
+  }, [categoryName,sort]);
 
   return (
     <div className='category__container'>
@@ -102,7 +105,7 @@ const Snack = () => {
             type='button'
             value='과자'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory("과자")}
           >
             과자
           </button>
@@ -110,7 +113,7 @@ const Snack = () => {
             type='button'
             value='떡'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory("떡")}
           >
             떡
           </button>
@@ -118,7 +121,7 @@ const Snack = () => {
             type='button'
             value='빵'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory("빵")}
           >
             빵
           </button>
@@ -126,7 +129,7 @@ const Snack = () => {
             type='button'
             value='사탕/껌/젤리'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('사탕/껌/젤리')}
           >
             사탕/껌/젤리
           </button>
@@ -134,7 +137,7 @@ const Snack = () => {
             type='button'
             value='아이스크림'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('아이스크림')}
           >
             아이스크림
           </button>
@@ -142,7 +145,7 @@ const Snack = () => {
             type='button'
             value='초콜릿'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('초콜릿')}
           >
             초콜릿
           </button>
@@ -154,7 +157,7 @@ const Snack = () => {
             type='button'
             value='음료'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('음료/차')}
           >
             음료
           </button>
@@ -162,7 +165,7 @@ const Snack = () => {
             type='button'
             value='커피'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('커피')}
           >
             커피
           </button>
@@ -171,7 +174,7 @@ const Snack = () => {
             type='button'
             value='커피/차'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('커피/차')}
           >
             커피/차
           </button>
@@ -182,7 +185,7 @@ const Snack = () => {
             type='button'
             value='유제품'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('유제품')}
           >
             유제품
           </button>
@@ -193,7 +196,7 @@ const Snack = () => {
             type='button'
             value='계란'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('계란')}
           >
             계란
           </button>
@@ -201,7 +204,7 @@ const Snack = () => {
             type='button'
             value='과일/채소'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('과일/채소')}
           >
             과일/채소
           </button>
@@ -209,7 +212,7 @@ const Snack = () => {
             type='button'
             value='김'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('김')}
           >
             김
           </button>
@@ -217,7 +220,7 @@ const Snack = () => {
             type='button'
             value='수산물'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('수산물')}
           >
             수산물
           </button>
@@ -225,7 +228,7 @@ const Snack = () => {
             type='button'
             value='견과'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('견과')}
           >
             견과
           </button>
@@ -233,7 +236,7 @@ const Snack = () => {
             type='button'
             value='곡류'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('견과')}
           >
             곡류
           </button>
@@ -244,7 +247,7 @@ const Snack = () => {
             type='button'
             value='김치'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('김치')}
           >
             김치
           </button>
@@ -252,7 +255,7 @@ const Snack = () => {
             type='button'
             value='젓갈'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('젓갈')}
           >
             젓갈
           </button>
@@ -263,7 +266,7 @@ const Snack = () => {
             type='button'
             value='설탕'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('설탕')}
           >
             설탕
           </button>
@@ -271,7 +274,7 @@ const Snack = () => {
             type='button'
             value='소금'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('소금')}
           >
             소금
           </button>
@@ -279,7 +282,7 @@ const Snack = () => {
             type='button'
             value='소스'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('소스')}
           >
             소스
           </button>
@@ -287,7 +290,7 @@ const Snack = () => {
             type='button'
             value='장류'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('장류')}
           >
             장류
           </button>
@@ -298,7 +301,7 @@ const Snack = () => {
             type='button'
             value='즉석조리식품'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('즉석조리식품')}
           >
             즉석조리식품
           </button>
@@ -306,7 +309,7 @@ const Snack = () => {
             type='button'
             value='국수'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('국수')}
           >
             국수
           </button>
@@ -314,7 +317,7 @@ const Snack = () => {
             type='button'
             value='두부'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('두부')}
           >
             두부
           </button>
@@ -322,7 +325,7 @@ const Snack = () => {
             type='button'
             value='식용유'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('식용유')}
           >
             식용유
           </button>
@@ -330,7 +333,7 @@ const Snack = () => {
             type='button'
             value='어묵'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('어묵')}
           >
             어묵
           </button>
@@ -341,7 +344,7 @@ const Snack = () => {
             type='button'
             value='기타가공품'
             className='list-group-item list-group-item-action'
-            onClick={handleCategory}
+            onClick={()=>handleCategory('기타가공품')}
           >
             기타가공품
           </button>
@@ -398,25 +401,25 @@ const Snack = () => {
             <a class='navbar-brand'>검색결과({totalResult})</a>
             <div className='form-check__group'>
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('ranking')} class='form-check-input' type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' />
+                <input type='button' onClick={() => handleSort('foodName')} class='form-check-input' type='radio'
+                       name='flexRadioDefault' id='flexRadioDefault2' value="category"/>
                 <label class='form-check-label' for='flexRadioDefault2'>
-                  <FaCrown></FaCrown>랭킹순
+                 <GiFruitBowl/>식품명
                 </label>
               </div>
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
+                <input type='button' onClick={() => handleSort('manufacturerName')} class='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
                 <label class='form-check-label' for='flexRadioDefault2'>
-                  <IoIosPaper></IoIosPaper>리뷰순
+                  <FaBuilding/>제조사
                 </label>
               </div>
 
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
+                <input type='button' onClick={() => handleSort('viewCount')} class='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
                 <label class='form-check-label' for='flexRadioDefault2'>
-                  <FaBuilding></FaBuilding>제조사별
+                  <HiEye/>조회수
                 </label>
               </div>
             </div>
