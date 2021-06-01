@@ -20,21 +20,22 @@ const Snack=()=>{
     const [error,setError]=useState(false);
     const [loading,setLoading]=useState(false);
     const [categoryName,setCategoryName]=useState("");
-    const [sort,setSort]=useState();
+    const [sort,setSort]=useState("category");
     useEffect(async()=>{
       console.log("마운트!");
-      if(sessionStorage.getItem('categoryData')){
+      setCategoryName("간식");
+      if(sessionStorage.getItem('categoryName')==="간식" ||sessionStorage.getItem('categoryName')===null ){
+        console.log("대분류를 눌럿음");
+        getBigCategory(sort);
+      }else{
+        setCategoryName(sessionStorage.getItem('categoryName'));
+        console.log("이미 소분류를 눌럿엇음",categoryName);
+       
         setResult(JSON.parse(sessionStorage.getItem('categoryData')));
-        setTotalResult(sessionStorage.getItem('totalItems'));
-        console.log(result);
+        console.log("소분류 결과: ",result);
       }
-      
-        if(sessionStorage.getItem('categoryName')==="간식"){
-          getBigCategory(sort);
-        }
         
-        
-    },[]);
+    },[result]);
 
     const getBigCategory=async(sort)=>{
       setCategoryName("간식");
@@ -63,12 +64,7 @@ const Snack=()=>{
     }else{
         try{
             setLoading(true);
-            const {data} = await categoryApi.category(categoryName,1,10,sortType);
-            sessionStorage.setItem('totalItems',data.total_elements);
-            sessionStorage.setItem('categoryData', JSON.stringify(data.data));
-            setResult(data);
-            setTotalResult(data.total_elements);
-            console.log("소분류: ",data);
+          
          }catch(e){
             setError(e);
          }finally{
@@ -77,17 +73,17 @@ const Snack=()=>{
     }
   };
     const handleCategory=async(e)=>{
-         sessionStorage.setItem('category', e.target.value);
-         setCategoryName(e.target.value);
-         console.log("버튼",e.target.value);
+        console.log("소분류 클릭");
+         sessionStorage.setItem('category', e);
+         setCategoryName(e);
          try{
             setLoading(true);
-            const {data} = await categoryApi.category(e.target.value);
+            const {data} = await categoryApi.category(categoryName);
             sessionStorage.setItem('totalItems',data.total_elements);
             sessionStorage.setItem('categoryData', JSON.stringify(data.data));
             setResult(data.data);
             setTotalResult(data.total_elements);
-            console.log("소분류: ",data);
+            console.log("소분류: ",result);
          }catch(e){
             setError(e);
          }finally{
@@ -356,38 +352,38 @@ const Snack=()=>{
                 </div>
                 <div className="category__items">
                      <div className="item">
-                         <button value="과자"onClick={handleCategory} className="category__item">
+                         <button value="과자"onClick={()=>handleCategory("과자")} className="category__item">
                            <img className="item__img" src={과자}/>
                          </button>
                          <p className="category__name">과자</p>
                     </div>
                      <div className="item">
-                         <button value="사탕/껌/젤리"onClick={handleCategory} className="category__item">
+                         <button value="사탕/껌/젤리"onClick={()=>handleCategory("젤리")} className="category__item">
                            <img className="item__img" src={젤리}/>
                          </button>
                           <p className="category__name">사탕/껌/젤리</p>
                     </div>
                      <div className="item">
-                         <button value="떡" onClick={handleCategory} className="category__item">
+                         <button value="떡" onClick={()=>handleCategory("떡")} className="category__item">
                             <img className="item__img" src={떡}/>
                          </button>
                           <p className="category__name">떡</p>
                     </div>
                      <div className="item">
-                         <button value="빵"onClick={handleCategory} className="category__item">
+                         <button value="빵"onClick={()=>handleCategory("빵")} className="category__item">
                            <img className="item__img" src={빵}/>
                          </button>
                           <p className="category__name">빵</p>
                     </div>
                      <div className="item">
-                         <button value="아이스크림"onClick={handleCategory} className="category__item">
+                         <button value="아이스크림"onClick={()=>handleCategory("아이스크림")} className="category__item">
                             <img className="item__img"src={아이스크림}/>
                          </button>
                          
                           <p className="category__name">아이스크림</p>
                     </div>
                       <div className="item">
-                         <button value="초콜릿" onClick={handleCategory} className="category__item">
+                         <button value="초콜릿" onClick={()=>handleCategory("초콜릿")} className="category__item">
                            <img className="item__img"src={초콜릿}/>
                          </button>
                           <p className="category__name">초콜릿</p>
