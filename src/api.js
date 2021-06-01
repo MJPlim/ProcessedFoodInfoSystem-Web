@@ -357,13 +357,14 @@ export const sortApi = {
     }),
 };
 export const categoryApi = {
-  category: (category,page,size,sort) =>
+  category: (category,page,sort,size) =>
     api.get('/api/v1/food/list/category', {
       params: {
         category: category,
         page: page,
-        size: size,
-        sort:sort
+        sort:sort,
+        size: size
+        
       },
     }),
 };
