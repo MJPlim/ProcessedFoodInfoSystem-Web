@@ -405,7 +405,7 @@ const Tea = () => {
       <div className='category__show'>
         <div className='category__line'>
 
-          <p className='category__title'><BsFillGridFill /> CATEGORY <BsChevronRight /> 간식</p>
+          <p className='category__title'><BsFillGridFill /> CATEGORY <BsChevronRight /> 음료/차</p>
           <hr></hr>
         </div>
         <div className='category__items'>
