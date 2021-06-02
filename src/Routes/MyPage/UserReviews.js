@@ -248,7 +248,7 @@ const UserReviews = () => {
 
 
       <Col md={'12'} className={'pageDiv'}>
-        {userReviewsCount > 2 ?
+        {userReviewsCount > 1 ?
           <ReactPaginate pageCount={userReviewsCount} pageRangeDisplayed={4}
                          marginPagesDisplayed={1}
                          previousLabel={'이전'} nextLabel={'다음'}
