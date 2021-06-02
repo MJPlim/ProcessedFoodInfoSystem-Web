@@ -121,7 +121,7 @@ export default withRouter(({ location: { pathname } }) => (
         <Row>
           <div className="serviceName">
             <Link className="logo" to="/">
-             <img src={logo}/>
+             kati
             </Link>
           </div>
         </Row>

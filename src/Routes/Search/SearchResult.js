@@ -8,18 +8,15 @@ const SearchResult=({loading,result})=>{
           <div className="result__container">
               {result && result.length>0 ?
               result.map((result,index)=>(
-                 <div className="card">
+                 
               
                     <div className="card-body">
+                        <Link className="card-link" to={`/searchProduct/food/${result.foodId}`}>
                         <img className="foodImg"src={result.foodImageAddress}/>
                         <h5 className="card-title">{result.foodName}</h5>
-                        <p className="card-text">{(result.manufacturerName).substring(0,9)}...</p>
-                        <Link className="card-link" to={`/searchProduct/food/${result.foodId}`}>
-                        <button className="go__detail">상세보기</button>
+                        <p className="card-text">{(result.manufacturerName).split('_')[0]}</p>
                         </Link>
                     </div>
-                    
-                </div>
                 
                )):<div>No result</div>
             }
