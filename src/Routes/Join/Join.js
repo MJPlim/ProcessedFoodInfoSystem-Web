@@ -13,14 +13,13 @@ function Join() {
   const [conPassword, setConPassword] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
-  const [birth, setBirth] = useState(moment(new Date).format('yyyy-MM-DD'));
+  const [birth, setBirth] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [error, setError] = useState({
     conPasswordError: null,
   });
   const history = useHistory();
 
   registerLocale('ko', ko);
-
 
   const onNameChange = (e) => {
     setName(e.target.value);
@@ -58,7 +57,6 @@ function Join() {
         alert('틀린 정보입니다.');
       }
     }
-
   };
 
   useEffect(() => {
@@ -81,94 +79,94 @@ function Join() {
   // };
 
   return (
-    <div className='FindUser'>
+    <div className="FindUser">
       <Container>
-        <p className='title'>회원가입</p>
+        <p className="title">회원가입</p>
         <Card body>
           <form>
-            <div class='form-group'>
-              <label for='inputAddress'>이름</label>
+            <div class="form-group">
+              <label for="inputAddress">이름</label>
               <input
-                type='text'
-                class='form-control'
-                id='inputAddress'
-                placeholder='이름을 입력하세요'
+                type="text"
+                class="form-control"
+                id="inputAddress"
+                placeholder="이름을 입력하세요"
                 onChange={onNameChange}
               />
             </div>
 
-            <div class='form-group'>
-              <label for='exampleInputEmail1'>이메일</label>
+            <div class="form-group">
+              <label for="exampleInputEmail1">이메일</label>
               <input
-                type='email'
-                class='form-control'
-                id='exampleInputEmail1'
-                aria-describedby='emailHelp'
-                placeholder='Enter email'
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
                 onChange={onEmailChange}
               />
-              <small id='emailHelp' class='form-text text-muted'>
+              {/* <small id='emailHelp' class='form-text text-muted'>
                 We'll never share your email with anyone else.
-              </small>
+              </small> */}
             </div>
 
-            <div class='form-group'>
-              <label for='exampleInputPassword1'>비밀번호</label>
+            <div class="form-group">
+              <label for="exampleInputPassword1">비밀번호</label>
               <input
-                type='password'
-                class='form-control'
-                id='exampleInputPassword1'
-                placeholder='Password'
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                placeholder="Password"
                 onChange={onPasswordChange}
               />
             </div>
 
-            <div className='form-group'>
-              <label htmlFor='exampleInputPassword1'>비밀번호 확인</label>
+            <div className="form-group">
+              <label htmlFor="exampleInputPassword1">비밀번호 확인</label>
               <input
-                type='password'
-                className='form-control'
-                id='exampleInputPassword1'
-                placeholder='Confirm Password'
+                type="password"
+                className="form-control"
+                id="exampleInputPassword1"
+                placeholder="Confirm Password"
                 onChange={onConPasswordChange}
               />
             </div>
 
-            {error.conPasswordError !== null && <Alert color={'danger'}>{error.conPasswordError} </Alert>}
+            {error.conPasswordError !== null && (
+              <Alert color={'danger'}>{error.conPasswordError} </Alert>
+            )}
 
-
-            <div class='form-group'>
-              <label for='inputAddress'>주소</label>
+            <div class="form-group">
+              <label for="inputAddress">주소</label>
               <input
-                type='text'
-                class='form-control'
-                id='inputAddress'
-                placeholder='ex)서울'
+                type="text"
+                class="form-control"
+                id="inputAddress"
+                placeholder="ex)서울"
                 onChange={onAddressChange}
               />
             </div>
 
-            <div class='form-group'>
-              <label for='inputBirth'>생년월일</label>
+            <div class="form-group">
+              <label for="inputBirth">생년월일</label>
               <Row className={'pickerRow'}>
                 <DatePicker
-                  id='inputBirth'
-                  wrapperClassName='birthDayPicker'
-                  dateFormat='yyyy-MM-dd'
+                  id="inputBirth"
+                  wrapperClassName="birthDayPicker"
+                  dateFormat="yyyy-MM-dd"
                   selected={new Date(birth)}
                   maxDate={new Date()}
                   onChange={(date) => setUserBirth(date)}
-                  popperPlacement='bottom-start'
+                  popperPlacement="bottom-start"
                   showYearDropdown={'true'}
                   showMonthDropdown={'true'}
                   dropdownMode={'select'}
-                  locale='ko'
+                  locale="ko"
                 />
               </Row>
-
             </div>
           </form>
-          <button type='submit' class='btn btn-danger' onClick={register}>
+          <button type="submit" class="btn btn-danger" onClick={register}>
             회원가입
           </button>
         </Card>
