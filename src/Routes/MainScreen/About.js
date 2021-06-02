@@ -148,7 +148,7 @@ function About() {
               </tr>
               <tr>
                 <th>
-                  <img className="devImage" src={dev8} />
+                  <img className="devImage" src={dev2} />
                 </th>
                 <th>60171671</th>
                 <th>홍은서</th>
