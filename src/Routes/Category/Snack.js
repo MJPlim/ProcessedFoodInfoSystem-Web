@@ -97,10 +97,10 @@ const Snack = () => {
     <div className='category__container'>
       <div className='category__list'>
         <div className='item__category list-group category__list'>
-
-          <Link to='/category/snack'>
+ <Link to='/category/snack'>
             <li class='list-group-item category_big'>간식</li>
           </Link>
+          <Link to='/category/snack'>
           <button
             type='button'
             value='과자'
@@ -109,6 +109,8 @@ const Snack = () => {
           >
             과자
           </button>
+          </Link>
+          <Link to='/category/snack'>
           <button
             type='button'
             value='떡'
@@ -117,6 +119,8 @@ const Snack = () => {
           >
             떡
           </button>
+          </Link>
+          <Link to='/category/snack'>
           <button
             type='button'
             value='빵'
@@ -125,6 +129,8 @@ const Snack = () => {
           >
             빵
           </button>
+          </Link>
+          <Link to='/category/snack'>
           <button
             type='button'
             value='사탕/껌/젤리'
@@ -133,6 +139,8 @@ const Snack = () => {
           >
             사탕/껌/젤리
           </button>
+          </Link>
+          <Link to='/category/snack'>
           <button
             type='button'
             value='아이스크림'
@@ -141,6 +149,8 @@ const Snack = () => {
           >
             아이스크림
           </button>
+          </Link>
+          <Link to='/category/snack'>
           <button
             type='button'
             value='초콜릿'
@@ -149,10 +159,11 @@ const Snack = () => {
           >
             초콜릿
           </button>
-
+           </Link>
           <Link to='/category/tea'>
             <li class='list-group-item category_big'>음료/차</li>
           </Link>
+          <Link to='/category/tea'>
           <button
             type='button'
             value='음료'
@@ -161,6 +172,8 @@ const Snack = () => {
           >
             음료
           </button>
+          </Link>
+          <Link to='/category/tea'>
           <button
             type='button'
             value='커피'
@@ -169,7 +182,8 @@ const Snack = () => {
           >
             커피
           </button>
-
+           </Link>
+            <Link to='/category/tea'>
           <button
             type='button'
             value='커피/차'
@@ -178,9 +192,11 @@ const Snack = () => {
           >
             커피/차
           </button>
+           </Link>
           <Link to='/category/milk'>
             <li class='list-group-item category_big'>유제품</li>
           </Link>
+          <Link to='/category/milk'>
           <button
             type='button'
             value='유제품'
@@ -189,9 +205,11 @@ const Snack = () => {
           >
             유제품
           </button>
+          </Link>
           <Link to='/category/food'>
             <li class='list-group-item category_big'>농수산물</li>
           </Link>
+           <Link to='/category/food'>
           <button
             type='button'
             value='계란'
@@ -200,6 +218,8 @@ const Snack = () => {
           >
             계란
           </button>
+           </Link>
+           <Link to='/category/food'>
           <button
             type='button'
             value='과일/채소'
@@ -208,6 +228,8 @@ const Snack = () => {
           >
             과일/채소
           </button>
+          </Link>
+          <Link to='/category/food'>
           <button
             type='button'
             value='김'
@@ -216,6 +238,8 @@ const Snack = () => {
           >
             김
           </button>
+          </Link>
+          <Link to='/category/food'>
           <button
             type='button'
             value='수산물'
@@ -224,6 +248,8 @@ const Snack = () => {
           >
             수산물
           </button>
+          </Link>
+          <Link to='/category/food'>
           <button
             type='button'
             value='견과'
@@ -232,6 +258,8 @@ const Snack = () => {
           >
             견과
           </button>
+          </Link>
+          <Link to='/category/food'>
           <button
             type='button'
             value='곡류'
@@ -240,9 +268,11 @@ const Snack = () => {
           >
             곡류
           </button>
+          </Link>
           <Link to='/category/kimchi'>
             <li class='list-group-item category_big'>김치</li>
           </Link>
+          <Link to='/category/kimchi'>
           <button
             type='button'
             value='김치'
@@ -251,6 +281,8 @@ const Snack = () => {
           >
             김치
           </button>
+          </Link>
+            <Link to='/category/kimchi'>
           <button
             type='button'
             value='젓갈'
@@ -259,9 +291,11 @@ const Snack = () => {
           >
             젓갈
           </button>
+           </Link>
           <Link to='/category/con'>
             <li class='list-group-item category_big'>조미료</li>
           </Link>
+           <Link to='/category/con'>
           <button
             type='button'
             value='설탕'
@@ -270,6 +304,8 @@ const Snack = () => {
           >
             설탕
           </button>
+          </Link>
+          <Link to='/category/con'>
           <button
             type='button'
             value='소금'
@@ -278,6 +314,8 @@ const Snack = () => {
           >
             소금
           </button>
+          </Link>
+          <Link to='/category/con'>
           <button
             type='button'
             value='소스'
@@ -286,6 +324,8 @@ const Snack = () => {
           >
             소스
           </button>
+          </Link>
+          <Link to='/category/con'>
           <button
             type='button'
             value='장류'
@@ -294,9 +334,11 @@ const Snack = () => {
           >
             장류
           </button>
+          </Link>
           <Link to='/category/mealKit'>
             <li class='list-group-item category category_big'>즉석조리식품</li>
           </Link>
+          <Link to='/category/mealKit'>
           <button
             type='button'
             value='즉석조리식품'
@@ -305,6 +347,8 @@ const Snack = () => {
           >
             즉석조리식품
           </button>
+          </Link>
+          <Link to='/category/mealKit'>
           <button
             type='button'
             value='국수'
@@ -313,6 +357,8 @@ const Snack = () => {
           >
             국수
           </button>
+          </Link>
+          <Link to='/category/mealKit'>
           <button
             type='button'
             value='두부'
@@ -321,6 +367,8 @@ const Snack = () => {
           >
             두부
           </button>
+          </Link>
+          <Link to='/category/mealKit'>
           <button
             type='button'
             value='식용유'
@@ -329,6 +377,8 @@ const Snack = () => {
           >
             식용유
           </button>
+          </Link>
+          <Link to='/category/mealKit'>
           <button
             type='button'
             value='어묵'
@@ -337,9 +387,11 @@ const Snack = () => {
           >
             어묵
           </button>
+          </Link>
           <Link to='/category/etc'>
             <li class='list-group-item category_big'>기타</li>
           </Link>
+          <Link to='/category/etc'>
           <button
             type='button'
             value='기타가공품'
@@ -348,6 +400,7 @@ const Snack = () => {
           >
             기타가공품
           </button>
+          </Link>
         </div>
       </div>
       <div className='category__show'>
