@@ -1,22 +1,18 @@
 @import 'styles/utils';
 
 .headerJS {
-  margin-bottom: 2%;
-  header {
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    list-style: none;
-    width: 100%;
-  }
+  margin: auto;
+  display: inline-block;
+  width: 100%;
+
   .topsection {
-    display: flex;
+    display: inline-block;
     justify-content: space-around;
+    margin: auto;
     justify-items: right;
-    align-items: center;
+    align-items: right;
+    text-align: right;
     //background-color: #fbc779;
-    height: 50px;
     width: 100%;
   }
 
