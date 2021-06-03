@@ -161,7 +161,7 @@ const FoodReview = ({
 
           {/*<Col md={{ size: 8, offset: 2 }}>*/}
           <Col md={'12'} className={'pageDiv'}>
-            {reviewSummary.reviewPageCount > 2 ?
+            {reviewSummary.reviewPageCount >= 2 ?
               <ReactPaginate pageCount={reviewSummary.reviewPageCount} pageRangeDisplayed={4}
                              marginPagesDisplayed={1}
                              previousLabel={'이전'} nextLabel={'다음'}
