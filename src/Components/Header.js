@@ -121,7 +121,7 @@ export default withRouter(({ location: { pathname } }) => (
         <Row>
           <div className="serviceName">
             <Link className="logo" to="/">
-             kati
+              KATI
             </Link>
           </div>
         </Row>
