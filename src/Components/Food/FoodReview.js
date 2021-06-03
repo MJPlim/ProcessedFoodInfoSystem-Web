@@ -116,7 +116,7 @@ const FoodReview = ({
                 </tr>
               ) : (
                 <tr key={index}>
-                  <td style={{ color: '#fe9b5a', fontSize: '1.1em'}}>
+                  <td style={{ color: '#fe9b5a', fontSize: '1.2em'}}>
                     {drawStar(review.reviewRating)}
                   </td>
                   <td>
