@@ -99,6 +99,8 @@ function Login(props) {
                     onChange={onEmailChange}
                   />
                 </Label>
+              </FormGroup>
+              <FormGroup>
                 <Label>
                   <Input
                     type="password"
@@ -107,37 +109,51 @@ function Login(props) {
                   />
                 </Label>
               </FormGroup>
+              <Row form className="loginGroup">
+                <Col md={7}>
+                  <FormGroup check inline>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        onChange={(e) => checkHandler(e)}
+                      />
+                      자동로그인
+                    </Label>
+                  </FormGroup>
+                </Col>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label className="loginButton">
+                      <Button
+                        outline
+                        color="success"
+                        onClick={login}
+                        type="submit"
+                      >
+                        로그인
+                      </Button>
+                    </Label>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row form>
+                <Col xs={3}>
+                  <Link to="/findUser/email" className="userGroup">
+                    <b className="userSection">아이디</b>
+                  </Link>
+                </Col>
+                <Col xs={5}>
+                  <Link to="/findUser/password" className="userGroup">
+                    <b className="userSection">비밀번호 찾기</b>
+                  </Link>
+                </Col>
+                <Col xs={4}>
+                  <Link to="/join" className="userGroup">
+                    <b className="userSection">회원가입</b>
+                  </Link>
+                </Col>
+              </Row>
             </Form>
-            <div>
-              <div>
-                <FormGroup check inline>
-                  <Label check>
-                    <Input type="checkbox" onChange={(e) => checkHandler(e)} />
-                    자동로그인
-                  </Label>
-                </FormGroup>
-                <button
-                  onClick={login}
-                  type="submit"
-                  className="btn btn-outline-danger"
-                >
-                  로그인
-                </button>
-              </div>
-            </div>
-
-            <Link to="/join">
-              <MdAssignmentInd size="20" color="#3a8082" />
-              회원가입하기
-            </Link>
-            <Link to="/findUser/email">
-              <FaUsersCog size="20" color="#3a8082" />
-              아이디 찾기
-            </Link>
-            <Link to="/findUser/password">
-              <RiLockPasswordFill size="20" color="#3a8082" />
-              비밀번호를 잊으셨나요?
-            </Link>
           </Card>
         </Container>
       </div>
