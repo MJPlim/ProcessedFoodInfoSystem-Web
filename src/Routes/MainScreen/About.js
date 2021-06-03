@@ -148,17 +148,17 @@ function About() {
               </tr>
               <tr>
                 <th>
-                  <img className="devImage" src={dev2} />
+                  <img className="devImage" src={dev8} />
                 </th>
-                <th>60171671</th>
-                <th>홍은서</th>
+                <th>60141036</th>
+                <th>신동욱</th>
                 <th>융합소프트웨어학부</th>
               </tr>
               <tr>
                 <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
+                <th>60171671</th>
+                <th>홍은서</th>
+                <th>융합소프트웨어학부</th>
               </tr>
               <tr>
                 <th></th>
