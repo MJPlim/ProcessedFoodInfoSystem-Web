@@ -36,12 +36,12 @@ const FoodInfo = ({ food, onMoveToLink, onMoveToNews, isLogin, isFavorite, onCli
         {/*<div className={'hr'}/>*/}
 
         <Row>
-          <Col sm='2'>
+          <Col sm='12'>
             {isLogin ? <Button className='favoriteButton' onClick={onClickFavoriteButton}>
               {!isFavorite ? <AiOutlineStar size={'1.3em'} /> : <AiFillStar size={'1.3em'} />}
             </Button> : null}
           </Col>
-          <Col sm={isLogin ? '10' : '12'}>
+          <Col sm={'12'}>
             {food.manufacturerName.split('_')[0] !== '알수없음' ?
               <Button className='newsButton' onClick={onMoveToNews}>
                 제조사 뉴스

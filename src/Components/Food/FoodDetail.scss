@@ -4,9 +4,14 @@
   //margin-left: 100px;
   //margin-right: 100px;
   word-break: keep-all;
-  width: 75%;
+  width: 60%;
   margin: auto;
-  font-family: 'tway';
+  font-family: 'MPl';
+
+  @media screen and (max-width: 1200px) {
+    width: 75%;
+
+  }
 
   .hr {
     margin: 0;
@@ -56,7 +61,7 @@
         background-color: $lightorange !important;
         border-color: $lightorange !important;
         color: white;
-        margin-right: 3px !important;
+        margin-top: 10px;
 
         &:hover, &:active {
           background-color: $orange !important;
@@ -66,12 +71,12 @@
       }
 
       .favoriteButton {
-        //float: right;
-
+        float: right;
         background-color: transparent !important;
         border-color: $lightorange !important;
         color: $lightorange;
-        margin-right: 3px !important;
+        margin-top: 10px;
+
 
         &:hover, &:active {
           background-color: transparent !important;
@@ -108,6 +113,7 @@
     }
 
     .reviewInfo {
+      height: 100%;
       margin-top: 10px;
 
       .reviewSummary {
@@ -115,20 +121,21 @@
         font-size: large;
         //margin-top: 30px;
       }
-        height: 100%;
-        .reviewCount, .avgRating {
-          text-align: center;
-          height: 100%;
-          width: 100%;
 
-          .title{
-            font-size: large;
-          }
-          .point{
-            font-size: x-large;
-            margin: auto;
-          }
+      .reviewCount, .avgRating {
+        text-align: center;
+        height: 100%;
+        width: 100%;
+
+        .title {
+          font-size: large;
         }
+
+        .point {
+          font-size: xx-large;
+          margin: auto;
+        }
+      }
     }
 
 
@@ -145,11 +152,11 @@
       margin-right: auto;
       text-align: center;
 
-      .starRating{
+      .starRating {
         margin: auto;
       }
 
-      @media all and (max-width:479px) {
+      @media all and (max-width: 479px) {
         font-size: 0.1em;
       }
 
@@ -244,7 +251,8 @@
         border-color: $lightorange !important;
       }
     }
-    .reviewSubmitButton{
+
+    .reviewSubmitButton {
       width: 20%;
       float: right;
       background-color: $lightorange !important;
@@ -283,8 +291,9 @@
     @media screen and (max-width: 992px) {
       margin-top: 30px;
     }
-    .bottomTab{
-      li{
+
+    .bottomTab {
+      li {
         cursor: pointer;
         font-size: medium;
         width: 50%;
@@ -298,15 +307,17 @@
 
     .foodInfo {
       margin-top: 20px;
+
       .nutrient, .materials {
         word-break: keep-all;
         height: 100%;
         width: 100%;
 
-        .title{
+        .title {
           font-size: x-large;
         }
-        .foodInfoDesc{
+
+        .foodInfoDesc {
           font-size: medium;
         }
       }
@@ -319,10 +330,16 @@
     height: 100%;
     width: 100%;
 
+    .carousel-inner {
+      border-radius: 0.25rem;
+
+    }
+
     img {
       display: block;
       margin: 0 auto;
       width: 100%;
+      border-radius: 0.25rem;
     }
   }
 
