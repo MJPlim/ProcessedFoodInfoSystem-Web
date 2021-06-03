@@ -6,8 +6,6 @@
     gap: 60px 20px;
         .card-body{
         height: 300px;
-        
-        
         align-items: center;
         justify-items: center;
         .card-link{
@@ -24,6 +22,8 @@
         .card-title{
             font-weight: 800;
             font-size: x-large;
+        }.card-text{
+            margin-top: 1px;
         }
         }
        

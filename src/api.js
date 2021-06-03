@@ -134,16 +134,20 @@ export const setSecurityEmail = {
     ),
 };
 
-export const foodApi = {
+export const searchApi = {
   //해당 url로 가는 함수들
-  search: (term, page, sort, allergies) =>
-    api.get('/api/v1/food/getFoodListBySorting', {
+  search: (allergies,category,foodName,manufacturerName,order,pageNo,size,sort) =>
+    api.get('/api/v1/food/searchFood', {
       params: {
-        foodName: term,
-        pageNo: page,
-        size: 10,
-        sort: sort,
+        
         allergies: allergies.join(','),
+        category: category,
+        foodName:foodName,
+        manufacturerName:manufacturerName,
+        order:order,
+        pageNo: pageNo,
+        size: size,
+        sort: sort,
       },
     }),
 };

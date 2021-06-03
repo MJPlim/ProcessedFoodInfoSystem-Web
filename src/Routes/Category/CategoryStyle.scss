@@ -1,5 +1,5 @@
 .category__container{
-    padding: 2%;
+    //padding: 2%;
     display: grid;
     font-family: 'MPl';
     grid-template-columns: 1fr 5fr;
@@ -20,10 +20,45 @@
         }
         .category__line{
             align-items: center;
+            margin-bottom: 10px;
+            .category__btn{
+                 border: 0;
+                 outline: 0;
+                 background-color: white;
+                 font-size: large;
+            }.category__btn:hover{
+                font-size: x-large;;
+            }
             .category_title{
-                font-size: larger;
+                font-size: x-large;
                 font-weight: 700;
             }
+            .item__header{
+                display: flex;
+                 .input{
+                border: 0;
+                text-align: center;
+                margin-top: 2px;
+                font-size: x-large;
+                display: flex;
+                 border-bottom: 3px solid red;
+                }
+                .input::placeholder{
+                    font-size: medium;
+
+                }
+                .input:focus{
+                     border: 0;
+                     outline: 0;
+                     border-bottom: 3px solid red;
+                }
+  
+                .searchBtn{
+                border: 0;
+                background: 0;
+               }
+                }
+           
         }
         .category__items{
         display: grid;

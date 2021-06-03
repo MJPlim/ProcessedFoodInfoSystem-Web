@@ -1,10 +1,9 @@
 import './CategoryStyle.scss';
-import icon1 from '../../image/icon2.PNG';
-import { bigCategory, categoryApi } from '../../api';
+import { bigCategory, searchApi } from '../../api';
 import { useEffect, useState } from 'react';
-import CategoryResult from './CategoryResult';
 import { Link } from 'react-router-dom';
 import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
+import{RiSearch2Line}from 'react-icons/ri';
 import { FaBuilding } from 'react-icons/fa';
 import {HiEye} from 'react-icons/hi';
 import {GiFruitBowl}from 'react-icons/gi';
@@ -15,16 +14,30 @@ import 빵 from '../../image/categoryImg/snack/빵.png';
 import 젤리 from '../../image/categoryImg/snack/젤리.png';
 import 아이스크림 from '../../image/categoryImg/snack/아이스크림.png';
 import 초콜릿 from '../../image/categoryImg/snack/초콜릿.png';
+import {
+  InputGroupAddon,
+} from 'reactstrap';
+
+
+
 
 const Snack = () => {
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  //파라미터
+  const [searchTerm,setSearchTerm]=useState(null);
   const [categoryName, setCategoryName] = useState('');
-  const [sort, setSort] = useState('category');
+  const [sort, setSort] = useState('ranking');
+  const [order,setOrder]=useState('asc');
+  const [allergyList,setAllergyList]=useState([]);
+  const [currentPage,setCurrentPage]=useState(1);
+  const [pageSize,setPageSize]=useState(10);
+
   useEffect(async () => {
     console.log('마운트!');
+    console.log(sort);
     setCategoryName('간식');
     if (sessionStorage.getItem('categoryName') === '간식' || sessionStorage.getItem('categoryName') === null) {
       console.log('대분류를 눌럿음');
@@ -67,13 +80,13 @@ const Snack = () => {
     console.log('소분류 클릭');
     sessionStorage.setItem('categoryName', e);
     setCategoryName(e);
-
+    getSmallCategory();
   };
 
   const getSmallCategory = async () => {
     try {
       setLoading(true);
-      const { data } = await categoryApi.category(categoryName,1,10,sort);
+      const { data } = await searchApi.search(allergyList,categoryName,"","",order,1,10,sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
       setResult(data.data);
@@ -405,9 +418,45 @@ const Snack = () => {
       </div>
       <div className='category__show'>
         <div className='category__line'>
-
-          <p className='category__title'><BsFillGridFill /> CATEGORY <BsChevronRight /> 간식</p>
-          <hr></hr>
+                <nav class='navbar  justify-content-between'>
+                <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
+                 <button className="category__btn" onClick={()=>getBigCategory(sort)}>간식</button>
+                 </p>
+                 <header className="item__header">
+         {searchTerm === null ? <input
+              placeholder='검색어를 입력하세요'
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+              type='search'
+              className='input'
+            /> :
+            <input
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+              type='search'
+              className='input'
+            />
+          }
+             <InputGroupAddon addonType='append'>
+               <Link to={{
+                 pathname:'/searchProduct/food',
+                 state:{
+                   searchTerm:searchTerm
+                 }
+               }} >
+            <button onClick={console.log("click")} className="searchBtn">
+              <RiSearch2Line size="40"></RiSearch2Line>
+            </button>
+            </Link>
+          </InputGroupAddon>
+         
+      </header>
+            
+          </nav>
+           <hr></hr>
         </div>
         <div className='category__items'>
           <div className='item'>
@@ -454,14 +503,14 @@ const Snack = () => {
             <a class='navbar-brand'>검색결과({totalResult})</a>
             <div className='form-check__group'>
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('foodName')} class='form-check-input' type='radio'
+                <input type='button' onClick={() => handleSort('ranking')} className={sort==="ranking"?"form-check-input checked":"form-check-input"} type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' value="category"/>
                 <label class='form-check-label' for='flexRadioDefault2'>
-                 <GiFruitBowl/>식품명
+                 <GiFruitBowl/>랭킹순
                 </label>
               </div>
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('manufacturerName')} class='form-check-input' type='radio'
+                <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
                 <label class='form-check-label' for='flexRadioDefault2'>
                   <FaBuilding/>제조사
@@ -469,10 +518,10 @@ const Snack = () => {
               </div>
 
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('viewCount')} class='form-check-input' type='radio'
+                <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
                 <label class='form-check-label' for='flexRadioDefault2'>
-                  <HiEye/>조회수
+                  <HiEye/>리뷰순
                 </label>
               </div>
             </div>

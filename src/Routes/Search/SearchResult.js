@@ -12,9 +12,9 @@ const SearchResult=({loading,result})=>{
               
                     <div className="card-body">
                         <Link className="card-link" to={`/searchProduct/food/${result.foodId}`}>
-                        <img className="foodImg"src={result.foodImageAddress}/>
-                        <h5 className="card-title">{result.foodName}</h5>
-                        <p className="card-text">{(result.manufacturerName).split('_')[0]}</p>
+                            <img className="foodImg"src={result.foodImageAddress}/>
+                            <h5 className="card-title">{result.foodName}</h5>
+                            <p className="card-text">{(result.manufacturerName).split('_')[0]}</p>
                         </Link>
                     </div>
                 
