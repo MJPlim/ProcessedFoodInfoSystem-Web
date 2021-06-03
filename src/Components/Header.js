@@ -111,7 +111,7 @@ export default withRouter(({ location: { pathname } }) => (
   <header>
     <div className="headerJS">
       <Container>
-        <Row>
+        <Row className="menuItems">
           <div className="topsection">
             <LoginState auli={localStorage.getItem('authorization')} />
           </div>

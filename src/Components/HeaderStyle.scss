@@ -5,7 +5,13 @@
   display: inline-block;
   width: 100%;
   margin-top: 1%;
+  margin-bottom: 2%;
 
+  .menuItems {
+    align-items: right;
+    width: 92%;
+    height: 20px;
+  }
   .topsection {
     display: inline-block;
     justify-content: space-around;
@@ -28,7 +34,7 @@
     justify-content: center;
     font-size: 100px;
     font-family: 'thickEng';
-    width: 30%;
+    width: 32%;
     .logo {
       display: inline-block;
       position: relative;
@@ -57,7 +63,7 @@
         --stroke: var(--line-active);
         --stroke-delay: 0.1s;
         --offset: 180px;
-        color: olive;
+        color: coral;
       }
     }
   }
@@ -74,8 +80,7 @@
     text-align: right;
     justify-content: right;
     align-items: right;
-    margin-left: 50px;
-    margin-right: 10px;
+    margin: auto;
     font-size: 15px;
     font-weight: lighter;
     font-family: 'tway';
@@ -86,28 +91,8 @@
       background-color: lightcoral;
     }
   }
-
-  .loginBtn {
-    margin-right: 10px;
-    margin-left: 1000px;
-    text-align: right;
-    align-content: right;
-    justify-content: right;
-  }
-  .joinBtn {
-    margin-right: 10px;
-  }
-  .myPageBtn {
-    margin-right: 10px;
-  }
-  .myFavouriteBtn {
-    margin-right: 10px;
-  }
-  .deleteBtn {
-    margin-right: 10px;
-  }
-  .logoutBtn {
-    margin-right: 10px;
+  .buttonGroup {
+    margin-right: 20px;
   }
   input::placeholder {
     font-size: 8px;

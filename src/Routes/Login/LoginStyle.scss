@@ -1,11 +1,25 @@
-.btn{
-    margin-top:15px;
-}
+.loginPage {
+  .container {
+    width: 20%;
+  }
+  .title {
+    font-family: 'MPb';
+    font-size: 20px;
+    margin-bottom: 1%;
+  }
+  .formBody {
+    font-family: 'MPl';
+    font-size: 13px;
+  }
+  .btn {
+    margin-top: 15px;
+  }
 
-.form-check .form-check-label{
+  .form-check .form-check-label {
     display: flex;
-  
+
     align-items: center;
     justify-items: center;
     justify-content: first baseline;
+  }
 }
