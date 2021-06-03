@@ -63,7 +63,6 @@ function LoginState(props) {
             localStorage.setItem('userLoginPassword', null);
             localStorage.setItem('userBEmail', null);
             localStorage.setItem('userBPassword', null);
-            alert('로그아웃!');
           }}
         >
           로그아웃

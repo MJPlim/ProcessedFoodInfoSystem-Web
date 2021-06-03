@@ -36,7 +36,6 @@ function Login(props) {
       .then((response) => {
         token = response.headers.authorization;
         localStorage.setItem('authorization', token);
-        alert('로그인 완료');
         props.history.goBack();
       })
       .catch((error) => {
@@ -94,6 +93,7 @@ function Login(props) {
               <FormGroup>
                 <Label>
                   <Input
+                    size="lg"
                     type="email"
                     placeholder="이메일"
                     onChange={onEmailChange}
@@ -103,6 +103,7 @@ function Login(props) {
               <FormGroup>
                 <Label>
                   <Input
+                    size="lg"
                     type="password"
                     placeholder="비밀번호"
                     onChange={onPasswordChange}
@@ -110,7 +111,7 @@ function Login(props) {
                 </Label>
               </FormGroup>
               <Row form className="loginGroup">
-                <Col md={7}>
+                <Col md={7} className="rememberLogin">
                   <FormGroup check inline>
                     <Label check>
                       <Input
@@ -121,15 +122,10 @@ function Login(props) {
                     </Label>
                   </FormGroup>
                 </Col>
-                <Col md={5}>
+                <Col md={5} className="loginButton">
                   <FormGroup>
-                    <Label className="loginButton">
-                      <Button
-                        outline
-                        color="success"
-                        onClick={login}
-                        type="submit"
-                      >
+                    <Label>
+                      <Button outline color="success" onClick={login}>
                         로그인
                       </Button>
                     </Label>
@@ -137,17 +133,17 @@ function Login(props) {
                 </Col>
               </Row>
               <Row form>
-                <Col xs={3}>
+                <Col xs={3} className="userConTrol">
                   <Link to="/findUser/email" className="userGroup">
                     <b className="userSection">아이디</b>
                   </Link>
                 </Col>
-                <Col xs={5}>
+                <Col xs={5} className="userConTrol">
                   <Link to="/findUser/password" className="userGroup">
                     <b className="userSection">비밀번호 찾기</b>
                   </Link>
                 </Col>
-                <Col xs={4}>
+                <Col xs={4} className="userConTrol">
                   <Link to="/join" className="userGroup">
                     <b className="userSection">회원가입</b>
                   </Link>

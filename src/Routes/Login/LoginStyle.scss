@@ -1,6 +1,6 @@
 .loginPage {
   .container {
-    width: 20%;
+    width: 27%;
   }
   .title {
     font-family: 'MPb';
@@ -12,6 +12,12 @@
     font-family: 'MPl';
     font-size: 13px;
   }
+  .rememberLogin {
+    text-align: center;
+  }
+  .loginButton {
+    text-align: right;
+  }
   .loginGroup {
     justify-content: center;
     align-items: center;
@@ -19,6 +25,9 @@
   .userSection:hover {
     color: crimson;
     text-decoration: none;
+  }
+  .userConTrol {
+    text-align: center;
   }
   .userGroup:hover,
   :active,
