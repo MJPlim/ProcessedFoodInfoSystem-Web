@@ -424,8 +424,7 @@ const SearchProductFood = (props) => {
       <div className='category__show'>
         <div className='category__line'>
                 <nav class='navbar  justify-content-between'>
-                <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
-                 <button className="category__btn" onClick={()=>getBigCategory(sort)}>간식</button>
+                <p className='category__title'><BsFillGridFill /> 상품찾기
                  </p>
                  <header className="item__header">
          {searchTerm === null ? <input

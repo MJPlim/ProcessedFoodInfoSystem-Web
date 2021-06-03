@@ -1,46 +1,29 @@
 import React, { useState } from 'react';
 import './MainScreenStyle.scss';
+
 import {
   Row,
   Container,
   Col,
   Card,
-  CardImage,
   CardBody,
   CardTitle,
   CardSubtitle,
   CardText,
-  CardLink,
-  Button,
-  Badge,
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Table,
-  Fade,
-  Popover,
-  PopoverHeader,
-  PopoverBody,
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption,
+ 
 } from 'reactstrap';
-import classnames from 'classnames';
+
 import { Link } from 'react-router-dom';
-import showImage from '../../image/needcomment.PNG';
 import productSet from '../../image/kati.PNG';
-import icon1 from '../../image/icon2.PNG';
-import icon2 from '../../image/icon3.PNG';
-import icon3 from '../../image/icon4.PNG';
-import icon4 from '../../image/icon5.PNG';
-import icon5 from '../../image/icon6.PNG';
-import icon6 from '../../image/icon7.PNG';
-import icon7 from '../../image/icon8.PNG';
-import icon8 from '../../image/icon9.PNG';
+import 간식 from '../../image/bigCategoryImg/간식.png';
+import 기타 from '../../image/bigCategoryImg/기타.jpg';
+import 김치 from '../../image/bigCategoryImg/김치.png';
+import 농수산물 from '../../image/bigCategoryImg/농수산물.png';
+import 유제품 from '../../image/bigCategoryImg/유제품.png';
+import 조미료 from '../../image/bigCategoryImg/조미료.png';
+import 즉석조리식품 from '../../image/bigCategoryImg/즉석조리식품.jpg';
+import 차음료 from '../../image/bigCategoryImg/차음료.png';
+
 import { getProductRanking, getAd } from '../../api';
 import { useEffect } from 'react/cjs/react.development';
 
@@ -94,61 +77,8 @@ function MainScreen() {
       <br />
       <br />
       <Container>
-        <div className="categoryIcons">
-          <Row>
-            <Col xs={6} md={3}>
-              <Link to="/category/snack">
-                <img className="icons" src={icon1} />
-                간식
-              </Link>
-            </Col>
-            <Col xs={6} md={3}>
-              <Link to="/category/tea">
-                <img className="icons" src={icon2} />
-                차/음료
-              </Link>
-            </Col>
-            <Col xs={6} md={3}>
-              <Link to="/category/milk">
-                {' '}
-                <img className="icons" src={icon3} />
-                유제품
-              </Link>
-            </Col>
-            <Col xs={6} md={3}>
-              <Link to="/category/kimchi">
-                <img className="icons" src={icon4} />
-              </Link>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6} md={3}>
-              <Link to="/category/food">
-                <img className="icons" src={icon5} />
-                농수산물
-              </Link>
-            </Col>
-            <Col xs={6} md={3}>
-              <Link to="/category/mealKit">
-                {' '}
-                <img className="icons" src={icon6} />
-              </Link>
-            </Col>
-            <Col xs={6} md={3}>
-              <Link to="/category/con">
-                {' '}
-                <img className="icons" src={icon7} />
-                조미료
-              </Link>
-            </Col>
-            <Col xs={6} md={3}>
-              <Link to="/category/etc">
-                <img className="icons" src={icon8} />
-                기타
-              </Link>
-            </Col>
-          </Row>
-        </div>
+         
+       
         <div>
           <Row>
             <Col md="1">
@@ -214,9 +144,85 @@ function MainScreen() {
         </div>
 
         <br />
-        <hr />
+          <br />                  
         <br />
+        <Row>
+            <Col md="1">
+              <img className="productSet" src={productSet} />
+            </Col>
+            <Col md="11">
+              <p className="titleBar">카테고리</p>
+            </Col>
+          </Row>
+          <hr />
+        <div className='category__items'>
+          <div className='item'>
+           <Link to="/category/snack">
+              <img className='item__img' src={간식} />
+        
+           
+            </Link>
+             <p className='category__name'>간식</p>
+          </div>
+          <div className='item'>
+            <Link to="/category/tea">
+              <img className='item__img' src={차음료} />
+            
+           
+            </Link>
+             <p className='category__name'>차/음료</p>
+          </div>
+          <div className='item'>
+           <Link to="/category/milk">
+              <img className='item__img' src={유제품} />
+      
+           
+            </Link>
+             <p className='category__name'>유제품</p>
+          </div>
+          <div className='item'>
+            <Link to="/category/food">
+              <img className='item__img' src={농수산물} />
+           
+            
+             </Link>
+             <p className='category__name'>농수산물</p>
+          </div>
+          <div className='item'>
+           <Link to="/category/condi">
+              <img className='item__img' src={조미료} />
+          
 
+           
+            </Link>
+             <p className='category__name'>조미료</p>
+          </div>
+           <div className='item'>
+      <Link to="/category/kimchi">
+              <img className='item__img' src={김치} />
+            
+
+           
+            </Link>
+             <p className='category__name'>김치</p>
+          </div>
+           <div className='item'>
+          <Link to="/category/mealKit">
+              이미지못구함
+        
+
+            <p className='category__name'>즉석조리식품</p>
+            </Link>
+          </div>
+          <div className='item'>
+           <Link to="/category/etc">
+             이미지못구함
+          
+            </Link>
+              <p className='category__name'>기타가공품</p>
+          </div>
+
+        </div>              
         <div>
           <Row>
             <Col md="1">

@@ -5,6 +5,7 @@
   .showImage {
     width: 100%;
   }
+  
   .productSet {
     height: 20px;
     display: inline-block;
@@ -25,6 +26,39 @@
     background: url('../../image/hdmDD.PNG');
     background-attachment: local;
   }
+  .category__items{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin-bottom: 5%;
+        .item{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+             margin-bottom: 10px;
+             border-radius: 5%;
+             border: 1px solid gray;
+             background-color: white;
+            margin: 3%;
+            padding: 2%;
+           
+            .item__img{
+                width: 200px;
+               height:200px;
+            }
+            .category__name{
+                 font-size: large;
+            }
+            .category__name{
+               font-family: 'mpb';
+               font-size: 10px;
+            }
+        }
+        .item:hover{
+          cursor: pointer;
+          border-color:#ed2f3b ;
+        }
+      }
   .eachAdCard {
     width: 100%;
     height: 100%;
@@ -209,4 +243,5 @@
     width: 50px;
     height: 50px;
   }
+
 }

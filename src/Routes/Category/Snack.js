@@ -15,13 +15,31 @@ import 젤리 from '../../image/categoryImg/snack/젤리.png';
 import 아이스크림 from '../../image/categoryImg/snack/아이스크림.png';
 import 초콜릿 from '../../image/categoryImg/snack/초콜릿.png';
 import {
-  InputGroupAddon,
+  InputGroupAddon,Collapse, Button, CardBody, Card
 } from 'reactstrap';
 
 
 
 
-const Snack = () => {
+const Snack = (props) => {
+
+  const [isOpen1, setIsOpen1] = useState(false);
+  const toggle1 = () => setIsOpen1(!isOpen1);
+  const [isOpen2, setIsOpen2] = useState(false);
+  const toggle2 = () => setIsOpen2(!isOpen2);
+   const [isOpen3, setIsOpen3] = useState(false);
+  const toggle3 = () => setIsOpen3(!isOpen3);
+  const [isOpen4, setIsOpen4] = useState(false);
+  const toggle4 = () => setIsOpen4(!isOpen4);
+   const [isOpen5, setIsOpen5] = useState(false);
+  const toggle5 = () => setIsOpen5(!isOpen5);
+  const [isOpen6, setIsOpen6] = useState(false);
+  const toggle6 = () => setIsOpen6(!isOpen6);
+   const [isOpen7, setIsOpen7] = useState(false);
+  const toggle7 = () => setIsOpen7(!isOpen7);
+  const [isOpen8, setIsOpen8] = useState(false);
+  const toggle8 = () => setIsOpen8(!isOpen8);
+
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
   const [error, setError] = useState(false);
@@ -109,10 +127,10 @@ const Snack = () => {
   return (
     <div className='category__container'>
       <div className='category__list'>
-        <div className='item__category list-group category__list'>
- <Link to='/category/snack'>
-            <li class='list-group-item category_big'>간식</li>
-          </Link>
+      <div className='item__category list-group category__list'>
+      <button className="bigCategoryBtn list-group-item" color="primary" onClick={toggle1} style={{ marginBottom: '1rem' }}>간식</button>
+      <Collapse isOpen={isOpen1}>
+       
           <Link to='/category/snack'>
           <button
             type='button'
@@ -173,9 +191,13 @@ const Snack = () => {
             초콜릿
           </button>
            </Link>
-          <Link to='/category/tea'>
-            <li class='list-group-item category_big'>음료/차</li>
-          </Link>
+         
+      </Collapse>
+
+
+      <button className="bigCategoryBtn list-group-item" onClick={toggle2} style={{ marginBottom: '1rem' }}>음료/차</button>
+      <Collapse isOpen={isOpen2}>
+       
           <Link to='/category/tea'>
           <button
             type='button'
@@ -206,10 +228,12 @@ const Snack = () => {
             커피/차
           </button>
            </Link>
-          <Link to='/category/milk'>
-            <li class='list-group-item category_big'>유제품</li>
-          </Link>
-          <Link to='/category/milk'>
+      </Collapse>
+
+      <button className="bigCategoryBtn list-group-item" onClick={toggle3} style={{ marginBottom: '1rem' }}>유제품</button>
+      <Collapse isOpen={isOpen3}>
+     
+         <Link to='/category/milk'>
           <button
             type='button'
             value='유제품'
@@ -219,10 +243,14 @@ const Snack = () => {
             유제품
           </button>
           </Link>
-          <Link to='/category/food'>
-            <li class='list-group-item category_big'>농수산물</li>
-          </Link>
-           <Link to='/category/food'>
+       
+      </Collapse>
+
+         
+      <button className="bigCategoryBtn list-group-item" onClick={toggle4} style={{ marginBottom: '1rem' }}>농수산물</button>
+      <Collapse isOpen={isOpen4}>
+       
+             <Link to='/category/food'>
           <button
             type='button'
             value='계란'
@@ -282,10 +310,13 @@ const Snack = () => {
             곡류
           </button>
           </Link>
-          <Link to='/category/kimchi'>
-            <li class='list-group-item category_big'>김치</li>
-          </Link>
-          <Link to='/category/kimchi'>
+        
+      </Collapse>   
+         
+      <button className="bigCategoryBtn list-group-item" onClick={toggle5} style={{ marginBottom: '1rem' }}>김치</button>
+      <Collapse isOpen={isOpen5}>
+      
+                 <Link to='/category/kimchi'>
           <button
             type='button'
             value='김치'
@@ -305,10 +336,13 @@ const Snack = () => {
             젓갈
           </button>
            </Link>
+       
+      </Collapse>    
+      
+      <button className="bigCategoryBtn list-group-item" onClick={toggle6} style={{ marginBottom: '1rem' }}>조미료</button>
+      <Collapse isOpen={isOpen6}>
+       
           <Link to='/category/con'>
-            <li class='list-group-item category_big'>조미료</li>
-          </Link>
-           <Link to='/category/con'>
           <button
             type='button'
             value='설탕'
@@ -348,10 +382,13 @@ const Snack = () => {
             장류
           </button>
           </Link>
-          <Link to='/category/mealKit'>
-            <li class='list-group-item category category_big'>즉석조리식품</li>
-          </Link>
-          <Link to='/category/mealKit'>
+      
+      </Collapse>
+      
+      <button className="bigCategoryBtn list-group-item" onClick={toggle7} style={{ marginBottom: '1rem' }}>즉석조리식품</button>
+      <Collapse isOpen={isOpen7}>
+       
+             <Link to='/category/mealKit'>
           <button
             type='button'
             value='즉석조리식품'
@@ -401,10 +438,13 @@ const Snack = () => {
             어묵
           </button>
           </Link>
-          <Link to='/category/etc'>
-            <li class='list-group-item category_big'>기타</li>
-          </Link>
-          <Link to='/category/etc'>
+         
+      </Collapse>
+         
+      <button className="bigCategoryBtn list-group-item" onClick={toggle8} style={{ marginBottom: '1rem' }}>기타</button>
+      <Collapse isOpen={isOpen8}>
+       
+            <Link to='/category/etc'>
           <button
             type='button'
             value='기타가공품'
@@ -414,6 +454,8 @@ const Snack = () => {
             기타가공품
           </button>
           </Link>
+   
+      </Collapse>    
         </div>
       </div>
       <div className='category__show'>

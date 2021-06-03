@@ -5,9 +5,10 @@
     align-items: center;
     gap: 60px 20px;
         .card-body{
-        height: 300px;
+        height: 270px;
         align-items: center;
         justify-items: center;
+        margin-bottom: 30px;
         .card-link{
             padding: 2%;
             display: grid;
@@ -15,7 +16,7 @@
             align-items: center;
             justify-items: center;
              .foodImg{
-        width: 160px;
+        width: 150px;
         height: 160px;
         margin-bottom: 10px;
         }

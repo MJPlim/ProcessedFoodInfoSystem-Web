@@ -8,8 +8,6 @@ const SearchResult=({loading,result})=>{
           <div className="result__container">
               {result && result.length>0 ?
               result.map((result,index)=>(
-                 
-              
                     <div className="card-body">
                         <Link className="card-link" to={`/searchProduct/food/${result.foodId}`}>
                             <img className="foodImg"src={result.foodImageAddress}/>
