@@ -101,11 +101,11 @@ const ChangeUserInfo = (props) => {
 
           <Form className={'changeInfoForm'}>
             <FormGroup>
-              <Input type='text' name='name' placeholder='이름' onChange={setUserName} />
+              <Input type='text' name='name' value={name} onChange={setUserName} />
 
             </FormGroup>
             <FormGroup>
-              <Input type='text' name='name' placeholder='주소' onChange={setUserAddress} />
+              <Input type='text' name='name' value={address} onChange={setUserAddress} />
 
             </FormGroup>
             <FormGroup>
