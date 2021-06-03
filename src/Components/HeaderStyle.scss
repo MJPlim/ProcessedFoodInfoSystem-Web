@@ -102,11 +102,6 @@
     margin-right: 20px;
   }
 
-  .buttonGroup:hover {
-    text-decoration: none !important;
-    border-bottom: 0 !important;
-  }
-
   input::placeholder {
     font-size: 8px;
   }
@@ -168,5 +163,11 @@
     justify-content: right;
     align-items: right;
     margin-left: 150px;
+  }
+
+
+  a:hover {
+    text-decoration: none !important;
+    border-bottom: 0 !important;
   }
 }
