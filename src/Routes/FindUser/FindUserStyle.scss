@@ -1,6 +1,9 @@
 @import "./src/styles/utils";
 
 .FindUser {
+
+  font-family: MPl;
+
   .container {
     padding-left: 40px;
     padding-right: 40px;
@@ -10,8 +13,9 @@
   .title {
     padding-left: 20px;
     padding-bottom: 15px;
-    font-size: large;
+    font-size: x-large;
     font-weight: bold;
+    font-family: MPb;
   }
 
   .card-title {
@@ -75,6 +79,9 @@
         height: 38px;
         border: #c7ced4 1px solid;
         border-radius: 0.25rem;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: medium;
 
       }
     }

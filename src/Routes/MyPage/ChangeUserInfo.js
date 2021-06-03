@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row, Table } from 'reactstrap';
+import { Button, Card, Col, Container, Form, FormGroup, Input, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { changeUserInfoApi, getUserInfoApi } from 'api';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -85,64 +85,60 @@ const ChangeUserInfo = (props) => {
 
   return (
     <div className={'changeUserInfo'}>
+      <br />
+      <br />
+      <br />
       <Container>
-        <Row>
-          <Col md='10'>
-            <p className='shownChange'>내 정보 변경하기</p>
-          </Col>
+        <Card body>
+          <Row>
+            <Col md='10'>
+              <p className='shownChange'>내 정보 변경하기</p>
+            </Col>
 
-        </Row>
+          </Row>
+          <hr />
 
-        <div className={'changeInfoTable'}>
-          <Table>
-            <tr>
-              <th width={'20%'}>이름</th>
-              <td width={'80%'}>
-                <input
-                  type='text'
-                  id='inputName'
-                  placeholder={name}
-                  value={name}
-                  onChange={setUserName}
-                /></td>
-            </tr>
-            <tr>
-              <th>주소</th>
-              <td>
-                <input
-                  type='text'
-                  id='inputAddress'
-                  value={address}
-                  onChange={setUserAddress}
-                /></td>
-            </tr>
-            <tr>
-              <th>생일</th>
-              <td>
+
+          <Form className={'changeInfoForm'}>
+            <FormGroup>
+              <Input type='text' name='name' placeholder='이름' onChange={setUserName} />
+
+            </FormGroup>
+            <FormGroup>
+              <Input type='text' name='name' placeholder='주소' onChange={setUserAddress} />
+
+            </FormGroup>
+            <FormGroup>
+              <Row className={'pickerRow'}>
                 <DatePicker
+                  id='inputBirth'
                   wrapperClassName='birthDayPicker'
                   dateFormat='yyyy-MM-dd'
                   selected={new Date(birth)}
                   maxDate={new Date()}
                   onChange={(date) => setUserBirth(date)}
+                  popperPlacement='bottom-start'
                   locale='ko'
                   showYearDropdown={'true'}
                   showMonthDropdown={'true'}
                   dropdownMode={'select'}
-                /></td>
-            </tr>
-          </Table>
-        </div>
+                />
+              </Row>
+            </FormGroup>
+
+          </Form>
 
 
-        <Row className={'buttonArea'}>
-          <Link to='myPage'>
-            <Button className={'cancelButton'}>
-              취소
-            </Button>
-          </Link>
-          <Button className={'submitButton'} onClick={changeInfo}>바꾸기</Button>
-        </Row>
+          <Row className={'buttonArea'}>
+            <Link to='myPage'>
+              <Button className={'cancelButton'}>
+                취소
+              </Button>
+            </Link>
+            <Button className={'submitButton'} onClick={changeInfo}>변경</Button>
+          </Row>
+
+        </Card>
 
       </Container>
     </div>

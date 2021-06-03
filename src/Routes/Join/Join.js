@@ -6,6 +6,8 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import moment from 'moment/moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
+import '../FindUser/FindUserStyle.scss';
+
 
 function Join() {
   const [name, setName] = useState('');
