@@ -54,12 +54,15 @@ const ProductReviewRanking = () => {
               <Card body className={'first topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[0].avgRating}</CardText>
+                <div className={'foodNameCard'}>
+                  <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[0].category}</CardText>
+                </div>
                 <Link to={{
                   pathname: `searchProduct/food/${rankingList[0].foodId}`,
                 }}>
                   <img src={rankingList[0].foodImageAddress} />
-                  <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[0].category}</CardText>
+
                 </Link>
               </Card>
             </Col>
@@ -67,12 +70,16 @@ const ProductReviewRanking = () => {
               <Card body className={'second topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[1].avgRating}</CardText>
+                <div className={'foodNameCard'}>
+                  <CardTitle className={'title'}>{rankingList[1].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[1].category}</CardText>
+                </div>
                 <Link to={{
                   pathname: `searchProduct/food/${rankingList[1].foodId}`,
                 }}>
                   <img src={rankingList[1].foodImageAddress} />
-                  <CardTitle className={'title'}>{rankingList[1].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[1].category}</CardText>
+
+
                 </Link>
               </Card>
             </Col>
@@ -80,12 +87,15 @@ const ProductReviewRanking = () => {
               <Card body className={'third topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[2].avgRating}</CardText>
+                <div className={'foodNameCard'}>
+                  <CardTitle className={'title'}>{rankingList[2].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[2].category}</CardText>
+                </div>
                 <Link to={{
                   pathname: `searchProduct/food/${rankingList[2].foodId}`,
                 }}>
                   <img src={rankingList[2].foodImageAddress} />
-                  <CardTitle className={'title'}>{rankingList[2].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[2].category}</CardText>
+
                 </Link>
               </Card>
             </Col>

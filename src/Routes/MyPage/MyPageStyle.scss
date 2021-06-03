@@ -156,6 +156,10 @@
   }
 
   .deleteArea {
-    margin: auto;
+    margin: 10% auto auto;
+
+    .deleteButton{
+      float: right;
+    }
   }
 }

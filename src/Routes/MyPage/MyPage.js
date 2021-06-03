@@ -177,7 +177,7 @@ const MyPage = () => {
 
         <div className={'deleteArea'}>
           <Link to='/delete'>
-            <Button color='danger' size='sm'>
+            <Button color='danger' size='sm' className={'deleteButton'}>
               회원탈퇴
             </Button>
           </Link>

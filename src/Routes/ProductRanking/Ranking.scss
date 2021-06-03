@@ -3,7 +3,7 @@
 .Ranking {
   width: 75%;
   margin: 20px auto auto;
-  font-family: 'tway';
+  font-family: 'MPl';
 
 
   .container {
@@ -15,8 +15,8 @@
 
   .titleArea {
     .title {
+      font-family: 'MPb';
       font-size: x-large;
-      font-weight: bold;
       border-bottom-style: solid;
       border-bottom-color: black;
     }
@@ -43,6 +43,10 @@
       .title {
         font-size: large;
         word-break: keep-all;
+      }
+      .foodNameCard {
+        margin-bottom: 10%;
+        margin-top: 4%;
       }
 
       .trophy {
@@ -76,7 +80,8 @@
       }
 
       img {
-        width: 100%;
+        width: 80%;
+        border-radius: 0.25rem;
       }
 
     }
@@ -102,6 +107,5 @@
 
     }
   }
-
 
 }
