@@ -74,27 +74,98 @@ function MainScreen() {
     updateProductRanking();
   }, []);
 
+  const drawStar = (rating) => {
+    switch (rating) {
+      case '5.00':
+        return '★★★★★';
+      case '4.00':
+        return '★★★★☆';
+      case '3.00':
+        return '★★★☆☆';
+      case '2.00':
+        return '★★☆☆☆';
+      case '1.00':
+        return '★☆☆☆☆';
+    }
+  };
+
   return (
     <div className="mainScreen">
       <br />
       <br />
       <Container>
-        {!adLoad && (
-          <div className="setUp">
-            <div className="cardGroup">
-              <Row>
-                {ad.map((result) => (
-                  <Col xs={'4'}>
-                    <Card className="eachAdCard">
-                      <CardBody className="adcardTop">
-                        <CardTitle tag="h5">
-                          {result.food.foodName}
-                          <b className="adProduct"> 광고상품</b>
-                        </CardTitle>
-                        <CardSubtitle tag="h6" className="mb-2 text-muted">
-                          {result.food.category}
-                        </CardSubtitle>
-                      </CardBody>
+        <div className="categoryIcons">
+          <Row>
+            <Col xs={6} md={3}>
+              <Link to="/category/snack">
+                <img className="icons" src={icon1} />
+                간식
+              </Link>
+            </Col>
+            <Col xs={6} md={3}>
+              <Link to="/category/tea">
+                <img className="icons" src={icon2} />
+                차/음료
+              </Link>
+            </Col>
+            <Col xs={6} md={3}>
+              <Link to="/category/milk">
+                {' '}
+                <img className="icons" src={icon3} />
+                유제품
+              </Link>
+            </Col>
+            <Col xs={6} md={3}>
+              <Link to="/category/kimchi">
+                <img className="icons" src={icon4} />
+              </Link>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={6} md={3}>
+              <Link to="/category/food">
+                <img className="icons" src={icon5} />
+                농수산물
+              </Link>
+            </Col>
+            <Col xs={6} md={3}>
+              <Link to="/category/mealKit">
+                {' '}
+                <img className="icons" src={icon6} />
+              </Link>
+            </Col>
+            <Col xs={6} md={3}>
+              <Link to="/category/con">
+                {' '}
+                <img className="icons" src={icon7} />
+                조미료
+              </Link>
+            </Col>
+            <Col xs={6} md={3}>
+              <Link to="/category/etc">
+                <img className="icons" src={icon8} />
+                기타
+              </Link>
+            </Col>
+          </Row>
+        </div>
+        <div>
+          <Row>
+            <Col md="1">
+              <img className="productSet" src={productSet} />
+            </Col>
+            <Col md="11">
+              <p className="titleBar">광고 상품</p>
+            </Col>
+          </Row>
+          <hr />
+          {!adLoad && (
+            // <div className="setUp">
+            <div>
+              <div className="cardGroup">
+                <Row>
+                  {ad.map((result) => (
+                    <Col xs={'4'}>
                       <Link
                         to={{
                           pathname: `searchProduct/food/${result.food.foodId}`,
@@ -103,128 +174,49 @@ function MainScreen() {
                           },
                         }}
                       >
-                        <img
-                          className="adImage"
-                          width="40%"
-                          height="40%"
-                          src={result.food.foodImageAddress}
-                        />
+                        <Card className="eachAdCard">
+                          <CardBody className="adcardTop">
+                            <CardTitle tag="h5">
+                              {result.food.foodName}
+                            </CardTitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                              {result.food.category.split('_')[0]}
+                            </CardSubtitle>
+                          </CardBody>
+                          <Link
+                            to={{
+                              pathname: `searchProduct/food/${result.food.foodId}`,
+                              state: {
+                                adId: result.id,
+                              },
+                            }}
+                          >
+                            <img
+                              className="adImage"
+                              width="40%"
+                              height="40%"
+                              src={result.food.foodImageAddress}
+                            />
+                          </Link>
+                          <CardBody className="showProps">
+                            <CardText>
+                              {result.food.manufacturerName.split('_')[0]}
+                            </CardText>
+                          </CardBody>
+                        </Card>
                       </Link>
-                      {/* <img
-         width="100%"
-         src="/assets/318x180.svg"
-         alt="Card image cap"
-       /> */}
-                      <CardBody className="showProps">
-                        <CardText>{result.food.manufacturerName}</CardText>
-                        <br />
-                        <br />
-                        <Badge
-                          href={
-                            `https://search.shopping.naver.com/search/all?query=` +
-                            result.food.foodName
-                          }
-                          target="_blank"
-                          color="dark"
-                          className="badgeAdContent"
-                        >
-                          구매
-                        </Badge>
-                        <Badge
-                          href={
-                            'https://search.naver.com/search.naver?query=' +
-                            result.food.foodName.split('_')[0] +
-                            '&where=news'
-                          }
-                          target="_blank"
-                          color="warning"
-                          className="badgeAdContent"
-                          size="lg"
-                        >
-                          이슈확인
-                        </Badge>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <br />
         <hr />
         <br />
-        {/**유제품
-         커피/차
-         과자
-         견과
-         초콜릿
-         떡
-         과일/채소
-         기타가공품 */}
-        <Row>
-          <Col xs={6} md={3}>
-            <Link to="/category/snack">
-              <img className="icons" src={icon1} />
-              간식
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to="/category/tea">
-              <img className="icons" src={icon2} />
-              차/음료
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to="/category/milk">
-              {' '}
-              <img className="icons" src={icon3} />
-              유제품
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to="/category/kimchi">
-              <img className="icons" src={icon4} />
-            </Link>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={6} md={3}>
-            <Link to="/category/food">
-              <img className="icons" src={icon5} />
-              농수산물
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to="/category/mealKit">
-              {' '}
-              <img className="icons" src={icon6} />
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to="/category/con">
-              {' '}
-              <img className="icons" src={icon7} />
-              조미료
-            </Link>
-          </Col>
-          <Col xs={6} md={3}>
-            <Link to="/category/etc">
-              <img className="icons" src={icon8} />
-              기타
-            </Link>
-          </Col>
-        </Row>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
         <div>
           <Row>
             <Col md="1">
@@ -257,32 +249,8 @@ function MainScreen() {
                       src={item.foodImageAddress}
                     />
                   </Link>
-                  <CardBody className="showProps">
-                    <CardText>인기 점수: {item.avgRating * 20}</CardText>
-
-                    <Badge
-                      href={
-                        `https://search.shopping.naver.com/search/all?query=` +
-                        item.foodName
-                      }
-                      target="_blank"
-                      color="dark"
-                      className="badgeContent"
-                    >
-                      구매
-                    </Badge>
-                    <Badge
-                      href={
-                        'https://search.naver.com/search.naver?query=' +
-                        item.foodName.split('_')[0] +
-                        '&where=news'
-                      }
-                      target="_blank"
-                      color="warning"
-                      className="badgeContent"
-                    >
-                      이슈확인
-                    </Badge>
+                  <CardBody className="showRankProps">
+                    <CardText>별점: {drawStar(item.avgRating)}</CardText>
                   </CardBody>
                 </Card>
               ))}
