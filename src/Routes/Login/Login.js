@@ -100,7 +100,7 @@ function Login(props) {
                   />
                 </Label>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="inputGroup">
                 <Label>
                   <Input
                     size="lg"

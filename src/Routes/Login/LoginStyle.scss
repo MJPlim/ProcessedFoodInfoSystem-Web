@@ -8,6 +8,10 @@
     margin-bottom: 2%;
     margin-left: 2%;
   }
+  .inputGroup {
+    width: 100%;
+    margin: auto;
+  }
   .formBody {
     font-family: 'MPl';
     font-size: 13px;
@@ -21,6 +25,8 @@
   .loginGroup {
     justify-content: center;
     align-items: center;
+    margin: auto;
+    padding-top: 0%;
   }
   .userSection:hover {
     color: crimson;
@@ -28,6 +34,7 @@
   }
   .userConTrol {
     text-align: center;
+    margin-top: 2%;
   }
   .userGroup:hover,
   :active,
