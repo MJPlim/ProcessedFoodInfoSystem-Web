@@ -12,6 +12,7 @@
     width: 92%;
     height: 20px;
   }
+
   .topsection {
     display: inline-block;
     justify-content: space-around;
@@ -27,6 +28,7 @@
     justify-content: center;
     align-items: center;
   }
+
   .serviceName {
     margin: 0;
     color: var(--text);
@@ -35,6 +37,7 @@
     font-size: 100px;
     font-family: 'thickEng';
     width: 32%;
+
     .logo {
       display: inline-block;
       position: relative;
@@ -42,6 +45,7 @@
       color: inherit;
       margin: 0 var(--spacing, 0px);
       transition: margin 0.25s;
+
       svg {
         width: 76px;
         height: 40px;
@@ -56,8 +60,9 @@
         stroke-dasharray: var(--offset, 69px) 278px;
         stroke-dashoffset: 361px;
         transition: stroke 0.25s ease var(--stroke-delay, 0s),
-          stroke-dasharray 0.35s;
+        stroke-dasharray 0.35s;
       }
+
       &:hover {
         --spacing: 4px;
         --stroke: var(--line-active);
@@ -85,15 +90,23 @@
     font-weight: lighter;
     font-family: 'tway';
     color: slategray;
+
     :hover {
       border-bottom: dodgerblue ridge 1px;
       color: black;
       background-color: lightcoral;
     }
   }
+
   .buttonGroup {
     margin-right: 20px;
   }
+
+  .buttonGroup:hover {
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+  }
+
   input::placeholder {
     font-size: 8px;
   }
@@ -106,6 +119,7 @@
     border-top: grey dotted 1px;
     border-bottom: grey dotted 1px;
   }
+
   .mainLink {
     width: 100%;
     justify-content: center;
@@ -141,6 +155,7 @@
     font-weight: 500;
     font-family: 'tway';
     color: black;
+
     :hover {
       border-bottom: black ridge 1px;
       color: #ed2f3b;
