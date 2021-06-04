@@ -235,6 +235,7 @@ const SearchProductFood = (props) => {
         });
 
   }
+
   return (
     <div className='category__container'>
       <div className='category__list'>

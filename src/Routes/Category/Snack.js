@@ -149,7 +149,7 @@ const Snack = (props) => {
       <div className='category__list'>
       <div className='item__category list-group category__list'>
       <button className="bigCategoryBtn list-group-item" color="primary" onClick={toggle1} style={{ marginBottom: '1rem' }}>간식</button>
-      <Collapse isOpen={isOpen1}>
+      <Collapse className="collapse" isOpen={isOpen1}>
        
           <Link to='/category/snack'>
           <button

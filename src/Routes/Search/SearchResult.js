@@ -1,7 +1,27 @@
+import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import './SearchResultStyle.scss';
+import {AiFillStar,AiOutlineStar} from 'react-icons/ai';
 const SearchResult=({loading,result})=>{
-
+    useEffect(()=>{
+        drawStar();
+    },[])
+  const drawStar = (rating) => {
+    switch (rating) {
+      case '5.00':
+        return <div className="rating_star"><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/></div>;
+      case '4.00':
+        return  <div className="rating_star"><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/><AiOutlineStar size="20"/></div>;
+      case '3.00':
+        return   <div className="rating_star"><AiFillStar size="20"/><AiFillStar size="20"/><AiFillStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/></div>;
+      case '2.00':
+        return  <div className="rating_star"><AiFillStar size="20"/><AiFillStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/></div>;
+      case '1.00':
+        return  <div className="rating_star"><AiFillStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/></div>;
+     case '0.00':
+        return  <div className="rating_star"><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/><AiOutlineStar size="20"/></div>;
+    }
+  };
     return(
       <div className="result">
           {loading? <div>Loading...</div>:
@@ -13,6 +33,7 @@ const SearchResult=({loading,result})=>{
                             <img className="foodImg"src={result.foodImageAddress}/>
                             <h5 className="card-title">{result.foodName}</h5>
                             <p className="card-text">{(result.manufacturerName).split('_')[0]}</p>
+                            <div>{drawStar(result.reviewRate)}</div>
                         </Link>
                     </div>
                 
