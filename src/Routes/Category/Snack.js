@@ -98,8 +98,8 @@ const Snack = (props) => {
 
   const handleSort = async (sortType) => {
     setSort(sortType);
-    console.log(sort);
-    getSmallCategory(currentPage);
+    console.log(sortType);
+    // getSmallCategory(currentPage);
   };
   const handleCategory = async (e) => {
     sessionStorage.removeItem('selectedPage');
@@ -132,7 +132,7 @@ const Snack = (props) => {
 
   useEffect(async () => {
     if (categoryName !== '간식') {
-      getSmallCategory(currentPage, 'init');
+      await getSmallCategory(currentPage, 'init');
     }
 
   }, [categoryName, sort, currentPage]);
@@ -568,7 +568,7 @@ const Snack = (props) => {
         <div className='category__line'>
           <nav class='navbar  justify-content-between'>
             <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
-              <button className='category__btn' onClick={() => getBigCategory(sort)}>간식</button>
+              <button className='category__btn' onClick={() => getBigCategory(sort, 1)}>간식</button>
             </p>
             <header className='item__header'>
               {searchTerm === null ? <input
@@ -649,39 +649,47 @@ const Snack = (props) => {
 
         </div>
         <div>
-          <nav class='navbar navbar-light bg-light justify-content-between'>
+
+
+          <nav className='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>
+              {categoryName !== '간식' &&
               <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40' />
+                               title='알레르기 필터 기능입니다.' size='40' />}
+
+
               <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
 
             </div>
+            {categoryName !== '간식' &&
             <div className='form-check__group'>
-              <div class='form-check'>
+              <div className='form-check'>
                 <input type='button' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'} type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' value='category' />
-                <label class='form-check-label' for='flexRadioDefault2'>
+                <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <GiFruitBowl />랭킹순
                 </label>
               </div>
-              <div class='form-check'>
-                <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
+              <div className='form-check'>
+                <input type='button' onClick={() => handleSort('manufacturer')} className='form-check-input'
+                       type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
-                <label class='form-check-label' for='flexRadioDefault2'>
+                <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <FaBuilding />제조사
                 </label>
               </div>
 
-              <div class='form-check'>
-                <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
+              <div className='form-check'>
+                <input type='button' onClick={() => handleSort('reviewCount')} className='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
-                <label class='form-check-label' for='flexRadioDefault2'>
+                <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <HiEye />리뷰순
                 </label>
               </div>
-            </div>
+            </div>}
           </nav>
+
         </div>
         <SearchResult className='searchResult' loading={loading} result={result} sort={sort} pageSize={pageSize}
                       onClickPage={(pageNum) => onClickPage(pageNum)} selectedPage={currentPage} />
