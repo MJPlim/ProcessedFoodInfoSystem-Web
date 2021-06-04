@@ -1,8 +1,9 @@
 import './CategoryStyle.scss';
-import { bigCategory, searchApi } from '../../api';
+import { bigCategory, searchApi,getUserAllergyInfo } from '../../api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
+import {AiOutlineFilter} from 'react-icons/ai';
 import{RiSearch2Line}from 'react-icons/ri';
 import { FaBuilding } from 'react-icons/fa';
 import {HiEye} from 'react-icons/hi';
@@ -39,6 +40,9 @@ const Snack = (props) => {
   const toggle7 = () => setIsOpen7(!isOpen7);
   const [isOpen8, setIsOpen8] = useState(false);
   const toggle8 = () => setIsOpen8(!isOpen8);
+
+     //알러지
+  const [allergyLoading,setAllergyLoading]=useState(false);
 
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
@@ -124,6 +128,22 @@ const Snack = (props) => {
   
   }, [categoryName,sort]);
 
+   const handleAllergy=async()=>{
+      setAllergyLoading(true);
+     await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          const result = response.data.userAllergyMaterials;
+          console.log("알러지",result);
+          setAllergyList(result);
+          alert(result);
+         
+        })
+        .catch((error) => {
+          alert("로그인을 하세요");
+        });
+
+  }
   return (
     <div className='category__container'>
       <div className='category__list'>
@@ -542,7 +562,11 @@ const Snack = (props) => {
         </div>
         <div>
           <nav class='navbar navbar-light bg-light justify-content-between'>
-            <a class='navbar-brand'>검색결과({totalResult})</a>
+             <div className="result_allergy">
+            <AiOutlineFilter type="button"  onClick={handleAllergy} data-toggle="tooltip" data-placement="bottom" title="알레르기 필터 기능입니다."size="40"/>
+           <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
+            
+            </div>
             <div className='form-check__group'>
               <div class='form-check'>
                 <input type='button' onClick={() => handleSort('ranking')} className={sort==="ranking"?"form-check-input checked":"form-check-input"} type='radio'

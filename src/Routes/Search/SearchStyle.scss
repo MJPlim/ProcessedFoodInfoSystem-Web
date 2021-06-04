@@ -25,17 +25,20 @@
       border: 0;
       background: 0;
     }
+  }
+  .result_allergy{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .allergyBtn{
       width: 40px;
       height: 40px;
       outline: 0;
       border: 0;
-      border-radius: 50%;
-      background-color: rgba(0,0,0,0);
-
-
     }
-    .allergyBtn:active{  background-color:#3a8082 ;}
+    .allergyBtn:hover{//왜 색이 안바뀌지..
+      color: #ed2f3b
+    }
   }
   .item__main{
     display: grid;
