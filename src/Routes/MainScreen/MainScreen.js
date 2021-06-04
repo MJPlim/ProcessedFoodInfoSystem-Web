@@ -10,7 +10,6 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
- 
 } from 'reactstrap';
 
 import { Link } from 'react-router-dom';
@@ -77,8 +76,63 @@ function MainScreen() {
       <br />
       <br />
       <Container>
-         
-       
+        <Row>
+          <Col md="1">
+            <img className="productSet" src={productSet} />
+          </Col>
+          <Col md="11">
+            <p className="titleBar">카테고리</p>
+          </Col>
+        </Row>
+        <hr />
+        <div className="category__items">
+          <div className="item">
+            <Link to="/category/snack">
+              <img className="item__img" src={간식} />
+            </Link>
+            <p className="category__name">간식</p>
+          </div>
+          <div className="item">
+            <Link to="/category/tea">
+              <img className="item__img" src={차음료} />
+            </Link>
+            <p className="category__name">차/음료</p>
+          </div>
+          <div className="item">
+            <Link to="/category/milk">
+              <img className="item__img" src={유제품} />
+            </Link>
+            <p className="category__name">유제품</p>
+          </div>
+          <div className="item">
+            <Link to="/category/food">
+              <img className="item__img" src={농수산물} />
+            </Link>
+            <p className="category__name">농수산물</p>
+          </div>
+          <div className="item">
+            <Link to="/category/condi">
+              <img className="item__img" src={조미료} />
+            </Link>
+            <p className="category__name">조미료</p>
+          </div>
+          <div className="item">
+            <Link to="/category/kimchi">
+              <img className="item__img" src={김치} />
+            </Link>
+            <p className="category__name">김치</p>
+          </div>
+          <div className="item">
+            <Link to="/category/mealKit">
+              이미지못구함
+              <p className="category__name">즉석조리식품</p>
+            </Link>
+          </div>
+          <div className="item">
+            <Link to="/category/etc">이미지못구함</Link>
+            <p className="category__name">기타가공품</p>
+          </div>
+        </div>
         <div>
           <Row>
             <Col md="1">
@@ -143,86 +197,6 @@ function MainScreen() {
           )}
         </div>
 
-        <br />
-          <br />                  
-        <br />
-        <Row>
-            <Col md="1">
-              <img className="productSet" src={productSet} />
-            </Col>
-            <Col md="11">
-              <p className="titleBar">카테고리</p>
-            </Col>
-          </Row>
-          <hr/>
-        <div className='category__items'>
-          <div className='item'>
-           <Link to="/category/snack">
-              <img className='item__img' src={간식} />
-        
-           
-            </Link>
-             <p className='category__name'>간식</p>
-          </div>
-          <div className='item'>
-            <Link to="/category/tea">
-              <img className='item__img' src={차음료} />
-            
-           
-            </Link>
-             <p className='category__name'>차/음료</p>
-          </div>
-          <div className='item'>
-           <Link to="/category/milk">
-              <img className='item__img' src={유제품} />
-      
-           
-            </Link>
-             <p className='category__name'>유제품</p>
-          </div>
-          <div className='item'>
-            <Link to="/category/food">
-              <img className='item__img' src={농수산물} />
-           
-            
-             </Link>
-             <p className='category__name'>농수산물</p>
-          </div>
-          <div className='item'>
-           <Link to="/category/condi">
-              <img className='item__img' src={조미료} />
-          
-
-           
-            </Link>
-             <p className='category__name'>조미료</p>
-          </div>
-           <div className='item'>
-      <Link to="/category/kimchi">
-              <img className='item__img' src={김치} />
-            
-
-           
-            </Link>
-             <p className='category__name'>김치</p>
-          </div>
-           <div className='item'>
-          <Link to="/category/mealKit">
-              이미지못구함
-        
-
-            <p className='category__name'>즉석조리식품</p>
-            </Link>
-          </div>
-          <div className='item'>
-           <Link to="/category/etc">
-             이미지못구함
-          
-            </Link>
-              <p className='category__name'>기타가공품</p>
-          </div>
-
-        </div>              
         <div>
           <Row>
             <Col md="1">
