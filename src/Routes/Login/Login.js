@@ -91,19 +91,17 @@ function Login(props) {
           <Card body className="formBody">
             <Form>
               <FormGroup>
-                <Label>
+                <Label className="inputGroup">
                   <Input
-                    size="lg"
                     type="email"
                     placeholder="이메일"
                     onChange={onEmailChange}
                   />
                 </Label>
               </FormGroup>
-              <FormGroup className="inputGroup">
-                <Label>
+              <FormGroup>
+                <Label className="inputGroup">
                   <Input
-                    size="lg"
                     type="password"
                     placeholder="비밀번호"
                     onChange={onPasswordChange}
@@ -113,7 +111,7 @@ function Login(props) {
               <Row form className="loginGroup">
                 <Col md={7} className="rememberLogin">
                   <FormGroup check inline>
-                    <Label check>
+                    <Label check className="checkLogin">
                       <Input
                         type="checkbox"
                         onChange={(e) => checkHandler(e)}
