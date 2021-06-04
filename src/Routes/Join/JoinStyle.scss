@@ -1,0 +1,26 @@
+@import './src/styles/utils';
+.joinPage {
+  width: 100%;
+  .container {
+    width: 30%;
+  }
+  .title {
+    font-family: 'MPb';
+    font-size: 20px;
+    margin-bottom: 2%;
+  }
+  .inputLabel {
+    width: 100%;
+  }
+  .birthGroup {
+    font-family: 'MPl';
+    font-size: 15px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+  }
+  .regiButton {
+    text-align: center;
+  }
+}

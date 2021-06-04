@@ -20,9 +20,9 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import moment from 'moment/moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
-import '../FindUser/FindUserStyle.scss';
+import '../Join/JoinStyle.scss';
 
-function Join() {
+function Join(props) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [conPassword, setConPassword] = useState('');
@@ -74,6 +74,10 @@ function Join() {
     }
   };
 
+  const cancel = () => {
+    props.history.goBack();
+  };
+
   useEffect(() => {
     if (conPassword !== password) {
       setError({ ...error, conPasswordError: '비밀번호가 일치하지 않습니다.' });
@@ -97,82 +101,96 @@ function Join() {
     <div className="joinPage">
       <Container className="container">
         <p className="title">회원가입</p>
-      </Container>
-      <Card body>
-        <Form>
-          <FormGroup>
-            <Label>
-              <Input type="text" placeholder="이름" onChange={onNameChange} />
-            </Label>
-          </FormGroup>
-          <FormGroup>
-            <Label>
-              <Input
-                type="email"
-                placeholder="아이디"
-                onChange={{ onEmailChange }}
-              />
-            </Label>
-          </FormGroup>
-          <FormGroup>
-            <Label>
-              <Input
-                type="password"
-                placeholder="비밀번호"
-                onChange={onPasswordChange}
-              />
-            </Label>
-          </FormGroup>
-          <FormGroup>
-            <Label>
-              <Input
-                type="password"
-                placeholder="비밀번호 확인"
-                onChange={onConPasswordChange}
-              />
-            </Label>
-          </FormGroup>
-          {error.conPasswordError !== null && (
-            <Alert color={'danger'}>{error.conPasswordError} </Alert>
-          )}
-          <FormGroup>
-            <Label>
-              <Input
-                type="text"
-                placeholder="주소"
-                onChange={onAddressChange}
-              />
-            </Label>
-          </FormGroup>
-          <FormGroup>
-            <Label for="inputBirth">
-              생년월일
-              <Row className={'pickerRow'}>
-                <DatePicker
-                  id="inputBirth"
-                  wrapperClassName="birthDayPicker"
-                  dateFormat="yyyy-MM-dd"
-                  selected={new Date(birth)}
-                  maxDate={new Date()}
-                  onChange={(date) => setUserBirth(date)}
-                  popperPlacement="bottom-start"
-                  showYearDropdown={'true'}
-                  showMonthDropdown={'true'}
-                  dropdownMode={'select'}
-                  locale="ko"
+
+        <Card body>
+          <Form>
+            <FormGroup>
+              <Label className="inputLabel">
+                <Input type="text" placeholder="이름" onChange={onNameChange} />
+              </Label>
+            </FormGroup>
+            <FormGroup>
+              <Label className="inputLabel">
+                <Input
+                  type="email"
+                  placeholder="아이디"
+                  onChange={onEmailChange}
                 />
+              </Label>
+            </FormGroup>
+            <FormGroup>
+              <Label className="inputLabel">
+                <Input
+                  type="password"
+                  placeholder="비밀번호"
+                  onChange={onPasswordChange}
+                />
+              </Label>
+            </FormGroup>
+            <FormGroup>
+              <Label className="inputLabel">
+                <Input
+                  type="password"
+                  placeholder="비밀번호 확인"
+                  onChange={onConPasswordChange}
+                />
+              </Label>
+            </FormGroup>
+            {error.conPasswordError !== null && (
+              <Alert color={'danger'}>{error.conPasswordError} </Alert>
+            )}
+            <FormGroup>
+              <Label className="inputLabel">
+                <Input
+                  type="text"
+                  placeholder="주소"
+                  onChange={onAddressChange}
+                />
+              </Label>
+            </FormGroup>
+            <FormGroup className="birthGroup">
+              <Row>
+                <Col>
+                  <Label for="inputBirth">생년월일</Label>
+                </Col>
+                <Col className={'pickerRow'}>
+                  <DatePicker
+                    id="inputBirth"
+                    wrapperClassName="birthDayPicker"
+                    dateFormat="yyyy-MM-dd"
+                    selected={new Date(birth)}
+                    maxDate={new Date()}
+                    onChange={(date) => setUserBirth(date)}
+                    popperPlacement="bottom-start"
+                    showYearDropdown={'true'}
+                    showMonthDropdown={'true'}
+                    dropdownMode={'select'}
+                    locale="ko"
+                  />
+                </Col>
               </Row>
-            </Label>
-          </FormGroup>
-          <FormGroup>
-            <Label>
-              <Button outline color="danger" onClick={register}>
-                회원가입
-              </Button>
-            </Label>
-          </FormGroup>
-        </Form>
-      </Card>
+            </FormGroup>
+            <FormGroup className="regiButton">
+              <Row>
+                <Col>
+                  <Label>
+                    <Button outline color="warning" onClick={cancel}>
+                      취소
+                    </Button>
+                  </Label>
+                </Col>
+                <Col>
+                  <Label>
+                    <Button outline color="danger" onClick={register}>
+                      가입
+                    </Button>
+                  </Label>
+                </Col>
+              </Row>
+            </FormGroup>
+          </Form>
+        </Card>
+      </Container>
     </div>
   );
 }
