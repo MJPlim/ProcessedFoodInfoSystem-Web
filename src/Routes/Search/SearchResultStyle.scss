@@ -1,40 +1,75 @@
-.result__container{
+@import './src/styles/utils';
+
+.result {
+  .result__container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    
+
     align-items: center;
     gap: 60px 20px;
-        .card-body{
-        height: 270px;
+
+    .card-body {
+      height: 270px;
+      align-items: center;
+      justify-items: center;
+      margin-bottom: 30px;
+
+      .card-link {
+        padding: 2%;
+        display: grid;
+        //grid-template-rows: 2fr 1fr 1fr;
         align-items: center;
         justify-items: center;
-        margin-bottom: 30px;
-        .card-link{
-            padding: 2%;
-            display: grid;
-            //grid-template-rows: 2fr 1fr 1fr;
-            align-items: center;
-            justify-items: center;
-             .foodImg{
-        width: 150px;
-        height: 160px;
-        margin-bottom: 10px;
-        }
-        .card-title{
-            font-weight: 800;
-            font-size: x-large;
-        }.card-text{
-            margin-top: 1px;
-        }
-        }
-       
-       
-    }
-    .card-link:hover{
-            box-shadow: 2px 2px 5px 4px rgba(1,1,1,0.3);
 
+        .foodImg {
+          width: 150px;
+          height: 160px;
+          margin-bottom: 10px;
         }
-    
-  
-    
+
+        .card-title {
+          font-weight: 800;
+          font-size: x-large;
+        }
+
+        .card-text {
+          margin-top: 1px;
+        }
+      }
+
+
+    }
+
+    .card-link:hover {
+      box-shadow: 2px 2px 5px 4px rgba(1, 1, 1, 0.3);
+
+    }
+
+  }
+
+  .pageDiv {
+    text-align: center;
+  }
+
+  .foodPaginate {
+    width: 100%;
+    font-size: medium;
+    margin: 10px auto 30px;
+    display: inline-block !important;
+
+    li {
+      margin: 15px;
+      display: inline-block !important;
+    }
+
+    .foodPage {
+      color: black;
+    }
+
+    .foodSelectedPage {
+      color: $lightorange !important;
+      font-weight: bold;
+    }
+  }
+
 }

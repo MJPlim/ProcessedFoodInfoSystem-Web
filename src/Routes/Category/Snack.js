@@ -49,10 +49,11 @@ const Snack = (props) => {
   const [searchTerm, setSearchTerm] = useState(null);
   const [categoryName, setCategoryName] = useState('');
   const [sort, setSort] = useState('ranking');
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState('desc');
   const [allergyList, setAllergyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(0);
+  const [isSmallCategory, setIsSmallCategory] = useState(false);
 
   useEffect(async () => {
     console.log('마운트!');
@@ -60,7 +61,7 @@ const Snack = (props) => {
     setCategoryName('간식');
     if (sessionStorage.getItem('categoryName') === '간식' || sessionStorage.getItem('categoryName') === null) {
       console.log('대분류를 눌럿음');
-      getBigCategory(sort);
+      getBigCategory(sort, 1);
     } else {
       setCategoryName(sessionStorage.getItem('categoryName'));
       console.log('이미 소분류를 눌럿엇음', categoryName);
@@ -71,14 +72,18 @@ const Snack = (props) => {
 
   }, []);
 
-  const getBigCategory = async (sort) => {
+  const getBigCategory = async (sort, pageNum) => {
+    setIsSmallCategory(false);
     setCategoryName('간식');
     sessionStorage.setItem('category', '간식');
 
     try {
       setLoading(true);
-      const { data } = await bigCategory.gotoCategory('간식', 1, sort, 10);
+      const { data } = await bigCategory.gotoCategory('간식', pageNum, sort, 12);
+      console.log('대분류 호출', data);
+
       setTotalResult(data.total_elements);
+      setPageSize(data.total_page);
       setResult(data.data);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
 
@@ -99,15 +104,18 @@ const Snack = (props) => {
     console.log('소분류 클릭');
     sessionStorage.setItem('categoryName', e);
     setCategoryName(e);
-    getSmallCategory();
+    setIsSmallCategory(true);
+    getSmallCategory(1);
   };
 
-  const getSmallCategory = async () => {
+  const getSmallCategory = async (pageNum) => {
     try {
       setLoading(true);
-      const { data } = await searchApi.search(allergyList, categoryName, '', '', order, 1, 10, sort);
+      const { data } = await searchApi.search(allergyList, categoryName, '', '', order, pageNum, 12, sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
+      console.log('소분류 호출', data);
+      setPageSize(data.total_page);
       setResult(data.data);
       setTotalResult(data.total_elements);
       console.log('소분류: ', result);
@@ -120,7 +128,7 @@ const Snack = (props) => {
 
   useEffect(async () => {
     if (categoryName !== '간식') {
-      getSmallCategory();
+      getSmallCategory(1);
     }
 
   }, [categoryName, sort]);
@@ -141,15 +149,21 @@ const Snack = (props) => {
       });
 
   };
+
+  const onClickPage = async (pageNum) => {
+    setCurrentPage(pageNum.selected + 1);
+    console.log('페이징 클릭 ', pageNum);
+    isSmallCategory ? getSmallCategory(pageNum.selected + 1) : getBigCategory(sort, pageNum.selected + 1);
+  };
   return (
     <div className='category__container'>
       <div className='category__list'>
         <div className='item__category list-group category__list'>
           <button className='bigCategoryBtn list-group-item' color='primary' onClick={toggle1}>간식
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen1 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -217,13 +231,13 @@ const Snack = (props) => {
 
           </Collapse>
 
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle2}>음료/차
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen2 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
 
@@ -260,13 +274,13 @@ const Snack = (props) => {
               </button>
             </Link>
           </Collapse>
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle3}>유제품
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen3 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -284,14 +298,14 @@ const Snack = (props) => {
             </Link>
 
           </Collapse>
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
 
-          <button className='bigCategoryBtn list-group-item' onClick={toggle4} >농수산물
-            <div style={{float: 'right'}}>
+          <button className='bigCategoryBtn list-group-item' onClick={toggle4}>농수산물
+            <div style={{ float: 'right' }}>
               {!isOpen4 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -359,13 +373,13 @@ const Snack = (props) => {
             </Link>
 
           </Collapse>
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle5}>김치
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen5 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -393,14 +407,14 @@ const Snack = (props) => {
             </Link>
 
           </Collapse>
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle6}>조미료
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen6 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -448,13 +462,13 @@ const Snack = (props) => {
             </Link>
 
           </Collapse>
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle7}>즉석조리식품
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen7 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -512,14 +526,14 @@ const Snack = (props) => {
             </Link>
 
           </Collapse>
-          <div style={{ marginBottom: '1rem' }}/>
+          <div style={{ marginBottom: '1rem' }} />
 
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle8}>기타
-            <div style={{float: 'right'}}>
+            <div style={{ float: 'right' }}>
               {!isOpen8 ?
-                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
-                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
             </div>
           </button>
@@ -656,7 +670,8 @@ const Snack = (props) => {
             </div>
           </nav>
         </div>
-        <SearchResult className='searchResult' loading={loading} result={result} sort={sort} />
+        <SearchResult className='searchResult' loading={loading} result={result} sort={sort} pageSize={pageSize}
+                      onClickPage={(pageNum) => onClickPage(pageNum)} />
       </div>
     </div>
   );

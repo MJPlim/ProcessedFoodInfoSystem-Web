@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import './SearchResultStyle.scss';
 import {AiFillStar,AiOutlineStar} from 'react-icons/ai';
-const SearchResult=({loading,result})=>{
+import { Col } from 'reactstrap';
+import ReactPaginate from 'react-paginate';
+const SearchResult=({loading,result, pageSize, onClickPage})=>{
     useEffect(()=>{
+      console.log(pageSize);
         drawStar();
     },[])
   const drawStar = (rating) => {
@@ -40,8 +43,21 @@ const SearchResult=({loading,result})=>{
                )):<div>No result</div>
             }
           </div>
-          
           }
+
+        <Col md={'12'} className={'pageDiv'}>
+          {pageSize > 1 ?
+            <ReactPaginate pageCount={pageSize} pageRangeDisplayed={10}
+                           marginPagesDisplayed={1}
+                           previousLabel={'이전'} nextLabel={'다음'}
+                           containerClassName={'foodPaginate'}
+                           pageClassName={'foodPage'}
+                           activeClassName={'foodSelectedPage'}
+                           onPageChange={onClickPage}
+            /> :
+            null}
+
+        </Col>
       </div>
     );
 }

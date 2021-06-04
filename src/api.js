@@ -139,7 +139,6 @@ export const searchApi = {
   search: (allergies,category,foodName,manufacturerName,order,pageNo,size,sort) =>
     api.get('/api/v1/food/searchFood', {
       params: {
-        
         allergies: allergies.join(','),
         category: category,
         foodName:foodName,
