@@ -113,7 +113,7 @@ function Join(props) {
               <Label className="inputLabel">
                 <Input
                   type="email"
-                  placeholder="아이디"
+                  placeholder="이메일"
                   onChange={onEmailChange}
                 />
               </Label>
