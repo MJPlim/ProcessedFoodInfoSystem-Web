@@ -67,33 +67,5 @@
     font-size: 90%;
   }
 
-  .pickerRow {
-    width: 100%;
-    margin: auto;
-
-    .birthDayPicker {
-      width: 100%;
-
-      input {
-        width: 100%;
-        height: 38px;
-        border: #c7ced4 1px solid;
-        border-radius: 0.25rem;
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: medium;
-
-      }
-    }
-
-    .react-datepicker__day--selected {
-      background-color: $lightorange !important;
-    }
-
-    .react-datepicker__day--keyboard-selected {
-      background-color: $yellow !important;
-    }
-  }
-
 
 }

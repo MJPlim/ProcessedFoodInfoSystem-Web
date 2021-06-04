@@ -28,7 +28,10 @@ function Join(props) {
   const [conPassword, setConPassword] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
-  const [birth, setBirth] = useState(moment(new Date()).format('yyyy-MM-DD'));
+  const [birth, setBirth] = useState(
+    moment(new Date()).format('yyyy-MM-DD')
+  );
+  const [tempBirth, setTempBirth] = useState('');
   const [error, setError] = useState({
     conPasswordError: null,
   });
@@ -57,6 +60,7 @@ function Join(props) {
   };
 
   const setUserBirth = (date) => {
+    setTempBirth(date);
     setBirth(moment(date).format('yyyy-MM-DD'));
   };
 
@@ -150,15 +154,13 @@ function Join(props) {
             </FormGroup>
             <FormGroup className="birthGroup">
               <Row>
-                <Col>
-                  <Label for="inputBirth">생년월일</Label>
-                </Col>
                 <Col className={'pickerRow'}>
                   <DatePicker
                     id="inputBirth"
                     wrapperClassName="birthDayPicker"
                     dateFormat="yyyy-MM-dd"
-                    selected={new Date(birth)}
+                    placeholderText={"생년월일"}
+                    selected={tempBirth}
                     maxDate={new Date()}
                     onChange={(date) => setUserBirth(date)}
                     popperPlacement="bottom-start"
@@ -166,6 +168,7 @@ function Join(props) {
                     showMonthDropdown={'true'}
                     dropdownMode={'select'}
                     locale="ko"
+
                   />
                 </Col>
               </Row>
