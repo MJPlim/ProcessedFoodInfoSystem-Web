@@ -48,7 +48,7 @@ const Snack = (props) => {
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
   const [categoryName, setCategoryName] = useState('간식');
-  const [sort, setSort] = useState('ranking');
+  const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
   const [allergyList, setAllergyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
@@ -98,6 +98,9 @@ const Snack = (props) => {
 
   const handleSort = async (sortType) => {
     setSort(sortType);
+    setCurrentPage(1);
+    sessionStorage.removeItem('selectedPage');
+    sessionStorage.setItem('selectedSort', sortType);
     console.log(sortType);
     // getSmallCategory(currentPage);
   };
@@ -664,25 +667,25 @@ const Snack = (props) => {
             {categoryName !== '간식' &&
             <div className='form-check__group'>
               <div className='form-check'>
-                <input type='button' onClick={() => handleSort('ranking')}
-                       className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'} type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' value='category' />
+                <input type='radio' onClick={() => handleSort('ranking')}
+                       className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
+                       name='flexRadioDefault' id='flexRadioDefault2' value='category'
+                       checked={sort === 'ranking' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <GiFruitBowl />랭킹순
                 </label>
               </div>
               <div className='form-check'>
-                <input type='button' onClick={() => handleSort('manufacturer')} className='form-check-input'
-                       type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' />
+                <input type='radio' onClick={() => handleSort('manufacturer')} className='form-check-input'
+                       name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'manufacturer' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <FaBuilding />제조사
                 </label>
               </div>
 
               <div className='form-check'>
-                <input type='button' onClick={() => handleSort('reviewCount')} className='form-check-input' type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' />
+                <input type='radio' onClick={() => handleSort('reviewCount')} className='form-check-input'
+                       name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'reviewCount' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <HiEye />리뷰순
                 </label>

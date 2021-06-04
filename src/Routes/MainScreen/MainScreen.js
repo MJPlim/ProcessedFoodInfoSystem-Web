@@ -74,6 +74,8 @@ function MainScreen() {
   const onClickCategory = e => {
     sessionStorage.removeItem('categoryName');
     sessionStorage.removeItem('selectedPage');
+    sessionStorage.removeItem('selectedSort');
+
   };
 
   return (
