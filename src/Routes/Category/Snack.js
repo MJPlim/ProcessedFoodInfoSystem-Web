@@ -1,13 +1,13 @@
 import './CategoryStyle.scss';
-import { bigCategory, searchApi,getUserAllergyInfo } from '../../api';
+import { bigCategory, searchApi, getUserAllergyInfo } from '../../api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
-import {AiOutlineFilter} from 'react-icons/ai';
-import{RiSearch2Line}from 'react-icons/ri';
+import { AiOutlineFilter } from 'react-icons/ai';
+import { RiSearch2Line } from 'react-icons/ri';
 import { FaBuilding } from 'react-icons/fa';
-import {HiEye} from 'react-icons/hi';
-import {GiFruitBowl}from 'react-icons/gi';
+import { HiEye } from 'react-icons/hi';
+import { GiFruitBowl } from 'react-icons/gi';
 import SearchResult from '../Search/SearchResult';
 import 과자 from '../../image/categoryImg/snack/과자.png';
 import 떡 from '../../image/categoryImg/snack/떡.png';
@@ -16,10 +16,8 @@ import 젤리 from '../../image/categoryImg/snack/젤리.png';
 import 아이스크림 from '../../image/categoryImg/snack/아이스크림.png';
 import 초콜릿 from '../../image/categoryImg/snack/초콜릿.png';
 import {
-  InputGroupAddon,Collapse, Button, CardBody, Card
+  InputGroupAddon, Collapse, Button, CardBody, Card,
 } from 'reactstrap';
-
-
 
 
 const Snack = (props) => {
@@ -28,34 +26,34 @@ const Snack = (props) => {
   const toggle1 = () => setIsOpen1(!isOpen1);
   const [isOpen2, setIsOpen2] = useState(false);
   const toggle2 = () => setIsOpen2(!isOpen2);
-   const [isOpen3, setIsOpen3] = useState(false);
+  const [isOpen3, setIsOpen3] = useState(false);
   const toggle3 = () => setIsOpen3(!isOpen3);
   const [isOpen4, setIsOpen4] = useState(false);
   const toggle4 = () => setIsOpen4(!isOpen4);
-   const [isOpen5, setIsOpen5] = useState(false);
+  const [isOpen5, setIsOpen5] = useState(false);
   const toggle5 = () => setIsOpen5(!isOpen5);
   const [isOpen6, setIsOpen6] = useState(false);
   const toggle6 = () => setIsOpen6(!isOpen6);
-   const [isOpen7, setIsOpen7] = useState(false);
+  const [isOpen7, setIsOpen7] = useState(false);
   const toggle7 = () => setIsOpen7(!isOpen7);
   const [isOpen8, setIsOpen8] = useState(false);
   const toggle8 = () => setIsOpen8(!isOpen8);
 
-     //알러지
-  const [allergyLoading,setAllergyLoading]=useState(false);
+  //알러지
+  const [allergyLoading, setAllergyLoading] = useState(false);
 
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   //파라미터
-  const [searchTerm,setSearchTerm]=useState(null);
+  const [searchTerm, setSearchTerm] = useState(null);
   const [categoryName, setCategoryName] = useState('');
   const [sort, setSort] = useState('ranking');
-  const [order,setOrder]=useState('asc');
-  const [allergyList,setAllergyList]=useState([]);
-  const [currentPage,setCurrentPage]=useState(1);
-  const [pageSize,setPageSize]=useState(10);
+  const [order, setOrder] = useState('asc');
+  const [allergyList, setAllergyList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(async () => {
     console.log('마운트!');
@@ -108,7 +106,7 @@ const Snack = (props) => {
   const getSmallCategory = async () => {
     try {
       setLoading(true);
-      const { data } = await searchApi.search(allergyList,categoryName,"","",order,1,10,sort);
+      const { data } = await searchApi.search(allergyList, categoryName, '', '', order, 1, 10, sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
       setResult(data.data);
@@ -119,406 +117,421 @@ const Snack = (props) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(async () => {
-    if(categoryName!=='간식'){
-        getSmallCategory();
+    if (categoryName !== '간식') {
+      getSmallCategory();
     }
-  
-  }, [categoryName,sort]);
 
-   const handleAllergy=async()=>{
-      setAllergyLoading(true);
-     await getUserAllergyInfo
-        .userAllergies()
-        .then((response) => {
-          const result = response.data.userAllergyMaterials;
-          console.log("알러지",result);
-          setAllergyList(result);
-          alert(result);
-         
-        })
-        .catch((error) => {
-          alert("로그인을 하세요");
-        });
+  }, [categoryName, sort]);
 
-  }
+  const handleAllergy = async () => {
+    setAllergyLoading(true);
+    await getUserAllergyInfo
+      .userAllergies()
+      .then((response) => {
+        const result = response.data.userAllergyMaterials;
+        console.log('알러지', result);
+        setAllergyList(result);
+        alert(result);
+
+      })
+      .catch((error) => {
+        alert('로그인을 하세요');
+      });
+
+  };
   return (
     <div className='category__container'>
       <div className='category__list'>
-      <div className='item__category list-group category__list'>
-      <button className="bigCategoryBtn list-group-item" color="primary" onClick={toggle1} style={{ marginBottom: '1rem' }}>간식</button>
-      <Collapse className="collapse" isOpen={isOpen1}>
-       
-          <Link to='/category/snack'>
-          <button
-            type='button'
-            value='과자'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory("과자")}
-          >
-            과자
+        <div className='item__category list-group category__list'>
+          <button className='bigCategoryBtn list-group-item' color='primary' onClick={toggle1}>간식
           </button>
-          </Link>
-          <Link to='/category/snack'>
-          <button
-            type='button'
-            value='떡'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory("떡")}
-          >
-            떡
-          </button>
-          </Link>
-          <Link to='/category/snack'>
-          <button
-            type='button'
-            value='빵'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory("빵")}
-          >
-            빵
-          </button>
-          </Link>
-          <Link to='/category/snack'>
-          <button
-            type='button'
-            value='사탕/껌/젤리'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('사탕/껌/젤리')}
-          >
-            사탕/껌/젤리
-          </button>
-          </Link>
-          <Link to='/category/snack'>
-          <button
-            type='button'
-            value='아이스크림'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('아이스크림')}
-          >
-            아이스크림
-          </button>
-          </Link>
-          <Link to='/category/snack'>
-          <button
-            type='button'
-            value='초콜릿'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('초콜릿')}
-          >
-            초콜릿
-          </button>
-           </Link>
-         
-      </Collapse>
+          <Collapse isOpen={isOpen1}>
+            <Link to='/category/snack'>
+              <button
+                type='button'
+                value='과자'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('과자')}
+              >
+                과자
+              </button>
+            </Link>
+            <Link to='/category/snack'>
+              <button
+                type='button'
+                value='떡'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('떡')}
+              >
+                떡
+              </button>
+            </Link>
+            <Link to='/category/snack'>
+              <button
+                type='button'
+                value='빵'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('빵')}
+              >
+                빵
+              </button>
+            </Link>
+            <Link to='/category/snack'>
+              <button
+                type='button'
+                value='사탕/껌/젤리'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('사탕/껌/젤리')}
+              >
+                사탕/껌/젤리
+              </button>
+            </Link>
+            <Link to='/category/snack'>
+              <button
+                type='button'
+                value='아이스크림'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('아이스크림')}
+              >
+                아이스크림
+              </button>
+            </Link>
+            <Link to='/category/snack'>
+              <button
+                type='button'
+                value='초콜릿'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('초콜릿')}
+              >
+                초콜릿
+              </button>
+            </Link>
 
+          </Collapse>
 
-      <button className="bigCategoryBtn list-group-item" onClick={toggle2} style={{ marginBottom: '1rem' }}>음료/차</button>
-      <Collapse isOpen={isOpen2}>
-       
-          <Link to='/category/tea'>
-          <button
-            type='button'
-            value='음료'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('음료/차')}
-          >
-            음료
+          <div style={{ marginBottom: '1rem' }}/>
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle2}>음료/차
           </button>
-          </Link>
-          <Link to='/category/tea'>
-          <button
-            type='button'
-            value='커피'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('커피')}
-          >
-            커피
-          </button>
-           </Link>
+          <Collapse isOpen={isOpen2}>
             <Link to='/category/tea'>
-          <button
-            type='button'
-            value='커피/차'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('커피/차')}
-          >
-            커피/차
-          </button>
-           </Link>
-      </Collapse>
+              <button
+                type='button'
+                value='음료'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('음료/차')}
+              >
+                음료
+              </button>
+            </Link>
+            <Link to='/category/tea'>
+              <button
+                type='button'
+                value='커피'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('커피')}
+              >
+                커피
+              </button>
+            </Link>
+            <Link to='/category/tea'>
+              <button
+                type='button'
+                value='커피/차'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('커피/차')}
+              >
+                커피/차
+              </button>
+            </Link>
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }}/>
 
-      <button className="bigCategoryBtn list-group-item" onClick={toggle3} style={{ marginBottom: '1rem' }}>유제품</button>
-      <Collapse isOpen={isOpen3}>
-     
-         <Link to='/category/milk'>
-          <button
-            type='button'
-            value='유제품'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('유제품')}
-          >
-            유제품
+          <button className='bigCategoryBtn list-group-item' onClick={toggle3}>유제품
           </button>
-          </Link>
-       
-      </Collapse>
+          <Collapse isOpen={isOpen3}>
 
-         
-      <button className="bigCategoryBtn list-group-item" onClick={toggle4} style={{ marginBottom: '1rem' }}>농수산물</button>
-      <Collapse isOpen={isOpen4}>
-       
-             <Link to='/category/food'>
-          <button
-            type='button'
-            value='계란'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('계란')}
-          >
-            계란
+            <Link to='/category/milk'>
+              <button
+                type='button'
+                value='유제품'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('유제품')}
+              >
+                유제품
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }}/>
+
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle4} >농수산물
           </button>
-           </Link>
-           <Link to='/category/food'>
-          <button
-            type='button'
-            value='과일/채소'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('과일/채소')}
-          >
-            과일/채소
+          <Collapse isOpen={isOpen4}>
+
+            <Link to='/category/food'>
+              <button
+                type='button'
+                value='계란'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('계란')}
+              >
+                계란
+              </button>
+            </Link>
+            <Link to='/category/food'>
+              <button
+                type='button'
+                value='과일/채소'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('과일/채소')}
+              >
+                과일/채소
+              </button>
+            </Link>
+            <Link to='/category/food'>
+              <button
+                type='button'
+                value='김'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('김')}
+              >
+                김
+              </button>
+            </Link>
+            <Link to='/category/food'>
+              <button
+                type='button'
+                value='수산물'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('수산물')}
+              >
+                수산물
+              </button>
+            </Link>
+            <Link to='/category/food'>
+              <button
+                type='button'
+                value='견과'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('견과')}
+              >
+                견과
+              </button>
+            </Link>
+            <Link to='/category/food'>
+              <button
+                type='button'
+                value='곡류'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('견과')}
+              >
+                곡류
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }}/>
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle5}>김치
           </button>
-          </Link>
-          <Link to='/category/food'>
-          <button
-            type='button'
-            value='김'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('김')}
-          >
-            김
-          </button>
-          </Link>
-          <Link to='/category/food'>
-          <button
-            type='button'
-            value='수산물'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('수산물')}
-          >
-            수산물
-          </button>
-          </Link>
-          <Link to='/category/food'>
-          <button
-            type='button'
-            value='견과'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('견과')}
-          >
-            견과
-          </button>
-          </Link>
-          <Link to='/category/food'>
-          <button
-            type='button'
-            value='곡류'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('견과')}
-          >
-            곡류
-          </button>
-          </Link>
-        
-      </Collapse>   
-         
-      <button className="bigCategoryBtn list-group-item" onClick={toggle5} style={{ marginBottom: '1rem' }}>김치</button>
-      <Collapse isOpen={isOpen5}>
-      
-                 <Link to='/category/kimchi'>
-          <button
-            type='button'
-            value='김치'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('김치')}
-          >
-            김치
-          </button>
-          </Link>
+          <Collapse isOpen={isOpen5}>
+
             <Link to='/category/kimchi'>
-          <button
-            type='button'
-            value='젓갈'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('젓갈')}
-          >
-            젓갈
+              <button
+                type='button'
+                value='김치'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('김치')}
+              >
+                김치
+              </button>
+            </Link>
+            <Link to='/category/kimchi'>
+              <button
+                type='button'
+                value='젓갈'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('젓갈')}
+              >
+                젓갈
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }}/>
+
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle6}>조미료
           </button>
-           </Link>
-       
-      </Collapse>    
-      
-      <button className="bigCategoryBtn list-group-item" onClick={toggle6} style={{ marginBottom: '1rem' }}>조미료</button>
-      <Collapse isOpen={isOpen6}>
-       
-          <Link to='/category/con'>
-          <button
-            type='button'
-            value='설탕'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('설탕')}
-          >
-            설탕
+          <Collapse isOpen={isOpen6}>
+
+            <Link to='/category/con'>
+              <button
+                type='button'
+                value='설탕'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('설탕')}
+              >
+                설탕
+              </button>
+            </Link>
+            <Link to='/category/con'>
+              <button
+                type='button'
+                value='소금'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('소금')}
+              >
+                소금
+              </button>
+            </Link>
+            <Link to='/category/con'>
+              <button
+                type='button'
+                value='소스'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('소스')}
+              >
+                소스
+              </button>
+            </Link>
+            <Link to='/category/con'>
+              <button
+                type='button'
+                value='장류'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('장류')}
+              >
+                장류
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }}/>
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle7}>즉석조리식품
           </button>
-          </Link>
-          <Link to='/category/con'>
-          <button
-            type='button'
-            value='소금'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('소금')}
-          >
-            소금
+          <Collapse isOpen={isOpen7}>
+
+            <Link to='/category/mealKit'>
+              <button
+                type='button'
+                value='즉석조리식품'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('즉석조리식품')}
+              >
+                즉석조리식품
+              </button>
+            </Link>
+            <Link to='/category/mealKit'>
+              <button
+                type='button'
+                value='국수'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('국수')}
+              >
+                국수
+              </button>
+            </Link>
+            <Link to='/category/mealKit'>
+              <button
+                type='button'
+                value='두부'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('두부')}
+              >
+                두부
+              </button>
+            </Link>
+            <Link to='/category/mealKit'>
+              <button
+                type='button'
+                value='식용유'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('식용유')}
+              >
+                식용유
+              </button>
+            </Link>
+            <Link to='/category/mealKit'>
+              <button
+                type='button'
+                value='어묵'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('어묵')}
+              >
+                어묵
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }}/>
+
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle8}>기타
           </button>
-          </Link>
-          <Link to='/category/con'>
-          <button
-            type='button'
-            value='소스'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('소스')}
-          >
-            소스
-          </button>
-          </Link>
-          <Link to='/category/con'>
-          <button
-            type='button'
-            value='장류'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('장류')}
-          >
-            장류
-          </button>
-          </Link>
-      
-      </Collapse>
-      
-      <button className="bigCategoryBtn list-group-item" onClick={toggle7} style={{ marginBottom: '1rem' }}>즉석조리식품</button>
-      <Collapse isOpen={isOpen7}>
-       
-             <Link to='/category/mealKit'>
-          <button
-            type='button'
-            value='즉석조리식품'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('즉석조리식품')}
-          >
-            즉석조리식품
-          </button>
-          </Link>
-          <Link to='/category/mealKit'>
-          <button
-            type='button'
-            value='국수'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('국수')}
-          >
-            국수
-          </button>
-          </Link>
-          <Link to='/category/mealKit'>
-          <button
-            type='button'
-            value='두부'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('두부')}
-          >
-            두부
-          </button>
-          </Link>
-          <Link to='/category/mealKit'>
-          <button
-            type='button'
-            value='식용유'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('식용유')}
-          >
-            식용유
-          </button>
-          </Link>
-          <Link to='/category/mealKit'>
-          <button
-            type='button'
-            value='어묵'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('어묵')}
-          >
-            어묵
-          </button>
-          </Link>
-         
-      </Collapse>
-         
-      <button className="bigCategoryBtn list-group-item" onClick={toggle8} style={{ marginBottom: '1rem' }}>기타</button>
-      <Collapse isOpen={isOpen8}>
-       
+          <Collapse isOpen={isOpen8}>
+
             <Link to='/category/etc'>
-          <button
-            type='button'
-            value='기타가공품'
-            className='list-group-item list-group-item-action'
-            onClick={()=>handleCategory('기타가공품')}
-          >
-            기타가공품
-          </button>
-          </Link>
-   
-      </Collapse>    
+              <button
+                type='button'
+                value='기타가공품'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('기타가공품')}
+              >
+                기타가공품
+              </button>
+            </Link>
+
+          </Collapse>
         </div>
       </div>
       <div className='category__show'>
         <div className='category__line'>
-                <nav class='navbar  justify-content-between'>
-                <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
-                 <button className="category__btn" onClick={()=>getBigCategory(sort)}>간식</button>
-                 </p>
-                 <header className="item__header">
-         {searchTerm === null ? <input
-              placeholder='검색어를 입력하세요'
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-              type='search'
-              className='input'
-            /> :
-            <input
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-              type='search'
-              className='input'
-            />
-          }
-             <InputGroupAddon addonType='append'>
-               <Link to={{
-                 pathname:'/searchProduct/food',
-                 state:{
-                   searchTerm:searchTerm
-                 }
-               }} >
-            <button onClick={console.log("click")} className="searchBtn">
-              <RiSearch2Line size="40"></RiSearch2Line>
-            </button>
-            </Link>
-          </InputGroupAddon>
-         
-      </header>
-            
+          <nav class='navbar  justify-content-between'>
+            <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
+              <button className='category__btn' onClick={() => getBigCategory(sort)}>간식</button>
+            </p>
+            <header className='item__header'>
+              {searchTerm === null ? <input
+                  placeholder='검색어를 입력하세요'
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                  }}
+                  type='search'
+                  className='input'
+                /> :
+                <input
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                  }}
+                  type='search'
+                  className='input'
+                />
+              }
+              <InputGroupAddon addonType='append'>
+                <Link to={{
+                  pathname: '/searchProduct/food',
+                  state: {
+                    searchTerm: searchTerm,
+                  },
+                }}>
+                  <button onClick={console.log('click')} className='searchBtn'>
+                    <RiSearch2Line size='40'></RiSearch2Line>
+                  </button>
+                </Link>
+              </InputGroupAddon>
+
+            </header>
+
           </nav>
-           <hr></hr>
+          <hr></hr>
         </div>
         <div className='category__items'>
           <div className='item'>
@@ -562,24 +575,26 @@ const Snack = (props) => {
         </div>
         <div>
           <nav class='navbar navbar-light bg-light justify-content-between'>
-             <div className="result_allergy">
-            <AiOutlineFilter type="button"  onClick={handleAllergy} data-toggle="tooltip" data-placement="bottom" title="알레르기 필터 기능입니다."size="40"/>
-           <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
-            
+            <div className='result_allergy'>
+              <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                               title='알레르기 필터 기능입니다.' size='40' />
+              <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
+
             </div>
             <div className='form-check__group'>
               <div class='form-check'>
-                <input type='button' onClick={() => handleSort('ranking')} className={sort==="ranking"?"form-check-input checked":"form-check-input"} type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' value="category"/>
+                <input type='button' onClick={() => handleSort('ranking')}
+                       className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'} type='radio'
+                       name='flexRadioDefault' id='flexRadioDefault2' value='category' />
                 <label class='form-check-label' for='flexRadioDefault2'>
-                 <GiFruitBowl/>랭킹순
+                  <GiFruitBowl />랭킹순
                 </label>
               </div>
               <div class='form-check'>
                 <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
                 <label class='form-check-label' for='flexRadioDefault2'>
-                  <FaBuilding/>제조사
+                  <FaBuilding />제조사
                 </label>
               </div>
 
@@ -587,7 +602,7 @@ const Snack = (props) => {
                 <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
                        name='flexRadioDefault' id='flexRadioDefault2' />
                 <label class='form-check-label' for='flexRadioDefault2'>
-                  <HiEye/>리뷰순
+                  <HiEye />리뷰순
                 </label>
               </div>
             </div>
