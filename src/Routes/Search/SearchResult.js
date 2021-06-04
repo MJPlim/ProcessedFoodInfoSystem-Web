@@ -64,7 +64,7 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
                          pageClassName={'foodPage'}
                          activeClassName={'foodSelectedPage'}
                          onPageChange={onClickPage}
-                         initialPage={selectedPage - 1}
+                         forcePage={selectedPage - 1}
           /> :
           null}
 
