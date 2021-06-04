@@ -1,8 +1,8 @@
 import './CategoryStyle.scss';
-import { bigCategory, searchApi, getUserAllergyInfo } from '../../api';
+import { bigCategory, getUserAllergyInfo, searchApi } from '../../api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
+import { BsChevronRight, BsFillGridFill } from 'react-icons/bs';
 import { AiOutlineFilter } from 'react-icons/ai';
 import { RiSearch2Line } from 'react-icons/ri';
 import { FaBuilding } from 'react-icons/fa';
@@ -15,9 +15,8 @@ import 빵 from '../../image/categoryImg/snack/빵.png';
 import 젤리 from '../../image/categoryImg/snack/젤리.png';
 import 아이스크림 from '../../image/categoryImg/snack/아이스크림.png';
 import 초콜릿 from '../../image/categoryImg/snack/초콜릿.png';
-import {
-  InputGroupAddon, Collapse, Button, CardBody, Card,
-} from 'reactstrap';
+import { Collapse, InputGroupAddon } from 'reactstrap';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 
 
 const Snack = (props) => {
@@ -147,6 +146,12 @@ const Snack = (props) => {
       <div className='category__list'>
         <div className='item__category list-group category__list'>
           <button className='bigCategoryBtn list-group-item' color='primary' onClick={toggle1}>간식
+            <div style={{float: 'right'}}>
+              {!isOpen1 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen1}>
             <Link to='/category/snack'>
@@ -215,6 +220,13 @@ const Snack = (props) => {
           <div style={{ marginBottom: '1rem' }}/>
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle2}>음료/차
+            <div style={{float: 'right'}}>
+              {!isOpen2 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
+
           </button>
           <Collapse isOpen={isOpen2}>
             <Link to='/category/tea'>
@@ -251,6 +263,12 @@ const Snack = (props) => {
           <div style={{ marginBottom: '1rem' }}/>
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle3}>유제품
+            <div style={{float: 'right'}}>
+              {!isOpen3 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen3}>
 
@@ -270,6 +288,12 @@ const Snack = (props) => {
 
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle4} >농수산물
+            <div style={{float: 'right'}}>
+              {!isOpen4 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen4}>
 
@@ -338,6 +362,12 @@ const Snack = (props) => {
           <div style={{ marginBottom: '1rem' }}/>
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle5}>김치
+            <div style={{float: 'right'}}>
+              {!isOpen5 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen5}>
 
@@ -367,6 +397,12 @@ const Snack = (props) => {
 
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle6}>조미료
+            <div style={{float: 'right'}}>
+              {!isOpen6 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen6}>
 
@@ -415,6 +451,12 @@ const Snack = (props) => {
           <div style={{ marginBottom: '1rem' }}/>
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle7}>즉석조리식품
+            <div style={{float: 'right'}}>
+              {!isOpen7 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen7}>
 
@@ -474,6 +516,12 @@ const Snack = (props) => {
 
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle8}>기타
+            <div style={{float: 'right'}}>
+              {!isOpen8 ?
+                <IoIosArrowDown style={{marginLeft: 'auto', float: 'right' ,position:'absolute'}}/> :
+                <IoIosArrowUp style={{marginLeft: 'auto', position:'absolute'}}/>
+              }
+            </div>
           </button>
           <Collapse isOpen={isOpen8}>
 
