@@ -134,6 +134,7 @@ export default withRouter(({ location: { pathname } }) => (
             <NavLink className="links">
               <Link to="/searchProduct/food">상품찾기</Link>
             </NavLink>
+            
             <NavLink className="links">
               <Link to="/productRanking">제품랭킹</Link>
             </NavLink>

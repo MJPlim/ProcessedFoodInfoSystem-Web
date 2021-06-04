@@ -154,7 +154,7 @@ function MainScreen() {
               <p className="titleBar">카테고리</p>
             </Col>
           </Row>
-          <hr />
+          <hr/>
         <div className='category__items'>
           <div className='item'>
            <Link to="/category/snack">
