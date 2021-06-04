@@ -7,8 +7,15 @@ import {
   Col,
   Container,
   Input,
+  CardText,
+  Row,
+  Table,
+  Form,
+  FormGroup,
+  Label,
+  ButtonToggle,
 } from 'reactstrap';
-import './FindUserStyle.scss';
+import '../FindUser/FindEmailStyle.scss';
 import isEmail from 'validator/es/lib/isEmail';
 import axios from 'axios';
 import { findEmail } from 'api';
@@ -42,32 +49,24 @@ const FindEmail = () => {
   };
 
   return (
-    <div className="FindUser">
-      <Container>
-        <p className="title">이메일 조회</p>
+    <div className="findEmail">
+      <Container className="container">
+        <p className="title">이메일 찾기</p>
         <Card body>
-          <Col>
-            <CardTitle className="card-title">
-              아이디를 찾을 계정의 2차 메일을 입력해주세요.
-            </CardTitle>
-          </Col>
-          <Col md="6">
-            <Input
-              className="inputEmail"
-              type="email"
-              value={secondEmail}
-              onChange={onChange}
-              placeholder="이메일을 입력해주세요."
-            />
-          </Col>
-          <Col md="6">
-            {message != null ? <Alert color="danger">{message}</Alert> : null}
-          </Col>
-          <Col>
-            <Button onClick={emailSubmit} className="submitButton">
-              확인
-            </Button>
-          </Col>
+          <FormGroup>
+            <Label className="secondEmailInput">
+              <Input
+                type="email"
+                placeholder="2차 보안 이메일"
+                onChange={onChange}
+              />
+            </Label>
+            <Label>
+              <Button outline color="danger" onClick={emailSubmit}>
+                찾기
+              </Button>
+            </Label>
+          </FormGroup>
         </Card>
       </Container>
     </div>

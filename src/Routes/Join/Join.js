@@ -1,5 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Card, Col, Container, Row } from 'reactstrap';
+import {
+  Col,
+  Alert,
+  Container,
+  Button,
+  Card,
+  CardText,
+  Row,
+  Table,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  ButtonToggle,
+} from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { userJoin } from 'api';
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -7,7 +21,6 @@ import moment from 'moment/moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import '../FindUser/FindUserStyle.scss';
-
 
 function Join() {
   const [name, setName] = useState('');
@@ -81,76 +94,59 @@ function Join() {
   // };
 
   return (
-    <div className="FindUser">
-      <Container>
+    <div className="joinPage">
+      <Container className="container">
         <p className="title">회원가입</p>
-        <Card body>
-          <form>
-            <div class="form-group">
-              <label for="inputAddress">이름</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputAddress"
-                placeholder="이름을 입력하세요"
-                onChange={onNameChange}
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="exampleInputEmail1">이메일</label>
-              <input
+      </Container>
+      <Card body>
+        <Form>
+          <FormGroup>
+            <Label>
+              <Input type="text" placeholder="이름" onChange={onNameChange} />
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
                 type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                onChange={onEmailChange}
+                placeholder="아이디"
+                onChange={{ onEmailChange }}
               />
-              {/* <small id='emailHelp' class='form-text text-muted'>
-                We'll never share your email with anyone else.
-              </small> */}
-            </div>
-
-            <div class="form-group">
-              <label for="exampleInputPassword1">비밀번호</label>
-              <input
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
                 type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
+                placeholder="비밀번호"
                 onChange={onPasswordChange}
               />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="exampleInputPassword1">비밀번호 확인</label>
-              <input
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Input
                 type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Confirm Password"
+                placeholder="비밀번호 확인"
                 onChange={onConPasswordChange}
               />
-            </div>
-
-            {error.conPasswordError !== null && (
-              <Alert color={'danger'}>{error.conPasswordError} </Alert>
-            )}
-
-            <div class="form-group">
-              <label for="inputAddress">주소</label>
-              <input
+            </Label>
+          </FormGroup>
+          {error.conPasswordError !== null && (
+            <Alert color={'danger'}>{error.conPasswordError} </Alert>
+          )}
+          <FormGroup>
+            <Label>
+              <Input
                 type="text"
-                class="form-control"
-                id="inputAddress"
-                placeholder="ex)서울"
+                placeholder="주소"
                 onChange={onAddressChange}
               />
-            </div>
-
-            <div class="form-group">
-              <label for="inputBirth">생년월일</label>
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label for="inputBirth">
+              생년월일
               <Row className={'pickerRow'}>
                 <DatePicker
                   id="inputBirth"
@@ -166,13 +162,17 @@ function Join() {
                   locale="ko"
                 />
               </Row>
-            </div>
-          </form>
-          <button type="submit" class="btn btn-danger" onClick={register}>
-            회원가입
-          </button>
-        </Card>
-      </Container>
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              <Button outline color="danger" onClick={register}>
+                회원가입
+              </Button>
+            </Label>
+          </FormGroup>
+        </Form>
+      </Card>
     </div>
   );
 }

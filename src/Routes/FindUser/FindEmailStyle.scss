@@ -1,0 +1,17 @@
+@import './src/styles/utils';
+
+.findEmail {
+  width: 100%;
+  .title {
+    font-family: 'MPb';
+    font-size: 20px;
+    margin-bottom: 2%;
+  }
+  .container {
+    width: 27%;
+    height: 70%;
+  }
+  .secondEmailInput {
+    margin-right: 3%;
+  }
+}
