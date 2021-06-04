@@ -71,82 +71,89 @@ function MainScreen() {
     }
   };
 
+  const onClickCategory = e => {
+    sessionStorage.removeItem('categoryName');
+    sessionStorage.removeItem('selectedPage');
+
+
+  };
+
   return (
-    <div className="mainScreen">
+    <div className='mainScreen'>
       <br />
       <br />
       <Container>
         <Row>
-          <Col md="1">
-            <img className="productSet" src={productSet} />
+          <Col md='1'>
+            <img className='productSet' src={productSet} />
           </Col>
-          <Col md="11">
-            <p className="titleBar">카테고리</p>
+          <Col md='11'>
+            <p className='titleBar'>카테고리</p>
           </Col>
         </Row>
         <hr />
-        <div className="category__items">
-          <div className="item">
-            <Link to="/category/snack">
-              <img className="item__img" src={간식} />
+        <div className='category__items'>
+          <div className='item'>
+            <Link to='/category/snack'>
+              <img className='item__img' onClick={onClickCategory} src={간식} />
             </Link>
-            <p className="category__name">간식</p>
+            <p className='category__name'>간식</p>
           </div>
-          <div className="item">
-            <Link to="/category/tea">
-              <img className="item__img" src={차음료} />
+          <div className='item'>
+            <Link to='/category/tea' name={'차음료'}>
+              <img className='item__img' onClick={onClickCategory} src={차음료} />
             </Link>
-            <p className="category__name">차/음료</p>
+            <p className='category__name'>차/음료</p>
           </div>
-          <div className="item">
-            <Link to="/category/milk">
-              <img className="item__img" src={유제품} />
+          <div className='item'>
+            <Link to='/category/milk' name={'유제품'}>
+              <img className='item__img' onClick={onClickCategory} src={유제품} />
             </Link>
-            <p className="category__name">유제품</p>
+            <p className='category__name'>유제품</p>
           </div>
-          <div className="item">
-            <Link to="/category/food">
-              <img className="item__img" src={농수산물} />
+          <div className='item'>
+            <Link to='/category/food' name={'농수산물'}>
+              <img className='item__img' onClick={onClickCategory} src={농수산물} />
             </Link>
-            <p className="category__name">농수산물</p>
+            <p className='category__name'>농수산물</p>
           </div>
-          <div className="item">
-            <Link to="/category/condi">
-              <img className="item__img" src={조미료} />
+          <div className='item'>
+            <Link to='/category/condi' name={'조미료'}>
+              <img className='item__img' onClick={onClickCategory} src={조미료} />
             </Link>
-            <p className="category__name">조미료</p>
+            <p className='category__name'>조미료</p>
           </div>
-          <div className="item">
-            <Link to="/category/kimchi">
-              <img className="item__img" src={김치} />
+          <div className='item'>
+            <Link to='/category/kimchi' name={'김치'}>
+              <img className='item__img' onClick={onClickCategory} src={김치} />
             </Link>
-            <p className="category__name">김치</p>
+            <p className='category__name'>김치</p>
           </div>
-          <div className="item">
-            <Link to="/category/mealKit">
+          <div className='item'>
+            <Link to='/category/mealKit' name={'즉석조리식품'}>
               이미지못구함
-              <p className="category__name">즉석조리식품</p>
+              <p className='category__name' onClick={onClickCategory}>즉석조리식품</p>
             </Link>
           </div>
-          <div className="item">
-            <Link to="/category/etc">이미지못구함</Link>
-            <p className="category__name">기타가공품</p>
+          <div className='item'>
+            <Link to='/category/etc' name={'기타가공품'}>이미지못구함</Link>
+            <p className='category__name' onClick={onClickCategory}>기타가공품</p>
           </div>
         </div>
         <div>
           <Row>
-            <Col md="1">
-              <img className="productSet" src={productSet} />
+            <Col md='1'>
+              <img className='productSet' src={productSet} />
             </Col>
-            <Col md="11">
-              <p className="titleBar">광고 상품</p>
+            <Col md='11'>
+              <p className='titleBar'>광고 상품</p>
             </Col>
           </Row>
           <hr />
           {!adLoad && (
             // <div className="setUp">
             <div>
-              <div className="cardGroup">
+              <div className='cardGroup'>
                 <Row>
                   {ad.map((result) => (
                     <Col xs={'4'}>
@@ -158,12 +165,12 @@ function MainScreen() {
                           },
                         }}
                       >
-                        <Card className="eachAdCard">
-                          <CardBody className="adcardTop">
-                            <CardTitle tag="h5">
+                        <Card className='eachAdCard'>
+                          <CardBody className='adcardTop'>
+                            <CardTitle tag='h5'>
                               {result.food.foodName}
                             </CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
+                            <CardSubtitle tag='h6' className='mb-2 text-muted'>
                               {result.food.category.split('_')[0]}
                             </CardSubtitle>
                           </CardBody>
@@ -176,13 +183,13 @@ function MainScreen() {
                             }}
                           >
                             <img
-                              className="adImage"
-                              width="40%"
-                              height="40%"
+                              className='adImage'
+                              width='40%'
+                              height='40%'
                               src={result.food.foodImageAddress}
                             />
                           </Link>
-                          <CardBody className="showProps">
+                          <CardBody className='showProps'>
                             <CardText>
                               {result.food.manufacturerName.split('_')[0]}
                             </CardText>
@@ -199,21 +206,21 @@ function MainScreen() {
 
         <div>
           <Row>
-            <Col md="1">
-              <img className="productSet" src={productSet} />
+            <Col md='1'>
+              <img className='productSet' src={productSet} />
             </Col>
-            <Col md="11">
-              <p className="titleBar">인기 상품</p>
+            <Col md='11'>
+              <p className='titleBar'>인기 상품</p>
             </Col>
           </Row>
           <hr />
           {!loading && (
-            <div className="cardGroup">
+            <div className='cardGroup'>
               {product.map((item) => (
-                <Card className="eachCard">
-                  <CardBody className="cardTop">
-                    <CardTitle tag="h5">{item.foodName}</CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">
+                <Card className='eachCard'>
+                  <CardBody className='cardTop'>
+                    <CardTitle tag='h5'>{item.foodName}</CardTitle>
+                    <CardSubtitle tag='h6' className='mb-2 text-muted'>
                       {item.category}
                     </CardSubtitle>
                   </CardBody>
@@ -223,13 +230,13 @@ function MainScreen() {
                     }}
                   >
                     <img
-                      className="rankImage"
-                      width="40%"
-                      height="40%"
+                      className='rankImage'
+                      width='40%'
+                      height='40%'
                       src={item.foodImageAddress}
                     />
                   </Link>
-                  <CardBody className="showRankProps">
+                  <CardBody className='showRankProps'>
                     <CardText>별점: {drawStar(item.avgRating)}</CardText>
                   </CardBody>
                 </Card>

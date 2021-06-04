@@ -47,11 +47,11 @@ const Snack = (props) => {
   const [loading, setLoading] = useState(false);
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
-  const [categoryName, setCategoryName] = useState('');
+  const [categoryName, setCategoryName] = useState('간식');
   const [sort, setSort] = useState('ranking');
   const [order, setOrder] = useState('desc');
   const [allergyList, setAllergyList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
   const [pageSize, setPageSize] = useState(0);
   const [isSmallCategory, setIsSmallCategory] = useState(false);
 
@@ -61,7 +61,7 @@ const Snack = (props) => {
     setCategoryName('간식');
     if (sessionStorage.getItem('categoryName') === '간식' || sessionStorage.getItem('categoryName') === null) {
       console.log('대분류를 눌럿음');
-      getBigCategory(sort, 1);
+      getBigCategory(sort, currentPage);
     } else {
       setCategoryName(sessionStorage.getItem('categoryName'));
       console.log('이미 소분류를 눌럿엇음', categoryName);
@@ -72,13 +72,14 @@ const Snack = (props) => {
 
   }, []);
 
-  const getBigCategory = async (sort, pageNum) => {
+  const getBigCategory = async (sort, pageNum, state) => {
     setIsSmallCategory(false);
     setCategoryName('간식');
     sessionStorage.setItem('category', '간식');
 
     try {
-      setLoading(true);
+      state === 'init' && setLoading(true);
+
       const { data } = await bigCategory.gotoCategory('간식', pageNum, sort, 12);
       console.log('대분류 호출', data);
 
@@ -98,19 +99,22 @@ const Snack = (props) => {
   const handleSort = async (sortType) => {
     setSort(sortType);
     console.log(sort);
-    getSmallCategory();
+    getSmallCategory(currentPage);
   };
   const handleCategory = async (e) => {
+    sessionStorage.removeItem('selectedPage');
+    setCurrentPage(1);
     console.log('소분류 클릭');
     sessionStorage.setItem('categoryName', e);
     setCategoryName(e);
     setIsSmallCategory(true);
-    getSmallCategory(1);
+    // getSmallCategory(currentPage, 'init');
   };
 
-  const getSmallCategory = async (pageNum) => {
+  const getSmallCategory = async (pageNum, state) => {
     try {
-      setLoading(true);
+      state === 'init' && setLoading(true);
+
       const { data } = await searchApi.search(allergyList, categoryName, '', '', order, pageNum, 12, sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
@@ -128,10 +132,10 @@ const Snack = (props) => {
 
   useEffect(async () => {
     if (categoryName !== '간식') {
-      getSmallCategory(1);
+      getSmallCategory(currentPage, 'init');
     }
 
-  }, [categoryName, sort]);
+  }, [categoryName, sort, currentPage]);
 
   const handleAllergy = async () => {
     setAllergyLoading(true);
@@ -152,8 +156,15 @@ const Snack = (props) => {
 
   const onClickPage = async (pageNum) => {
     setCurrentPage(pageNum.selected + 1);
+    sessionStorage.setItem('selectedPage', pageNum.selected + 1);
+
     console.log('페이징 클릭 ', pageNum);
-    isSmallCategory ? getSmallCategory(pageNum.selected + 1) : getBigCategory(sort, pageNum.selected + 1);
+
+    if (categoryName !== '간식') {
+      // getSmallCategory(pageNum.selected + 1);
+    } else {
+      getBigCategory(sort, pageNum.selected + 1);
+    }
   };
   return (
     <div className='category__container'>
@@ -584,7 +595,9 @@ const Snack = (props) => {
                     searchTerm: searchTerm,
                   },
                 }}>
-                  <button onClick={console.log('click')} className='searchBtn'>
+                  <button onClick={() => {
+                    console.log('click');
+                  }} className='searchBtn'>
                     <RiSearch2Line size='40'></RiSearch2Line>
                   </button>
                 </Link>
@@ -671,7 +684,7 @@ const Snack = (props) => {
           </nav>
         </div>
         <SearchResult className='searchResult' loading={loading} result={result} sort={sort} pageSize={pageSize}
-                      onClickPage={(pageNum) => onClickPage(pageNum)} />
+                      onClickPage={(pageNum) => onClickPage(pageNum)} selectedPage={currentPage} />
       </div>
     </div>
   );
