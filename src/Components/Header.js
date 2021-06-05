@@ -135,6 +135,7 @@ export default withRouter(({ location: { pathname } }) => (
               <Link to="/searchProduct/food" onClick={() => {
                 sessionStorage.removeItem('selectedPage');
                 sessionStorage.removeItem('searchTerm');
+                sessionStorage.removeItem('selectedSort');
               }}>상품찾기</Link>
             </NavLink>
             

@@ -63,8 +63,8 @@ const SearchProductFood = (props) => {
   const [option, setOption] = useState('식품명');
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
-  const [sort, setSort] = useState('ranking');
-  const [order, setOrder] = useState('asc');
+  const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
+  const [order, setOrder] = useState('desc');
   const [allergyList, setAllergyList] = useState([]);
 
   // 검색 기록을 위한 state
@@ -121,7 +121,7 @@ const SearchProductFood = (props) => {
     console.log('페이지 바껴서 useEffect');
     getSearchResult(sessionStorage.getItem('searchTerm'));
 
-  }, [currentPage]);
+  }, [currentPage, sort]);
 
 
   const setting = () => {
@@ -144,7 +144,6 @@ const SearchProductFood = (props) => {
 
         // 이전 데이터 세션에서 불러왔을때 페이징 처리 어케해야할지.....
         // setResult(JSON.parse(sessionStorage.getItem('data')));
-        //
         // console.log('이전 검색 결과', JSON.parse(sessionStorage.getItem('data')));
       }
     }
@@ -194,8 +193,12 @@ const SearchProductFood = (props) => {
       setError('검색결과가 없습니다!');
     }
   };
-  const handleSort = () => {
-    console.log('asd');
+  const handleSort = async (sortType) => {
+    setSort(sortType);
+    setCurrentPage(1);
+    sessionStorage.removeItem('selectedPage');
+    sessionStorage.setItem('selectedSort', sortType);
+    console.log(sortType);
   };
 
   // 검색어 입력시 keywords에 추가
@@ -254,6 +257,8 @@ const SearchProductFood = (props) => {
 
   const handleCategory = async (e) => {
     sessionStorage.removeItem('selectedPage');
+    sessionStorage.removeItem('selectedSort');
+
     setCurrentPage(1);
     console.log('소분류 클릭');
     sessionStorage.setItem('categoryName', e);
@@ -733,26 +738,27 @@ const SearchProductFood = (props) => {
 
             </div>
             <div className='form-check__group'>
-              <div class='form-check'>
-                <input type='button' onClick={() => handleSort('ranking')}
-                       className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'} type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' value='category' />
-                <label class='form-check-label' for='flexRadioDefault2'>
+              <div className='form-check'>
+                <input type='radio' onClick={() => handleSort('ranking')}
+                       className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
+                       name='flexRadioDefault' id='flexRadioDefault2' value='category'
+                       checked={sort === 'ranking' && true} />
+                <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <GiFruitBowl />랭킹순
                 </label>
               </div>
-              <div class='form-check'>
-                <input type='button' onClick={() => handleSort('manufacturer')} class='form-check-input' type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' />
-                <label class='form-check-label' for='flexRadioDefault2'>
+              <div className='form-check'>
+                <input type='radio' onClick={() => handleSort('manufacturer')} className='form-check-input'
+                       name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'manufacturer' && true} />
+                <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <FaBuilding />제조사
                 </label>
               </div>
 
-              <div class='form-check'>
-                <input type='button' onClick={() => handleSort('reviewCount')} class='form-check-input' type='radio'
-                       name='flexRadioDefault' id='flexRadioDefault2' />
-                <label class='form-check-label' for='flexRadioDefault2'>
+              <div className='form-check'>
+                <input type='radio' onClick={() => handleSort('reviewCount')} className='form-check-input'
+                       name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'reviewCount' && true} />
+                <label className='form-check-label' htmlFor='flexRadioDefault2'>
                   <HiEye />리뷰순
                 </label>
               </div>

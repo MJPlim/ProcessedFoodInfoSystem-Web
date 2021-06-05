@@ -600,6 +600,10 @@ const Snack = (props) => {
                 }}>
                   <button onClick={() => {
                     console.log('click');
+                    sessionStorage.removeItem('selectedSort');
+                    sessionStorage.removeItem('selectedPage');
+
+
                   }} className='searchBtn'>
                     <RiSearch2Line size='40'></RiSearch2Line>
                   </button>
