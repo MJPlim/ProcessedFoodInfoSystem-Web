@@ -571,7 +571,14 @@ const Snack = (props) => {
         <div className='category__line'>
           <nav class='navbar  justify-content-between'>
             <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
-              <button className='category__btn' onClick={() => getBigCategory(sort, 1)}>간식</button>
+              <button className='category__btn' onClick={() => {
+                sessionStorage.removeItem('categoryName');
+                sessionStorage.removeItem('selectedPage');
+                sessionStorage.removeItem('selectedSort');
+                setCurrentPage(1);
+                getBigCategory(sort, 1);
+              }}>간식
+              </button>
             </p>
             <header className='item__header'>
               {searchTerm === null ? <input
