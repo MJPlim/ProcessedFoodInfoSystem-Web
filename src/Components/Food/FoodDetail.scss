@@ -51,10 +51,7 @@
     }
 
     .btnArea {
-      position: absolute;
-      bottom: 0;
-      width: 90%;
-      margin: auto;
+
 
       .newsButton, .linkButton {
         width: 100%;
@@ -85,9 +82,9 @@
         }
       }
 
-      @media screen and (max-width: 1200px) {
-        position: relative;
-      }
+      //@media screen and (max-width: 1200px) {
+      //  position: relative;
+      //}
     }
 
     @media screen and (max-width: 992px) {

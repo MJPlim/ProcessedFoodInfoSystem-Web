@@ -132,7 +132,10 @@ export default withRouter(({ location: { pathname } }) => (
         <Navbar bg="light" expand="lg" className="navigationGroup">
           <Nav className="mainLink">
             <NavLink className="links">
-              <Link to="/searchProduct/food">상품찾기</Link>
+              <Link to="/searchProduct/food" onClick={() => {
+                sessionStorage.removeItem('selectedPage');
+                sessionStorage.removeItem('searchTerm');
+              }}>상품찾기</Link>
             </NavLink>
             
             <NavLink className="links">

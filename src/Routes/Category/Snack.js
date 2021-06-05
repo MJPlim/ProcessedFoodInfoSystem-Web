@@ -55,7 +55,7 @@ const Snack = (props) => {
   const [pageSize, setPageSize] = useState(0);
   const [isSmallCategory, setIsSmallCategory] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
     console.log('마운트!');
     console.log(sort);
     setCategoryName('간식');
