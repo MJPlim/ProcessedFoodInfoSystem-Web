@@ -602,7 +602,7 @@ const Snack = (props) => {
                     console.log('click');
                     sessionStorage.removeItem('selectedSort');
                     sessionStorage.removeItem('selectedPage');
-
+                    sessionStorage.setItem('searchTerm', searchTerm);
 
                   }} className='searchBtn'>
                     <RiSearch2Line size='40'></RiSearch2Line>
