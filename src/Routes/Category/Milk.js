@@ -9,12 +9,7 @@ import { FaBuilding } from 'react-icons/fa';
 import { HiEye } from 'react-icons/hi';
 import { GiFruitBowl } from 'react-icons/gi';
 import SearchResult from '../Search/SearchResult';
-import 과자 from '../../image/categoryImg/snack/과자.png';
-import 떡 from '../../image/categoryImg/snack/떡.png';
-import 빵 from '../../image/categoryImg/snack/빵.png';
-import 젤리 from '../../image/categoryImg/snack/젤리.png';
-import 아이스크림 from '../../image/categoryImg/snack/아이스크림.png';
-import 초콜릿 from '../../image/categoryImg/snack/초콜릿.png';
+import 유제품 from '../../image/categoryImg/milk/유제품.png';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 
@@ -624,41 +619,10 @@ const Milk = (props) => {
         </div>
         <div className='category__items'>
           <div className='item'>
-            <button value='과자' onClick={() => handleCategory('과자')} className='category__item'>
-              <img className='item__img' src={과자} />
+            <button value='유제품' onClick={() => handleCategory('유제품')} className='category__item'>
+              <img className='item__img' src={유제품} />
             </button>
-            <p className='category__name'>과자</p>
-          </div>
-          <div className='item'>
-            <button value='사탕/껌/젤리' onClick={() => handleCategory('젤리')} className='category__item'>
-              <img className='item__img' src={젤리} />
-            </button>
-            <p className='category__name'>사탕/껌/젤리</p>
-          </div>
-          <div className='item'>
-            <button value='떡' onClick={() => handleCategory('떡')} className='category__item'>
-              <img className='item__img' src={떡} />
-            </button>
-            <p className='category__name'>떡</p>
-          </div>
-          <div className='item'>
-            <button value='빵' onClick={() => handleCategory('빵')} className='category__item'>
-              <img className='item__img' src={빵} />
-            </button>
-            <p className='category__name'>빵</p>
-          </div>
-          <div className='item'>
-            <button value='아이스크림' onClick={() => handleCategory('아이스크림')} className='category__item'>
-              <img className='item__img' src={아이스크림} />
-            </button>
-
-            <p className='category__name'>아이스크림</p>
-          </div>
-          <div className='item'>
-            <button value='초콜릿' onClick={() => handleCategory('초콜릿')} className='category__item'>
-              <img className='item__img' src={초콜릿} />
-            </button>
-            <p className='category__name'>초콜릿</p>
+            <p className='category__name'>유제품</p>
           </div>
 
         </div>
