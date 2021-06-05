@@ -1,7 +1,7 @@
 .category__container {
   display: grid;
   font-family: 'MPl';
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 4fr;
   align-items: flex-start;
   padding: 2%;
   padding-right: 5%;
@@ -57,14 +57,25 @@
 
       .item__header {
         display: flex;
+        align-items: center;
+        .dropdown{
+          border: 0;
+          outline: 0;
+          background-color: white;
+          border-radius: 0%;
+        }
+        .dropdown-toggle{
+          background-color: #ed2f3b;
+           border-radius: 0%;
+           height: 35px;
+        }
 
         .input {
-          border: 0;
           text-align: center;
           margin-top: 2px;
           font-size: x-large;
           display: flex;
-          border-bottom: 3px solid #ed2f3b;
+          border: 3px solid #ed2f3b;
         }
 
         .input::placeholder {

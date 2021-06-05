@@ -20,8 +20,11 @@ import 광고1 from '../../image/ad/광고1.jpg';
 import 광고2 from '../../image/ad/광고2.jpg';
 import 광고3 from '../../image/ad/광고3.jpg';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
-
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 const SearchProductFood = (props) => {
+  //드롭다운
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen(prevState => !prevState);
   //광고 이미지
   const items = [
     {
@@ -129,6 +132,7 @@ const SearchProductFood = (props) => {
     if (props.location.state !== undefined) {
       console.log(props.location.state.searchTerm);
       setSearchTerm(props.location.state.searchTerm);
+      setOption(props.location.state.option);
       console.log('전달된 값', searchTerm);
       getSearchResult(props.location.state.searchTerm);
       props.location.state = undefined;
@@ -684,6 +688,16 @@ const SearchProductFood = (props) => {
               </Link>
             </p>
             <header className='item__header'>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle caret>
+                    {option}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={()=>setOption("식품명")}>식품명</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem onClick={()=>setOption("제조사명")}>제조사명</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               {searchTerm === null ? <input
                   placeholder='검색어를 입력하세요'
                   onChange={(e) => {

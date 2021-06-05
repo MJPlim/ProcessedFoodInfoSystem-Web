@@ -17,9 +17,15 @@ import 아이스크림 from '../../image/categoryImg/snack/아이스크림.png';
 import 초콜릿 from '../../image/categoryImg/snack/초콜릿.png';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 
 const Snack = (props) => {
+
+  //드롭다운
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const [option,setOption]=useState("식품명");
 
   const [isOpen1, setIsOpen1] = useState(false);
   const toggle1 = () => setIsOpen1(!isOpen1);
@@ -581,6 +587,16 @@ const Snack = (props) => {
               </button>
             </p>
             <header className='item__header'>
+               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                    <DropdownToggle caret className="toggle__title">
+                      {option}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={()=>setOption("식품명")}>식품명</DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem onClick={()=>setOption("제조사명")}>제조사명</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
               {searchTerm === null ? <input
                   placeholder='검색어를 입력하세요'
                   onChange={(e) => {
@@ -603,6 +619,7 @@ const Snack = (props) => {
                   pathname: '/searchProduct/food',
                   state: {
                     searchTerm: searchTerm,
+                    option:option
                   },
                 }}>
                   <button onClick={() => {
