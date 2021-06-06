@@ -75,6 +75,8 @@ function MainScreen() {
     sessionStorage.removeItem('categoryName');
     sessionStorage.removeItem('selectedPage');
     sessionStorage.removeItem('selectedSort');
+    sessionStorage.removeItem('selectedOption');
+
 
   };
 

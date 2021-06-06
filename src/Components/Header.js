@@ -136,6 +136,8 @@ export default withRouter(({ location: { pathname } }) => (
                 sessionStorage.removeItem('selectedPage');
                 sessionStorage.removeItem('searchTerm');
                 sessionStorage.removeItem('selectedSort');
+                sessionStorage.removeItem('selectedOption');
+
               }}>상품찾기</Link>
             </NavLink>
             

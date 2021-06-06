@@ -21,6 +21,7 @@ import 광고2 from '../../image/ad/광고2.jpg';
 import 광고3 from '../../image/ad/광고3.jpg';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
 const SearchProductFood = (props) => {
   //드롭다운
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -63,7 +64,7 @@ const SearchProductFood = (props) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   //옵션 선택
-  const [option, setOption] = useState('식품명');
+  const [option, setOption] = useState(sessionStorage.getItem('selectedOption') === '제조사명' ? '제조사명' : '식품명');
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
@@ -186,6 +187,7 @@ const SearchProductFood = (props) => {
   //검색버튼 누를때
   const handleSubmit = () => {
     sessionStorage.removeItem('selectedPage');
+    sessionStorage.setItem('selectedOption', option);
     setCurrentPage(1);
     console.log('체크된 알러지', allergyList);
     if (searchTerm !== null && searchTerm.length !== 0) {
@@ -262,6 +264,8 @@ const SearchProductFood = (props) => {
   const handleCategory = async (e) => {
     sessionStorage.removeItem('selectedPage');
     sessionStorage.removeItem('selectedSort');
+    sessionStorage.setItem('selectedOption', option);
+
 
     setCurrentPage(1);
     console.log('소분류 클릭');
@@ -683,21 +687,27 @@ const SearchProductFood = (props) => {
                 <button className='category__btn' onClick={() => {
                   sessionStorage.removeItem('selectedPage');
                   sessionStorage.removeItem('searchTerm');
+                  sessionStorage.removeItem('selectedOption');
+
                 }}>상품찾기
                 </button>
               </Link>
             </p>
             <header className='item__header'>
               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                  <DropdownToggle caret>
-                    {option}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem onClick={()=>setOption("식품명")}>식품명</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem onClick={()=>setOption("제조사명")}>제조사명</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                <DropdownToggle caret>
+                  {option}
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => {
+                    setOption('식품명');
+                  }}>식품명</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => {
+                    setOption('제조사명');
+                  }}>제조사명</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
               {searchTerm === null ? <input
                   placeholder='검색어를 입력하세요'
                   onChange={(e) => {
