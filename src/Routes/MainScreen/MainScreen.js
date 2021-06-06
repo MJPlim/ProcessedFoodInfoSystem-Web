@@ -72,6 +72,7 @@ function MainScreen() {
   };
 
   const onClickCategory = e => {
+    // 새로운 메뉴 진입시 검색 관련 세션 초기화
     sessionStorage.removeItem('categoryName');
     sessionStorage.removeItem('selectedPage');
     sessionStorage.removeItem('selectedSort');

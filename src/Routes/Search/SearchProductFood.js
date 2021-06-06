@@ -63,10 +63,11 @@ const SearchProductFood = (props) => {
   const [totalResult, setTotalResult] = useState(0);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  //옵션 선택
+  //옵션 선택, 세션 스토리지에 이전에 선택한 옵션 기록이 있으면 해당 옵션 받아옴(뒤로가기를 위해서)
   const [option, setOption] = useState(sessionStorage.getItem('selectedOption') === '제조사명' ? '제조사명' : '식품명');
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
+  //  세션 스토리지에 이전에 선택한 Sort 기록이 있으면 해당 옵션 받아옴(뒤로가기를 위해서)
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
   const [allergyList, setAllergyList] = useState([]);
@@ -117,10 +118,18 @@ const SearchProductFood = (props) => {
   });
   useEffect(() => {
     console.log('setting 부분 마운트');
+
     setting();
   }, []);
 
+  useEffect(() => {
+    //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
+    localStorage.setItem('keywordsFoodForName', JSON.stringify(foodKeywords));
+    localStorage.setItem('keywordsFoodForBssh', JSON.stringify(bsshKeywords));
+  }, [foodKeywords, bsshKeywords]);
 
+
+  // 뒤로 가기시 이쪽이 실행되면서 검색 결과 다시 받아옴
   useEffect(() => {
     console.log('페이지 바껴서 useEffect');
     getSearchResult(sessionStorage.getItem('searchTerm'));
@@ -138,20 +147,21 @@ const SearchProductFood = (props) => {
       getSearchResult(props.location.state.searchTerm);
       props.location.state = undefined;
 
-    } else {
-      if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
-        //array 타입을 string형태로 바꾸기 위해 json.stringfy를 사용한다.
-        localStorage.setItem('keywordsFoodForName', JSON.stringify(foodKeywords));
-        localStorage.setItem('keywordsFoodForBssh', JSON.stringify(bsshKeywords));
+    }
+    // 이전 데이터 세션에서 불러왔을때 페이징 처리 어케해야할지.....
+    // else {
+    //   if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
 
-        setSearchTerm(sessionStorage.getItem('searchTerm'));
-        console.log('이전 검색어: ', searchTerm);
 
-        // 이전 데이터 세션에서 불러왔을때 페이징 처리 어케해야할지.....
+        // 뒤로가기 시 이전 검색 단어 데이터를 세션에서 불러옴
+        // setSearchTerm(sessionStorage.getItem('searchTerm'));
+        // console.log('이전 검색어: ', searchTerm);
+
+
         // setResult(JSON.parse(sessionStorage.getItem('data')));
         // console.log('이전 검색 결과', JSON.parse(sessionStorage.getItem('data')));
-      }
-    }
+      // }
+    // }
   };
 
   const getSearchResult = async (term) => {
@@ -163,8 +173,9 @@ const SearchProductFood = (props) => {
         setPageSize(data.total_page);
 
         console.log('결과', data.data);
-        sessionStorage.setItem('data', JSON.stringify(data.data));
-        sessionStorage.setItem('pageSize', data.total_page);
+        // 세션에서 검색결과 불러오는 건 아직 못하겠음 ㅜ
+        // sessionStorage.setItem('data', JSON.stringify(data.data));
+        // sessionStorage.setItem('pageSize', data.total_page);
         setResult(data.data);
 
       } else {
@@ -173,7 +184,8 @@ const SearchProductFood = (props) => {
         setPageSize(data.total_page);
 
         console.log('결과', data.data);
-        sessionStorage.setItem('data', JSON.stringify(data.data));
+        // 세션에서 검색결과 불러오는 건 아직 못하겠음 ㅜ
+        // sessionStorage.setItem('data', JSON.stringify(data.data));
         setResult(data.data);
       }
 
@@ -186,11 +198,14 @@ const SearchProductFood = (props) => {
 
   //검색버튼 누를때
   const handleSubmit = () => {
+    // 새로운 검색단어 입력시 페이지 초기화
     sessionStorage.removeItem('selectedPage');
+    // 새로운 검색단어 입력시 옵션 다시 저장
     sessionStorage.setItem('selectedOption', option);
     setCurrentPage(1);
     console.log('체크된 알러지', allergyList);
     if (searchTerm !== null && searchTerm.length !== 0) {
+      // 새로운 검색단어 검색어 새로 저장
       sessionStorage.setItem('searchTerm', searchTerm);
       getSearchResult(searchTerm);
       handleAddKeyword();
@@ -201,9 +216,10 @@ const SearchProductFood = (props) => {
   };
   const handleSort = async (sortType) => {
     setSort(sortType);
-    setCurrentPage(1);
-    sessionStorage.removeItem('selectedPage');
-    sessionStorage.setItem('selectedSort', sortType);
+    // 새로운 소트 변경시
+    setCurrentPage(1);  // 페이지 초기화
+    sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+    sessionStorage.setItem('selectedSort', sortType); // 소트 새로 서장
     console.log(sortType);
   };
 
@@ -262,13 +278,14 @@ const SearchProductFood = (props) => {
   };
 
   const handleCategory = async (e) => {
+    // 카테고리 선택시 기존에 검새관련 옵션 초기화
     sessionStorage.removeItem('selectedPage');
-    sessionStorage.removeItem('selectedSort');
-    sessionStorage.setItem('selectedOption', option);
-
-
     setCurrentPage(1);
+    sessionStorage.removeItem('selectedSort');
+    sessionStorage.setItem('selectedOption', option); // 옵션은 유지할지 말지
+
     console.log('소분류 클릭');
+    // 클릭한 카테고리 이름 세션에 추가
     sessionStorage.setItem('categoryName', e);
     // getSmallCategory(currentPage, 'init');
   };
