@@ -4,6 +4,7 @@ import './SearchResultStyle.scss';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Col } from 'reactstrap';
 import ReactPaginate from 'react-paginate';
+import StarRatings from 'react-star-ratings';
 
 const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) => {
   const [page, setPage] = useState(selectedPage - 1);
@@ -35,6 +36,8 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
           size='20' /><AiOutlineStar size='20' /><AiOutlineStar size='20' /></div>;
     }
   };
+
+
   return (
     <div className='result'>
       {loading ? <div>Loading...</div> :
@@ -46,7 +49,12 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
                   <img className='foodImg' src={result.foodImageAddress} />
                   <h5 className='card-title'>{result.foodName}</h5>
                   <p className='card-text'>{(result.manufacturerName).split('_')[0]}</p>
-                  <div>{drawStar(result.reviewRate)}</div>
+                  <StarRatings
+                    rating={parseFloat(result.reviewRate)}
+                    starDimension='20px'
+                    starSpacing='0'
+                    starRatedColor={'#facd89'}
+                  />
                 </Link>
               </div>
 
