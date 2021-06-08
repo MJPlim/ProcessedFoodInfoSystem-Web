@@ -692,9 +692,7 @@ const Snack = (props) => {
 
           <nav className='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>
-              {categoryName !== '간식' &&
-              <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40' />}
+              {/*{categoryName !== '간식' &&*/}
 
 
               <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
@@ -702,7 +700,10 @@ const Snack = (props) => {
             </div>
             {categoryName !== '간식' &&
             <div className='form-check__group'>
-              <div className='form-check'>
+                <AiOutlineFilter className={'filterIcon'} type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                title='알레르기 필터 기능입니다.' size='40' />
+
+                <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
                        name='flexRadioDefault' id='flexRadioDefault2' value='category'
