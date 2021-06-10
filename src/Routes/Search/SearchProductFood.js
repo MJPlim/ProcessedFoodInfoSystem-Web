@@ -58,12 +58,13 @@ const SearchProductFood = (props) => {
   const toggle10 = () => setIsOpen10(!isOpen10);
 
   //정렬부분
-  const [allergyCheck,setAllergyCheck]=useState(false);
+  const [allergyCheck, setAllergyCheck] = useState(false);
   // const [isChecked2,setCheck2]=useState(false);
   // const [isChecked3,setCheck3]=useState(false);
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
+  const [allergyList, setAllergyList] = useState(sessionStorage.getItem('allergyList') != null ? JSON.parse(sessionStorage.getItem('allergyList')) : []);
 
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
@@ -76,7 +77,6 @@ const SearchProductFood = (props) => {
   //  세션 스토리지에 이전에 선택한 Sort 기록이 있으면 해당 옵션 받아옴(뒤로가기를 위해서)
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
-  const [allergyList, setAllergyList] = useState([]);
 
   // 검색 기록을 위한 state
   const [foodKeywords, setFoodKeywords] = useState(
@@ -124,7 +124,7 @@ const SearchProductFood = (props) => {
   });
   useEffect(() => {
     console.log('setting 부분 마운트');
-   
+
     setting();
   }, []);
 
@@ -135,25 +135,24 @@ const SearchProductFood = (props) => {
   }, [foodKeywords, bsshKeywords]);
 
 
-  // 뒤로 가기시 이쪽이 실행되면서 검색 결과 다시 받아옴
   useEffect(() => {
-    console.log('페이지 바껴서 useEffect');
+    console.log('정보 가져오는 기준 변경 시 useEffect');
     getSearchResult(sessionStorage.getItem('searchTerm'));
-    
-  }, [currentPage, sort]);
+  }, [currentPage, sort, allergyList]);
 
-  useEffect(()=>{
-   handleAllergyCheck();
-  },[]);
+  useEffect(() => {
+    handleAllergyCheck();
+  }, []);
 
- const handleAllergyCheck=()=>{
-    setAllergyCheck(sessionStorage.getItem("allergyCheck") === 'true');
-   console.log(sessionStorage.getItem("allergyCheck"));
-    console.log('allergyCheck: ',allergyCheck);
- }
+  const handleAllergyCheck = () => {
+    // 첫 렌더링 시 알러지 체크 확인
+    setAllergyCheck(sessionStorage.getItem('allergyCheck') === 'true');
+    console.log(sessionStorage.getItem('allergyCheck'));
+    console.log('allergyCheck: ', allergyCheck);
+  };
 
   const setting = () => {
-    
+
     if (props.location.state !== undefined) {
       console.log(props.location.state.searchTerm);
       setSearchTerm(props.location.state.searchTerm);
@@ -168,14 +167,14 @@ const SearchProductFood = (props) => {
     //   if (sessionStorage.getItem('searchTerm') && sessionStorage.getItem('data')) {
 
 
-        // 뒤로가기 시 이전 검색 단어 데이터를 세션에서 불러옴
-        // setSearchTerm(sessionStorage.getItem('searchTerm'));
-        // console.log('이전 검색어: ', searchTerm);
+    // 뒤로가기 시 이전 검색 단어 데이터를 세션에서 불러옴
+    // setSearchTerm(sessionStorage.getItem('searchTerm'));
+    // console.log('이전 검색어: ', searchTerm);
 
 
-        // setResult(JSON.parse(sessionStorage.getItem('data')));
-        // console.log('이전 검색 결과', JSON.parse(sessionStorage.getItem('data')));
-      // }
+    // setResult(JSON.parse(sessionStorage.getItem('data')));
+    // console.log('이전 검색 결과', JSON.parse(sessionStorage.getItem('data')));
+    // }
     // }
   };
 
@@ -183,8 +182,9 @@ const SearchProductFood = (props) => {
     try {
 
       if (option === '식품명') {
-        console.log("알러지이이",allergyList);
-        const { data } = await searchApi.search(allergyList, '', term, '', order, currentPage, 12, sort);
+        console.log('알러지이이', allergyList);
+        // api쪽에서 join써서 null이면 빈 배열로 줘야함
+        const { data } = await searchApi.search(allergyList !== null ? allergyList : [], '', term, '', order, currentPage, 12, sort);
         setTotalResult(data.total_elements);
         setPageSize(data.total_page);
 
@@ -195,7 +195,7 @@ const SearchProductFood = (props) => {
         setResult(data.data);
 
       } else {
-        const { data } = await searchApi.search(allergyList, '', '', term, order, currentPage, 12, sort);
+        const { data } = await searchApi.search(allergyList !== null ? allergyList : [], '', '', term, order, currentPage, 12, sort);
         setTotalResult(data.total_elements);
         setPageSize(data.total_page);
 
@@ -207,6 +207,7 @@ const SearchProductFood = (props) => {
 
     } catch (e) {
       setError(e);
+      console.log('결과 불러오기 에러', e);
     } finally {
       setLoading(false);
     }
@@ -214,7 +215,7 @@ const SearchProductFood = (props) => {
 
   //검색버튼 누를때
   const handleSubmit = () => {
-    console.log("handlesubmit!!!!");
+    console.log('handlesubmit!!!!');
     // 새로운 검색단어 입력시 페이지 초기화
     sessionStorage.removeItem('selectedPage');
     // 새로운 검색단어 입력시 옵션 다시 저장
@@ -278,37 +279,39 @@ const SearchProductFood = (props) => {
 
   };
   const handleAllergy = async () => {
-    if(allergyCheck){//이미 체크 상태
+    if (allergyCheck) {//이미 체크 상태
       setAllergyCheck(false);
-      console.log("체크1");
+      console.log('체크1');
       setAllergyList(null);
-      getSearchResult(searchTerm);
-      sessionStorage.setItem("allergyCheck", false);
-      handleSubmit();
-    }else{//체크 안된 상태엿다면
+      // 알러지 체크 해제시 세션값 변경
+      sessionStorage.setItem('allergyCheck', false);
+      sessionStorage.setItem('allergyList', null);
+      setCurrentPage(1);  // 페이지 초기화
+      sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+    } else {//체크 안된 상태엿다면
       setAllergyLoading(true);
-      
-    await getUserAllergyInfo
-      .userAllergies()
-      .then((response) => {
-        const result = response.data.userAllergyMaterials;
-        console.log('알러지', result);
-        for(let i=0;i<result.length;i++){
-            allergyList[i]=result[i];
-        }
-       
-        alert(result);
-        setAllergyCheck(true);
-        sessionStorage.setItem("allergyCheck",true);
-        console.log("체크1");
-        getSearchResult(searchTerm);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-      
+
+      await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          console.log('알러지', result);
+          alert(response.data.userAllergyMaterials);
+          setAllergyList(response.data.userAllergyMaterials);
+
+          setAllergyCheck(true);
+          // 알러지 체크 해제시 세션값 변경 sessionStorage에서 배열 쓰려면 JSON.stringify로 써야하는듯
+          sessionStorage.setItem('allergyCheck', true);
+          sessionStorage.setItem('allergyList', JSON.stringify(response.data.userAllergyMaterials));
+          setCurrentPage(1);  // 페이지 초기화
+          sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+        })
+        .catch((error) => {
+          console.log(error.response);
+          alert(error.response.data['error-message']);
+        });
+
     }
-    
+
   };
 
   const handleCategory = async (e) => {
@@ -331,7 +334,6 @@ const SearchProductFood = (props) => {
     console.log('페이징 클릭 ', pageNum);
 
   };
-
 
 
   return (
@@ -479,7 +481,7 @@ const SearchProductFood = (props) => {
           </Collapse>
           <div style={{ marginBottom: '1rem' }} />
 
-           <button className='bigCategoryBtn list-group-item' onClick={toggle9}>육류
+          <button className='bigCategoryBtn list-group-item' onClick={toggle9}>육류
             <div style={{ float: 'right' }}>
               {!isOpen9 ?
                 <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
@@ -513,7 +515,7 @@ const SearchProductFood = (props) => {
           </Collapse>
           <div style={{ marginBottom: '1rem' }} />
 
-            <button className='bigCategoryBtn list-group-item' onClick={toggle10}>식재료
+          <button className='bigCategoryBtn list-group-item' onClick={toggle10}>식재료
             <div style={{ float: 'right' }}>
               {!isOpen10 ?
                 <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
@@ -544,7 +546,7 @@ const SearchProductFood = (props) => {
               </button>
             </Link>
 
-              <Link to='/category/material'>
+            <Link to='/category/material'>
               <button
                 type='button'
                 value='식용유'
@@ -555,7 +557,7 @@ const SearchProductFood = (props) => {
               </button>
             </Link>
 
-              <Link to='/category/material'>
+            <Link to='/category/material'>
               <button
                 type='button'
                 value='어묵'
@@ -865,27 +867,27 @@ const SearchProductFood = (props) => {
             <div className='form-check__group'>
 
               {allergyCheck === true ?
-                  <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40' 
-                               style={{color:'red'}}/>:
-                  <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40'style={{color:'black'}} />
-            }
-            
+                <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                                 title='알레르기 필터 기능입니다.' size='40'
+                                 style={{ color: 'red' }} /> :
+                <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                                 title='알레르기 필터 기능입니다.' size='40' style={{ color: 'black' }} />
+              }
+
               <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
                        name='flexRadioDefault' id='flexRadioDefault2' value='category'
                        checked={sort === 'ranking' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
-                 랭킹순
+                  랭킹순
                 </label>
               </div>
               <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('manufacturer')} className='form-check-input'
                        name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'manufacturer' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
-                 제조사
+                  제조사
                 </label>
               </div>
 
@@ -893,7 +895,7 @@ const SearchProductFood = (props) => {
                 <input type='radio' onClick={() => handleSort('reviewCount')} className='form-check-input'
                        name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'reviewCount' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
-                 리뷰순
+                  리뷰순
                 </label>
               </div>
             </div>
