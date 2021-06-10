@@ -37,6 +37,8 @@ import Footer from './Footer';
 
 import SNACK from '../Routes/Category/Snack';
 import MILK from '../Routes/Category/Milk';
+import MEAT from '../Routes/Category/Meat';
+import MATERIAL from '../Routes/Category/Material';
 import TEA from '../Routes/Category/Tea';
 import FOOD from '../Routes/Category/Food';
 import KIMCHI from '../Routes/Category/Kimchi';
@@ -80,6 +82,8 @@ export default () => (
         <Route path="/category/con" exact component={CON} />
         <Route path="/category/mealKit" exact component={MKIT} />
         <Route path="/category/etc" exact component={ETC} />
+        <Route path="/category/material" exact component={MATERIAL} />
+        <Route path="/category/meat" exact component={MEAT} />
 
         {/* url잘못치면 메인으로 */}
         <Redirect from="*" to="/" />
