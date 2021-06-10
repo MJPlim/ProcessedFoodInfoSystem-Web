@@ -16,8 +16,8 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import 광고1 from '../../image/ad/광고1.jpg';
-import 광고2 from '../../image/ad/광고2.jpg';
+import 광고1 from '../../image/ad/광고1.png';
+import 광고2 from '../../image/ad/광고2.png';
 import 광고3 from '../../image/ad/광고3.jpg';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -59,6 +59,11 @@ const SearchProductFood = (props) => {
   const toggle9 = () => setIsOpen9(!isOpen9);
   const [isOpen10, setIsOpen10] = useState(false);
   const toggle10 = () => setIsOpen10(!isOpen10);
+
+  //정렬부분
+  const [allergyCheck,setAllergyCheck]=useState(false);
+  // const [isChecked2,setCheck2]=useState(false);
+  // const [isChecked3,setCheck3]=useState(false);
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
@@ -122,7 +127,7 @@ const SearchProductFood = (props) => {
   });
   useEffect(() => {
     console.log('setting 부분 마운트');
-
+   
     setting();
   }, []);
 
@@ -137,12 +142,20 @@ const SearchProductFood = (props) => {
   useEffect(() => {
     console.log('페이지 바껴서 useEffect');
     getSearchResult(sessionStorage.getItem('searchTerm'));
-
+    
   }, [currentPage, sort]);
 
+  useEffect(()=>{
+   handleAllergyCheck();
+  },[]);
+
+ const handleAllergyCheck=()=>{
+    setAllergyCheck(sessionStorage.getItem("allergyCheck"));
+    console.log('allergyCheck: ',allergyCheck);
+ }
 
   const setting = () => {
-
+    
     if (props.location.state !== undefined) {
       console.log(props.location.state.searchTerm);
       setSearchTerm(props.location.state.searchTerm);
@@ -265,7 +278,13 @@ const SearchProductFood = (props) => {
 
   };
   const handleAllergy = async () => {
-    setAllergyLoading(true);
+    if(allergyCheck){//이미 체크 상태
+      setAllergyCheck(false);
+      sessionStorage.setItem("allergyCheck",false);
+      handleSubmit();
+    }else{//체크 안된 상태엿다면
+      setAllergyLoading(true);
+      
     await getUserAllergyInfo
       .userAllergies()
       .then((response) => {
@@ -273,12 +292,16 @@ const SearchProductFood = (props) => {
         console.log('알러지', result);
         setAllergyList(result);
         alert(result);
-
+        setAllergyCheck(true);
+        sessionStorage.setItem("allergyCheck",true);
+        handleSubmit();
       })
       .catch((error) => {
         alert('로그인을 하세요');
       });
-
+      
+    }
+    
   };
 
   const handleCategory = async (e) => {
@@ -301,6 +324,8 @@ const SearchProductFood = (props) => {
     console.log('페이징 클릭 ', pageNum);
 
   };
+
+
 
   return (
     <div className='category__container'>
@@ -831,8 +856,14 @@ const SearchProductFood = (props) => {
 
             </div>
             <div className='form-check__group'>
-              <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40' />
+              {allergyCheck?
+                  <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                               title='알레르기 필터 기능입니다.' size='40' 
+                               style={{color:'red'}}/>:
+                  <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                               title='알레르기 필터 기능입니다.' size='40'style={{color:'black'}} />
+            }
+            
               <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
