@@ -4,34 +4,38 @@
   .result__container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-
     align-items: center;
-    gap: 60px 20px;
+    gap: 60px 0px;
 
     .card-body {
-      height: 270px;
+      height: 300px;
       align-items: center;
       justify-items: center;
-      margin-bottom: 30px;
-
+      margin: 0px;
+ 
+     display: grid;
+     grid-template-rows: 3fr 1fr 1fr;
+      border-bottom: 1px solid rgba(238, 238, 238, 1);
       .card-link {
         padding: 2%;
         display: grid;
-        //grid-template-rows: 2fr 1fr 1fr;
         align-items: center;
         justify-items: center;
-
+        height: 300px;
+        width: 180px;
         .foodImg {
           width: 150px;
           height: 160px;
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
 
         .card-title {
-          font-weight: 800;
-          font-size: x-large;
+          font-weight: 500;
+          font-size: large;
         }
-
+        .starScore{
+          margin-bottom: 50px;
+        }
         .card-text {
           margin-top: 1px;
         }

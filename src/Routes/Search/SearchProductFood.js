@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
 import { RiSearch2Line } from 'react-icons/ri';
-import { FaBuilding } from 'react-icons/fa';
-import { HiEye } from 'react-icons/hi';
-import { GiFruitBowl } from 'react-icons/gi';
 import { AiOutlineFilter } from 'react-icons/ai';
 import SearchResult from '../Search/SearchResult';
 import {
