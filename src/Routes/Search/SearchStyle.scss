@@ -1,85 +1,105 @@
 @import 'styles/utils';
-.container{
+
+.container {
   display: grid;
   width: 100%;
   align-items: stretch;
   justify-items: stretch;
   font-family: 'MPl';
-  .item__header{
-    
+
+  .item__header {
+
     margin-top: 10%;
     width: 100%;
     border: 0;
     display: grid;
     grid-template-columns: 2fr 4fr 1fr;
-  
-    .input{
+
+    .input {
       border: 0;
       text-align: center;
       margin-top: 2px;
       font-size: x-large;
-       border-bottom: 3px solid red;
+      border-bottom: 3px solid red;
     }
-  
-    .searchBtn{
+
+    .searchBtn {
       border: 0;
       background: 0;
     }
   }
-  .result_allergy{
+
+  .result_allergy {
     display: flex;
     align-items: center;
     justify-content: center;
-    .allergyBtn{
+
+    .allergyBtn {
       width: 40px;
       height: 40px;
       outline: 0;
       border: 0;
     }
-    .allergyBtn:hover{//왜 색이 안바뀌지..
+
+    .allergyBtn:hover { //왜 색이 안바뀌지..
       color: #ed2f3b
     }
   }
-  .item__main{
+
+  .item__main {
     display: grid;
     column-gap: 2%;
     grid-template-columns: 1fr 3fr;
-    place-items:  start;
+    place-items: start;
     margin-top: 5%;
-    .category{
+
+    .category {
       background-color: #ed2f3b;
-      color:white;
+      color: white;
     }
-    
-    .item__items{
+
+    .item__items {
 
       display: grid;
       grid-template-rows: 1fr 2fr;
       align-items: center;
     }
-    .ad__img{
+
+    .ad__img {
       width: 100%;
       height: 40%;
       margin-bottom: 0px;
     }
   }
-  .sortBy{
+
+  .sortBy {
     display: grid;
     grid-template-columns: 2fr 1fr;
     margin: 20px;
-    .result{
+
+    .result {
       font-size: x-large;
       display: flex;
     }
-    .form-check__group{
-     // margin-left: 550px;
-      margin-top: 2%;
-      display: flex;
-      flex-direction: row;
-      .form-check-label{
+  }
+  .form-check__group {
+    display: table;
+    flex-direction: row;
+
+    .filterIcon {
+      margin-right: 10px;
+
+      display: table-cell;
+    }
+
+    .form-check {
+      font-size: medium;
+      vertical-align: middle;
+      display: table-cell;
+    }
+
+    .form-check-label {
       margin-right: 10px;
     }
-    }
-    
   }
 }

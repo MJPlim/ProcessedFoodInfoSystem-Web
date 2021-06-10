@@ -773,12 +773,13 @@ const SearchProductFood = (props) => {
         <div>
           <nav class='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>
-              <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40' />
+
               <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
 
             </div>
             <div className='form-check__group'>
+              <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                               title='알레르기 필터 기능입니다.' size='40' />
               <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
