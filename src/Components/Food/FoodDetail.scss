@@ -51,8 +51,6 @@
     }
 
     .btnArea {
-
-
       .newsButton, .linkButton {
         width: 100%;
         background-color: $lightorange !important;
@@ -151,6 +149,10 @@
 
       .starRating {
         margin: auto;
+      }
+
+      td, tr {
+        vertical-align : middle;
       }
 
       @media all and (max-width: 479px) {
@@ -256,6 +258,7 @@
       border-color: $lightorange !important;
       color: white;
       margin-bottom: 20px !important;
+      margin-top: 20px;
 
 
       &:hover, &:active {
