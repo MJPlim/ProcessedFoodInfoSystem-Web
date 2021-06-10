@@ -55,6 +55,10 @@ const SearchProductFood = (props) => {
   const toggle7 = () => setIsOpen7(!isOpen7);
   const [isOpen8, setIsOpen8] = useState(false);
   const toggle8 = () => setIsOpen8(!isOpen8);
+  const [isOpen9, setIsOpen9] = useState(false);
+  const toggle9 = () => setIsOpen9(!isOpen9);
+  const [isOpen10, setIsOpen10] = useState(false);
+  const toggle10 = () => setIsOpen10(!isOpen10);
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
@@ -443,6 +447,96 @@ const SearchProductFood = (props) => {
           </Collapse>
           <div style={{ marginBottom: '1rem' }} />
 
+           <button className='bigCategoryBtn list-group-item' onClick={toggle9}>육류
+            <div style={{ float: 'right' }}>
+              {!isOpen9 ?
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
+              }
+            </div>
+          </button>
+          <Collapse isOpen={isOpen9}>
+
+            <Link to='/category/meat'>
+              <button
+                type='button'
+                value='육류'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('육류')}
+              >
+                육류
+              </button>
+            </Link>
+            <Link to='/category/meat'>
+              <button
+                type='button'
+                value='햄/소시지'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('햄/소시지')}
+              >
+                햄/소시지
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }} />
+
+            <button className='bigCategoryBtn list-group-item' onClick={toggle10}>식재료
+            <div style={{ float: 'right' }}>
+              {!isOpen10 ?
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
+              }
+            </div>
+          </button>
+          <Collapse isOpen={isOpen10}>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='국수'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('국수')}
+              >
+                국수
+              </button>
+            </Link>
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='두부'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('두부')}
+              >
+                두부
+              </button>
+            </Link>
+
+              <Link to='/category/material'>
+              <button
+                type='button'
+                value='식용유'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('식용유')}
+              >
+                식용유
+              </button>
+            </Link>
+
+              <Link to='/category/material'>
+              <button
+                type='button'
+                value='어묵'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('어묵')}
+              >
+                어묵
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }} />
+
 
           <button className='bigCategoryBtn list-group-item' onClick={toggle4}>농수산물
             <div style={{ float: 'right' }}>
@@ -627,47 +721,6 @@ const SearchProductFood = (props) => {
                 즉석조리식품
               </button>
             </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='국수'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('국수')}
-              >
-                국수
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='두부'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('두부')}
-              >
-                두부
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='식용유'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('식용유')}
-              >
-                식용유
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='어묵'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('어묵')}
-              >
-                어묵
-              </button>
-            </Link>
-
           </Collapse>
           <div style={{ marginBottom: '1rem' }} />
 
