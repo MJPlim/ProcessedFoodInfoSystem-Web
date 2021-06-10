@@ -22,6 +22,7 @@ import 유제품 from '../../image/bigCategoryImg/유제품.png';
 import 조미료 from '../../image/bigCategoryImg/조미료.png';
 import 즉석조리식품 from '../../image/bigCategoryImg/즉석조리식품.jpg';
 import 차음료 from '../../image/bigCategoryImg/차음료.png';
+import 육류 from '../../image/bigCategoryImg/육류.png';
 
 import { getProductRanking, getAd } from '../../api';
 import { useEffect } from 'react/cjs/react.development';
@@ -110,6 +111,18 @@ function MainScreen() {
               <img className='item__img' onClick={onClickCategory} src={유제품} />
             </Link>
             <p className='category__name'>유제품</p>
+          </div>
+          <div className='item'>
+            <Link to='/category/milk' name={'육류'}>
+              <img className='item__img' onClick={onClickCategory} src={육류} />
+            </Link>
+            <p className='category__name'>육류</p>
+          </div>
+          <div className='item'>
+            <Link to='/category/milk' name={'유제품'}>
+              <img className='item__img' onClick={onClickCategory} src={유제품} />
+            </Link>
+            <p className='category__name'>식재료</p>
           </div>
           <div className='item'>
             <Link to='/category/food' name={'농수산물'}>
