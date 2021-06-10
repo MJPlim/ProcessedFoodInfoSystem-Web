@@ -79,6 +79,8 @@ function MainScreen() {
     sessionStorage.removeItem('selectedPage');
     sessionStorage.removeItem('selectedSort');
     sessionStorage.removeItem('selectedOption');
+    sessionStorage.removeItem('allergyList')
+    sessionStorage.removeItem('allergyCheck')
 
 
   };
