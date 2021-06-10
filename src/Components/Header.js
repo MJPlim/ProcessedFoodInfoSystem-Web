@@ -8,14 +8,11 @@ import {
   Container,
   Navbar,
   Nav,
-  Form,
-  Button,
-  FormGroup,
-  Dropdown,
-  DropdownItem,
   NavLink,
 } from 'reactstrap';
-import logo from '../image/logo.PNG';
+import {AiOutlineUserAdd,AiOutlineLogin,AiOutlineLogout,AiOutlineStar} from "react-icons/ai";
+import {RiUser3Line} from "react-icons/ri";
+
 function LoginState(props) {
   const checkLogin = props.auli;
   console.log(checkLogin);
@@ -56,6 +53,17 @@ function LoginState(props) {
     return (
       <div className="buttons">
         <Link
+          to="/mypage"
+          className="myPageBtn, buttonGroup"
+          onClick={setUserInformation}
+        >
+         <RiUser3Line size="25"/>
+        </Link>
+        <Link to="/myFavourite" className="myFavouriteBtn, buttonGroup">
+          <AiOutlineStar size="25"/>
+        </Link>
+
+         <Link
           className="logoutBtn, buttonGroup"
           onClick={() => {
             localStorage.setItem('authorization', null);
@@ -65,17 +73,7 @@ function LoginState(props) {
             localStorage.setItem('userBPassword', null);
           }}
         >
-          로그아웃
-        </Link>
-        <Link
-          to="/mypage"
-          className="myPageBtn, buttonGroup"
-          onClick={setUserInformation}
-        >
-          마이페이지
-        </Link>
-        <Link to="/myFavourite" className="myFavouriteBtn, buttonGroup">
-          즐겨찾기
+          <AiOutlineLogout size="25"/>
         </Link>
       </div>
     );
@@ -83,10 +81,10 @@ function LoginState(props) {
     return (
       <div className="buttons">
         <Link to="/login" className="loginBtn, buttonGroup">
-          로그인
+         <AiOutlineLogin size="25"/>
         </Link>
         <Link to="/join" className="joinBtn, buttonGroup">
-          회원가입
+          <AiOutlineUserAdd size="25"/>
         </Link>
       </div>
     );

@@ -26,9 +26,9 @@ import 육류 from '../../image/bigCategoryImg/육류.png';
 
 import { getProductRanking, getAd } from '../../api';
 import { useEffect } from 'react/cjs/react.development';
-
+import ResultPage from './ResultPage';
 function MainScreen() {
-  const [product, setProduct] = useState(null);
+  const [result, setResult] = useState(null);
   const [ad, setAd] = useState(null);
   const [loading, setLoading] = useState(true);
   const [adLoad, setAdLoad] = useState(true);
@@ -37,8 +37,9 @@ function MainScreen() {
     await getProductRanking
       .mainPage()
       .then((response) => {
-        setProduct(response.data);
+        setResult(response.data);
         setLoading(false);
+        console.log(result);
       })
       .catch((e) => {
         console.log(e);
@@ -230,35 +231,7 @@ function MainScreen() {
             </Col>
           </Row>
           <hr />
-          {!loading && (
-            <div className='cardGroup'>
-              {product.map((item) => (
-                <Card className='eachCard'>
-                  <CardBody className='cardTop'>
-                    <CardTitle tag='h5'>{item.foodName}</CardTitle>
-                    <CardSubtitle tag='h6' className='mb-2 text-muted'>
-                      {item.category}
-                    </CardSubtitle>
-                  </CardBody>
-                  <Link
-                    to={{
-                      pathname: `searchProduct/food/${item.foodId}`,
-                    }}
-                  >
-                    <img
-                      className='rankImage'
-                      width='40%'
-                      height='40%'
-                      src={item.foodImageAddress}
-                    />
-                  </Link>
-                  <CardBody className='showRankProps'>
-                    <CardText>별점: {drawStar(item.avgRating)}</CardText>
-                  </CardBody>
-                </Card>
-              ))}
-            </div>
-          )}
+       <ResultPage loading={loading} result={result}/>
         </div>
       </Container>
     </div>

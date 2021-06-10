@@ -79,23 +79,9 @@
     height: 50px;
   }
 
-  .buttonGroup,
-  .buttons {
-    display: inline-block;
-    text-align: right;
-    justify-content: right;
-    align-items: right;
-    margin: auto;
-    font-size: 15px;
-    font-weight: lighter;
-    font-family: 'tway';
-    color: slategray;
-
-    :hover {
-      border-bottom: dodgerblue ridge 1px;
-      color: black;
-      background-color: lightcoral;
-    }
+  .buttons:hover{
+     text-decoration: none !important;
+    border-bottom: 0 !important;
   }
 
   .buttonGroup {

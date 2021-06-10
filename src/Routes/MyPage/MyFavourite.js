@@ -3,6 +3,7 @@ import { deleteFavoriteApi, favouriteApi } from '../../api';
 import { Link } from 'react-router-dom';
 import './MyFavouriteStyle.scss';
 import productSet from '../../image/kati.PNG';
+import NoFavourite from '../ErrorPage/NoFavourite';
 import {
   Row,
   Container,
@@ -83,12 +84,8 @@ function MyFavourite() {
               <br />
               <br />
               <br />
-              <li className="addF">즐겨찾기 상품이 없습니다</li>
-              <Link className="addFB" to="/searchProduct/food">
-                <Button outline color="warning" size="sm" block>
-                  즐겨찾기 추가하러가기
-                </Button>
-              </Link>
+             <NoFavourite/>
+            
             </div>
           ) : (
             <div className="cardGroup">

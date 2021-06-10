@@ -150,7 +150,7 @@ const SearchProductFood = (props) => {
   },[]);
 
  const handleAllergyCheck=()=>{
-    setAllergyCheck(sessionStorage.getItem("allergyCheck"));
+    setAllergyCheck(sessionStorage.getItem("allergyCheck")==="true");
     console.log('allergyCheck: ',allergyCheck);
  }
 
@@ -185,6 +185,7 @@ const SearchProductFood = (props) => {
     try {
 
       if (option === '식품명') {
+        console.log("알러지이이",allergyList);
         const { data } = await searchApi.search(allergyList, '', term, '', order, currentPage, 12, sort);
         setTotalResult(data.total_elements);
         setPageSize(data.total_page);
@@ -215,6 +216,7 @@ const SearchProductFood = (props) => {
 
   //검색버튼 누를때
   const handleSubmit = () => {
+    console.log("handlesubmit!!!!");
     // 새로운 검색단어 입력시 페이지 초기화
     sessionStorage.removeItem('selectedPage');
     // 새로운 검색단어 입력시 옵션 다시 저장
@@ -281,7 +283,9 @@ const SearchProductFood = (props) => {
     if(allergyCheck){//이미 체크 상태
       setAllergyCheck(false);
       sessionStorage.setItem("allergyCheck",false);
-      handleSubmit();
+      console.log("체크1");
+      setAllergyList(null);
+      getSearchResult(searchTerm);
     }else{//체크 안된 상태엿다면
       setAllergyLoading(true);
       
@@ -290,14 +294,18 @@ const SearchProductFood = (props) => {
       .then((response) => {
         const result = response.data.userAllergyMaterials;
         console.log('알러지', result);
-        setAllergyList(result);
+        for(let i=0;i<result.length;i++){
+            allergyList[i]=result[i];
+        }
+       
         alert(result);
         setAllergyCheck(true);
         sessionStorage.setItem("allergyCheck",true);
-        handleSubmit();
+        console.log("체크1");
+        getSearchResult(searchTerm);
       })
       .catch((error) => {
-        alert('로그인을 하세요');
+        alert(error);
       });
       
     }
@@ -856,7 +864,7 @@ const SearchProductFood = (props) => {
 
             </div>
             <div className='form-check__group'>
-              {allergyCheck?
+              {allergyCheck===true?
                   <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
                                title='알레르기 필터 기능입니다.' size='40' 
                                style={{color:'red'}}/>:
@@ -870,14 +878,14 @@ const SearchProductFood = (props) => {
                        name='flexRadioDefault' id='flexRadioDefault2' value='category'
                        checked={sort === 'ranking' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
-                  <GiFruitBowl />랭킹순
+                 랭킹순
                 </label>
               </div>
               <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('manufacturer')} className='form-check-input'
                        name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'manufacturer' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
-                  <FaBuilding />제조사
+                 제조사
                 </label>
               </div>
 
@@ -885,7 +893,7 @@ const SearchProductFood = (props) => {
                 <input type='radio' onClick={() => handleSort('reviewCount')} className='form-check-input'
                        name='flexRadioDefault' id='flexRadioDefault2' checked={sort === 'reviewCount' && true} />
                 <label className='form-check-label' htmlFor='flexRadioDefault2'>
-                  <HiEye />리뷰순
+                 리뷰순
                 </label>
               </div>
             </div>
