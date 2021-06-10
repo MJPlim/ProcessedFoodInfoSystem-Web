@@ -67,6 +67,7 @@ const SearchProductFood = (props) => {
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
+  const [allergyList, setAllergyList] = useState(sessionStorage.getItem('allergyList') != null ? JSON.parse(sessionStorage.getItem('allergyList')) : []);
 
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
@@ -79,7 +80,6 @@ const SearchProductFood = (props) => {
   //  세션 스토리지에 이전에 선택한 Sort 기록이 있으면 해당 옵션 받아옴(뒤로가기를 위해서)
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
-  const [allergyList, setAllergyList] = useState(sessionStorage.getItem('allergyList') != null ? JSON.parse(sessionStorage.getItem('allergyList')) : []);
 
   // 검색 기록을 위한 state
   const [foodKeywords, setFoodKeywords] = useState(
@@ -310,7 +310,7 @@ const SearchProductFood = (props) => {
         })
         .catch((error) => {
           console.log(error.response);
-          // alert(error);
+          alert(error.response.data['error-message']);
         });
 
     }

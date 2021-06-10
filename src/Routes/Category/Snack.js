@@ -46,6 +46,9 @@ const Snack = (props) => {
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
+  const [allergyCheck, setAllergyCheck] = useState(false);
+  const [allergyList, setAllergyList] = useState(sessionStorage.getItem('allergyList') != null ? JSON.parse(sessionStorage.getItem('allergyList')) : []);
+
 
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
@@ -56,7 +59,6 @@ const Snack = (props) => {
   const [categoryName, setCategoryName] = useState('간식');
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
-  const [allergyList, setAllergyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
   const [pageSize, setPageSize] = useState(0);
   const [isSmallCategory, setIsSmallCategory] = useState(false);
@@ -78,6 +80,16 @@ const Snack = (props) => {
 
   }, []);
 
+  useEffect(() => {
+    handleAllergyCheck();
+  }, []);
+
+  const handleAllergyCheck = () => {
+    // 첫 렌더링 시 알러지 체크 확인
+    setAllergyCheck(sessionStorage.getItem('allergyCheck') === 'true');
+    console.log(sessionStorage.getItem('allergyCheck'));
+    console.log('allergyCheck: ', allergyCheck);
+  };
   const getBigCategory = async (sort, pageNum, state) => {
     setIsSmallCategory(false);
     setCategoryName('간식');
@@ -124,7 +136,7 @@ const Snack = (props) => {
     try {
       state === 'init' && setLoading(true);
 
-      const { data } = await searchApi.search(allergyList, categoryName, '', '', order, pageNum, 12, sort);
+      const { data } = await searchApi.search(allergyList !== null ? allergyList : [], categoryName, '', '', order, pageNum, 12, sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
       console.log('소분류 호출', data);
@@ -134,32 +146,70 @@ const Snack = (props) => {
       console.log('소분류: ', result);
     } catch (e) {
       setError(e);
+      console.log(e);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(async () => {
+    console.log('정보 가져오는 기준 변경 시 useEffect');
     if (categoryName !== '간식') {
       await getSmallCategory(currentPage, 'init');
     }
 
-  }, [categoryName, sort, currentPage]);
+  }, [categoryName, sort, currentPage, allergyList]);
+
+  // const handleAllergy = async () => {
+  //   setAllergyLoading(true);
+  //   await getUserAllergyInfo
+  //     .userAllergies()
+  //     .then((response) => {
+  //       const result = response.data.userAllergyMaterials;
+  //       console.log('알러지', result);
+  //       setAllergyList(result);
+  //       alert(result);
+  //
+  //     })
+  //     .catch((error) => {
+  //       alert('로그인을 하세요');
+  //     });
+  //
+  // };
 
   const handleAllergy = async () => {
-    setAllergyLoading(true);
-    await getUserAllergyInfo
-      .userAllergies()
-      .then((response) => {
-        const result = response.data.userAllergyMaterials;
-        console.log('알러지', result);
-        setAllergyList(result);
-        alert(result);
+    if (allergyCheck) {//이미 체크 상태
+      setAllergyCheck(false);
+      console.log('체크1');
+      setAllergyList(null);
+      // 알러지 체크 해제시 세션값 변경
+      sessionStorage.setItem('allergyCheck', false);
+      sessionStorage.setItem('allergyList', null);
+      setCurrentPage(1);  // 페이지 초기화
+      sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+    } else {//체크 안된 상태엿다면
+      setAllergyLoading(true);
 
-      })
-      .catch((error) => {
-        alert('로그인을 하세요');
-      });
+      await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          console.log('알러지', result);
+          alert(response.data.userAllergyMaterials);
+          setAllergyList(response.data.userAllergyMaterials);
+
+          setAllergyCheck(true);
+          // 알러지 체크 해제시 세션값 변경 sessionStorage에서 배열 쓰려면 JSON.stringify로 써야하는듯
+          sessionStorage.setItem('allergyCheck', true);
+          sessionStorage.setItem('allergyList', JSON.stringify(response.data.userAllergyMaterials));
+          setCurrentPage(1);  // 페이지 초기화
+          sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+        })
+        .catch((error) => {
+          console.log(error.response);
+          alert(error.response.data['error-message']);
+        });
+
+    }
 
   };
 
@@ -700,10 +750,15 @@ const Snack = (props) => {
             </div>
             {categoryName !== '간식' &&
             <div className='form-check__group'>
-                <AiOutlineFilter className={'filterIcon'} type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                title='알레르기 필터 기능입니다.' size='40' />
+              {allergyCheck === true ?
+                <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                                 title='알레르기 필터 기능입니다.' size='40'
+                                 style={{ color: 'red' }} /> :
+                <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                                 title='알레르기 필터 기능입니다.' size='40' style={{ color: 'black' }} />
+              }
 
-                <div className='form-check'>
+              <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}
                        name='flexRadioDefault' id='flexRadioDefault2' value='category'
