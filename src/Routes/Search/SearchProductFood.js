@@ -150,7 +150,8 @@ const SearchProductFood = (props) => {
   },[]);
 
  const handleAllergyCheck=()=>{
-    setAllergyCheck(sessionStorage.getItem("allergyCheck"));
+    setAllergyCheck(sessionStorage.getItem("allergyCheck") === 'true');
+   console.log(sessionStorage.getItem("allergyCheck"));
     console.log('allergyCheck: ',allergyCheck);
  }
 
@@ -280,7 +281,7 @@ const SearchProductFood = (props) => {
   const handleAllergy = async () => {
     if(allergyCheck){//이미 체크 상태
       setAllergyCheck(false);
-      sessionStorage.setItem("allergyCheck",false);
+      sessionStorage.setItem("allergyCheck", false);
       handleSubmit();
     }else{//체크 안된 상태엿다면
       setAllergyLoading(true);
@@ -856,7 +857,7 @@ const SearchProductFood = (props) => {
 
             </div>
             <div className='form-check__group'>
-              {allergyCheck?
+              {allergyCheck === true ?
                   <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
                                title='알레르기 필터 기능입니다.' size='40' 
                                style={{color:'red'}}/>:
