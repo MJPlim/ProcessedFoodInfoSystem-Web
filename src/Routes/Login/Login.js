@@ -79,7 +79,7 @@ function Login(props) {
     console.log(localStorage.getItem('authorization'));
     if (localStorage.getItem('authorization') !== 'null') {
       alert('이미 로그인되어 있습니다.');
-      props.history.goBack();
+      window.location.href = '/';
     }
   }, []);
 

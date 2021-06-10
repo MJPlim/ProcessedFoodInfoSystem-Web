@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import './ChangePasswordStyle.scss';
-import { Container, Card } from 'reactstrap';
+import {
+  Col,
+  Container,
+  Button,
+  Card,
+  CardText,
+  Row,
+  Table,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  ButtonToggle,
+} from 'reactstrap';
 import { setSecurityEmail } from 'api';
 
 function SecondEmail() {
@@ -21,32 +34,31 @@ function SecondEmail() {
 
   return (
     <div className="setEmail">
-      <br />
-      <br />
-      <br />
       <Container>
-        <Card body>
-          <form>
-            <p>2차 보안용 이메일 설정하기</p>
-            <hr />
-            <div class="form-group">
-              <label for="exampleDropdownFormEmail1">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="exampleDropdownFormEmail1"
-                placeholder="설정할 이메일을 입력해주세요"
-                onChange={onChange}
-              />
-            </div>
-          </form>
-          <div>
-            <button onClick={pushEmail} type="submit" class="btn btn-danger">
-              설정하기
-            </button>
-          </div>
-          <div class="dropdown-divider"></div>
-        </Card>
+        <div className="secondEmailContainer">
+          <Card body>
+            <Form>
+              <FormGroup>
+                <Label className="secondEmail">
+                  <Input
+                    type="email"
+                    placeholder="2차 보안용 이메일"
+                    onChange={onChange}
+                  />
+                </Label>
+                <Label className="secondEmailButton">
+                  <Button
+                    color="danger"
+                    onClick={pushEmail}
+                    className="submitButton"
+                  >
+                    설정
+                  </Button>
+                </Label>
+              </FormGroup>
+            </Form>
+          </Card>
+        </div>
       </Container>
     </div>
   );
