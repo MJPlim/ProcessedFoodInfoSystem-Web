@@ -69,6 +69,8 @@ function MainScreen() {
     sessionStorage.removeItem('selectedOption');
     sessionStorage.removeItem('allergyList')
     sessionStorage.removeItem('allergyCheck')
+    sessionStorage.removeItem('searchTerm');
+
   }, []);
 
 
@@ -80,6 +82,7 @@ function MainScreen() {
     sessionStorage.removeItem('selectedOption');
     sessionStorage.removeItem('allergyList')
     sessionStorage.removeItem('allergyCheck')
+    sessionStorage.removeItem('searchTerm');
 
 
   };

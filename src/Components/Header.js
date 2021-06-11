@@ -125,6 +125,8 @@ export default withRouter(({ location: { pathname } }) => (
               sessionStorage.removeItem('selectedOption');
               sessionStorage.removeItem('allergyList')
               sessionStorage.removeItem('allergyCheck')
+              sessionStorage.removeItem('searchTerm');
+
 
             }}>
               KATI
@@ -147,6 +149,8 @@ export default withRouter(({ location: { pathname } }) => (
                 sessionStorage.removeItem('selectedOption');
                 sessionStorage.removeItem('allergyList')
                 sessionStorage.removeItem('allergyCheck')
+                sessionStorage.removeItem('searchTerm');
+
 
               }}>상품찾기</Link>
             </NavLink>
