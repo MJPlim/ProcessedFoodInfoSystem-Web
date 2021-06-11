@@ -1,4 +1,4 @@
-@import 'styles/utils';
+@import "./src/styles/utils";
 
 .container {
   display: grid;
@@ -15,7 +15,6 @@
     grid-template-columns: 2fr 4fr 1fr;
 
     .input {
-      border: 0;
       text-align: center;
       margin-top: 2px;
       font-size: x-large;
