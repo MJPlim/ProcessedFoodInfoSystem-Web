@@ -10,8 +10,9 @@ import { HiEye } from 'react-icons/hi';
 import { GiFruitBowl } from 'react-icons/gi';
 import SearchResult from '../Search/SearchResult';
 import 유제품 from '../../image/categoryImg/milk/유제품.png';
-import { Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, InputGroupAddon } from 'reactstrap';
+import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 
 const Milk = (props) => {
@@ -37,9 +38,16 @@ const Milk = (props) => {
   const toggle7 = () => setIsOpen7(!isOpen7);
   const [isOpen8, setIsOpen8] = useState(false);
   const toggle8 = () => setIsOpen8(!isOpen8);
+  const [isOpen9, setIsOpen9] = useState(false);
+  const toggle9 = () => setIsOpen9(!isOpen9);
+  const [isOpen10, setIsOpen10] = useState(false);
+  const toggle10 = () => setIsOpen10(!isOpen10);
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
+  const [allergyCheck, setAllergyCheck] = useState(false);
+  const [allergyList, setAllergyList] = useState(sessionStorage.getItem('allergyList') != null ? JSON.parse(sessionStorage.getItem('allergyList')) : []);
+
 
   const [result, setResult] = useState([]);
   const [totalResult, setTotalResult] = useState(0);
@@ -47,10 +55,9 @@ const Milk = (props) => {
   const [loading, setLoading] = useState(false);
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
-  const [categoryName, setCategoryName] = useState('유제품');
+  const [categoryName, setCategoryName] = useState('_유제품');
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
-  const [allergyList, setAllergyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
   const [pageSize, setPageSize] = useState(0);
   const [isSmallCategory, setIsSmallCategory] = useState(false);
@@ -59,8 +66,10 @@ const Milk = (props) => {
     console.log('마운트!');
     console.log(sort);
     setCategoryName('유제품');
-    if (sessionStorage.getItem('categoryName') === '유제품' || sessionStorage.getItem('categoryName') === null) {
+    if (sessionStorage.getItem('categoryName') === '_유제품' || sessionStorage.getItem('categoryName') === null) {
       console.log('대분류를 눌럿음');
+      sessionStorage.setItem('categoryName', '_유제품');
+
       getBigCategory(sort, currentPage);
     } else {
       setCategoryName(sessionStorage.getItem('categoryName'));
@@ -72,10 +81,20 @@ const Milk = (props) => {
 
   }, []);
 
+  useEffect(() => {
+    handleAllergyCheck();
+  }, []);
+
+  const handleAllergyCheck = () => {
+    // 첫 렌더링 시 알러지 체크 확인
+    setAllergyCheck(sessionStorage.getItem('allergyCheck') === 'true');
+    console.log(sessionStorage.getItem('allergyCheck'));
+    console.log('allergyCheck: ', allergyCheck);
+  };
   const getBigCategory = async (sort, pageNum, state) => {
     setIsSmallCategory(false);
-    setCategoryName('유제품');
-    sessionStorage.setItem('category', '유제품');
+    setCategoryName('_유제품');
+    sessionStorage.setItem('categoryName', '_유제품');
 
     try {
       state === 'init' && setLoading(true);
@@ -118,7 +137,7 @@ const Milk = (props) => {
     try {
       state === 'init' && setLoading(true);
 
-      const { data } = await searchApi.search(allergyList, categoryName, '', '', order, pageNum, 12, sort);
+      const { data } = await searchApi.search(allergyList !== null ? allergyList : [], categoryName, '', '', order, pageNum, 12, sort);
       sessionStorage.setItem('totalItems', data.total_elements);
       sessionStorage.setItem('categoryData', JSON.stringify(data.data));
       console.log('소분류 호출', data);
@@ -128,32 +147,70 @@ const Milk = (props) => {
       console.log('소분류: ', result);
     } catch (e) {
       setError(e);
+      console.log(e);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(async () => {
-    if (categoryName !== '유제품') {
+    console.log('정보 가져오는 기준 변경 시 useEffect');
+    if (categoryName !== '_유제품') {
       await getSmallCategory(currentPage, 'init');
     }
 
-  }, [categoryName, sort, currentPage]);
+  }, [categoryName, sort, currentPage, allergyList]);
+
+  // const handleAllergy = async () => {
+  //   setAllergyLoading(true);
+  //   await getUserAllergyInfo
+  //     .userAllergies()
+  //     .then((response) => {
+  //       const result = response.data.userAllergyMaterials;
+  //       console.log('알러지', result);
+  //       setAllergyList(result);
+  //       alert(result);
+  //
+  //     })
+  //     .catch((error) => {
+  //       alert('로그인을 하세요');
+  //     });
+  //
+  // };
 
   const handleAllergy = async () => {
-    setAllergyLoading(true);
-    await getUserAllergyInfo
-      .userAllergies()
-      .then((response) => {
-        const result = response.data.userAllergyMaterials;
-        console.log('알러지', result);
-        setAllergyList(result);
-        alert(result);
+    if (allergyCheck) {//이미 체크 상태
+      setAllergyCheck(false);
+      console.log('체크1');
+      setAllergyList(null);
+      // 알러지 체크 해제시 세션값 변경
+      sessionStorage.setItem('allergyCheck', false);
+      sessionStorage.setItem('allergyList', null);
+      setCurrentPage(1);  // 페이지 초기화
+      sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+    } else {//체크 안된 상태엿다면
+      setAllergyLoading(true);
 
-      })
-      .catch((error) => {
-        alert('로그인을 하세요');
-      });
+      await getUserAllergyInfo
+        .userAllergies()
+        .then((response) => {
+          console.log('알러지', result);
+          alert(response.data.userAllergyMaterials);
+          setAllergyList(response.data.userAllergyMaterials);
+
+          setAllergyCheck(true);
+          // 알러지 체크 해제시 세션값 변경 sessionStorage에서 배열 쓰려면 JSON.stringify로 써야하는듯
+          sessionStorage.setItem('allergyCheck', true);
+          sessionStorage.setItem('allergyList', JSON.stringify(response.data.userAllergyMaterials));
+          setCurrentPage(1);  // 페이지 초기화
+          sessionStorage.removeItem('selectedPage'); // 페이지 초기화
+        })
+        .catch((error) => {
+          console.log(error.response);
+          alert(error.response.data['error-message']);
+        });
+
+    }
 
   };
 
@@ -163,7 +220,7 @@ const Milk = (props) => {
 
     console.log('페이징 클릭 ', pageNum);
 
-    if (categoryName !== '유제품') {
+    if (categoryName !== '_유제품') {
       // getSmallCategory(pageNum.selected + 1);
     } else {
       getBigCategory(sort, pageNum.selected + 1);
@@ -250,6 +307,7 @@ const Milk = (props) => {
           <button className='bigCategoryBtn list-group-item' onClick={toggle2}>음료/차
             <div style={{ float: 'right' }}>
               {!isOpen2 ?
+
                 <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
                 <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
@@ -262,7 +320,7 @@ const Milk = (props) => {
                 type='button'
                 value='음료'
                 className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('음료/차')}
+                onClick={() => handleCategory('음료')}
               >
                 음료
               </button>
@@ -308,6 +366,96 @@ const Milk = (props) => {
                 onClick={() => handleCategory('유제품')}
               >
                 유제품
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }} />
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle9}>육류
+            <div style={{ float: 'right' }}>
+              {!isOpen9 ?
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
+              }
+            </div>
+          </button>
+          <Collapse isOpen={isOpen9}>
+
+            <Link to='/category/meat'>
+              <button
+                type='button'
+                value='육류'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('육류')}
+              >
+                육류
+              </button>
+            </Link>
+            <Link to='/category/meat'>
+              <button
+                type='button'
+                value='햄/소시지'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('햄/소시지')}
+              >
+                햄/소시지
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }} />
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle10}>식재료
+            <div style={{ float: 'right' }}>
+              {!isOpen10 ?
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
+              }
+            </div>
+          </button>
+          <Collapse isOpen={isOpen10}>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='국수'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('국수')}
+              >
+                국수
+              </button>
+            </Link>
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='두부'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('두부')}
+              >
+                두부
+              </button>
+            </Link>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='식용유'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('식용유')}
+              >
+                식용유
+              </button>
+            </Link>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='어묵'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('어묵')}
+              >
+                어묵
               </button>
             </Link>
 
@@ -498,47 +646,6 @@ const Milk = (props) => {
                 즉석조리식품
               </button>
             </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='국수'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('국수')}
-              >
-                국수
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='두부'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('두부')}
-              >
-                두부
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='식용유'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('식용유')}
-              >
-                식용유
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='어묵'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('어묵')}
-              >
-                어묵
-              </button>
-            </Link>
-
           </Collapse>
           <div style={{ marginBottom: '1rem' }} />
 
@@ -565,6 +672,7 @@ const Milk = (props) => {
             </Link>
 
           </Collapse>
+
         </div>
       </div>
       <div className='category__show'>
@@ -572,7 +680,7 @@ const Milk = (props) => {
           <nav class='navbar  justify-content-between'>
             <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
               <button className='category__btn' onClick={() => {
-                sessionStorage.removeItem('categoryName');
+                sessionStorage.setItem('categoryName', '_유제품');
                 sessionStorage.removeItem('selectedPage');
                 sessionStorage.removeItem('selectedSort');
                 setCurrentPage(1);
@@ -587,10 +695,12 @@ const Milk = (props) => {
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem onClick={() => {
+                    sessionStorage.setItem('selectedOption', '식품명');
                     setOption('식품명');
                   }}>식품명</DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={() => {
+                    sessionStorage.setItem('selectedOption', '제조사명');
                     setOption('제조사명');
                   }}>제조사명</DropdownItem>
                 </DropdownMenu>
@@ -617,6 +727,7 @@ const Milk = (props) => {
                   pathname: '/searchProduct/food',
                   state: {
                     searchTerm: searchTerm,
+                    option: option,
                   },
                 }}>
                   <button onClick={() => {
@@ -645,23 +756,28 @@ const Milk = (props) => {
             </button>
             <p className='category__name'>유제품</p>
           </div>
-
         </div>
         <div>
 
 
           <nav className='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>
-              {categoryName !== '유제품' &&
-              <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
-                               title='알레르기 필터 기능입니다.' size='40' />}
+              {/*{categoryName !== '유제품' &&*/}
 
 
               <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
 
             </div>
-            {categoryName !== '유제품' &&
+            {categoryName !== '_유제품' &&
             <div className='form-check__group'>
+              {allergyCheck === true ?
+                <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                                 title='알레르기 필터 기능입니다.' size='40'
+                                 style={{ color: 'red' }} /> :
+                <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
+                                 title='알레르기 필터 기능입니다.' size='40' style={{ color: 'black' }} />
+              }
+
               <div className='form-check'>
                 <input type='radio' onClick={() => handleSort('ranking')}
                        className={sort === 'ranking' ? 'form-check-input checked' : 'form-check-input'}

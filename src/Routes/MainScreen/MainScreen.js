@@ -62,6 +62,13 @@ function MainScreen() {
   };
   useEffect(() => {
     updateProductRanking();
+    // 메인 진입시 검색 관련 세션 초기화
+    sessionStorage.removeItem('categoryName');
+    sessionStorage.removeItem('selectedPage');
+    sessionStorage.removeItem('selectedSort');
+    sessionStorage.removeItem('selectedOption');
+    sessionStorage.removeItem('allergyList')
+    sessionStorage.removeItem('allergyCheck')
   }, []);
 
 
@@ -116,7 +123,7 @@ function MainScreen() {
           </div>
 
            <div className='item' >
-            <Link to='/category/snack'>
+            <Link to='/category/tea'>
                <figure class="snip1384">
                   <img src={차음료} alt="sample83" />
                   <figcaption>
@@ -145,7 +152,7 @@ function MainScreen() {
           
           </div>
           <div className='item'>
-            <Link to='/category/milk' name={'육류'}>
+            <Link to='/category/meat' name={'육류'}>
                <figure class="snip1384">
                   <img src={육류} alt="sample83" />
                   <figcaption>
@@ -159,7 +166,7 @@ function MainScreen() {
         
           </div>
           <div className='item'>
-            <Link to='/category/milk' name={'식재료'}>
+            <Link to='/category/material' name={'식재료'}>
                <figure class="snip1384">
                   <img src={식재료} alt="sample83" />
                   <figcaption>
@@ -187,7 +194,7 @@ function MainScreen() {
             
           </div>
           <div className='item'>
-            <Link to='/category/condi' name={'조미료'}>
+            <Link to='/category/con' name={'조미료'}>
               <figure class="snip1384">
                   <img src={조미료} alt="sample83" />
                   <figcaption>

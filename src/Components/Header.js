@@ -117,7 +117,16 @@ export default withRouter(({ location: { pathname } }) => (
         <Navbar className="mainNav" bg="light" variant="light"></Navbar>
         <Row>
           <div className="serviceName">
-            <Link className="logo" to="/">
+            <Link className="logo" to="/"  onClick={() => {
+              // 새로운 메뉴 진입시 검색 관련 세션 초기화
+              sessionStorage.removeItem('categoryName');
+              sessionStorage.removeItem('selectedPage');
+              sessionStorage.removeItem('selectedSort');
+              sessionStorage.removeItem('selectedOption');
+              sessionStorage.removeItem('allergyList')
+              sessionStorage.removeItem('allergyCheck')
+
+            }}>
               KATI
             </Link>
           </div>
