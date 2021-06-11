@@ -36,6 +36,7 @@ function SecondEmail() {
     <div className="setEmail">
       <Container>
         <div className="secondEmailContainer">
+          <p className="title">2차 보안 설정</p>
           <Card body>
             <Form>
               <FormGroup>

@@ -36,7 +36,7 @@ function Login(props) {
       .then((response) => {
         token = response.headers.authorization;
         localStorage.setItem('authorization', token);
-        props.history.goBack();
+        window.location.href = '/';
       })
       .catch((error) => {
         alert('잘못된 정보입니다', error);
