@@ -24,7 +24,7 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
             result.map((result, index) => (
               <div className='card-body'>
                 <Link className='card-link' to={`/searchProduct/food/${result.foodId}`}>
-                  <img className='foodImg' src={result.foodImageAddress} />
+                  <img height={'160'} className='foodImg' src={result.foodImageAddress} />
                   <h5 className='card-title'>{result.foodName}</h5>
                   {result.manufacturerName===null? <p className='card-text'>제조사 없음</p>:
                    <p className='card-text'>{(result.manufacturerName).split('_')[0]}</p>}
