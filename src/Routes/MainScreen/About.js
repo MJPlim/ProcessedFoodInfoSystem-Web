@@ -147,6 +147,7 @@ const About = () => {
               directionText="Previous"
               onClickHandler={previous}
             />
+
             <CarouselControl
               direction="next"
               directionText="Next"

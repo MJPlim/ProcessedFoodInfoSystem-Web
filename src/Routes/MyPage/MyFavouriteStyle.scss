@@ -1,3 +1,5 @@
+@import '../../styles/utils.scss';
+
 .myFavourite {
   width: 100%;
   margin-left: 1%;
@@ -54,39 +56,44 @@
     margin-bottom: 0px;
   }
 
-  .badgeAdContent {
-    margin-top: 0px;
-    margin-right: 10px;
-    margin-left: 50px;
-  }
-
   .cardGroup {
     width: 100%;
-  }
-  .cardTop {
-    font-family: 'MPl';
-    font-size: 13px;
-  }
-  .eachCard {
-    width: 200px;
-    height: 200px;
-    border-radius: 30px;
-    position: relative;
-    display: inline-block;
-    margin: 10px 10px 10px 10px;
-    font-family: 'MPl';
-    font-size: 13px;
-  }
-
-  .showProps {
-    margin-left: 15px;
-    margin-top: 0%;
-  }
-
-  .rankImage {
-    margin-left: 50px;
-    width: 50px;
-    height: 50px;
+    .eachCard {
+      width: 200px;
+      height: 200px;
+      border-radius: 30px;
+      position: relative;
+      display: inline-block;
+      margin: 10px 10px 10px 10px;
+      font-family: 'MPl';
+      font-size: 13px;
+      .cardTop {
+        font-family: 'MPl';
+        font-size: 13px;
+        text-align: center;
+      }
+      .rankImage {
+        margin-left: 68px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .showProps {
+      margin-left: 15px;
+      margin-top: 0%;
+      text-align: center;
+      .badgeAdContent {
+        margin-top: 0px;
+        margin-right: 10px;
+        margin-left: 50px;
+      }
+      .buttonF {
+        width: 50px;
+        height: 20px;
+        margin-right: 20px;
+        font-size: 10px;
+      }
+    }
   }
 
   .badgeContent {
@@ -123,25 +130,19 @@
   .popGroup {
     font-family: 'MPl';
   }
-  .buttonF {
-    width: 45px;
-    height: 20px;
-    margin-right: 25px;
-    font-size: 10px;
-  }
+
   .addF {
     margin-left: 120px;
     font-size: 20px;
     color: red;
   }
-  .linkFB{
+  .linkFB {
     //display: flex;
     align-items: center;
     .addFB {
-    margin-top:10px;
-    display: flex;
-    align-items: center;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+    }
   }
-  }
-  
 }

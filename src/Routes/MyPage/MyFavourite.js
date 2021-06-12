@@ -84,8 +84,7 @@ function MyFavourite() {
               <br />
               <br />
               <br />
-             <NoFavourite/>
-            
+              <NoFavourite />
             </div>
           ) : (
             <div className="cardGroup">
@@ -106,6 +105,7 @@ function MyFavourite() {
                       className="rankImage"
                       width="40%"
                       height="40%"
+                      alt={food.food.foodName}
                       src={food.food.foodImageAddress}
                     />
                   </Link>
@@ -117,9 +117,8 @@ function MyFavourite() {
                       }
                       target="_blank"
                       color="dark"
-                      className="badgeContent"
+                      className="badgeContent buttonF"
                       size="sm"
-                      className="buttonF"
                     >
                       구매
                     </Button>
