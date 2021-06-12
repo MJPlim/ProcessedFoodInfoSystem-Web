@@ -25,19 +25,78 @@ import 차음료 from '../../image/bigCategoryImg/차음료.jpg';
 import 육류 from '../../image/bigCategoryImg/육류.jpg';
 import 식재료 from '../../image/bigCategoryImg/식재료.jpg';
 
+import mainAd2 from '../../image/ad/mainAd2.jpg';
+import mainAd3 from '../../image/ad/mainAd3.jpg';
+import mainAd4 from '../../image/ad/mainAd4.jpg';
+
+import AdPage from './AdPage';
+
 import { getProductRanking, getAd } from '../../api';
 import { useEffect } from 'react/cjs/react.development';
 import ResultPage from './ResultPage';
 import {FiArrowRightCircle} from 'react-icons/fi';
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption,
+} from 'reactstrap';
 
-function MainScreen() {
+const MainScreen=()=> {
   const [result, setResult] = useState(null);
   const [ad, setAd] = useState(null);
   const [loading, setLoading] = useState(true);
   const [adLoad, setAdLoad] = useState(true);
+  let result3=[];
+ 
 
-  const [snack,setSnack]=useState(false);
-  const [tea,setTea]=useState(false);
+  //광고
+  const items = [
+  {
+    src: mainAd2,
+    key: '1'
+  },
+  {
+    src: mainAd3,
+    key: '2'
+  },
+  {
+    src:mainAd4,
+    key: '3'
+  }
+];
+ //광고부분
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  };
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  };
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  };
+  const slides = items.map((item) => {
+    return (
+      <CarouselItem
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.src}
+      >
+        <img src={item.src} alt={item.altText} />
+        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+      </CarouselItem>
+    );
+  });
 
   const updateProductRanking = async () => {
     await getProductRanking
@@ -46,6 +105,8 @@ function MainScreen() {
         setResult(response.data);
         setLoading(false);
         console.log(result);
+        result3=result.slice(0,3);
+        console.log("인기상품3개",result3);
       })
       .catch((e) => {
         console.log(e);
@@ -55,6 +116,7 @@ function MainScreen() {
       .then((response) => {
         setAd(response.data);
         setAdLoad(false);
+        console.log("광고",ad);
       })
       .catch((e) => {
         console.log(e);
@@ -76,31 +138,73 @@ function MainScreen() {
 
 
   };
-  const handleCategoryImg=(e)=>{
-    console.log("value: ",e);
-    switch(e){
-      case "간식": setSnack(true); setTea(false);
-                    break;
-      case "차음료":setSnack(false); setTea(true);
-                    break;
-    }
-  }
+
 
   return (
     <div className='mainScreen'>
       <br />
       <br />
       <Container>
-        <Row>
-          <Col md='1'>
-            <img className='productSet' src={productSet} />
-          </Col>
-          <Col md='11'>
-            <p className='titleBar'>카테고리</p>
-          </Col>
-        </Row>
-        <hr />
-        <div className='category__items'>
+
+         <div>
+          <Row>
+            <Col md='1'>
+              <img className='productSet' src={productSet} />
+            </Col>
+            <Col md='11'>
+              <p className='titleBar'>광고 상품</p>
+            </Col>
+          </Row>
+          <hr className="divide__line" />
+          <div className="ad__section">
+            <div className="ad__intro">
+              <div className="intro__title">kati 추천 광고</div>
+            
+              <div className="keyword__buttons">
+                <div className="intro__keyword">추천 키워드</div>
+                <button className="keyword__btn">#과자</button>
+                <button className="keyword__btn">#즉석조리식품</button>
+                <button className="keyword__btn">#국수</button>
+                <button className="keyword__btn">#즉석조리식품</button>
+                <button className="keyword__btn">#국수</button>
+              </div>
+            </div>
+            <div className="ad__img">
+              <Carousel
+            activeIndex={activeIndex}
+            next={next}
+            previous={previous}
+          >
+            <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+            {slides}
+            <CarouselControl direction='prev' directionText='Previous' onClickHandler={previous} />
+            <CarouselControl direction='next' directionText='Next' onClickHandler={next} />
+          </Carousel>
+            </div>
+            <div className="ad__items">
+              <div className="ad__item">
+                    <AdPage loading={adLoad} result={ad}/>
+              </div>
+              <div className="ad__item">
+                   <AdPage loading={loading} result={result3}/>
+              </div>
+            
+            </div>
+
+          </div>
+
+        </div>
+        <div className="category__section">
+            <Row className="category__row">
+              <Col md='1'>
+               <img className='productSet' src={productSet} />
+              </Col>
+              <Col md='11'>
+                <p className='titleBar'>카테고리</p>
+              </Col>
+            </Row>
+           <hr className="divide__line" />
+            <div className='category__items'>
           <div className='item' >
             <Link to='/category/snack'>
             <figure class="snip1384">
@@ -242,71 +346,8 @@ function MainScreen() {
             </Link>
      
           </div>
-        </div>
-        <div>
-          <Row>
-            <Col md='1'>
-              <img className='productSet' src={productSet} />
-            </Col>
-            <Col md='11'>
-              <p className='titleBar'>광고 상품</p>
-            </Col>
-          </Row>
-          <hr />
-          {!adLoad && (
-            // <div className="setUp">
-            <div>
-              <div className='cardGroup'>
-                <Row>
-                  {ad.map((result) => (
-                    <Col xs={'4'}>
-                      <Link
-                        to={{
-                          pathname: `searchProduct/food/${result.food.foodId}`,
-                          state: {
-                            adId: result.id,
-                          },
-                        }}
-                      >
-                        <Card className='eachAdCard'>
-                          <CardBody className='adcardTop'>
-                            <CardTitle tag='h5'>
-                              {result.food.foodName}
-                            </CardTitle>
-                            <CardSubtitle tag='h6' className='mb-2 text-muted'>
-                              {result.food.category.split('_')[0]}
-                            </CardSubtitle>
-                          </CardBody>
-                          <Link
-                            to={{
-                              pathname: `searchProduct/food/${result.food.foodId}`,
-                              state: {
-                                adId: result.id,
-                              },
-                            }}
-                          >
-                            <img
-                              className='adImage'
-                              width='40%'
-                              height='40%'
-                              src={result.food.foodImageAddress}
-                            />
-                          </Link>
-                          <CardBody className='showProps'>
-                            <CardText>
-                              {result.food.manufacturerName.split('_')[0]}
-                            </CardText>
-                          </CardBody>
-                        </Card>
-                      </Link>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            </div>
-          )}
-        </div>
-
+        </div> 
+      </div>
         <div>
           <Row>
             <Col md='1'>
@@ -316,7 +357,7 @@ function MainScreen() {
               <p className='titleBar'>인기 상품</p>
             </Col>
           </Row>
-          <hr />
+          <hr className="divide__line" />
        <ResultPage loading={loading} result={result}/>
         </div>
       </Container>
