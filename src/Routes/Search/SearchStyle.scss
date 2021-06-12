@@ -5,7 +5,8 @@
   width: 100%;
   align-items: stretch;
   justify-items: stretch;
-  font-family: 'MPl';
+  font-family: 'BMHANNA';
+  font-weight: 700;
   .item__header {
 
     margin-top: 10%;
@@ -18,7 +19,7 @@
       text-align: center;
       margin-top: 2px;
       font-size: x-large;
-      border: 3px solid red;
+      border: 3px solid rgba(237,47,59,0.9);;
     }
 
     .searchBtn {
@@ -49,7 +50,7 @@
     margin-top: 5%;
 
     .category {
-      background-color: #ed2f3b;
+      background-color: rgba(237,47,59,0.9);
       color: white;
     }
 

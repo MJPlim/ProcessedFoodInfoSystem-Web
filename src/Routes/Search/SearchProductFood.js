@@ -13,9 +13,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import 광고1 from '../../image/ad/광고1.png';
-import 광고2 from '../../image/ad/광고2.png';
-import 광고3 from '../../image/ad/광고3.jpg';
+
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
@@ -23,18 +21,7 @@ const SearchProductFood = (props) => {
   //드롭다운
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
-  //광고 이미지
-  const items = [
-    {
-      src: 광고1,
-    },
-    {
-      src: 광고2,
-    },
-    {
-      src: 광고3,
-    },
-  ];
+ 
 
   const [isOpen1, setIsOpen1] = useState(false);
   const toggle1 = () => setIsOpen1(!isOpen1);
@@ -90,38 +77,7 @@ const SearchProductFood = (props) => {
   const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
   const [pageSize, setPageSize] = useState(0);
 
-  //광고부분
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
-
-  const next = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const previous = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const goToIndex = (newIndex) => {
-    if (animating) return;
-    setActiveIndex(newIndex);
-  };
-  const slides = items.map((item) => {
-    return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={item.src}
-      >
-        <img src={item.src} alt={item.altText} />
-        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-      </CarouselItem>
-    );
-  });
+ 
   useEffect(() => {
     console.log('setting 부분 마운트');
 
@@ -844,19 +800,7 @@ const SearchProductFood = (props) => {
           </nav>
           <hr></hr>
         </div>
-        <div className='category__items'>
-          <Carousel
-            activeIndex={activeIndex}
-            next={next}
-            previous={previous}
-          >
-            <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-            {slides}
-            <CarouselControl direction='prev' directionText='Previous' onClickHandler={previous} />
-            <CarouselControl direction='next' directionText='Next' onClickHandler={next} />
-          </Carousel>
-
-        </div>
+       
         <div>
           <nav class='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>

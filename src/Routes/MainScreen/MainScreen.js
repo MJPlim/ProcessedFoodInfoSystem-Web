@@ -155,9 +155,6 @@ const MainScreen=()=> {
 
          <div>
           <Row className="big__name">
-            <Col md='1'>
-              <img className='productSet' src={productSet} />
-            </Col>
             <Col md='11'>
               <p className='titleBar'>광고 상품</p>
             </Col>
@@ -203,9 +200,6 @@ const MainScreen=()=> {
         </div>
         <div className="category__section">
             <Row className="category__row">
-              <Col md='1'>
-               <img className='productSet' src={productSet} />
-              </Col>
               <Col md='11'>
                 <p className='titleBar'>카테고리</p>
               </Col>
@@ -357,9 +351,6 @@ const MainScreen=()=> {
       </div>
         <div>
           <Row>
-            <Col md='1'>
-              <img className='productSet' src={productSet} />
-            </Col>
             <Col md='11'>
               <p className='titleBar'>인기 상품</p>
             </Col>

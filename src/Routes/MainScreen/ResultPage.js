@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../Search/SearchResultStyle.scss';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Col } from 'reactstrap';
-import ReactPaginate from 'react-paginate';
 import StarRatings from 'react-star-ratings';
-import { SiConcourse } from 'react-icons/si';
+
 
 const ResultPage = ({ loading, result }) => {
 useEffect(()=>{
