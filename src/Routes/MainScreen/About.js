@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import classnames from 'classnames';
-import './MainScreenStyle.scss';
+import './About.scss';
 import {
   Carousel,
   CarouselItem,
@@ -130,8 +129,14 @@ const About = () => {
     <div className="aboutDev">
       <Container className="devCon">
         <div className="devImg">
-          <Carousel activeIndex={activeIndex} next={next} previous={previous}>
+          <Carousel
+            className="devCarousel"
+            activeIndex={activeIndex}
+            next={next}
+            previous={previous}
+          >
             <CarouselIndicators
+              className="devIndi"
               items={items}
               activeIndex={activeIndex}
               onClickHandler={goToIndex}
