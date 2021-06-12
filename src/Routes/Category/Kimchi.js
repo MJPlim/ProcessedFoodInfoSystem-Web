@@ -11,6 +11,7 @@ import { GiFruitBowl } from 'react-icons/gi';
 import SearchResult from '../Search/SearchResult';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import 김치 from '../../image/categoryImg/kimchi/김치.png';
+import 젓갈 from '../../image/categoryImg/kimchi/젓갈.jpg';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
@@ -758,7 +759,7 @@ const Kimchi = (props) => {
           </div>
           <div className='item'>
             <button value='젓갈' onClick={() => handleCategory('젓갈')} className='category__item'>
-              이미지 못 찾음..
+               <img className='item__img' src={젓갈} />
             </button>
             <p className='category__name'>젓갈</p>
           </div></div>

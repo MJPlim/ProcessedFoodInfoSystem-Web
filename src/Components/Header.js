@@ -151,7 +151,7 @@ export default withRouter(({ location: { pathname } }) => (
           </Link>
         </Item>
         <Item className="item" current={pathname === '/about'}>
-          <Link className="item__name item__about" to="/about">
+          <Link className="item__name" to="/about">
             카티 개발팀
           </Link>
         </Item>

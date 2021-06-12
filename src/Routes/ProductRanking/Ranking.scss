@@ -3,9 +3,6 @@
 .Ranking {
   width: 60%;
   margin: 20px auto auto;
-  font-family: 'MPl';
-
-
   .container {
     margin-left: 30px;
     margin-right: 30px;
@@ -15,19 +12,18 @@
 
   .titleArea {
     .title {
-      font-family: 'MPb';
+      margin-top: 40px;
       font-size: x-large;
+      font-weight: 700;
       border-bottom-style: solid;
       border-bottom-color: black;
     }
   }
-
-
   .hr {
-    border-top: 1px solid;
+    height: 1px;
+    border-radius: 0.5px;
+    background-color:rgba(237,47,59,0.9);
   }
-
-
   .topRating {
     width: 100%;
     text-align: center;
