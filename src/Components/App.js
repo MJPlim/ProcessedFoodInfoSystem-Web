@@ -4,7 +4,10 @@ import GlobalStyle from './GlobalStyle';
 import axios from 'axios';
 
 class App extends Component {
+
   componentWillMount() {
+    document.title = "KATI"
+
     console.log('새로 값 받는 부분---------');
     axios({
       url: 'http://13.124.55.59:8080/oauth-success',
@@ -78,6 +81,7 @@ class App extends Component {
         localStorage.setItem('authorization', null);
       });
   }
+
 
   render() {
     return (
