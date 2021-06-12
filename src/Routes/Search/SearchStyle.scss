@@ -5,7 +5,6 @@
   width: 100%;
   align-items: stretch;
   justify-items: stretch;
-  font-family: 'BMHANNA';
   font-weight: 700;
   .item__header {
 
@@ -52,6 +51,7 @@
     .category {
       background-color: rgba(237,47,59,0.9);
       color: white;
+      
     }
 
     .item__items {
@@ -60,10 +60,8 @@
       grid-template-rows: 1fr 2fr;
       align-items: center;
     }
+   
 
-    .ad__img {
-      margin-bottom: 0px;
-    }
   }
 
   .sortBy {
@@ -96,4 +94,13 @@
       margin-right: 10px;
     }
   }
+}
+.bigCategoryBtn {
+     font-weight: 700;  
+}
+.category__btn{
+  font-weight: 700; 
+}
+.form-check-label{
+  font-weight: 700;
 }
