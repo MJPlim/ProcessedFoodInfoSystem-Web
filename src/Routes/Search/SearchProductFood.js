@@ -7,11 +7,7 @@ import { RiSearch2Line } from 'react-icons/ri';
 import { AiOutlineFilter } from 'react-icons/ai';
 import SearchResult from '../Search/SearchResult';
 import {
-  InputGroupAddon, Collapse, Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption,
+  InputGroupAddon, Collapse
 } from 'reactstrap';
 
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
@@ -805,7 +801,7 @@ const SearchProductFood = (props) => {
           <nav class='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>
 
-              <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
+              <div className='navbar-brand nav__result'>검색결과 ({totalResult})</div>
 
             </div>
             <div className='form-check__group'>

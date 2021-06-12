@@ -8,7 +8,6 @@ import {
 } from 'reactstrap';
 
 import { Link } from 'react-router-dom';
-import productSet from '../../image/kati.PNG';
 import 간식 from '../../image/bigCategoryImg/간식.jpg';
 import 기타 from '../../image/bigCategoryImg/기타.jpg';
 import 김치 from '../../image/bigCategoryImg/김치.jpg';
@@ -131,21 +130,6 @@ const MainScreen=()=> {
     sessionStorage.removeItem('searchTerm');
 
   }, []);
-
-
-  const onClickCategory = e => {
-    // 새로운 메뉴 진입시 검색 관련 세션 초기화
-    sessionStorage.removeItem('categoryName');
-    sessionStorage.removeItem('selectedPage');
-    sessionStorage.removeItem('selectedSort');
-    sessionStorage.removeItem('selectedOption');
-    sessionStorage.removeItem('allergyList')
-    sessionStorage.removeItem('allergyCheck')
-    sessionStorage.removeItem('searchTerm');
-
-
-  };
-
 
   return (
     <div className='mainScreen'>
