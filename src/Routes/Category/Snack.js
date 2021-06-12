@@ -43,6 +43,10 @@ const Snack = (props) => {
   const toggle7 = () => setIsOpen7(!isOpen7);
   const [isOpen8, setIsOpen8] = useState(false);
   const toggle8 = () => setIsOpen8(!isOpen8);
+  const [isOpen9, setIsOpen9] = useState(false);
+  const toggle9 = () => setIsOpen9(!isOpen9);
+  const [isOpen10, setIsOpen10] = useState(false);
+  const toggle10 = () => setIsOpen10(!isOpen10);
 
   //알러지
   const [allergyLoading, setAllergyLoading] = useState(false);
@@ -56,7 +60,7 @@ const Snack = (props) => {
   const [loading, setLoading] = useState(false);
   //파라미터
   const [searchTerm, setSearchTerm] = useState(null);
-  const [categoryName, setCategoryName] = useState('간식');
+  const [categoryName, setCategoryName] = useState('_간식');
   const [sort, setSort] = useState(sessionStorage.getItem('selectedSort') !== null ? sessionStorage.getItem('selectedSort') : 'ranking');
   const [order, setOrder] = useState('desc');
   const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
@@ -67,8 +71,9 @@ const Snack = (props) => {
     console.log('마운트!');
     console.log(sort);
     setCategoryName('간식');
-    if (sessionStorage.getItem('categoryName') === '간식' || sessionStorage.getItem('categoryName') === null) {
+    if (sessionStorage.getItem('categoryName') === '_간식' || sessionStorage.getItem('categoryName') === null) {
       console.log('대분류를 눌럿음');
+      sessionStorage.setItem('categoryName', '_간식');
       getBigCategory(sort, currentPage);
     } else {
       setCategoryName(sessionStorage.getItem('categoryName'));
@@ -92,8 +97,8 @@ const Snack = (props) => {
   };
   const getBigCategory = async (sort, pageNum, state) => {
     setIsSmallCategory(false);
-    setCategoryName('간식');
-    sessionStorage.setItem('category', '간식');
+    setCategoryName('_간식');
+    sessionStorage.setItem('categoryName', '_간식');
 
     try {
       state === 'init' && setLoading(true);
@@ -154,7 +159,7 @@ const Snack = (props) => {
 
   useEffect(async () => {
     console.log('정보 가져오는 기준 변경 시 useEffect');
-    if (categoryName !== '간식') {
+    if (categoryName !== '_간식') {
       await getSmallCategory(currentPage, 'init');
     }
 
@@ -219,7 +224,7 @@ const Snack = (props) => {
 
     console.log('페이징 클릭 ', pageNum);
 
-    if (categoryName !== '간식') {
+    if (categoryName !== '_간식') {
       // getSmallCategory(pageNum.selected + 1);
     } else {
       getBigCategory(sort, pageNum.selected + 1);
@@ -306,6 +311,7 @@ const Snack = (props) => {
           <button className='bigCategoryBtn list-group-item' onClick={toggle2}>음료/차
             <div style={{ float: 'right' }}>
               {!isOpen2 ?
+
                 <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
                 <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
               }
@@ -318,7 +324,7 @@ const Snack = (props) => {
                 type='button'
                 value='음료'
                 className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('음료/차')}
+                onClick={() => handleCategory('음료')}
               >
                 음료
               </button>
@@ -364,6 +370,96 @@ const Snack = (props) => {
                 onClick={() => handleCategory('유제품')}
               >
                 유제품
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }} />
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle9}>육류
+            <div style={{ float: 'right' }}>
+              {!isOpen9 ?
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
+              }
+            </div>
+          </button>
+          <Collapse isOpen={isOpen9}>
+
+            <Link to='/category/meat'>
+              <button
+                type='button'
+                value='육류'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('육류')}
+              >
+                육류
+              </button>
+            </Link>
+            <Link to='/category/meat'>
+              <button
+                type='button'
+                value='햄/소시지'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('햄/소시지')}
+              >
+                햄/소시지
+              </button>
+            </Link>
+
+          </Collapse>
+          <div style={{ marginBottom: '1rem' }} />
+
+          <button className='bigCategoryBtn list-group-item' onClick={toggle10}>식재료
+            <div style={{ float: 'right' }}>
+              {!isOpen10 ?
+                <IoIosArrowDown style={{ marginLeft: 'auto', float: 'right', position: 'absolute' }} /> :
+                <IoIosArrowUp style={{ marginLeft: 'auto', position: 'absolute' }} />
+              }
+            </div>
+          </button>
+          <Collapse isOpen={isOpen10}>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='국수'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('국수')}
+              >
+                국수
+              </button>
+            </Link>
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='두부'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('두부')}
+              >
+                두부
+              </button>
+            </Link>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='식용유'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('식용유')}
+              >
+                식용유
+              </button>
+            </Link>
+
+            <Link to='/category/material'>
+              <button
+                type='button'
+                value='어묵'
+                className='list-group-item list-group-item-action'
+                onClick={() => handleCategory('어묵')}
+              >
+                어묵
               </button>
             </Link>
 
@@ -554,47 +650,6 @@ const Snack = (props) => {
                 즉석조리식품
               </button>
             </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='국수'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('국수')}
-              >
-                국수
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='두부'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('두부')}
-              >
-                두부
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='식용유'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('식용유')}
-              >
-                식용유
-              </button>
-            </Link>
-            <Link to='/category/mealKit'>
-              <button
-                type='button'
-                value='어묵'
-                className='list-group-item list-group-item-action'
-                onClick={() => handleCategory('어묵')}
-              >
-                어묵
-              </button>
-            </Link>
-
           </Collapse>
           <div style={{ marginBottom: '1rem' }} />
 
@@ -621,6 +676,7 @@ const Snack = (props) => {
             </Link>
 
           </Collapse>
+
         </div>
       </div>
       <div className='category__show'>
@@ -628,7 +684,7 @@ const Snack = (props) => {
           <nav class='navbar  justify-content-between'>
             <p className='category__title'><BsFillGridFill /> 카테고리 <BsChevronRight />
               <button className='category__btn' onClick={() => {
-                sessionStorage.removeItem('categoryName');
+                sessionStorage.setItem('categoryName', '_간식');
                 sessionStorage.removeItem('selectedPage');
                 sessionStorage.removeItem('selectedSort');
                 setCurrentPage(1);
@@ -735,7 +791,6 @@ const Snack = (props) => {
             </button>
             <p className='category__name'>초콜릿</p>
           </div>
-
         </div>
         <div>
 
@@ -748,7 +803,7 @@ const Snack = (props) => {
               <div className='navbar-brand nav__result'>검색결과({totalResult})</div>
 
             </div>
-            {categoryName !== '간식' &&
+            {categoryName !== '_간식' &&
             <div className='form-check__group'>
               {allergyCheck === true ?
                 <AiOutlineFilter type='button' onClick={handleAllergy} data-toggle='tooltip' data-placement='bottom'
