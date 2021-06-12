@@ -60,6 +60,7 @@
   }
 
   .foodPaginate {
+    font-family: MPb;
     width: 100%;
     font-size: medium;
     margin: 10px auto 30px;
@@ -68,14 +69,21 @@
     li {
       margin: 20px;
       display: inline-block !important;
+
+      a {
+        //font-weight: 800 !important;
+
+      }
+
     }
 
     .foodPage {
+
       color: black;
     }
 
     .foodSelectedPage {
-      color: $lightorange !important;
+      color: rgba(237, 47, 59, 0.9) !important;
       font-weight: bold;
     }
   }
