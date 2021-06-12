@@ -9,9 +9,9 @@ const ReviewSummaryChart = ({reviewSummary}) => {
                 {
                     data: [reviewSummary['fiveCount'], reviewSummary['fourCount'], reviewSummary['threeCount'], reviewSummary['twoCount'], reviewSummary['oneCount']],
                     lineTension: 0,
-                    backgroundColor: "#fe9b5a",
+                    backgroundColor: "rgba(240, 96, 106, 1)",
                     borderWidth: 1,
-                    borderColor: "#fe9b5a",
+                    borderColor: "rgba(240, 96, 106, 1)",
                     fill: true,
                 }
             ]
