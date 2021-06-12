@@ -4,7 +4,7 @@ import {
   Button,
   Card,
   CardText, CardTitle,
-  Col,
+  Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, InputGroupAddon,
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
@@ -14,6 +14,7 @@ import {
 import './Ranking.scss';
 import { AiFillStar, AiOutlineStar, FaTrophy } from 'react-icons/all';
 import { Link } from 'react-router-dom';
+import { RiSearch2Line } from 'react-icons/ri';
 
 const ProductReviewRanking = () => {
   const [rankingList, setRankingList] = useState(null);
@@ -38,12 +39,18 @@ const ProductReviewRanking = () => {
 
   return (
     <div className='Ranking'>
-      <Row className='titleArea'>
-        <Col md='7'>
-          <p className='title'>제품 랭킹</p>
-        </Col>
-      </Row>
-      <hr className='hr' />
+      <nav className='navbar  justify-content-between'>
+        <p className='title'>
+          <Link to='/productRanking'>
+            <button className='ranking_btn' onClick={() => {
+            }}>제품 랭킹
+            </button>
+          </Link>
+        </p>
+
+
+      </nav>
+      <hr />
       {/* 타이틀 영역 끝 */}
 
       {!loading && (

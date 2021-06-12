@@ -2,23 +2,29 @@
 
 .Ranking {
   width: 60%;
-  margin: 20px auto auto;
+  margin: 20px auto 0;
+  //margin-left: 30px;
+  //margin-right: 30px;
+  padding: 28px;
   .container {
-    margin-left: 30px;
-    margin-right: 30px;
-    padding-top: 30px;
+
   }
 
 
-  .titleArea {
-    .title {
-      margin-top: 40px;
-      font-size: x-large;
+  .title {
+    border: 0;
+    outline: 0;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-size: x-large !important;
+    .ranking_btn{
+      border: 0;
+      outline: 0;
+      background-color: white;
       font-weight: 700;
-      border-bottom-style: solid;
-      border-bottom-color: black;
     }
   }
+
   .hr {
     height: 1px;
     border-radius: 0.5px;
