@@ -12,9 +12,10 @@ import SearchResult from '../Search/SearchResult';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import 육류 from '../../image/categoryImg/meat/육류.jpg';
+import 햄소시지 from '../../image/categoryImg/meat/햄소시지.jpg';
 
-
-const Milk = (props) => {
+const Meat = (props) => {
 
     //드롭다운
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -751,13 +752,13 @@ const Milk = (props) => {
               <div className='category__items'>
                   <div className='item'>
                       <button value='육류' onClick={() => handleCategory('육류')} className='category__item'>
-                          {/*<img className='item__img' src={육류} />*/}
+                          <img className='item__img' src={육류} />
                       </button>
                       <p className='category__name'>육류</p>
                   </div>
                   <div className='item'>
                       <button value='햄/소시지' onClick={() => handleCategory('햄/소시지')} className='category__item'>
-                          {/*<img className='item__img' src={햄/소시지} />*/}
+                          <img className='item__img' src={햄소시지} />
                       </button>
                       <p className='category__name'>햄/소시지</p>
                   </div>
@@ -817,4 +818,4 @@ const Milk = (props) => {
       </div>
     );
 };
-export default Milk;
+export default Meat;
