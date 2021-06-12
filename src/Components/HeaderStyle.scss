@@ -1,40 +1,39 @@
 @import 'styles/utils';
 
-.header{
+.header {
   padding: 10px 60px;
   height: 70px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgba(218, 223, 225, 1);
-  background-color: rgba(237,47,59,0.7);
+  background-color: rgba(237, 47, 59, 0.7);
   color: white;
-  font-family: 'tway';
+  font-family: 'MPb';
   margin-bottom: 20px;
-  .menu_login{
+  .menu_login {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 50px;
-    .menuItems{
+    .menuItems {
       display: flex;
       flex-direction: row;
       align-items: center;
-      .item{
+      .item {
         align-items: center;
         display: flex;
         align-items: center;
-        .item__name{
+        .item__name {
           text-align: center;
           margin: 0px 30px;
         }
-        .item__about{
+        .item__about {
           margin-right: 50px;
         }
-        
       }
-      .log__btn{
+      .log__btn {
         text-align: center;
-          margin: 10px 20px;
+        margin: 10px 20px;
       }
     }
   }
@@ -45,7 +44,6 @@
     font-size: 50px;
     font-family: 'thickEng';
     .logo {
-
       text-decoration: none;
       color: inherit;
       transition: margin 0.25s;
@@ -64,7 +62,7 @@
         stroke-dasharray: var(--offset, 69px) 278px;
         stroke-dashoffset: 361px;
         transition: stroke 0.25s ease var(--stroke-delay, 0s),
-        stroke-dasharray 0.35s;
+          stroke-dasharray 0.35s;
       }
 
       &:hover {
@@ -83,8 +81,8 @@
     height: 50px;
   }
 
-  .buttons:hover{
-     text-decoration: none !important;
+  .buttons:hover {
+    text-decoration: none !important;
     border-bottom: 0 !important;
   }
 
@@ -138,7 +136,7 @@
     margin: auto;
     font-size: 20px;
     font-weight: 500;
-    font-family: 'tway';
+    font-family: 'MPb';
     color: black;
 
     :hover {
@@ -155,10 +153,8 @@
     margin-left: 150px;
   }
 
-
   a:hover {
     text-decoration: none !important;
     border-bottom: 0 !important;
   }
 }
-
