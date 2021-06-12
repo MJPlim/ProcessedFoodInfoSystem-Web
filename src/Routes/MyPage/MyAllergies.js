@@ -123,7 +123,7 @@ function MyAllergies() {
       <Container>
         <div className="changeAllergyInfo">
           <Row>
-            <p>알러리 정보 변경하기</p>
+            <p>알러지 정보 변경하기</p>
           </Row>
           <hr />
         </div>

@@ -113,11 +113,13 @@ const MyPage = () => {
          <div className="box__des">{birth}</div>
          <div className="box__des">{address}</div>
        </button>
+       <Link to='/myFavourite'>
        <button className="info__box">
          <AiOutlineStar size="100" className="box__icon"/>
          <div className="box__title"> {favouriteCount}</div>
-         <div className="box__des">즐겨찾기</div>
+          <div className="box__des">즐겨찾기</div>
        </button>
+       </Link>
        <button className="info__box">
          <HiOutlinePencilAlt size="100" className="box__icon"/>
          <div className="box__title">{reviewCount}</div>
@@ -130,6 +132,7 @@ const MyPage = () => {
          <div className="box__des">알러지</div>
        </button>
      </div>
+     
    </div>
   );
 };

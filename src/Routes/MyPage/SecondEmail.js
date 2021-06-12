@@ -39,7 +39,7 @@ function SecondEmail() {
         <div className="secondEmailContainer">
           <Card body>
             <p className="title">2차 보안 설정</p>
-            <hr />
+            <hr className="secondEmail__line"/>
             <Form>
               <FormGroup>
                 <Label className="secondEmail">
