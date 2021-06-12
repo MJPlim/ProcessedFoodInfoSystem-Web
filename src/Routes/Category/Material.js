@@ -12,7 +12,9 @@ import SearchResult from '../Search/SearchResult';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-
+import 국수 from '../../image/categoryImg/material/국수.jpg';
+import 두부 from '../../image/categoryImg/material/두부.jpg';
+import 식용유 from '../../image/categoryImg/material/식용유.jpg';
 
 const Material = (props) => {
 
@@ -159,23 +161,6 @@ const Material = (props) => {
     }
 
   }, [categoryName, sort, currentPage, allergyList]);
-
-  // const handleAllergy = async () => {
-  //   setAllergyLoading(true);
-  //   await getUserAllergyInfo
-  //     .userAllergies()
-  //     .then((response) => {
-  //       const result = response.data.userAllergyMaterials;
-  //       console.log('알러지', result);
-  //       setAllergyList(result);
-  //       alert(result);
-  //
-  //     })
-  //     .catch((error) => {
-  //       alert('로그인을 하세요');
-  //     });
-  //
-  // };
 
   const handleAllergy = async () => {
     if (allergyCheck) {//이미 체크 상태
@@ -751,25 +736,25 @@ const Material = (props) => {
         <div className='category__items'>
           <div className='item'>
             <button value='국수' onClick={() => handleCategory('국수')} className='category__item'>
-              {/*<img className='item__img' src={국수} />*/}
+              <img className='item__img' src={국수} />
             </button>
             <p className='category__name'>국수</p>
           </div>
           <div className='item'>
             <button value='두부' onClick={() => handleCategory('두부')} className='category__item'>
-              {/*<img className='item__img' src={두부} />*/}
+              <img className='item__img' src={두부} />
             </button>
             <p className='category__name'>두부</p>
           </div>
           <div className='item'>
             <button value='식용유' onClick={() => handleCategory('식용유')} className='category__item'>
-              {/*<img className='item__img' src={식용유} />*/}
+              <img className='item__img' src={식용유} />
             </button>
             <p className='category__name'>식용유</p>
           </div>
           <div className='item'>
             <button value='어묵' onClick={() => handleCategory('어묵')} className='category__item'>
-              {/*<img className='item__img' src={어묵} />*/}
+              {/* <img className='item__img' src={어묵} /> */}
             </button>
             <p className='category__name'>어묵</p>
           </div>
