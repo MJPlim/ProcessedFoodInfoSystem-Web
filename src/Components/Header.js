@@ -70,6 +70,7 @@ function LoginState(props) {
             localStorage.setItem('userLoginPassword', null);
             localStorage.setItem('userBEmail', null);
             localStorage.setItem('userBPassword', null);
+            window.location.href = '/';
           }}
         >
           <AiOutlineLogout size="25" />

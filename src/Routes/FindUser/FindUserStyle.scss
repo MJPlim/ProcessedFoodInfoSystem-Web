@@ -1,9 +1,10 @@
-@import "./src/styles/utils";
+@import './src/styles/utils';
 
 .FindUser {
   width: 500px;
-  font-family: MPl;
+  font-family: 'MPl';
   margin: auto;
+  margin-top: 11%;
 
   .title {
     padding-left: 20px;
@@ -44,20 +45,20 @@
       border-color: $lightorange;
       color: $lightorange;
 
-      &:hover, &:focus, &:active {
+      &:hover,
+      &:focus,
+      &:active {
         background-color: $lightorange !important;
         color: white !important;
         border-color: $lightorange !important;
       }
     }
-
   }
 
   .alertArea {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 82%;
-
   }
 
   //
@@ -80,6 +81,4 @@
   //input::placeholder {
   //  font-size: 90%;
   //}
-
-
 }

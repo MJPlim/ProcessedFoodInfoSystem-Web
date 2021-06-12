@@ -1,29 +1,12 @@
 import React, { useState } from 'react';
-import classnames from 'classnames';
-import './MainScreenStyle.scss';
+import './About.scss';
 import {
-  Row,
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
   Container,
-  Col,
-  Card,
-  CardImage,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  CardLink,
-  Button,
-  Badge,
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Table,
-  Fade,
-  Popover,
-  PopoverHeader,
-  PopoverBody,
+  CarouselCaption,
 } from 'reactstrap';
 import dev1 from '../../image/dev1.jpg';
 import dev2 from '../../image/dev2.jpg';
@@ -31,303 +14,150 @@ import dev3 from '../../image/dev3.jpg';
 import dev4 from '../../image/dev4.jpg';
 import dev5 from '../../image/dev5.jpg';
 import dev6 from '../../image/dev6.jpg';
-import dev7 from '../../image/dev7.JPG';
+import dev7 from '../../image/dev7.jpg';
 import dev8 from '../../image/dev8.jpg';
-function About() {
-  const [activeTab, setActiveTab] = useState('1');
-  const [fadeIn, setFadeIn] = useState(true);
-  const [popoverOpen1, setPopoverOpen1] = useState(false);
-  const [popoverOpen2, setPopoverOpen2] = useState(false);
-  const [popoverOpen3, setPopoverOpen3] = useState(false);
-  const [popoverOpen4, setPopoverOpen4] = useState(false);
-  const [popoverOpen5, setPopoverOpen5] = useState(false);
-
-  const toggle = (tab) => {
-    if (activeTab !== tab) setActiveTab(tab);
+const About = () => {
+  const items = [
+    {
+      src: dev1,
+      altText: 'Web',
+      caption: '60150068',
+      header: '중어중문학과 박정훈',
+      key: '1',
+    },
+    {
+      src: dev2,
+      altText: 'Web, DB',
+      caption: '60161605',
+      header: '융합소프트웨어학부 박이건',
+      key: '2',
+    },
+    {
+      src: dev3,
+      altText: 'Server',
+      caption: '60180998',
+      header: '경영학과 이서현',
+      key: '3',
+    },
+    {
+      src: dev4,
+      altText: 'PM, Architecture, App',
+      caption: '60181665',
+      header: '융합소프트웨어학부 정상현',
+      key: '4',
+    },
+    {
+      src: dev5,
+      altText: 'PM, QA, Server',
+      caption: '60181640',
+      header: '융합소프트웨어학부 박정욱',
+      key: '5',
+    },
+    {
+      src: dev6,
+      altText: 'QA, App',
+      caption: '60181626',
+      header: '융합소프트웨어학부 김송은',
+      key: '6',
+    },
+    {
+      src: dev7,
+      altText: 'DB, App',
+      caption: '60160395',
+      header: '문예창작학과 윤예은',
+      key: '7',
+    },
+    {
+      src: dev8,
+      altText: 'App',
+      caption: '60141036',
+      header: '융합소프트웨어학부 신동욱',
+      key: '8',
+    },
+    {
+      src: dev1,
+      altText: 'Web',
+      caption: '60171671',
+      header: '융합소프트웨어학부 홍은서',
+      key: '9',
+    },
+    {
+      src: dev1,
+      altText: '11',
+      caption: '11',
+      header: '11 11',
+      key: '10',
+    },
+  ];
+  //광고부분
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
   };
 
-  const togglePop1 = () => setPopoverOpen1(!popoverOpen1);
-  const togglePop2 = () => setPopoverOpen2(!popoverOpen2);
-  const togglePop3 = () => setPopoverOpen3(!popoverOpen3);
-  const togglePop4 = () => setPopoverOpen4(!popoverOpen4);
-  const togglePop5 = () => setPopoverOpen5(!popoverOpen5);
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  };
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  };
+  const slides = items.map((item) => {
+    return (
+      <CarouselItem
+        className="devItem"
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.src}
+      >
+        <img className="devFace" src={item.src} alt={item.altText} />
+        <CarouselCaption
+          className="devCaption"
+          captionText={item.caption}
+          captionHeader={item.header}
+        />
+      </CarouselItem>
+    );
+  });
   return (
-    <div className="about">
-      <br />
-      <br />
-      <br />
-      <Nav tabs className="menuTabs">
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '1' })}
-            onClick={() => {
-              toggle('1');
-            }}
+    <div className="aboutDev">
+      <Container className="devCon">
+        <div className="devImg">
+          <Carousel
+            className="devCarousel"
+            activeIndex={activeIndex}
+            next={next}
+            previous={previous}
           >
-            개발자
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '2' })}
-            onClick={() => {
-              toggle('2');
-            }}
-          >
-            조직 구성
-          </NavLink>
-        </NavItem>
-      </Nav>
-      <TabContent activeTab={activeTab} className="shownDescription">
-        <TabPane tabId="1" className="marginSet">
-          <br />
-          <br />
-          <Table borderless>
-            <thead>
-              <tr className="tableTop">
-                <th>사진</th>
-                <th>학번</th>
-                <th>이름</th>
-                <th>학과</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev1} />
-                </th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev2} />
-                </th>
-                <th>60161605</th>
-                <th>박이건</th>
-                <th>융합소프트웨어학부</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev3} />
-                </th>
-                <th>60180998</th>
-                <th>이서현</th>
-                <th>경영학과</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev4} />
-                </th>
-                <th>60181665</th>
-                <th>정상현</th>
-                <th>융합소프트웨어학부</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev5} />
-                </th>
-                <th>60181640</th>
-                <th>박정욱</th>
-                <th>융합소프트웨어학부</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev6} />
-                </th>
-                <th>60181626</th>
-                <th>김송은</th>
-                <th>융합소프트웨어학부</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev7} />
-                </th>
-                <th>60160395</th>
-                <th>윤예은</th>
-                <th>문예창작학과</th>
-              </tr>
-              <tr>
-                <th>
-                  <img className="devImage" src={dev8} />
-                </th>
-                <th>60141036</th>
-                <th>신동욱</th>
-                <th>융합소프트웨어학부</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>60171671</th>
-                <th>홍은서</th>
-                <th>융합소프트웨어학부</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>60150068</th>
-                <th>박정훈</th>
-                <th>중어중문학과</th>
-              </tr>
-            </thead>
-          </Table>
-        </TabPane>
-        <TabPane tabId="2">
-          <Row>
-            <Col sm="4">
-              <Card body>
-                <CardTitle>PM, QA</CardTitle>
-                <CardText>
-                  프로젝트 관리 책임, 품질 관리자 및 환경 세팅 담당
-                </CardText>
-                <Button
-                  outline
-                  color="secondary"
-                  size="sm"
-                  id="Popover1"
-                  type="button"
-                >
-                  더 보기
-                </Button>
-                <Popover
-                  placement="bottom"
-                  isOpen={popoverOpen1}
-                  target="Popover1"
-                  toggle={togglePop1}
-                  className="popGroup"
-                >
-                  <PopoverHeader>조직 구성원</PopoverHeader>
-                  <PopoverBody>
-                    PM: 정상현, 박정욱
-                    <br />
-                    QA: 김송은, 박정욱
-                  </PopoverBody>
-                </Popover>
-              </Card>
-            </Col>
-            <Col sm="4">
-              <Card body>
-                <CardTitle>Server 개발팀</CardTitle>
-                <CardText>비즈니스 로직 개발 및 통합 담당</CardText>
-                <Button
-                  outline
-                  color="secondary"
-                  size="sm"
-                  id="Popover2"
-                  type="button"
-                >
-                  더 보기
-                </Button>
-                <Popover
-                  placement="bottom"
-                  isOpen={popoverOpen2}
-                  target="Popover2"
-                  toggle={togglePop2}
-                  className="popGroup"
-                >
-                  <PopoverHeader>조직 구성원</PopoverHeader>
-                  <PopoverBody>
-                    팀장: 박정욱
-                    <br />
-                    팀원: 이서현, 정찬호
-                  </PopoverBody>
-                </Popover>
-              </Card>
-            </Col>
-            <Col sm="4">
-              <Card body>
-                <CardTitle>DB 개발팀</CardTitle>
-                <CardText>DB 설계 및 통합 담당</CardText>
-                <Button
-                  outline
-                  color="secondary"
-                  size="sm"
-                  id="Popover3"
-                  type="button"
-                >
-                  더 보기
-                </Button>
-                <Popover
-                  placement="bottom"
-                  isOpen={popoverOpen3}
-                  target="Popover3"
-                  toggle={togglePop3}
-                  className="popGroup"
-                >
-                  <PopoverHeader>조직 구성원</PopoverHeader>
-                  <PopoverBody>
-                    팀장: 박이건
-                    <br />
-                    팀원: 윤예은, 정찬호
-                  </PopoverBody>
-                </Popover>
-              </Card>
-            </Col>
-          </Row>
-          <br />
-          <Row>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>Web 개발팀</CardTitle>
-                <CardText>Web 설계 및 통합 담당</CardText>
-                <Button
-                  outline
-                  color="secondary"
-                  size="sm"
-                  id="Popover4"
-                  type="button"
-                >
-                  더 보기
-                </Button>
-                <Popover
-                  placement="bottom"
-                  isOpen={popoverOpen4}
-                  target="Popover4"
-                  toggle={togglePop4}
-                  className="popGroup"
-                >
-                  <PopoverHeader>조직 구성원</PopoverHeader>
-                  <PopoverBody>
-                    팀장: 박정훈
-                    <br />
-                    팀원: 박이건, 홍은서
-                  </PopoverBody>
-                </Popover>
-              </Card>
-            </Col>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>App 개발팀</CardTitle>
-                <CardText>App 설계 및 통합 담당</CardText>
-                <Button
-                  outline
-                  color="secondary"
-                  size="sm"
-                  id="Popover5"
-                  type="button"
-                >
-                  더 보기
-                </Button>
-                <Popover
-                  placement="bottom"
-                  isOpen={popoverOpen5}
-                  target="Popover5"
-                  toggle={togglePop5}
-                  className="popGroup"
-                >
-                  <PopoverHeader className="popGroup">
-                    조직 구성원
-                  </PopoverHeader>
-                  <PopoverBody>
-                    팀장: 윤예은
-                    <br />
-                    팀원: 김송은, 신동욱, 정상현
-                  </PopoverBody>
-                </Popover>
-              </Card>
-            </Col>
-          </Row>
-        </TabPane>
-      </TabContent>
+            <CarouselIndicators
+              className="devIndi"
+              items={items}
+              activeIndex={activeIndex}
+              onClickHandler={goToIndex}
+            />
+            {slides}
+            <CarouselControl
+              direction="prev"
+              directionText="Previous"
+              onClickHandler={previous}
+            />
+
+            <CarouselControl
+              direction="next"
+              directionText="Next"
+              onClickHandler={next}
+            />
+          </Carousel>
+        </div>
+      </Container>
     </div>
   );
-}
+};
 
 export default About;
