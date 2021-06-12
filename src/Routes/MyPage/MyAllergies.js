@@ -123,21 +123,7 @@ function MyAllergies() {
       <Container>
         <div>
           <Row>
-            <Col md="10">
-              <p className="changeAllergyInfo">알러리 정보 변경하기</p>
-            </Col>
-            {/* <Col md="2">
-              <Button color="primary" size="sm" onClick={unCheckAll}>
-                전부해제
-              </Button>
-            </Col> */}
-            <Col md="2">
-              <Link to="/mypage">
-                <Button color="danger" size="sm">
-                  취소하기
-                </Button>
-              </Link>
-            </Col>
+            <p className="changeAllergyInfo">알러리 정보 변경하기</p>
           </Row>
         </div>
         <br />
@@ -218,15 +204,16 @@ function MyAllergies() {
                 ))}
               </Row>
             </Form>
-            <Button
-              outline
-              color="warning"
-              size="sm"
-              block
-              onClick={createAllergy}
-            >
-              저장하기
-            </Button>
+            <div className="buttonGroup">
+              <Row className={'buttonArea'}>
+                <Link to="/myPage">
+                  <Button className={'cancelButton'}>취소</Button>
+                </Link>
+                <Button className={'submitButton'} onClick={createAllergy}>
+                  저장하기
+                </Button>
+              </Row>
+            </div>
           </div>
         )}
       </Container>
