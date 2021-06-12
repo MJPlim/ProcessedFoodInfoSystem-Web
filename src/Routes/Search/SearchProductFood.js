@@ -738,7 +738,7 @@ const SearchProductFood = (props) => {
       <div className='category__show'>
         <div className='category__line'>
           <nav class='navbar  justify-content-between'>
-            <p className='category__title'><BsFillGridFill /> 메뉴 <BsChevronRight />
+            <p className='category__title'>
               <Link to='/searchProduct/food'>
                 <button className='category__btn' onClick={() => {
                   sessionStorage.removeItem('selectedPage');

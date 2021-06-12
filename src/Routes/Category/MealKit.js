@@ -12,7 +12,7 @@ import SearchResult from '../Search/SearchResult';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-
+import 즉석조리식품 from '../../image/categoryImg/mealKit/즉석조리식품.jpg';
 
 const MealKit = (props) => {
 
@@ -751,7 +751,7 @@ const MealKit = (props) => {
         <div className='category__items'>
           <div className='item'>
             <button value='즉석조리식품' onClick={() => handleCategory('즉석조리식품')} className='category__item'>
-              {/*<img className='item__img' src={즉석조리식품} />*/}
+              <img className='item__img' src={즉석조리식품} />
             </button>
             <p className='category__name'>즉석조리식품</p>
           </div>

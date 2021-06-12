@@ -1,5 +1,9 @@
 @import './src/styles/utils';
-
+hr{
+  background-color:rgba(237,47,59,0.9);
+  border-radius: 1px;
+  height: 2px;
+}
 .container {
   display: grid;
   width: 100%;
@@ -100,4 +104,11 @@
 }
 .form-check-label{
   font-weight: 700;
+}
+.category__line{
+  margin-bottom: 2px;
+}
+.category__btn{
+  margin-bottom: 2px;
+  font-size: x-large;
 }
