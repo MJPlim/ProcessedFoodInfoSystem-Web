@@ -28,9 +28,7 @@ function Join(props) {
   const [conPassword, setConPassword] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
-  const [birth, setBirth] = useState(
-    moment(new Date()).format('yyyy-MM-DD')
-  );
+  const [birth, setBirth] = useState(moment(new Date()).format('yyyy-MM-DD'));
   const [tempBirth, setTempBirth] = useState('');
   const [error, setError] = useState({
     conPasswordError: null,
@@ -71,6 +69,7 @@ function Join(props) {
       try {
         await userJoin.userRegister(name, password, address, birth, email);
         alert('입력하신 ' + email + '주소로 인증메일이 발송되었습니다');
+        props.history.goBack();
       } catch (e) {
         console.log(e);
         alert('틀린 정보입니다.');
@@ -159,7 +158,7 @@ function Join(props) {
                     id="inputBirth"
                     wrapperClassName="birthDayPicker"
                     dateFormat="yyyy-MM-dd"
-                    placeholderText={"생년월일"}
+                    placeholderText={'생년월일'}
                     selected={tempBirth}
                     maxDate={new Date()}
                     onChange={(date) => setUserBirth(date)}
@@ -168,7 +167,6 @@ function Join(props) {
                     showMonthDropdown={'true'}
                     dropdownMode={'select'}
                     locale="ko"
-
                   />
                 </Col>
               </Row>
