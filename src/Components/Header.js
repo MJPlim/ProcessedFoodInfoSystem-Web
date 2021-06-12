@@ -3,13 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import './HeaderStyle.scss';
 import axios from 'axios';
-import {
-  Row,
-  Container,
-  Navbar,
-  Nav,
-  NavLink,
-} from 'reactstrap';
+
 import {AiOutlineUserAdd,AiOutlineLogin,AiOutlineLogout,AiOutlineStar} from "react-icons/ai";
 import {RiUser3Line} from "react-icons/ri";
 
@@ -91,33 +85,24 @@ function LoginState(props) {
   }
 }
 
-const Item = styled.li`
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 80px;
-  height: 30px;
+const Item = styled.div`
+  height: 50px;
   text-align: center;
   text-decoration: none;
+  font-size: medium;
+  margin: 0px 10px;
+  padding: 0px 20px;
   border-bottom: 4px solid
-    ${(props) => (props.current ? ' #ED2F3B' : 'transparent')};
+    ${(props) => (props.current ? '#ffff': 'transparent')};
   transition: border-bottom 0.3s ease-in-out;
 `;
 
 //컴포넌트에서 라우터에 접근 현재 어떤 컴포넌트인지 라우터도 알수 있음!
 export default withRouter(({ location: { pathname } }) => (
-  <header>
-    <div className="headerJS">
-      <Container>
-        <Row className="menuItems">
-          <div className="topsection">
-            <LoginState auli={localStorage.getItem('authorization')} />
-          </div>
-        </Row>
-
-        <Navbar className="mainNav" bg="light" variant="light"></Navbar>
-        <Row>
-          <div className="serviceName">
-            <Link className="logo" to="/"  onClick={() => {
+    <header className="header">
+      <div className="serviceName">
+        <Link className="serviceName" to="/"
+        onClick={() => {
               // 새로운 메뉴 진입시 검색 관련 세션 초기화
               sessionStorage.removeItem('categoryName');
               sessionStorage.removeItem('selectedPage');
@@ -128,20 +113,16 @@ export default withRouter(({ location: { pathname } }) => (
               sessionStorage.removeItem('searchTerm');
 
 
-            }}>
-              KATI
-            </Link>
-          </div>
-        </Row>
-      </Container>
-
-      <Navbar className="mainNav" bg="light" variant="light"></Navbar>
-
-      <div className="navMom">
-        <Navbar bg="light" expand="lg" className="navigationGroup">
-          <Nav className="mainLink">
-            <NavLink className="links">
-              <Link to="/searchProduct/food" onClick={() => {
+            }}
+          >
+          KATI
+          </Link> 
+        </div>
+      <div className="menu_login">
+        <ul className="menuItems">
+        <Item className="item" current={pathname === "/searchProduct/food"}>
+         <Link className="item__name" to="/searchProduct/food"
+             onClick={() => {
                 // 새로운 메뉴 진입시 검색 관련 세션 초기화
                 sessionStorage.removeItem('categoryName');
                 sessionStorage.removeItem('selectedPage');
@@ -150,20 +131,20 @@ export default withRouter(({ location: { pathname } }) => (
                 sessionStorage.removeItem('allergyList')
                 sessionStorage.removeItem('allergyCheck')
                 sessionStorage.removeItem('searchTerm');
-
-
-              }}>상품찾기</Link>
-            </NavLink>
-            
-            <NavLink className="links">
-              <Link to="/productRanking">제품랭킹</Link>
-            </NavLink>
-            <NavLink className="links">
-              <Link to="/about">KATI 개발팀</Link>
-            </NavLink>
-          </Nav>
-        </Navbar>
-      </div>
+              }}
+         >
+           상품찾기
+        </Link>
+        </Item>
+        <Item className="item" current={pathname === "/productRanking"}>
+        <Link className="item__name" to="/productRanking">제품랭킹</Link>
+        </Item>
+        <Item className="item" current={pathname === "/about"}>
+        <Link className="item__name item__about" to="/about">카티 개발팀</Link>
+        </Item>
+         <LoginState className="item__log" auli={localStorage.getItem('authorization')} />
+   </ul>
     </div>
+   
   </header>
 ));

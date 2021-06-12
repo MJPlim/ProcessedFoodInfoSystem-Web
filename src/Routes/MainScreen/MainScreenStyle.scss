@@ -1,6 +1,7 @@
 @import 'styles/utils';
 
 .mainScreen {
+
   height: 100%;
   .showImage {
     width: 100%;
@@ -27,6 +28,9 @@
     background-attachment: local;
   }
 
+  .big__name{
+      //margin-top: 100px;
+  }
 
   .ad__section{
     display: grid;

@@ -5,11 +5,6 @@ import {
   Row,
   Container,
   Col,
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
 } from 'reactstrap';
 
 import { Link } from 'react-router-dom';
@@ -35,6 +30,8 @@ import { getProductRanking, getAd } from '../../api';
 import { useEffect } from 'react/cjs/react.development';
 import ResultPage from './ResultPage';
 import {FiArrowRightCircle} from 'react-icons/fi';
+import {FaRegThumbsUp} from 'react-icons/fa';
+
 import {
   Carousel,
   CarouselItem,
@@ -157,7 +154,7 @@ const MainScreen=()=> {
       <Container>
 
          <div>
-          <Row>
+          <Row className="big__name">
             <Col md='1'>
               <img className='productSet' src={productSet} />
             </Col>
@@ -171,12 +168,12 @@ const MainScreen=()=> {
               <div className="intro__title">kati 추천 광고</div>
             
               <div className="keyword__buttons">
-                <div className="intro__keyword">추천 키워드</div>
-                <button className="keyword__btn">#과자</button>
-                <button className="keyword__btn">#즉석조리식품</button>
-                <button className="keyword__btn">#국수</button>
-                <button className="keyword__btn">#즉석조리식품</button>
-                <button className="keyword__btn">#국수</button>
+                <div className="intro__keyword"><FaRegThumbsUp/> 추천 키워드</div>
+              <Link to='/category/snack'><button className="keyword__btn">#과자</button></Link> 
+               <Link to='/category/mealKit'><button className="keyword__btn">#즉석조리식품</button></Link>
+               <Link to='/category/tea'><button className="keyword__btn">#커피</button></Link> 
+               <Link to='/category/snack'><button className="keyword__btn">#달달한거</button></Link>
+         
               </div>
             </div>
             <div className="ad__img">

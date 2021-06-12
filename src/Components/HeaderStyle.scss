@@ -1,49 +1,53 @@
 @import 'styles/utils';
 
-.headerJS {
-  margin: auto;
-  display: inline-block;
-  width: 100%;
-  margin-top: 1%;
-  margin-bottom: 2%;
-
-  .menuItems {
-    align-items: right;
-    width: 92%;
-    height: 20px;
-  }
-
-  .topsection {
-    display: inline-block;
-    justify-content: space-around;
-    margin: auto;
-    justify-items: right;
-    align-items: right;
-    text-align: right;
-    //background-color: #fbc779;
-    width: 100%;
-  }
-
-  .logo {
-    justify-content: center;
+.header{
+  padding: 10px 60px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(218, 223, 225, 1);
+  background-color: rgba(237,47,59,0.7);
+  color: white;
+  font-family: 'tway';
+  margin-bottom: 20px;
+  .menu_login{
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    height: 50px;
+    .menuItems{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .item{
+        align-items: center;
+        display: flex;
+        align-items: center;
+        .item__name{
+          text-align: center;
+          margin: 0px 30px;
+        }
+        .item__about{
+          margin-right: 50px;
+        }
+        
+      }
+      .log__btn{
+        text-align: center;
+          margin: 10px 20px;
+      }
+    }
   }
 
   .serviceName {
-    margin: 0;
     color: var(--text);
-    margin: auto;
-    justify-content: center;
-    font-size: 100px;
+    align-items: center;
+    font-size: 50px;
     font-family: 'thickEng';
-    width: 32%;
-
     .logo {
-      display: inline-block;
-      position: relative;
+
       text-decoration: none;
       color: inherit;
-      margin: 0 var(--spacing, 0px);
       transition: margin 0.25s;
 
       svg {
@@ -157,3 +161,4 @@
     border-bottom: 0 !important;
   }
 }
+
