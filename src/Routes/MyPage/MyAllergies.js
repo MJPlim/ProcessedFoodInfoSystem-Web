@@ -121,13 +121,13 @@ function MyAllergies() {
       <br />
       <br />
       <Container>
-        <div>
+        <div className="changeAllergyInfo">
           <Row>
-            <p className="changeAllergyInfo">알러리 정보 변경하기</p>
+            <p>알러리 정보 변경하기</p>
           </Row>
+          <hr />
         </div>
-        <br />
-        <br />
+
         {!allergyLoading && (
           <div>
             <Form className="checkboxGroup">

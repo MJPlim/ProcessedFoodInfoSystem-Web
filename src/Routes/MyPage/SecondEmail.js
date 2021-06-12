@@ -15,6 +15,7 @@ import {
   ButtonToggle,
 } from 'reactstrap';
 import { setSecurityEmail } from 'api';
+import { Link } from 'react-router-dom';
 
 function SecondEmail() {
   const [secondEmail, setSecondEmail] = useState('');
@@ -36,8 +37,9 @@ function SecondEmail() {
     <div className="setEmail">
       <Container>
         <div className="secondEmailContainer">
-          <p className="title">2차 보안 설정</p>
           <Card body>
+            <p className="title">2차 보안 설정</p>
+            <hr />
             <Form>
               <FormGroup>
                 <Label className="secondEmail">
@@ -47,17 +49,23 @@ function SecondEmail() {
                     onChange={onChange}
                   />
                 </Label>
-                <Label className="secondEmailButton">
-                  <Button
-                    color="danger"
-                    onClick={pushEmail}
-                    className="submitButton"
-                  >
-                    설정
-                  </Button>
-                </Label>
               </FormGroup>
             </Form>
+            <Row className={'buttonArea'}>
+              <Link to="myPage">
+                <Button outline color="danger" className={'cancelButton'}>
+                  취소
+                </Button>
+              </Link>
+              <Button
+                outline
+                color="warning"
+                className={'submitButton'}
+                onClick={pushEmail}
+              >
+                설정
+              </Button>
+            </Row>
           </Card>
         </div>
       </Container>

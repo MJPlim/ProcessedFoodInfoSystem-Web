@@ -96,7 +96,7 @@ const ChangeUserInfo = (props) => {
       <Container>
         <Card body>
           <Row>
-            <Col md="10">
+            <Col md="12">
               <p className="shownChange">내 정보 변경하기</p>
             </Col>
           </Row>
