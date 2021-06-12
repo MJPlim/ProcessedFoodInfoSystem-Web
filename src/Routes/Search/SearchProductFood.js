@@ -2,7 +2,7 @@ import './SearchStyle.scss';
 import { searchApi, getUserAllergyInfo } from '../../api';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BsFillGridFill, BsChevronRight } from 'react-icons/bs';
+
 import { RiSearch2Line } from 'react-icons/ri';
 import { AiOutlineFilter } from 'react-icons/ai';
 import SearchResult from '../Search/SearchResult';

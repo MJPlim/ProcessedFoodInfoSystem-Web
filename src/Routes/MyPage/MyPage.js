@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { getUserAllergyInfo, getUserInfoApi, getUserSummary } from '../../api';
 import './MyPageStyle.scss';
 import UserReviews from './UserReviews';
+import {AiOutlineUser,AiOutlineStar} from 'react-icons/ai';
+import {HiOutlinePencilAlt} from 'react-icons/hi';
+import { AiOutlineFilter } from 'react-icons/ai';
 
 const MyPage = () => {
   const [data, setData] = useState([]);
@@ -83,107 +86,51 @@ const MyPage = () => {
   if (userLoading || allergyLoading) return null;
 
   return (
-    <div className='MyPage'>
-      {/* IIFE 즉시 실행 함수
-      <div>{setUserInformation})</div> */}
-      <Container>
-        <Col md='12'>
-          <p className='shownPage'>마이페이지</p>
-        </Col>
-
-
-        <Row className={'myPageMenu'}>
-          <Col sm='3'>
-            <Link to='/changeUserInfo'>
-              <Button color='link' size='sm' className='changeInfo'>
-                내 정보변경하기
-              </Button>
+   <div className="myPage__container">
+     <div className="myPage__menu">
+        <div className="myPage__title">
+            MyPage
+        </div>
+        <div className="menu__items">
+           <Link to='/changeUserInfo' className="menu__item">        
+                내 정보변경하기         
             </Link>
-          </Col>
-          <Col sm='3'>
-            <Link to='/userAllergyInfo'>
-              <Button color='link' size='sm' className='changeUserAllergyInfo'>
+             <Link to='/userAllergyInfo' className="menu__item">            
                 알러지 정보 변경하기
-              </Button>
             </Link>
-          </Col>
-          <Col sm='3'>
-            <Link to='/changePassword'>
-              <Button color='link' size='sm' className='changePassword'>
+              <Link to='/changePassword' className="menu__item">           
                 비밀번호 변경하기
-              </Button>
             </Link>
-          </Col>
-          <Col sm='3'>
-            <Link to='/secondEmail'>
-              <Button color='link' size='sm' className='setSecondEmail'>
+             <Link to='/secondEmail' className="menu__item">
                 2차 보안 설정하기
-              </Button>
             </Link>
-          </Col>
-        </Row>
-        {/* 밑으로는 사용자 개인 정보 보여주기*/}
-        <div className={'userInfoArea'}>
-          <Table>
-            {/*<tr>*/}
-            {/*  <th width={'20%'}>이메일</th>*/}
-            {/*  <td width={'80%'}>{localStorage.getItem('userLoginEmail')}</td>*/}
-            {/*</tr>*/}
-            <tr>
-              <th width={'20%'}>이름</th>
-              <td width={'80%'}>{name}</td>
-            </tr>
-            <tr>
-              <th>주소</th>
-              <td>{address}</td>
-            </tr>
-            <tr>
-              <th>생일</th>
-              <td>{birth}</td>
-            </tr>
-            <tr>
-              <th width={'20%'}>즐겨찾기 개수</th>
-              <td width={'80%'}>
-                <Link to='/myFavourite'>
-                  {favouriteCount}
-                </Link></td>
-            </tr>
-            <tr>
-              <th width={'20%'}>리뷰 개수</th>
-              <td width={'80%'} style={{ cursor: 'pointer' }} onClick={onclickReview}>{reviewCount} (자세히 보기)</td>
-            </tr>
-          </Table>
+        </div>
+     </div>
+     <div className="myPage__info">
+       <button className="info__box">
+         <AiOutlineUser size="100" className="box__icon"/>
+         <div className="box__title">{name}</div>
+         <div className="box__des">{birth}</div>
+         <div className="box__des">{address}</div>
+       </button>
+       <button className="info__box">
+         <AiOutlineStar size="100" className="box__icon"/>
+         <div className="box__title"> {favouriteCount}</div>
+         <div className="box__des">즐겨찾기</div>
+       </button>
+       <button className="info__box">
+         <HiOutlinePencilAlt size="100" className="box__icon"/>
+         <div className="box__title">{reviewCount}</div>
+         <div className="box__des" onClick={onclickReview}>리뷰</div>
           {toggleReview && <UserReviews />}
-          <hr />
-
-        </div>
-        <br />
-        <br />
-        <div className={'userAllergyArea'}>
-          <p className={'title'}>알러지 정보</p>
-          {data === [] ? (
-            <Col md='12'>알러지 데이터 없음 </Col>
-          ) : (
-            <div>
-              {data.map((item, index) => (
-                <Card body key={index} className={'allergyItem'}>
-                  <CardText>{item}</CardText>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-
-
-        <div className={'deleteArea'}>
-          <Link to='/delete'>
-            <Button color='danger' size='sm' className={'deleteButton'}>
-              회원탈퇴
-            </Button>
-          </Link>
-        </div>
-      </Container>
-    </div>
+       </button>
+       <button className="info__box">
+         <AiOutlineFilter size="100" className="box__icon"/>
+         <div className="box__title">{data.length}</div>
+         <div className="box__des">알러지</div>
+       </button>
+     </div>
+   </div>
   );
 };
 

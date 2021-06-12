@@ -15,7 +15,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import 국수 from '../../image/categoryImg/material/국수.jpg';
 import 두부 from '../../image/categoryImg/material/두부.jpg';
 import 식용유 from '../../image/categoryImg/material/식용유.jpg';
-
+import 어묵 from '../../image/categoryImg/material/어묵.jpg';
 const Material = (props) => {
 
   //드롭다운
@@ -754,7 +754,7 @@ const Material = (props) => {
           </div>
           <div className='item'>
             <button value='어묵' onClick={() => handleCategory('어묵')} className='category__item'>
-              {/* <img className='item__img' src={어묵} /> */}
+              <img className='item__img' src={어묵} />
             </button>
             <p className='category__name'>어묵</p>
           </div>
