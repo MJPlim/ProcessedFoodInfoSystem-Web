@@ -156,10 +156,12 @@ export default withRouter(({ location: { pathname } }) => (
           </Link>
         </Item>
       </ul>
-      <LoginState
-        className="item__log"
-        auli={localStorage.getItem('authorization')}
-      />
+      <div className="userItem">
+        <LoginState
+          className="item__log"
+          auli={localStorage.getItem('authorization')}
+        />
+      </div>
     </div>
   </header>
 ));
