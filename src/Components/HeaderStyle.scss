@@ -9,23 +9,31 @@
   background-color: rgba(237, 47, 59, 0.7);
   color: white;
   margin-bottom: 20px;
+
   .menu_login {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 50px;
+    width: 52%;
     .menuItems {
       display: flex;
       flex-direction: row;
       align-items: center;
+      // width: 80%;
+      margin-right: 8%;
       .item {
         align-items: center;
         display: flex;
+        // margin-left: 5%;
         align-items: center;
         .item__name {
           text-align: center;
           margin: 0px 30px;
           font-weight: 700;
+        }
+        .item__name:hover {
+          color: brown;
         }
         .item__about {
           margin-right: 50px;
@@ -37,12 +45,17 @@
       }
     }
   }
+  .headerWidth {
+    width: 40%;
+  }
 
   .serviceName {
     color: var(--text);
     align-items: center;
     font-size: 50px;
     font-family: 'thickEng';
+    width: 50%;
+    margin-left: 20%;
     .logo {
       text-decoration: none;
       color: inherit;
