@@ -38,6 +38,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
+import ResultCarousel from './ResultCarousel';
 
 const MainScreen=()=> {
   const [result, setResult] = useState(null);
@@ -174,7 +175,7 @@ const MainScreen=()=> {
                     <AdPage loading={adLoad} result={ad}/>
               </div>
               <div className="ad__item">
-                    <AdPage loading={adLoad} result={ad}/>
+                    <ResultCarousel loading={loading} result={result}/>
               </div>
             
             </div>
