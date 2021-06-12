@@ -196,7 +196,7 @@ const MainScreen=()=> {
                     <AdPage loading={adLoad} result={ad}/>
               </div>
               <div className="ad__item">
-                   <AdPage loading={loading} result={result3}/>
+                    <AdPage loading={adLoad} result={ad}/>
               </div>
             
             </div>
