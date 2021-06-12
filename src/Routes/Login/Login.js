@@ -123,7 +123,7 @@ function Login(props) {
                 <Col md={5} className="loginButton">
                   <FormGroup>
                     <Label>
-                      <Button outline color="success" onClick={login}>
+                      <Button outline color="danger" onClick={login}>
                         로그인
                       </Button>
                     </Label>
