@@ -1,4 +1,4 @@
-@import "./src/styles/utils";
+@import './src/styles/utils';
 
 .container {
   display: grid;
@@ -8,7 +8,6 @@
   font-family: 'BMHANNA';
   font-weight: 700;
   .item__header {
-
     margin-top: 10%;
     width: 100%;
     border: 0;
@@ -19,7 +18,7 @@
       text-align: center;
       margin-top: 2px;
       font-size: x-large;
-      border: 3px solid rgba(237,47,59,0.9);;
+      border: 3px solid rgba(237, 47, 59, 0.9);
     }
 
     .searchBtn {
@@ -39,7 +38,6 @@
       outline: 0;
       border: 0;
     }
-
   }
 
   .item__main {
@@ -50,12 +48,11 @@
     margin-top: 5%;
 
     .category {
-      background-color: rgba(237,47,59,0.9);
+      background-color: rgba(237, 47, 59, 0.9);
       color: white;
     }
 
     .item__items {
-
       display: grid;
       grid-template-rows: 1fr 2fr;
       align-items: center;
