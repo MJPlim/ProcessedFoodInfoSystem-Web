@@ -21,7 +21,8 @@ function DeleteUser(props) {
           localStorage.setItem('userLoginPassword', null);
           localStorage.setItem('userBEmail', null);
           localStorage.setItem('userBPassword', null);
-          props.history.goBack();
+          props.history.push('/');
+
         },
       ).catch(e => {
         alert('탈퇴실패');
