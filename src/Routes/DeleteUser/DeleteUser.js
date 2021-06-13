@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Button, Card, CardTitle, Col, Container, Jumbotron } from 'reactstrap';
+import { Alert, Button, Card, CardTitle, Col, Container } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { deleteReviewApi, userWithdrawal } from 'api';
 import './DeleteUserStyle.scss';
+
 
 function DeleteUser(props) {
   const [password, setPassword] = useState('');
@@ -25,7 +26,7 @@ function DeleteUser(props) {
 
         },
       ).catch(e => {
-        alert('탈퇴실패');
+        alert('비밀번호가 틀렸습니다.');
       });
     } else {
     }
@@ -44,6 +45,7 @@ function DeleteUser(props) {
 
             <p className='lead'>개인 정보 삭제 안내</p>
             <li className='lead'>작성하신 리뷰 정보는 탈퇴 후에도 삭제되지 않습니다.</li>
+            <li className='lead'>탈퇴한 계정으로 kati 재가입은 불가합니다.</li>
           </Alert>
           <Col>
             <CardTitle className='card-title'>
