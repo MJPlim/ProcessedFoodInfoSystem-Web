@@ -1,3 +1,5 @@
+@import './src/styles/utils';
+
 .category__container {
   display: grid;
   font-family: 'MPl';
@@ -13,6 +15,15 @@
     margin-right: 20%;
     //position: fixed;
     //top: 0px;
+
+
+    a:hover {
+      text-decoration: none;
+    }
+    .list-group-item-action:hover {
+      color: $lightorange;
+    }
+
   }
 
   .bigCategoryBtn {
