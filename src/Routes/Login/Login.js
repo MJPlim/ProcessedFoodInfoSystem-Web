@@ -110,8 +110,8 @@ function Login(props) {
               </div>
               <div className="other__btns">
                  <Link to="/findUser/email" className="userGroup">이메일 찾기</Link>
-                 <Link to="/findUser/email" className="userGroup">비밀번호 찾기</Link>
-                 <Link to="/findUser/email" className="userGroup">회원가입</Link>
+                 <Link to="/findUser/password" className="userGroup">비밀번호 찾기</Link>
+                 <Link to="/join" className="userGroup">회원가입</Link>
               </div>
             </div>
             </Form>

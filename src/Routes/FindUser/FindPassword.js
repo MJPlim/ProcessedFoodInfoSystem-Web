@@ -35,6 +35,7 @@ const FindPassword = () => {
           alert('입력하신 이메일로 임시번호를 발송하였습니다.');
         })
         .catch(function(error) {
+          setLoading(false);
           makeErrorMessage(error.response.status);
           console.log(error.response.status);
         });
