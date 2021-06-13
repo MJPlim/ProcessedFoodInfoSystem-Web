@@ -33,6 +33,12 @@ const ChangeUserInfo = (props) => {
 
   registerLocale('ko', ko);
 
+  useEffect(() => {
+    if (birth === "Invalid date") {
+      setUserInfo({ ...setUserInfo, birth: moment(new Date()).format('yyyy-MM-DD') });
+    }
+  }, [birth]);
+
   const getUSerInfo = async () => {
     await getUserInfoApi
       .gerUserInfo()
@@ -73,12 +79,12 @@ const ChangeUserInfo = (props) => {
       .then((res) => {
         alert(
           name +
-            '님' +
-            '  생일: ' +
-            birth +
-            '  주소:  ' +
-            address +
-            '로 변경되었습니다',
+          '님' +
+          '  생일: ' +
+          birth +
+          '  주소:  ' +
+          address +
+          '로 변경되었습니다',
         );
         props.history.goBack();
       })
@@ -96,8 +102,8 @@ const ChangeUserInfo = (props) => {
       <Container>
         <Card body>
           <Row>
-            <Col md="12">
-              <p className="shownChange">내 정보 변경하기</p>
+            <Col md='12'>
+              <p className='shownChange'>내 정보 변경하기</p>
             </Col>
           </Row>
           <hr />
@@ -105,16 +111,16 @@ const ChangeUserInfo = (props) => {
           <Form className={'changeInfoForm'}>
             <FormGroup>
               <Input
-                type="text"
-                name="name"
+                type='text'
+                name='name'
                 value={name}
                 onChange={setUserName}
               />
             </FormGroup>
             <FormGroup>
               <Input
-                type="text"
-                name="name"
+                type='text'
+                name='name'
                 value={address}
                 onChange={setUserAddress}
               />
@@ -122,14 +128,14 @@ const ChangeUserInfo = (props) => {
             <FormGroup>
               <Row className={'pickerRow'}>
                 <DatePicker
-                  id="inputBirth"
-                  wrapperClassName="birthDayPicker"
-                  dateFormat="yyyy-MM-dd"
+                  id='inputBirth'
+                  wrapperClassName='birthDayPicker'
+                  dateFormat='yyyy-MM-dd'
                   selected={new Date(birth)}
                   maxDate={new Date()}
                   onChange={(date) => setUserBirth(date)}
-                  popperPlacement="bottom-start"
-                  locale="ko"
+                  popperPlacement='bottom-start'
+                  locale='ko'
                   showYearDropdown={'true'}
                   showMonthDropdown={'true'}
                   dropdownMode={'select'}
@@ -139,14 +145,14 @@ const ChangeUserInfo = (props) => {
           </Form>
 
           <Row className={'buttonArea'}>
-            <Link to="myPage">
-              <Button outline color="danger" className={'cancelButton'}>
+            <Link to='myPage'>
+              <Button outline color='danger' className={'cancelButton'}>
                 취소
               </Button>
             </Link>
             <Button
               outline
-              color="warning"
+              color='warning'
               className={'submitButton'}
               onClick={changeInfo}
             >
