@@ -27,6 +27,7 @@ import LG from '../Routes/Login/Login';
 import Join from '../Routes/Join/Join';
 import DU from '../Routes/DeleteUser/DeleteUser';
 import MP from '../Routes/MyPage/MyPage';
+import MPD from '../Routes/MyPage/MyPageDetail';
 import CUP from '../Routes/MyPage/ChangePassword';
 import MF from '../Routes/MyPage/MyFavourite';
 import CUI from '../Routes/MyPage/ChangeUserInfo';
@@ -63,6 +64,7 @@ export default () => (
         <Route path="/join" exact component={Join} />
         <Route path="/delete" exact component={DU} />
         <Route path="/mypage" exact component={MP} />
+        <Route path="/mypageDetail" exact component={MPD} />
         <Route path="/changePassword" exact component={CUP} />
         <Route path="/myFavourite" exact component={MF} />
         <Route path="/changeUserInfo" exact component={CUI} />
