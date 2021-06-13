@@ -4,18 +4,15 @@ import {
   Button,
   Card,
   CardText, CardTitle,
-  Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, InputGroupAddon,
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
-  ListGroupItemText,
+  Col,
   Row, Table,
 } from 'reactstrap';
 import './Ranking.scss';
 import { AiFillStar, AiOutlineStar, FaTrophy } from 'react-icons/all';
 import { Link } from 'react-router-dom';
-import { RiSearch2Line } from 'react-icons/ri';
-
+import first from '../../image/Ranking/first.png';
+import second from '../../image/Ranking/second.png';
+import third from '../../image/Ranking/third.png';
 const ProductReviewRanking = () => {
   const [rankingList, setRankingList] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -39,41 +36,18 @@ const ProductReviewRanking = () => {
 
   return (
     <div className='Ranking'>
-      <nav className='navbar  justify-content-between'>
-        <p className='title'>
-          <Link to='/productRanking'>
-            <button className='ranking_btn' onClick={() => {
-            }}>제품 랭킹
-            </button>
-          </Link>
-        </p>
 
-
-      </nav>
-      <hr />
+          <div className="ranking__img"></div>
+         <div className="ranking__title">명 예 의 전 당 </div>
+    
       {/* 타이틀 영역 끝 */}
-
+      
+     
       {!loading && (
-        <div>
-
+        <div className="ranking__page">
           <Row className={'topRating'}>
             <Col sm={4}>
-              <Card body className={'first topRatingCard'}>
-                <FaTrophy className={'trophy'} />
-                <CardText className={'avgRating'}>{rankingList[0].avgRating}</CardText>
-                <div className={'foodNameCard'}>
-                  <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[0].category}</CardText>
-                </div>
-                <Link to={{
-                  pathname: `searchProduct/food/${rankingList[0].foodId}`,
-                }}>
-                  <img src={rankingList[0].foodImageAddress} />
-
-                </Link>
-              </Card>
-            </Col>
-            <Col sm={4}>
+              <img className="top__frame frame__2" src={second}/>
               <Card body className={'second topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[1].avgRating}</CardText>
@@ -90,8 +64,29 @@ const ProductReviewRanking = () => {
                 </Link>
               </Card>
             </Col>
+
             <Col sm={4}>
-              <Card body className={'third topRatingCard'}>
+             <img className="top__frame frame__1" src={first}/>
+              <Card body className={'first topRatingCard'}>
+                <FaTrophy className={'trophy'} />
+                <CardText className={'avgRating'}>{rankingList[0].avgRating}</CardText>
+                <div className={'foodNameCard'}>
+                  <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[0].category}</CardText>
+                </div>
+                <Link to={{
+                  pathname: `searchProduct/food/${rankingList[0].foodId}`,
+                }}>
+                  <img src={rankingList[0].foodImageAddress} />
+
+                </Link>
+              </Card>
+            </Col>
+
+            
+            <Col sm={4}>
+           <img className="top__frame frame__2" src={third}/>
+              <Card body className={'third topRatingCard'}>                  
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[2].avgRating}</CardText>
                 <div className={'foodNameCard'}>

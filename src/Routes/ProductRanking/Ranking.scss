@@ -3,49 +3,53 @@
 .Ranking {
   width: 60%;
   margin: 20px auto 0;
-  //margin-left: 30px;
-  //margin-right: 30px;
   padding: 28px;
-  .container {
-
+  //background-color: #0A1D37;
+  //color: white;
+  z-index: -2;
+ .ranking__img{
+    background-image: url('../../image/Ranking/wing.png');
+    width: 830px;
+    height: 300px;
+    z-index: -1;
+    position: absolute;
+ }
+  .ranking__title{
+    font-size: xx-large;
+    font-weight: 800;
+    position: relative;
+    margin-top: 150px;
+    left: 37%; 
   }
 
-
-  .title {
-    border: 0;
-    outline: 0;
-    margin-top: 20px;
-    margin-bottom: 2px;
-    font-size: x-large !important;
-    font-weight: 700;
-    .ranking_btn{
-      border: 0;
-      outline: 0;
-      background-color: white;
-      font-weight: 700;
-    }
-  }
-
-  .hr {
-    height: 1px;
-    border-radius: 0.5px;
-    background-color:rgba(237,47,59,0.9);
-  }
   .topRating {
     width: 100%;
     text-align: center;
     margin: auto auto 1%;
-
+    margin-top: 100px;
+    margin-bottom: 50px;
+    z-index: -1;
+    .top__frame{
+      position:absolute;
+      z-index: 2;
+      margin-top: 40px;
+    }
+    .frame__1{
+      margin-top: 0px
+    }
+    .frame__3{
+      margin-top: 90px;
+    }
     .topRatingCard {
       height: 100%;
       width: 100%;
       text-align: center;
       display: inline-block;
-      border-radius: 10%;
-
+      border:0px;
       .title {
         font-size: large;
         word-break: keep-all;
+        font-weight: 700;
       }
       .foodNameCard {
         margin-bottom: 10%;
@@ -65,18 +69,21 @@
       }
 
       &.first {
+        
         .trophy {
           color: gold;
         }
       }
 
       &.second {
+        margin-top: 40px;
         .trophy {
           color: silver;
         }
       }
 
       &.third {
+        margin-top: 60px;
         .trophy {
           color: saddlebrown;
         }
@@ -97,6 +104,8 @@
     table-layout: fixed;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 100px;
+    box-shadow: 0px 1px 5px 2px rgba(255,193,7,0.7);
 
     .RankingTableRow {
       font-size: large;
