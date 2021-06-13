@@ -16,6 +16,8 @@ import dev5 from '../../image/dev5.jpg';
 import dev6 from '../../image/dev6.jpg';
 import dev7 from '../../image/dev7.jpg';
 import dev8 from '../../image/dev8.jpg';
+import dev9 from '../../image/dev9.jpg';
+
 const About = () => {
   const items = [
     {
@@ -75,7 +77,7 @@ const About = () => {
       key: '8',
     },
     {
-      src: dev1,
+      src: dev9,
       altText: 'Web',
       caption: '60171671',
       header: '융합소프트웨어학부 홍은서',
