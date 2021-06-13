@@ -115,7 +115,6 @@ const ResultCarousel = ({ loading, result }) => {
         activeIndex={activeIndex}
         next={next}
         previous={previous}
-        interval={false}
       >
         {/*<CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />*/}
         {slides}
