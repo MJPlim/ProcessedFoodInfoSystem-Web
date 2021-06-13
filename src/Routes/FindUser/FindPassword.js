@@ -35,6 +35,7 @@ const FindPassword = () => {
           alert('입력하신 이메일로 임시번호를 발송하였습니다.');
         })
         .catch(function(error) {
+          setLoading(false);
           makeErrorMessage(error.response.status);
           console.log(error.response.status);
         });
@@ -58,7 +59,8 @@ const FindPassword = () => {
                 />
               </Label>
               <Label className='buttonArea'>
-                <Button onClick={emailSubmit} className='submitButton'>
+                <Button className='submitButton' onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                        style={loading ? { cursor: 'not-allowed' } : null}>
                   확인
                 </Button>
               </Label>
