@@ -24,7 +24,8 @@ function Login(props) {
   const [bChecked, setChecked] = useState(false);
   const [bSave, setSave] = useState(false);
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     userLogin
       .userLoginApi(email, password)
       .then((response) => {
