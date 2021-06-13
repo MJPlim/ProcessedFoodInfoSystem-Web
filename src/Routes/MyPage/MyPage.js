@@ -127,8 +127,7 @@ const MyPage = () => {
                    <button className="info__box">
                     <HiOutlinePencilAlt size="100" className="box__icon"/>
                      <div className="box__title">{reviewCount}</div>
-                     <div className="box__des" onClick={onclickReview}>리뷰</div>
-                     {toggleReview && <UserReviews />}
+                     <div className="box__des">리뷰</div>
                    </button>
                    <button className="info__box">
                      <AiOutlineFilter size="100" className="box__icon"/>

@@ -1,97 +1,254 @@
 @import './src/styles/utils';
-.myPage__screen{
-  display: grid;
+
+.myPage__screen {
+  //display: grid;
   grid-auto-rows: 1fr 1fr;
-  gap:50px;
-  .myPage__container{
-  word-break: keep-all;
-  margin: auto;
-  margin-top: 5%;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  justify-items: center;
-  gap: 0px 50px;
-  padding: 50px 0px;
-  .myPage__menu{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  gap: 50px;
 
-     .myPage__title{
-    font-weight: 700;
+  .myPage__container {
+    word-break: keep-all;
+    margin: auto;
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    justify-items: center;
+    gap: 0px 50px;
+    padding: 50px 0px;
 
-    font-size: x-large;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-    }
-    .menu__items{
+    .myPage__menu {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      margin-top: 20px;
-      .menu__item{
-        font-size: medium;
-        margin: 20px;
-        font-weight: 500;
-      }
-      .item__delete{
-        color:rgba(191, 191, 191, 1);
-      }
-    }
-  }
-  .myPage__info{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-self: center;
-    gap:20px;
-    .info__box{
-      width: 250px;
-      height: 250px;
-      background-color: #ffff;
-      color: 1px solid rgba(236, 240, 241, 1);
-      transition: all ease-in 0.3s;
-      &:hover{
-         background-color: rgba(237, 47, 59, 0.5);
-          color: #ffff;
-      }
-      .box__title{
-         font-size: large;
+
+      .myPage__title {
         font-weight: 700;
-        margin-bottom: 10px;
+
+        font-size: x-large;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
       }
-     
-    }
-    
-   
-  }
-  .myPage__allergy{
-    display: flex;
-    flex-direction: column;
+
+      .menu__items {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 20px;
+
+        .menu__item {
+          font-size: medium;
+          margin: 20px;
+          font-weight: 500;
+        }
+
+        .item__delete {
+          color: rgba(191, 191, 191, 1);
+        }
       }
-   
     }
-  .info__detail{
-     display: flex;
-    justify-content: center;
-    .shownPage {
-    font-family: 'MPb';
-    font-size: large;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  .line__divider{
-    background-color: rgba(232, 232, 232, 1);
-  }
-   .allergy__section{
-    display: flex;
-    flex-direction: row;
-    .allergyItem{
+
+    .myPage__info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-self: center;
+      gap: 20px;
+
+      .info__box {
+        width: 250px;
+        height: 250px;
+        background-color: #ffff;
+        color: 1px solid rgba(236, 240, 241, 1);
+        transition: all ease-in 0.3s;
+
+        &:hover {
+          background-color: rgba(237, 47, 59, 0.5);
+          color: #ffff;
+        }
+
+        .box__title {
+          font-size: large;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+      }
+
+
+    }
+
+    .myPage__allergy {
       display: flex;
-      width: 200px;
+      flex-direction: column;
+    }
+
+  }
+
+  .info__detail {
+    display: flex;
+    justify-content: center;
+
+    .shownPage {
+      font-family: 'MPb';
+      font-size: large;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .line__divider {
+      background-color: rgba(232, 232, 232, 1);
+    }
+
+    .allergy__section {
+      display: flex;
+      flex-direction: row;
+
+      .allergyItem {
+        display: flex;
+        width: 200px;
+      }
+    }
+
+  }
+
+  .userAllergyArea {
+    .title {
+      font-size: x-large;
+      margin-bottom: 2%;
+    }
+
+    .allergyItem {
+      display: inline-block;
+      background-color: white;
+      margin-right: 1%;
+      font-size: medium;
+      margin-top: 1%;
     }
   }
 
+  .reviewTable {
+    font-size: small;
+    margin-top: 15px;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    .starRating {
+      margin: auto;
+    }
+
+    .deleteButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: red;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: transparent !important;
+        color: red !important;
+        border-color: $lightorange !important;
+      }
+    }
+
+    .editButton {
+      background-color: transparent;
+      border-color: darkblue;
+      color: darkblue;
+      padding: 0;
+      margin: 0 5px 0 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: transparent !important;
+        color: darkblue !important;
+        border-color: darkblue !important;
+      }
+    }
+
+    .editCancelButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: red;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: transparent !important;
+        color: red !important;
+        border-color: $lightorange !important;
+      }
+    }
+
+    .reviewSubmitButton {
+      width: 20%;
+      float: right;
+      background-color: $lightorange !important;
+      border-color: $lightorange !important;
+      color: white;
+      margin-bottom: 20px !important;
+
+      &:hover,
+      &:active {
+        background-color: $orange !important;
+        color: white !important;
+        border-color: $orange !important;
+      }
+    }
+
+    @media all and (max-width: 479px) {
+      font-size: 0.1em;
+    }
   }
- 
+
+  .pageDiv {
+    text-align: center;
+  }
+
+  .reviewPaginate {
+    width: 100%;
+    font-size: medium;
+    margin: 10px auto 30px;
+    display: inline-block !important;
+
+    li {
+      margin: 15px;
+      display: inline-block !important;
+    }
+
+    .reviewPage {
+      color: black;
+    }
+
+    .reviewSelectedPage {
+      color: $lightorange !important;
+      font-weight: bold;
+    }
+  }
+
+  .deleteArea {
+    margin: 10% auto auto;
+
+    .deleteButton {
+      float: right;
+    }
+  }
+
 }
