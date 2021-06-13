@@ -85,7 +85,7 @@ const ProductReviewRanking = () => {
 
             
             <Col sm={4}>
-           <img className="top__frame frame__2" src={third}/>
+           <img className="top__frame frame__3" src={third}/>
               <Card body className={'third topRatingCard'}>                  
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[2].avgRating}</CardText>

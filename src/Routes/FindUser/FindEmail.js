@@ -53,13 +53,14 @@ const FindEmail = () => {
                   placeholder='2차 보안 이메일'
                   onChange={onChange}
                 />
-              </Label>
-              <Label>
-                <Button outline color='danger' onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                
+                <button outline color='danger' onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
                         style={loading ? { cursor: 'not-allowed' } : null}>
                   찾기
-                </Button>
+                </button>
               </Label>
+            
+             
               <Label className={'alertArea'}>
                 {message != null ? <Alert color='danger'>{message}</Alert> : null}
               </Label>
