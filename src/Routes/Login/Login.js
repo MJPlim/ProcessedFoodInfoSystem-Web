@@ -5,22 +5,16 @@ import {
   Container,
   Button,
   Card,
-  CardText,
   Row,
-  Table,
   Form,
   FormGroup,
   Label,
   Input,
-  ButtonToggle,
 } from 'reactstrap';
 import './LoginStyle.scss';
 import { Link, useHistory } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import { MdAssignmentInd } from 'react-icons/md';
-import { RiLockPasswordFill } from 'react-icons/ri';
-import { FaUsersCog } from 'react-icons/fa';
 import { userLogin } from 'api';
+import {FiCheckCircle} from 'react-icons/fi';
 
 var token;
 
@@ -108,45 +102,17 @@ function Login(props) {
                   />
                 </Label>
               </FormGroup>
-              <Row form className="loginGroup">
-                <Col md={7} className="rememberLogin">
-                  <FormGroup check inline>
-                    <Label check className="checkLogin">
-                      <Input
-                        type="checkbox"
-                        onChange={(e) => checkHandler(e)}
-                      />
-                      자동로그인
-                    </Label>
-                  </FormGroup>
-                </Col>
-                <Col md={5} className="loginButton">
-                  <FormGroup>
-                    <Label>
-                      <Button outline color="danger" onClick={login}>
-                        로그인
-                      </Button>
-                    </Label>
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row form>
-                <Col xs={3} className="userConTrol">
-                  <Link to="/findUser/email" className="userGroup">
-                    <b className="userSection">아이디</b>
-                  </Link>
-                </Col>
-                <Col xs={5} className="userConTrol">
-                  <Link to="/findUser/password" className="userGroup">
-                    <b className="userSection">비밀번호 찾기</b>
-                  </Link>
-                </Col>
-                <Col xs={4} className="userConTrol">
-                  <Link to="/join" className="userGroup">
-                    <b className="userSection">회원가입</b>
-                  </Link>
-                </Col>
-              </Row>
+            <div className="under__section">
+              <div className="login__btns">
+               <div><button className="login__btn"  onClick={login} >로그인</button></div> 
+                <div className="auto__login"> <input type="checkbox" onChange={(e) => checkHandler(e)}/><p className="auto__login__title"> 자동로그인</p></div> 
+              </div>
+              <div className="other__btns">
+                 <Link to="/findUser/email" className="userGroup">이메일 찾기</Link>
+                 <Link to="/findUser/email" className="userGroup">비밀번호 찾기</Link>
+                 <Link to="/findUser/email" className="userGroup">회원가입</Link>
+              </div>
+            </div>
             </Form>
           </Card>
         </Container>
