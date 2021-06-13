@@ -17,22 +17,6 @@ const FoodInfoDetail = ({ food }) => {
             <CardText className={'foodInfoDesc'}>  {food.materials}</CardText>
           </Card>
         </Col>
-
-
-
-        {/*<Col sm='6'>*/}
-        {/*  <p className='subTitle'>성분</p>*/}
-        {/*  <span className={'foodInfoDesc'}>*/}
-        {/*     {food.nutrient}*/}
-        {/*  </span>*/}
-
-        {/*</Col>*/}
-        {/*<Col sm='6'>*/}
-        {/*  <p className='subTitle'>원료</p>*/}
-        {/*  <span className={'foodInfoDesc'}>*/}
-        {/*     {food.materials}*/}
-        {/*  </span>*/}
-        {/*</Col>*/}
       </Row>
     </div>
   );
