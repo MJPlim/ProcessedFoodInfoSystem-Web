@@ -86,54 +86,113 @@ const MyPage = () => {
   if (userLoading || allergyLoading) return null;
 
   return (
-   <div className="myPage__container">
-     <div className="myPage__menu">
-        <div className="myPage__title">
-            MyPage
-        </div>
-        <div className="menu__items">
-           <Link to='/changeUserInfo' className="menu__item">        
-                내 정보변경하기         
-            </Link>
-             <Link to='/userAllergyInfo' className="menu__item">            
-                알러지 정보 변경하기
-            </Link>
-              <Link to='/changePassword' className="menu__item">           
-                비밀번호 변경하기
-            </Link>
-             <Link to='/secondEmail' className="menu__item">
-                2차 보안 설정하기
-            </Link>
-        </div>
-     </div>
-     <div className="myPage__info">
-       <button className="info__box">
-         <AiOutlineUser size="100" className="box__icon"/>
-         <div className="box__title">{name}</div>
-         <div className="box__des">{birth}</div>
-         <div className="box__des">{address}</div>
-       </button>
-       <Link to='/myFavourite'>
-       <button className="info__box">
-         <AiOutlineStar size="100" className="box__icon"/>
-         <div className="box__title"> {favouriteCount}</div>
-          <div className="box__des">즐겨찾기</div>
-       </button>
-       </Link>
-       <button className="info__box">
-         <HiOutlinePencilAlt size="100" className="box__icon"/>
-         <div className="box__title">{reviewCount}</div>
-         <div className="box__des" onClick={onclickReview}>리뷰</div>
-          {toggleReview && <UserReviews />}
-       </button>
-       <button className="info__box">
-         <AiOutlineFilter size="100" className="box__icon"/>
-         <div className="box__title">{data.length}</div>
-         <div className="box__des">알러지</div>
-       </button>
-     </div>
+    <div className="myPage__screen">
+           <div className="myPage__container">
+               <div className="myPage__menu">
+                   <div className="myPage__title">
+                       MyPage
+                   </div>
+                   <div className="menu__items">
+                      <Link to='/changeUserInfo' className="menu__item">        
+                           내 정보변경하기         
+                       </Link>
+                        <Link to='/userAllergyInfo' className="menu__item">            
+                           알러지 정보 변경하기
+                        </Link>
+                          <Link to='/changePassword' className="menu__item">           
+                           비밀번호 변경하기
+                       </Link>
+                         <Link to='/secondEmail' className="menu__item">
+                            2차 보안 설정하기
+                       </Link>
+                        <Link to='/delete'className="menu__item item__delete">
+                              | 회원탈퇴 
+                        </Link>
+                   </div>
+                </div>
+                <div className="myPage__info">
+                   <button className="info__box">
+                    <AiOutlineUser size="100" className="box__icon"/>
+                     <div className="box__title">{name}</div>
+                     <div className="box__des">{birth}</div>
+                     <div className="box__des">{address}</div>
+                  </button>
+                   <Link to='/myFavourite'>
+                   <button className="info__box">
+                     <AiOutlineStar size="100" className="box__icon"/>
+                     <div className="box__title"> {favouriteCount}</div>
+                     <div className="box__des">즐겨찾기</div>
+                   </button>
+                   </Link>
+                   <button className="info__box">
+                    <HiOutlinePencilAlt size="100" className="box__icon"/>
+                     <div className="box__title">{reviewCount}</div>
+                     <div className="box__des" onClick={onclickReview}>리뷰</div>
+                     {toggleReview && <UserReviews />}
+                   </button>
+                   <button className="info__box">
+                     <AiOutlineFilter size="100" className="box__icon"/>
+                     <div className="box__title">{data.length}</div>
+                     <div className="box__des">알러지</div>
+                   </button>
+                </div>
      
-   </div>
+               </div>
+            <div className="info__detail">
+                  <Container>
+        <Col md='12'>
+          <p className='shownPage'>상세보기</p>
+        </Col>
+        <div className={'userInfoArea'}>
+          <Table>
+            <tr>
+              <th width={'20%'}>이름</th>
+              <td width={'80%'}>{name}</td>
+            </tr>
+            <tr>
+              <th>주소</th>
+              <td>{address}</td>
+            </tr>
+            <tr>
+              <th>생일</th>
+              <td>{birth}</td>
+            </tr>
+            <tr>
+              <th width={'20%'}>즐겨찾기 개수</th>
+              <td width={'80%'}>
+                <Link to='/myFavourite'>
+                  {favouriteCount}
+                </Link></td>
+            </tr>
+            <tr>
+              <th width={'20%'}>리뷰 개수</th>
+              <td width={'80%'} style={{ cursor: 'pointer' }} onClick={onclickReview}>{reviewCount} (자세히 보기)</td>
+            </tr>
+          </Table>
+          {toggleReview && <UserReviews />}
+          <hr className="line__divider" />
+
+        </div>
+        <br />
+        <br />
+        <div className={'userAllergyArea'}>
+          <p className={'title'}>알러지 정보</p>
+          {data === [] ? (
+            <Col md='12'>설정된 알러지가 없습니다. </Col>
+          ) : (
+            <div>
+              {data.map((item, index) => (
+                <Card body key={index} className={'allergyItem'}>
+                  <CardText>{item}</CardText>
+                </Card>
+              ))}
+            </div>
+          )}
+        </div>
+        </Container>
+      </div>
+    </div>
+  
   );
 };
 
