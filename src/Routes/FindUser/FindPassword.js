@@ -4,6 +4,7 @@ import { Alert, Button, Card, Container, FormGroup, Input, Label, Spinner } from
 import isEmail from 'validator/es/lib/isEmail';
 import { findPasswordApi } from '../../api';
 import Loading from '../ErrorPage/Loading';
+
 const FindPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
@@ -42,54 +43,32 @@ const FindPassword = () => {
 
   return (
     <div className='FindUser'>
-      {!loading?(<Container >
-        <Loading className="loading__now"/>
-        <p className='title loading__ui'>비밀번호 찾기</p>
-        <Card body  className="loading__ui">
-          <FormGroup className='formGroup loading__ui'>
-            <Label className='inputEmail loading__ui'>
-              <Input
-                type='email'
-                value={email}
-                onChange={onChange}
-                placeholder='가입한 이메일'
-              />
-            </Label>
-            <Label className='buttonArea loading__ui'>
-               <Button className="loading__ui">
-                  확인
-                </Button>
-            </Label>
-            <Label className='alertArea loading__ui'>
-              {message != null ? <Alert color='danger'>{message}</Alert> : null}
-            </Label>
-          </FormGroup>
-        </Card>
-      </Container>):
       <Container>
-        <p className='title'>비밀번호 찾기</p>
-        <Card body>
-          <FormGroup className={'formGroup'}>
-            <Label className='inputEmail'>
-              <Input
-                type='email'
-                value={email}
-                onChange={onChange}
-                placeholder='가입한 이메일'
-              />
-            </Label>
-            <Label className='buttonArea'>
-               <Button onClick={emailSubmit} className='submitButton'>
+        {loading && <Loading className='loading__now' />}
+        <div style={loading ? { opacity: '0.7' } : null}>
+          <p className='title'>비밀번호 찾기</p>
+          <Card body>
+            <FormGroup className={'formGroup'}>
+              <Label className='inputEmail'>
+                <Input
+                  type='email'
+                  value={email}
+                  onChange={onChange}
+                  placeholder='가입한 이메일'
+                />
+              </Label>
+              <Label className='buttonArea'>
+                <Button onClick={emailSubmit} className='submitButton'>
                   확인
                 </Button>
-            </Label>
-            <Label className={'alertArea'}>
-              {message != null ? <Alert color='danger'>{message}</Alert> : null}
-            </Label>
-          </FormGroup>
-        </Card>
+              </Label>
+              <Label className={'alertArea'}>
+                {message != null ? <Alert color='danger'>{message}</Alert> : null}
+              </Label>
+            </FormGroup>
+          </Card>
+        </div>
       </Container>
-      }
     </div>
   );
 };
