@@ -55,7 +55,8 @@ const FindEmail = () => {
                 />
               </Label>
               <Label>
-                <Button outline color='danger' onClick={emailSubmit}>
+                <Button outline color='danger' onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                        style={loading ? { cursor: 'not-allowed' } : null}>
                   찾기
                 </Button>
               </Label>

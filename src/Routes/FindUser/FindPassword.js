@@ -59,7 +59,8 @@ const FindPassword = () => {
                 />
               </Label>
               <Label className='buttonArea'>
-                <Button onClick={emailSubmit} className='submitButton'>
+                <Button className='submitButton' onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                        style={loading ? { cursor: 'not-allowed' } : null}>
                   확인
                 </Button>
               </Label>
