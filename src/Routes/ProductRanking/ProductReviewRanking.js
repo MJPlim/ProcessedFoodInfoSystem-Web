@@ -38,7 +38,7 @@ const ProductReviewRanking = () => {
     <div className='Ranking'>
 
           <div className="ranking__img"></div>
-         <div className="ranking__title">명 예 의 전 당 </div>
+         <div className="ranking__title">카 티 랭 킹 </div>
     
       {/* 타이틀 영역 끝 */}
       

@@ -47,6 +47,7 @@ import CON from '../Routes/Category/Condiment';
 import MKIT from '../Routes/Category/MealKit';
 import ETC from '../Routes/Category/Etc';
 
+
 export default () => (
   <Router>
     <>
@@ -87,6 +88,8 @@ export default () => (
         <Route path="/category/material" exact component={MATERIAL} />
         <Route path="/category/meat" exact component={MEAT} />
 
+
+        
         {/* url잘못치면 메인으로 */}
         <Redirect from="*" to="/" />
       </Switch>
