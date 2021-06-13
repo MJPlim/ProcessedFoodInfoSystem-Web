@@ -9,6 +9,7 @@
     font-family: 'MPb';
     font-size: 20px;
     margin-bottom: 2%;
+    font-weight: 700;
   }
   .inputLabel {
     width: 100%;
@@ -23,6 +24,26 @@
   }
   .regiButton {
     text-align: center;
+    .btn__cancle,
+    .btn__join
+    {
+      width: 120px;
+      height: 40px;
+      border: 0px;
+      outline: 0px;
+      font-size: medium;
+    }
+    .btn__cancle{
+      background-color: white;
+      border: 1px solid rgba(240, 96, 106, 1);
+      color:rgba(240, 96, 106, 1);
+      
+    }
+    .btn__join{
+      background-color: rgba(240, 96, 106, 1);
+      color: white;
+     
+    }
   }
 
   .pickerRow {

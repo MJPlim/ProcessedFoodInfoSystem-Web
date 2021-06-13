@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import {
   Col,
@@ -175,16 +176,16 @@ function Join(props) {
               <Row>
                 <Col>
                   <Label>
-                    <Button outline color="warning" onClick={cancel}>
+                    <button type='button' className="btn__cancle" onClick={cancel}>
                       취소
-                    </Button>
+                    </button>
                   </Label>
                 </Col>
                 <Col>
                   <Label>
-                    <Button outline color="danger" onClick={register}>
+                      <button className="btn__join" onClick={register}>
                       가입
-                    </Button>
+                    </button>
                   </Label>
                 </Col>
               </Row>
