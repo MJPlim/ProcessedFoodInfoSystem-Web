@@ -30,7 +30,8 @@
     margin-bottom: 50px;
     z-index: -1;
     .top__frame{
-      position:absolute;
+      display: flex;
+      position:relative;
       z-index: 2;
       margin-top: 40px;
     }
@@ -46,7 +47,9 @@
       width: 100%;
       text-align: center;
       display: inline-block;
-      border:0px;
+      border-image: url('../../image/Ranking/second.png') round;
+      border-image-slice: 20;
+      border-width: 5px 5px;
       .title {
         font-size: large;
         word-break: keep-all;

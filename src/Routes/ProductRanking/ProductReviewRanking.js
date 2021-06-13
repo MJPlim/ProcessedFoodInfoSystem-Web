@@ -37,7 +37,7 @@ const ProductReviewRanking = () => {
   return (
     <div className='Ranking'>
 
-          <div className="ranking__img"></div>
+         /
          <div className="ranking__title">카 티 랭 킹 </div>
     
       {/* 타이틀 영역 끝 */}
@@ -47,7 +47,7 @@ const ProductReviewRanking = () => {
         <div className="ranking__page">
           <Row className={'topRating'}>
             <Col sm={4}>
-              <img className="top__frame frame__2" src={second}/>
+            
               <Card body className={'second topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[1].avgRating}</CardText>
@@ -66,7 +66,7 @@ const ProductReviewRanking = () => {
             </Col>
 
             <Col sm={4}>
-             <img className="top__frame frame__1" src={first}/>
+         
               <Card body className={'first topRatingCard'}>
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[0].avgRating}</CardText>
@@ -85,7 +85,7 @@ const ProductReviewRanking = () => {
 
             
             <Col sm={4}>
-           <img className="top__frame frame__3" src={third}/>
+          
               <Card body className={'third topRatingCard'}>                  
                 <FaTrophy className={'trophy'} />
                 <CardText className={'avgRating'}>{rankingList[2].avgRating}</CardText>
