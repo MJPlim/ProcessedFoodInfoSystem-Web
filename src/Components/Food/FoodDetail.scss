@@ -30,6 +30,7 @@
     .foodName {
       margin-top: 10px;
       font-size: x-large;
+      font-weight: 700;
       //font-weight: bold;
     }
 
@@ -124,6 +125,7 @@
 
         .title {
           font-size: large;
+          font-weight: 700;
         }
 
         .point {
@@ -153,6 +155,7 @@
 
       td, tr {
         vertical-align : middle;
+       
       }
 
       @media all and (max-width: 479px) {
@@ -200,7 +203,7 @@
     .deleteButton {
       background-color: transparent;
       border-color: $lightorange;
-      color: red;
+      color: rgba(237, 47, 59, 0.9);;
       margin: 0;
       padding: 0;
       border-top-width: 0;

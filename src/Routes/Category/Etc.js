@@ -12,7 +12,7 @@ import SearchResult from '../Search/SearchResult';
 import { Collapse, InputGroupAddon } from 'reactstrap';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-
+import 기타가공품 from '../../image/categoryImg/etc/기타가공품.jpg';
 
 const Etc = (props) => {
 
@@ -751,7 +751,7 @@ const Etc = (props) => {
         <div className='category__items'>
           <div className='item'>
             <button value='기타가공품' onClick={() => handleCategory('기타가공품')} className='category__item'>
-              {/*<img className='item__img' src={기타가공품} />*/}
+              <img className='item__img' src={기타가공품} />
             </button>
             <p className='category__name'>기타가공품</p>
           </div>

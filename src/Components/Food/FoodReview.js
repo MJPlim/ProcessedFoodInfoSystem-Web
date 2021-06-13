@@ -52,7 +52,7 @@ const FoodReview = ({
             <Col sm='3'>
               <Card body className={'reviewCount'}>
                 <CardTitle className={'title'}>리뷰 수</CardTitle>
-                <CardText className={'point'}>{reviewSummary.reviewCount}개</CardText>
+                <CardText className={'point'} >{reviewSummary.reviewCount}개</CardText>
               </Card>
             </Col>
             <Col sm='3'>
