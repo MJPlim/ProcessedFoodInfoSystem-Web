@@ -36,11 +36,22 @@
         justify-content: center;
         margin-top: 20px;
 
-        .menu__item {
+        .menu__item, .item__delete {
           font-size: medium;
           margin: 20px;
           font-weight: 500;
+           color: black !important;
+           &:hover{
+             text-decoration: none !important;
+             border-bottom: 0 !important;
+             color: rgba(237, 47, 59, 0.8) !important;
+           }
+           
         }
+        .item__delete{
+          color: gray !important;
+        }
+        
 
         .item__delete {
           color: rgba(191, 191, 191, 1);

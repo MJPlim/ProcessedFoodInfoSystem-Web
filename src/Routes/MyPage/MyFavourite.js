@@ -71,11 +71,8 @@ function MyFavourite() {
           <br />
           <br />
           <Row>
-            <Col md="1">
-              <img className="productSet" src={productSet} />
-            </Col>
             <Col md="11">
-              <p className="titleBar">나의 즐겨찾기 목록</p>
+              <p className="titleBar">MY 즐겨찾기 목록</p>
             </Col>
           </Row>
           <hr />

@@ -12,15 +12,17 @@ const  NoFavourite=()=>{
                 <h1 className="title"> 즐겨찾기가 없습니다 </h1>
                 <div className="check">
                 <div className="checklist">
-                    <div className="tryFB"><AiFillStar size="20"></AiFillStar> 관심있는 음식에 별 버튼을 클릭해보세요</div>
-                   <Link className="linkFB" to="/searchProduct/food">
-                <Button  className="addFB" outline color="warning" size="sm" block>
-                  즐겨찾기 추가하러가기
-                </Button>
-              </Link>
+                <div className="tryFB"><AiFillStar size="20"></AiFillStar> 
+                관심있는 음식에 별 버튼을 클릭해보세요</div>
+                
                 </div>
                
                 </div>
+                <Link className="linkFB" to="/searchProduct/food">
+                <button  className="addFB" size="sm" block>
+                  즐겨찾기 추가하러가기
+                </button>
+              </Link>
             </div>
         </div>
     );

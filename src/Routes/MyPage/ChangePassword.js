@@ -67,7 +67,7 @@ function ChangePassword(props) {
         <Card body>
           <form>
             <p className={'title'}>비밀번호 변경하기</p>
-            <hr />
+            <hr className="line__divider" />
             <div class='form-group'>
               <input
                 type='password'

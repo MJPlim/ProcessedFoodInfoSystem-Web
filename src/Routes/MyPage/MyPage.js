@@ -97,7 +97,7 @@ const MyPage = () => {
             <Link to='/secondEmail' className='menu__item'>
               2차 보안 설정하기
             </Link>
-            <Link to='/delete' className='menu__item item__delete'>
+            <Link to='/delete' className=' item__delete'>
               | 회원탈퇴
             </Link>
           </div>

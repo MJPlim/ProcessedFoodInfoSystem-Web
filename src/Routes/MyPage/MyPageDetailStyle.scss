@@ -59,7 +59,7 @@
     .deleteButton {
       background-color: transparent;
       border-color: $lightorange;
-      color: red;
+      color: rgba(240, 96, 106, 1);
       margin: 0;
       padding: 0;
       border-top-width: 0;
@@ -71,7 +71,7 @@
       &:focus,
       &:active {
         background-color: transparent !important;
-        color: red !important;
+        color: rgba(240, 96, 106, 1) !important;
         border-color: $lightorange !important;
       }
     }
@@ -99,7 +99,7 @@
     .editCancelButton {
       background-color: transparent;
       border-color: $lightorange;
-      color: red;
+      color: rgba(240, 96, 106, 1);
       margin: 0;
       padding: 0;
       border-top-width: 0;
@@ -111,7 +111,7 @@
       &:focus,
       &:active {
         background-color: transparent !important;
-        color: red !important;
+        color: rgba(240, 96, 106, 1) !important;
         border-color: $lightorange !important;
       }
     }
