@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
 import './ChangePasswordStyle.scss';
-import { Container, Card } from 'reactstrap';
+import {
+  Col,
+  Container,
+  Button,
+  Card,
+  CardText,
+  Row,
+  Table,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  ButtonToggle,
+} from 'reactstrap';
 import { setSecurityEmail } from 'api';
+import { Link } from 'react-router-dom';
 
 function SecondEmail() {
   const [secondEmail, setSecondEmail] = useState('');
@@ -22,28 +36,38 @@ function SecondEmail() {
   return (
     <div className="setEmail">
       <Container>
-        <Card body>
-          <form>
-            <p>2차 보안용 이메일 설정하기</p>
-            <hr />
-            <div class="form-group">
-              <label for="exampleDropdownFormEmail1">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="exampleDropdownFormEmail1"
-                placeholder="설정할 이메일을 입력해주세요"
-                onChange={onChange}
-              />
-            </div>
-          </form>
-          <div>
-            <button onClick={pushEmail} type="submit" class="btn btn-danger">
-              설정하기
-            </button>
-          </div>
-          <div class="dropdown-divider"></div>
-        </Card>
+        <div className="secondEmailContainer">
+          <Card body>
+            <p className="title">2차 보안 설정</p>
+            <hr className="secondEmail__line"/>
+            <Form>
+              <FormGroup>
+                <Label className="secondEmail">
+                  <Input
+                    type="email"
+                    placeholder="2차 보안용 이메일"
+                    onChange={onChange}
+                  />
+                </Label>
+              </FormGroup>
+            </Form>
+            <Row className={'buttonArea'}>
+              <Link to="myPage">
+                <Button outline color="danger" className={'cancelButton'}>
+                  취소
+                </Button>
+              </Link>
+              <Button
+                outline
+                color="warning"
+                className={'submitButton'}
+                onClick={pushEmail}
+              >
+                설정
+              </Button>
+            </Row>
+          </Card>
+        </div>
       </Container>
     </div>
   );

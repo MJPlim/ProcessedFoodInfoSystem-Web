@@ -7,88 +7,216 @@ import {
 import './MyAllergies.scss';
 import axios from 'axios';
 import { setUserAllergyInfo } from 'api';
+import { Link } from 'react-router-dom';
+import {
+  Col,
+  Container,
+  Button,
+  Card,
+  CardText,
+  Row,
+  Table,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  ButtonToggle,
+} from 'reactstrap';
+import { getUserAllergyInfo } from '../../api';
 
 function MyAllergies() {
-  const [allergy, setAllergy] = useState('');
   const [allergyList, setAllergyList] = useState([]);
+  const [data, setData] = useState([]);
+  const [allergyLoading, setAllergyLoading] = useState(true);
+  const [shownAllergy1, setShownAllergy1] = useState([
+    '아몬드',
+    '우유',
+    '대두',
+    '밀',
+    '닭고기',
+    '쇠고기',
+  ]);
+  const [shownAllergy2, setShownAllergy2] = useState([
+    '새우',
+    '오징어',
+    '잣',
+    '소고기',
+    '돼지고기',
+    '메추리알',
+  ]);
+  const [shownAllergy3, setShownAllergy3] = useState([
+    '토마토',
+    '조개류',
+    '난류',
+    '호두',
+    '복숭아',
+    '땅콩',
+  ]);
+  const [shownAllergy4, setShownAllergy4] = useState([
+    '게',
+    '아황산류',
+    '메밀',
+    '계란',
+  ]);
 
-  console.log('0-0-0-0-0-0-0-0-0-0');
-  console.log(allergy);
+  useEffect(() => {
+    try {
+      gogogetAllergy();
+      console.log(allergyList, 'useEffect 기존 Data 알러지리스트');
+    } catch (e) {
+      console.log(e);
+    }
+  }, [!allergyLoading]);
 
-  const onKeyPress = (e) => {
-    if (e.key == 'Enter') {
-      onClick();
+  const gogogetAllergy = async () => {
+    await getUserAllergyInfo
+      .userAllergies()
+      .then((response) => {
+        const result = response.data.userAllergyMaterials;
+        setData(result);
+        setAllergyLoading(false);
+        console.log(data, '기존 알러지');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    try {
+      setAllergyList(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [data]);
+
+  const onChange = (e) => {
+    if (e.target.checked == true) {
+      console.log('온체인지 true', e.target.checked);
+      setAllergyList([...allergyList, e.target.name]);
+      // setAllergy(e.target.name);
+    } else if (e.target.checked == false) {
+      console.log('온체인지 false', e.target.checked);
+      onRemove(e.target.name);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  const onChange = (e) => {
-    setAllergy(e.target.value);
-  };
-
-  const onClick = () => {
-    //여기서 서버랑 연동해서 해야함
-    console.log('여기는 클릭부분에서 나오느 콘솔콘솔코코콘솔');
-    console.log(allergy);
-    setAllergyList([...allergyList, allergy]);
-    console.log('여기서부터는 알러지 리스트 나오는 부분임');
-    console.log(allergyList);
+  const onRemove = (name) => {
+    setAllergyList(allergyList.filter((allergy) => allergy !== name));
+    console.log('onRemove 작동', allergyList);
   };
 
   const createAllergy = async () => {
     try {
       await setUserAllergyInfo.setAllergies(allergyList);
-      alert('등록되었습니다.');
+      alert('저장되었습니다.');
+      window.location.replace('/mypage');
     } catch (e) {
       alert(e.response.data['error-message']);
     }
   };
 
   return (
-    <div>
-      <p>알러지 종류</p>
+    <div className="myAllergies">
       <br />
-      <p>아몬드 우유 대두 밀 닭고기</p>
-      <p>쇠고기 새우 오징어 잣 소고기</p>
-      <p>돼지고기 메추리알 토마토 조개류 난류</p>
-      <p>호두 복숭아 땅콩 게</p>
-      <p>아황산류 메밀 계란</p>
-      <hr />
-      <p>위의 알러지 종류만 가능합니다.</p>
-      <hr />
       <br />
-      <div>
-        <form className="allergyTable" onSubmit={handleSubmit}>
+      <Container>
+        <div className="changeAllergyInfo">
+          <Row>
+            <p>알러지 정보 변경하기</p>
+          </Row>
+          <hr />
+        </div>
+
+        {!allergyLoading && (
           <div>
-            <label for="inputAllergy">알러지 입력</label>
-            <input
-              type="text"
-              id="inputAllergy"
-              placeholder="알러지를 입력하세요"
-              // value={allergy}
-              onChange={onChange}
-              onKeyPress={onKeyPress}
-            />
+            <Form className="checkboxGroup">
+              <Row>
+                {shownAllergy1.map((item, index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          key={index}
+                          type="checkbox"
+                          name={item}
+                          onChange={onChange}
+                          checked={allergyList.includes(item)}
+                        />
+                        {item}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+              <Row>
+                {shownAllergy2.map((item, index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          key={index}
+                          type="checkbox"
+                          name={item}
+                          onChange={onChange}
+                          checked={allergyList.includes(item)}
+                        />
+                        {item}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+              <Row>
+                {shownAllergy3.map((item, index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          key={index}
+                          type="checkbox"
+                          name={item}
+                          onChange={onChange}
+                          checked={allergyList.includes(item)}
+                        />
+                        {item}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+              <Row>
+                {shownAllergy4.map((item, index) => (
+                  <Col md="2">
+                    <FormGroup check inline>
+                      <Label check>
+                        <Input
+                          key={index}
+                          type="checkbox"
+                          name={item}
+                          onChange={onChange}
+                          checked={allergyList.includes(item)}
+                        />
+                        {item}
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                ))}
+              </Row>
+            </Form>
+            <div className="buttonGroup">
+              <Row className={'buttonArea'}>
+                <Link to="/myPage">
+                  <Button className={'cancelButton'}>취소</Button>
+                </Link>
+                <Button className={'submitButton'} onClick={createAllergy}>
+                  저장하기
+                </Button>
+              </Row>
+            </div>
           </div>
-          <hr />
-          <div>{allergy}</div>
-          <hr />
-        </form>
-        <button onClick={onClick}>
-          <MdAdd />
-        </button>
-        <hr />
-        <hr />
-        <br />
-        <div>{allergyList}</div>
-        <hr />
-        <hr />
-        <p>등록하는부분달거달거달거!!!! ㅎㅎ</p>
-        <button onClick={createAllergy}>등록!</button>
-      </div>
+        )}
+      </Container>
     </div>
   );
 }

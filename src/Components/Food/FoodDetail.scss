@@ -1,239 +1,356 @@
 @import "./src/styles/utils";
 
 .FoodDetail {
-  margin-left: 100px;
-  margin-right: 100px;
+  //margin-left: 100px;
+  //margin-right: 100px;
+  word-break: keep-all;
+  width: 60%;
+  margin: auto;
+  font-family: 'MPl';
 
-  .container {
-    margin-left: 30px;
-    margin-right: 30px;
-    padding-top: 30px;
-  }
+  @media screen and (max-width: 1200px) {
+    width: 75%;
 
-
-  .titleArea {
-    .title {
-      font-size: x-large;
-      font-weight: bold;
-      border-bottom-style: solid;
-      border-bottom-color: black;
-    }
-
-    .btn {
-      margin-top: 0;
-      float: right;
-    }
-
-    .newsButton {
-      margin-right: 3px !important;
-    }
-
-    .favoriteButton {
-      background-color: transparent !important;
-      border-color: $lightorange !important;
-      color: $lightorange;
-      margin-right: 3px !important;
-
-      &:hover, &:active {
-        background-color: transparent !important;
-        color: $lightorange !important;
-        border-color: $lightorange !important;
-      }
-    }
   }
 
   .hr {
+    margin: 0;
     border-top: 1px solid;
+    border-color: gray;
+    width: 100%;
   }
 
-  .hr_foodInfo {
-    border: 0;
-    @media screen and (max-width: 992px) {
-      border-right: 0;
-      border-bottom: 1px solid;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+  .foodInfoArea {
+    .category {
+      margin-top: 30px;
+      font-size: medium;
+      margin-bottom: 5px;
     }
-  }
 
-
-  .rightBorderLine {
-    border-right: 1px solid;
-
-    @media screen and (max-width: 992px) {
-      border-right: 0;
+    .foodName {
+      margin-top: 10px;
+      font-size: x-large;
+      font-weight: 700;
+      //font-weight: bold;
     }
-  }
 
-  .reviewArea {
+    .manufacturerName {
+      margin-top: 10px;
+      font-size: large;
+      //margin-bottom: 50px;
+    }
+
+    .allergyMaterials {
+      margin-top: 10px;
+      font-size: large;
+    }
+
+    .foodInfoTable {
+      margin-top: 20px;
+      font-size: medium;
+
+    }
+
+    .btnArea {
+      .newsButton, .linkButton {
+        width: 100%;
+        background-color: $lightorange !important;
+        border-color: $lightorange !important;
+        color: white;
+        margin-top: 10px;
+
+        &:hover, &:active {
+          background-color: $orange !important;
+          color: white !important;
+          border-color: $orange !important;
+        }
+      }
+
+      .favoriteButton {
+        float: right;
+        background-color: transparent !important;
+        border-color: $lightorange !important;
+        color: $lightorange;
+        margin-top: 10px;
+
+
+        &:hover, &:active {
+          background-color: transparent !important;
+          color: $lightorange !important;
+          border-color: $lightorange !important;
+        }
+      }
+
+      //@media screen and (max-width: 1200px) {
+      //  position: relative;
+      //}
+    }
+
     @media screen and (max-width: 992px) {
       margin-top: 30px;
     }
   }
 
-  .reviewSummary {
-    font-size: large;
+  .foodReview {
+    .pageDiv {
+      text-align: center;
+    }
+
+    .reviewPaginate {
+      width: 100%;
+      font-size: medium;
+      margin: 10px auto 30px;
+      display: inline-block !important;
+
+      li {
+        margin: 15px;
+        display: inline-block !important;
+      }
+    }
+
+    .reviewInfo {
+      height: 100%;
+      margin-top: 10px;
+
+      .reviewSummary {
+        height: 100%;
+        font-size: large;
+        //margin-top: 30px;
+      }
+
+      .reviewCount, .avgRating {
+        text-align: center;
+        height: 100%;
+        width: 100%;
+
+        .title {
+          font-size: large;
+          font-weight: 700;
+        }
+
+        .point {
+          font-size: xx-large;
+          margin: auto;
+        }
+      }
+    }
+
 
     .subTitle {
       font-size: x-large !important;
       margin-bottom: 10px;
     }
-  }
-  .foodInfoTable{
-    font-size: medium;
-  }
 
-  .foodInfo {
-    .foodInfoDesc {
-      font-size: small;
+    .reviewTable {
+      font-size: 1.2em;
+      margin-top: 15px;
+      table-layout: fixed;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+
+      .starRating {
+        margin: auto;
+      }
+
+      td, tr {
+        vertical-align : middle;
+       
+      }
+
+      @media all and (max-width: 479px) {
+        font-size: 0.1em;
+      }
+
     }
 
-    .subTitle {
-      font-size: large !important;
+    .reviewLabel {
+      font-size: medium;
       margin-bottom: 10px;
+      float: left;
     }
-  }
 
+    .starRating {
+      float: right;
+    }
 
-  .reviewTable {
-    font-size: 1.1em;
-    margin-top: 15px;
-    table-layout: fixed;
-    margin-left: auto;
-    margin-right: auto;
-  }
+    .pagingButton {
+      float: right;
+    }
 
-  .reviewLabel {
-    font-size: medium;
-    margin-bottom: 10px;
-    float: left;
-  }
+    .reviewFrom {
+      resize: none;
+    }
 
-  .starRating {
-    float: right;
-  }
+    .likeButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: $lightorange;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
 
-  .pagingButton {
-    float: right;
-  }
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: $lightorange !important;
+        border-color: $lightorange !important;
+      }
+    }
 
-  .foodInfo {
-    margin-top: 20px;
-  }
+    .deleteButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: rgba(237, 47, 59, 0.9);;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
 
-  .reviewFrom {
-    resize: none;
-  }
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: red !important;
+        border-color: $lightorange !important;
+      }
+    }
 
-  .likeButton {
-    background-color: transparent;
-    border-color: $lightorange;
-    color: $lightorange;
-    margin: 0;
-    padding: 0;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-bottom-width: 0;
-    border-right-width: 0;
+    .editButton {
+      background-color: transparent;
+      border-color: darkblue;
+      color: darkblue;
+      padding: 0;
+      margin: 0 5px 0 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
 
-    &:hover, &:focus, &:active {
-      background-color: transparent !important;
-      color: $lightorange !important;
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: darkblue !important;
+        border-color: darkblue !important;
+      }
+    }
+
+    .editCancelButton {
+      background-color: transparent;
+      border-color: $lightorange;
+      color: red;
+      margin: 0;
+      padding: 0;
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      &:hover, &:focus, &:active {
+        background-color: transparent !important;
+        color: red !important;
+        border-color: $lightorange !important;
+      }
+    }
+
+    .reviewSubmitButton {
+      width: 20%;
+      float: right;
+      background-color: $lightorange !important;
       border-color: $lightorange !important;
+      color: white;
+      margin-bottom: 20px !important;
+      margin-top: 20px;
+
+
+      &:hover, &:active {
+        background-color: $orange !important;
+        color: white !important;
+        border-color: $orange !important;
+      }
+    }
+
+
+    .reviewPage {
+      color: black;
+    }
+
+    .reviewSelectedPage {
+      color: $lightorange;
+      font-weight: bold;
+    }
+
+    .reviewSummaryChart {
+      .chart {
+        margin-top: 10px;
+      }
+    }
+
+  }
+
+  .bottomArea {
+    margin-top: 30px;
+    @media screen and (max-width: 992px) {
+      margin-top: 30px;
+    }
+
+    .bottomTab {
+      li {
+        cursor: pointer;
+        font-size: medium;
+        width: 50%;
+        height: 100%
+      }
     }
   }
 
-  .deleteButton {
-    background-color: transparent;
-    border-color: $lightorange;
-    color: red;
-    margin: 0;
-    padding: 0;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-bottom-width: 0;
-    border-right-width: 0;
+  .foodInfoDetail {
+    margin-bottom: 50px;
 
-    &:hover, &:focus, &:active {
-      background-color: transparent !important;
-      color: red !important;
-      border-color: $lightorange !important;
+    .foodInfo {
+      margin-top: 20px;
+
+      .nutrient, .materials {
+        word-break: keep-all;
+        height: 100%;
+        width: 100%;
+        line-height : 180%;
+
+        .title {
+          font-size: x-large;
+        }
+
+        .foodInfoDesc {
+          font-size: medium;
+        }
+      }
+
+
     }
-  }
-
-  .editButton {
-    background-color: transparent;
-    border-color: darkblue;
-    color: darkblue;
-    padding: 0;
-    margin: 0 5px 0 0;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-bottom-width: 0;
-    border-right-width: 0;
-
-    &:hover, &:focus, &:active {
-      background-color: transparent !important;
-      color: darkblue !important;
-      border-color: darkblue !important;
-    }
-  }
-
-  .editCancelButton {
-    background-color: transparent;
-    border-color: $lightorange;
-    color: red;
-    margin: 0;
-    padding: 0;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-bottom-width: 0;
-    border-right-width: 0;
-
-    &:hover, &:focus, &:active {
-      background-color: transparent !important;
-      color: red !important;
-      border-color: $lightorange !important;
-    }
-  }
-
-
-  .reviewPaginate {
-    font-size: medium;
-    margin-top: 10px;
-    margin-bottom: 30px;
-
-  }
-
-  .reviewPage {
-    color: black;
-  }
-
-  .reviewSelectedPage {
-    color: $lightorange;
-    font-weight: bold;
   }
 
   .carousel {
-    height: 50%;
+    height: 100%;
     width: 100%;
+
+    .carousel-inner {
+      border-radius: 0.25rem;
+
+    }
 
     img {
       display: block;
       margin: 0 auto;
+      width: 100%;
+      border-radius: 0.25rem;
     }
   }
 
   .carousel-control-next-icon,
   .carousel-control-prev-icon,
   .carousel-indicators {
-    filter: invert(1) !important;
-  }
-
-  .reviewSummaryChart {
-    .chart {
-      margin-top: 10px;
-    }
+    filter: invert(50%) !important;
   }
 
 

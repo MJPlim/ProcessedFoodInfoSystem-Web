@@ -1,33 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Card } from 'reactstrap';
+import {
+  Col,
+  Container,
+  Button,
+  Card,
+  Row,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from 'reactstrap';
 import './LoginStyle.scss';
-import { Link } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import { MdAssignmentInd } from 'react-icons/md';
-import { RiLockPasswordFill } from 'react-icons/ri';
-import { FaUsersCog } from 'react-icons/fa';
+import { Link, useHistory } from 'react-router-dom';
 import { userLogin } from 'api';
+import {FiCheckCircle} from 'react-icons/fi';
 
 var token;
 
-function Login() {
+function Login(props) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [bChecked, setChecked] = useState(false);
+  const [bSave, setSave] = useState(false);
 
-  const login = () => {
-    localStorage.setItem('userLoginEmail', email);
-    localStorage.setItem('userLoginPassword', password);
+  const login = (e) => {
+    e.preventDefault();
     userLogin
       .userLoginApi(email, password)
       .then((response) => {
         token = response.headers.authorization;
         localStorage.setItem('authorization', token);
-        alert('로그인 완료');
+        window.location.href = '/';
       })
       .catch((error) => {
         alert('잘못된 정보입니다', error);
       });
+    if (bSave) {
+      localStorage.setItem('userLoginEmail', email);
+      localStorage.setItem('userLoginPassword', password);
+      localStorage.setItem('userBEmail', email);
+      localStorage.setItem('userBPassword', password);
+    } else if (!bSave) {
+      localStorage.setItem('userLoginEmail', null);
+      localStorage.setItem('userLoginPassword', null);
+      localStorage.setItem('userBEmail', email);
+      localStorage.setItem('userBPassword', password);
+    }
+  };
+
+  const checkedItemHandler = (isChecked) => {
+    if (isChecked) {
+      setSave(true);
+    } else if (!isChecked) {
+      setSave(false);
+    }
+  };
+
+  const checkHandler = ({ target }) => {
+    setChecked(!bChecked);
+    checkedItemHandler(target.checked);
   };
 
   const onPasswordChange = (e) => {
@@ -38,74 +70,55 @@ function Login() {
     setEmail(e.target.value);
   };
 
+  useEffect(() => {
+    console.log(localStorage.getItem('authorization'));
+    if (localStorage.getItem('authorization') !== 'null') {
+      alert('이미 로그인되어 있습니다.');
+      window.location.href = '/';
+    }
+  }, []);
+
   return (
-    <div className="FindUser">
+    <div className="loginPage">
       <div className="katiLogin">
-        <Container>
+        <Container className="container">
           <p className="title">로그인</p>
-          <Card body>
-            <form>
-              <div class="form-group">
-                <label for="exampleDropdownFormEmail1">이메일</label>
-
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleDropdownFormEmail1"
-                  placeholder="email@example.com"
-                  onChange={onEmailChange}
-                />
+          <Card body className="formBody">
+            <Form>
+              <FormGroup>
+                <Label className="inputGroup">
+                  <Input
+                    type="email"
+                    placeholder="이메일"
+                    onChange={onEmailChange}
+                  />
+                </Label>
+              </FormGroup>
+              <FormGroup>
+                <Label className="inputGroup">
+                  <Input
+                    type="password"
+                    placeholder="비밀번호"
+                    onChange={onPasswordChange}
+                  />
+                </Label>
+              </FormGroup>
+            <div className="under__section">
+              <div className="login__btns">
+               <div><button className="login__btn"  onClick={login} >로그인</button></div> 
+                <div className="auto__login"> <input type="checkbox" onChange={(e) => checkHandler(e)}/><p className="auto__login__title"> 자동로그인</p></div> 
               </div>
-
-              <div class="form-group">
-                <label for="exampleDropdownFormPassword1">비밀번호</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="exampleDropdownFormPassword1"
-                  placeholder="Password"
-                  onChange={onPasswordChange}
-                />
+              <div className="other__btns">
+                 <Link to="/findUser/email" className="userGroup">이메일 찾기</Link>
+                 <Link to="/findUser/password" className="userGroup">비밀번호 찾기</Link>
+                 <Link to="/join" className="userGroup">회원가입</Link>
               </div>
-
-              <div class="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="dropdownCheck"
-                />
-                <label className="form-check-label" for="dropdownCheck">
-                  자동 로그인
-                </label>
-              </div>
-            </form>
-            <div>
-              <button
-                onClick={login}
-                type="submit"
-                className="btn btn-outline-danger"
-              >
-                로그인
-              </button>
             </div>
-            <div class="dropdown-divider"></div>
-
-            <Link class="dropdown-item" to="/join">
-              <MdAssignmentInd size="20" color="#3a8082" />
-              회원가입하기
-            </Link>
-            <Link class="dropdown-item" to="/findUser/email">
-              <FaUsersCog size="20" color="#3a8082" />
-              아이디 찾기
-            </Link>
-            <Link class="dropdown-item" to="/findUser/password">
-              <RiLockPasswordFill size="20" color="#3a8082" />
-              비밀번호를 잊으셨나요?
-            </Link>
+            </Form>
           </Card>
         </Container>
       </div>
-      <div className="socialLogin">
+      {/* <div className="socialLogin">
         <Container>
           <p className="title">소셜 로그인</p>
 
@@ -118,7 +131,7 @@ function Login() {
             </button>
           </Card>
         </Container>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -3,19 +3,20 @@ import {
   Alert,
   Button,
   Card,
-  CardTitle,
-  Col,
   Container,
+  FormGroup,
   Input,
+  Label,
 } from 'reactstrap';
-import './FindUserStyle.scss';
+import '../FindUser/FindEmailStyle.scss';
 import isEmail from 'validator/es/lib/isEmail';
-import axios from 'axios';
 import { findEmail } from 'api';
+import Loading from '../ErrorPage/Loading';
 
 const FindEmail = () => {
   const [secondEmail, setSecondEmail] = useState('');
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   const onChange = (e) => {
     setSecondEmail(e.target.value);
@@ -23,8 +24,11 @@ const FindEmail = () => {
   };
 
   const emailSubmit = () => {
+    setLoading(true);
+
     if (!isEmail(secondEmail)) {
       setMessage('잘못된 이메일 형식 입니다.');
+      setLoading(false);
     } else {
       setMessage(null);
       findEmail
@@ -34,41 +38,48 @@ const FindEmail = () => {
             ' 입력하신 ' + secondEmail + '로 이메일을 발송했습니다',
             response,
           );
+          window.location.href = '/login';
+          setLoading(false);
         })
         .catch((error) => {
           alert('잘못된 이메일 주소입니다', error);
+          setLoading(false);
         });
     }
   };
 
   return (
-    <div className="FindUser">
-      <Container>
-        <p className="title">이메일 조회</p>
-        <Card body>
-          <Col>
-            <CardTitle className="card-title">
-              아이디를 찾을 계정의 2차 메일을 입력해주세요.
-            </CardTitle>
-          </Col>
-          <Col md="6">
-            <Input
-              className="inputEmail"
-              type="email"
-              value={secondEmail}
-              onChange={onChange}
-              placeholder="이메일을 입력해주세요."
-            />
-          </Col>
-          <Col md="6">
-            {message != null ? <Alert color="danger">{message}</Alert> : null}
-          </Col>
-          <Col>
-            <Button onClick={emailSubmit} className="submitButton">
-              확인
-            </Button>
-          </Col>
-        </Card>
+    <div className="findEmail">
+      <Container className="container">
+        {loading && <Loading className="loading__now" />}
+        <div style={loading ? { opacity: '0.7' } : null}>
+          <p className="title">이메일 찾기</p>
+          <Card body>
+            <FormGroup>
+              <Label className="secondEmailInput">
+                <Input
+                  type="email"
+                  placeholder="2차 보안 이메일"
+                  onChange={onChange}
+                />
+              </Label>
+              <Label className="buttonArea">
+                <Button
+                  className={'submitButton'}
+                  onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                  style={loading ? { cursor: 'not-allowed' } : null}
+                >
+                  찾기
+                </Button>
+              </Label>
+              <Label className={'alertArea'}>
+                {message != null ? (
+                  <Alert color="danger">{message}</Alert>
+                ) : null}
+              </Label>
+            </FormGroup>
+          </Card>
+        </div>
       </Container>
     </div>
   );

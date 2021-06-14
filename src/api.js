@@ -111,6 +111,19 @@ export const getUserSummary = {
     }),
 };
 
+//대분류 소트
+export const bigCategory = {
+  gotoCategory: (category, page, sort, size) =>
+    api.get('api/v1/food/list/widecategory', {
+      params: {
+        category: category,
+        page: page,
+        sort: sort,
+        size: size,
+      },
+    }),
+};
+
 //2차 보안 이메일 설정 부분
 export const setSecurityEmail = {
   securityEmail: (secondEmail) =>
@@ -121,23 +134,32 @@ export const setSecurityEmail = {
     ),
 };
 
-export const foodApi = {
+export const searchApi = {
   //해당 url로 가는 함수들
-  search: (term) =>
-    api.get('/api/v1/food/getFoodListBySorting', {
+  search: (allergies,category,foodName,manufacturerName,order,pageNo,size,sort) =>
+    api.get('/api/v1/food/searchFood', {
       params: {
-        foodName: term,
-        pageNo: 1,
-        size: 10,
+        allergies: allergies.join(','),
+        category: category,
+        foodName:foodName,
+        manufacturerName:manufacturerName,
+        order:order,
+        pageNo: pageNo,
+        size: size,
+        sort: sort,
       },
     }),
 };
 export const manufacturerApi = {
   //해당 url로 가는 함수들
-  search: (term) =>
+  search: (term, sort, allergies) =>
     api.get('/api/v1/food/getFoodListBySorting', {
       params: {
         manufacturerName: term,
+        pageNo: 1,
+        size: 10,
+        sort: sort,
+        allergies: allergies.join(','),
       },
     }),
 };
@@ -338,18 +360,28 @@ export const sortApi = {
     }),
 };
 export const categoryApi = {
-  category: (category) =>
+  category: (category,page,size,sort) =>
     api.get('/api/v1/food/list/category', {
       params: {
         category: category,
-        pageNo: 1,
-        size: 10,
+        page: page,
+        sort:sort,
+        size: size
+        
       },
     }),
 };
 
 export const getReviewRankingApi = {
   getReviewRanking: () => api.get('/reviewRanking'),
+};
+
+export const getProductRanking = {
+  mainPage: () => api.get('/reviewRanking'),
+};
+
+export const getAd = {
+  atMainPage: () => api.get('/api/v1/advertisement/ads'),
 };
 
 export const allergyApi = {
@@ -374,3 +406,25 @@ export const allergyApi = {
       },
     }),
 };
+
+export const getReviewByUserIDApi = {
+  getReviews: (pageNum) =>
+    api.get('/api/v1/user/readReviewByUserID', {
+      params: {
+        pageNum: pageNum,
+      },
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+
+export const getUserInfoApi = {
+  gerUserInfo: () =>
+    api.get('/api/v1/user/user-info', {
+      headers: {
+        Authorization: localStorage.getItem('authorization'),
+      },
+    }),
+};
+

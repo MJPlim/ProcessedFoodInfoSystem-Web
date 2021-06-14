@@ -1,39 +1,63 @@
-import React, { useEffect, useState, useAsync } from 'react';
-import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  getUserAllergyInfo,
-  getUserSummary,
-  getWrittenReport,
-} from '../../api';
-import axios from 'axios';
+import { getUserAllergyInfo, getUserInfoApi, getUserSummary } from '../../api';
+import './MyPageDetailStyle.scss';
+import { AiOutlineFilter, AiOutlineStar, AiOutlineUser } from 'react-icons/ai';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
 
 const MyPage = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [writtenData, setWrittenData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [allergyLoading, setAllergyLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [favouriteCount, setFavouriteCount] = useState('');
   const [reviewCount, setReviewCount] = useState('');
   const [userName, setUserName] = useState('');
+  const [userInfo, setUserInfo] = useState({
+    name: null,
+    address: null,
+    birth: null,
+  });
+
+  const { name, address, birth } = userInfo;
+
+  const getUSerInfo = async () => {
+    await getUserInfoApi.gerUserInfo().then(res => {
+      console.log(res.data);
+      setUserInfo(
+        {
+          name: res.data.name,
+          address: res.data.address,
+          birth: res.data.birth,
+        },
+      );
+    }).catch(e => {
+      console.log('유저 정보 에러', e.response);
+    });
+  };
+
 
   useEffect(() => {
     const gogogetAllergy = async () => {
-      getUserAllergyInfo
+      setAllergyLoading(true);
+      await getUserAllergyInfo
         .userAllergies()
         .then((response) => {
           const result = response.data.userAllergyMaterials;
           setData(result);
+          setAllergyLoading(false);
         })
         .catch((error) => {
           console.log(error);
         });
     };
     const gogogetSummary = async () => {
-      getUserSummary
+      setUserLoading(true);
+      await getUserSummary
         .userSummary()
         .then((response) => {
+          setUserLoading(false);
           setFavouriteCount(response.data.favorite_count);
           setReviewCount(response.data.review_count);
           setUserName(response.data.user_name);
@@ -46,124 +70,74 @@ const MyPage = () => {
     };
     gogogetAllergy();
     gogogetSummary();
+    getUSerInfo();
   }, []);
 
+
+
+  if (userLoading || allergyLoading) return null;
+
   return (
-    <div className="MyPage">
-      {/* IIFE 즉시 실행 함수
-      <div>{setUserInformation})</div> */}
-      <Container>
-        <Row>
-          <Col md="2">
-            <p className="shownPage">마이페이지</p>
-          </Col>
-          <Col md="2">
-            <Link to="/changeUserInfo">
-              <Button color="link" size="sm" className="changeUserInfo">
-                내 정보변경하기
-              </Button>
+    <div className='myPage__screen'>
+      <div className='myPage__container'>
+        <div className='myPage__menu'>
+          <div className='myPage__title'>
+            MyPage
+          </div>
+          <div className='menu__items'>
+            <Link to='/changeUserInfo' className='menu__item'>
+              내 정보변경하기
             </Link>
-          </Col>
-          <Col md="2">
-            <Link to="/userAllergyInfo">
-              <Button color="link" size="sm" className="changeUserAllergyInfo">
-                알러지 정보 변경하기
-              </Button>
+            <Link to='/userAllergyInfo' className='menu__item'>
+              알러지 정보 변경하기
             </Link>
-          </Col>
-          <Col md="2">
-            <Link to="/changePassword">
-              <Button color="link" size="sm" className="changePassword">
-                비밀번호 변경하기
-              </Button>
+            <Link to='/changePassword' className='menu__item'>
+              비밀번호 변경하기
             </Link>
-          </Col>
-          <Col md="2">
-            <Link to="/secondEmail">
-              <Button color="link" size="sm" className="setSecondEmail">
-                2차 보안 설정하기
-              </Button>
+            <Link to='/secondEmail' className='menu__item'>
+              2차 보안 설정하기
             </Link>
-          </Col>
-          <Col md="2">
-            <Link to="/delete">
-              <Button color="danger" size="sm">
-                회원탈퇴
-              </Button>
+            <Link to='/delete' className=' item__delete'>
+              | 회원탈퇴
             </Link>
-          </Col>
-        </Row>
-        <hr />
-        {/* 밑으로는 사용자 개인 정보 보여주기*/}
-        <Row>
-          <Col md="2">
-            <p className="userName">이름 : </p>
-          </Col>
-          <Col md="10">
-            <p>{localStorage.getItem('name')}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="2">
-            <p className="userName">주소 : </p>
-          </Col>
-          <Col md="10">
-            <p>{localStorage.getItem('address')}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="2">
-            <p className="userName">생일 : </p>
-          </Col>
-          <Col md="10">
-            <p>{localStorage.getItem('birth')}</p>
-          </Col>
-        </Row>
-        <hr />
-        <br />
-        <br />
-        <Row>
-          {data === null ? (
-            <Col md="12">알러지 데이터 없음 </Col>
-          ) : (
-            <Row>
-              <Col md="12">{data}</Col>
-              <Col md="12"></Col>
-            </Row>
-          )}
-        </Row>
-        <hr />
-        <br />
-        <br />
-        <Row>
-          {writtenData == null ? (
-            <Col md="12">사용자 개인 데이터 없음 </Col>
-          ) : (
-            <Row>
-              <Col md="4">
-                <div>사용자 즐겨찾기 개수</div>
-              </Col>
-              <Col md="8">
-                <div>{favouriteCount}</div>
-              </Col>
-              <Col md="4">
-                <div>사용자 리뷰 개수</div>
-              </Col>
-              <Col md="8">
-                <div>{reviewCount}</div>
-              </Col>
-              <Col md="4">
-                <div>사용자 이름</div>
-              </Col>
-              <Col md="8">
-                <div>{userName}</div>
-              </Col>
-            </Row>
-          )}
-        </Row>
-      </Container>
+          </div>
+        </div>
+        <div className='myPage__info'>
+          <Link to='/mypageDetail'>
+          <button className='info__box'>
+            <AiOutlineUser size='100' className='box__icon' />
+            <div className='box__title'>{name}</div>
+            <div className='box__des'>{birth}</div>
+            <div className='box__des'>{address}</div>
+          </button>
+          </Link>
+          <Link to='/myFavourite'>
+            <button className='info__box'>
+              <AiOutlineStar size='100' className='box__icon' />
+              <div className='box__title'> {favouriteCount}</div>
+              <div className='box__des'>즐겨찾기</div>
+            </button>
+          </Link>
+          <Link to='/mypageDetail'>
+          <button className='info__box'>
+            <HiOutlinePencilAlt size='100' className='box__icon' />
+            <div className='box__title'>{reviewCount}</div>
+            <div className='box__des'>리뷰</div>
+          </button>
+          </Link>
+          <Link to='/mypageDetail'>
+          <button className='info__box'>
+            <AiOutlineFilter size='100' className='box__icon' />
+            <div className='box__title'>{data.length}</div>
+            <div className='box__des'>알러지</div>
+          </button>
+          </Link>
+        </div>
+
+      </div>
     </div>
+
   );
 };
 
-export default MyPage;
+export default React.memo(MyPage);

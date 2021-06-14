@@ -4,10 +4,16 @@ import styled from 'styled-components';
 import './HeaderStyle.scss';
 import axios from 'axios';
 
+import {
+  AiOutlineUserAdd,
+  AiOutlineLogin,
+  AiOutlineLogout,
+  AiOutlineStar,
+} from 'react-icons/ai';
+import { RiUser3Line } from 'react-icons/ri';
+
 function LoginState(props) {
   const checkLogin = props.auli;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   console.log(checkLogin);
   console.log('main main ');
 
@@ -42,160 +48,121 @@ function LoginState(props) {
       });
   };
 
-  //이거 사용안했음 혹시 몰라서 일단 내둠
-  const getUserAllergies = () => {
-    console.log('유저 알러지 가져오기 메소드');
-    axios
-      .get('http://13.124.55.59:8080/api/b1/user/readUserAllergy', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: checkLogin,
-        },
-      })
-      .then((response) => {
-        console.log('데이터 받아서 넣는거 시작 ㅇ-ㅇ');
-
-        uN = response.data.userA;
-        localStorage.setItem('allergy', userA);
-        console.log('이름 세팅 ㅇㅋ');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const loginAgain = () => {
-    console.log(
-      '메인에서 로그인 토큰 값이 들어가있으면 어차피 다시 받아야 하기에 다시해서 토큰 값 받아옴',
-    );
-
-    setEmail(localStorage.getItem('userLoginEmail'));
-    setPassword(localStorage.getItem('userLoginPassword'));
-
-    axios({
-      url: 'http://13.124.55.59:8080/login',
-      method: 'POST',
-      data: {
-        email: email,
-        password: password,
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        console.log('새롭게 토큰 받아오기 ------------------');
-        token = response.headers.authorization;
-        console.log(token);
-        localStorage.setItem('authorization', token);
-        alert('새로운 토큰 잘 받아왔슴 땡큐 베리 머치');
-      })
-      .catch((error) => {
-        const status = error.response.status;
-        if (status === 401) {
-          //console.log("fail");
-          alert(
-            '입력된 정보가 잘못되었음 여기 헤더에서 하는 부분이니까 다시 살펴봐주셈.',
-          );
-        }
-      });
-  };
-
   if (checkLogin !== 'null') {
     return (
       <div className="buttons">
         <Link
-          className="logoutBtn"
+          to="/mypage"
+          className="myPageBtn, buttonGroup"
+          onClick={setUserInformation}
+        >
+          <RiUser3Line size="25" />
+        </Link>
+        <Link to="/myFavourite" className="myFavouriteBtn, buttonGroup">
+          <AiOutlineStar size="25" />
+        </Link>
+
+        <Link
+          className="logoutBtn, buttonGroup"
           onClick={() => {
             localStorage.setItem('authorization', null);
             localStorage.setItem('userLoginEmail', null);
             localStorage.setItem('userLoginPassword', null);
-            alert('로그아웃!');
+            localStorage.setItem('userBEmail', null);
+            localStorage.setItem('userBPassword', null);
+            window.location.href = '/';
           }}
         >
-          로그아웃
-        </Link>
-        <Link to="/mypage" className="myPageBtn" onClick={setUserInformation}>
-          마이페이지
-        </Link>
-        <Link to="/myFavourite" className="myFavouriteBtn">
-          즐겨찾기
+          <AiOutlineLogout size="25" />
         </Link>
       </div>
     );
   } else if (checkLogin === 'null') {
     return (
       <div className="buttons">
-        <Link to="/login" className="loginBtn">
-          로그인
+        <Link to="/login" className="loginBtn, buttonGroup">
+          <AiOutlineLogin size="25" />
         </Link>
-        <Link to="/join" className="joinBtn">
-          회원가입
+        <Link to="/join" className="joinBtn, buttonGroup">
+          <AiOutlineUserAdd size="25" />
         </Link>
       </div>
     );
   }
 }
 
-const Item = styled.li`
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 80px;
-  height: 30px;
+const Item = styled.div`
+  height: 50px;
   text-align: center;
   text-decoration: none;
+  font-size: medium;
+  margin: 0px 10px;
+  padding: 0px 20px;
   border-bottom: 4px solid
-    ${(props) => (props.current ? ' #ED2F3B' : 'transparent')};
+    ${(props) => (props.current ? '#ffff' : 'transparent')};
   transition: border-bottom 0.3s ease-in-out;
 `;
 
 //컴포넌트에서 라우터에 접근 현재 어떤 컴포넌트인지 라우터도 알수 있음!
 export default withRouter(({ location: { pathname } }) => (
-  <header>
-    <div className="topsection">
-      <li className="logoPosition" current={pathname === '/'}>
-        <Link className="logo" to="/">
-          kati
+  <header className="header">
+    <div className="headerWidth">
+      <div className="serviceName">
+        <Link
+          className="serviceName"
+          to="/"
+          onClick={() => {
+            // 새로운 메뉴 진입시 검색 관련 세션 초기화
+            sessionStorage.removeItem('categoryName');
+            sessionStorage.removeItem('selectedPage');
+            sessionStorage.removeItem('selectedSort');
+            sessionStorage.removeItem('selectedOption');
+            sessionStorage.removeItem('allergyList');
+            sessionStorage.removeItem('allergyCheck');
+            sessionStorage.removeItem('searchTerm');
+          }}
+        >
+          KATI
         </Link>
-      </li>
-      <div className="searchTab">
-        {/* <input className="searchInput" placeholder="제품명 또는 회사명을 입력하세요"/>
-        <button className="searchBtn">🔍</button> */}
       </div>
-      <LoginState auli={localStorage.getItem('authorization')} />
     </div>
-
-    <ul>
-      <Item current={pathname === '/'}>
-        <Link to="/">메인</Link>
-      </Item>
-      <Item current={pathname === '/commercialProduct'}>
-        <Link to="/commercialProduct">광고상품</Link>
-      </Item>
-      <Item current={pathname === '/recommendedProduct'}>
-        <Link to="/recommendedProduct">추천상품</Link>
-      </Item>
-      <Item current={pathname.includes('/searchProduct/food')}>
-        <Link to="/searchProduct/food">상품찾기</Link>
-      </Item>
-      <Item current={pathname === '/community'}>
-        <Link to="/community">커뮤니티</Link>
-      </Item>
-      <Item current={pathname === '/userRanking'}>
-        <Link to="/userRanking">유저랭킹</Link>
-      </Item>
-      <Item current={pathname === '/productRanking'}>
-        <Link to="/productRanking">제품랭킹</Link>
-      </Item>
-      <Item current={pathname === '/reviews'}>
-        <Link to="/reviews">리뷰</Link>
-      </Item>
-      <Item current={pathname === '/whatsKati'}>
-        <Link to="/whatsKati">카티란?</Link>
-      </Item>
-      <Item current={pathname === '/howToUse'}>
-        <Link to="/howToUse">카티사용법</Link>
-      </Item>
-    </ul>
+    <div className="menu_login">
+      <ul className="menuItems">
+        <Item className="item" current={pathname === '/searchProduct/food'}>
+          <Link
+            className="item__name"
+            to="/searchProduct/food"
+            onClick={() => {
+              // 새로운 메뉴 진입시 검색 관련 세션 초기화
+              sessionStorage.removeItem('categoryName');
+              sessionStorage.removeItem('selectedPage');
+              sessionStorage.removeItem('selectedSort');
+              sessionStorage.removeItem('selectedOption');
+              sessionStorage.removeItem('allergyList');
+              sessionStorage.removeItem('allergyCheck');
+              sessionStorage.removeItem('searchTerm');
+            }}
+          >
+            상품찾기
+          </Link>
+        </Item>
+        <Item className="item" current={pathname === '/productRanking'}>
+          <Link className="item__name" to="/productRanking">
+            제품랭킹
+          </Link>
+        </Item>
+        <Item className="item" current={pathname === '/about'}>
+          <Link className="item__name" to="/about">
+            카티 개발팀
+          </Link>
+        </Item>
+      </ul>
+      <div className="userItem">
+        <LoginState
+          className="item__log"
+          auli={localStorage.getItem('authorization')}
+        />
+      </div>
+    </div>
   </header>
 ));

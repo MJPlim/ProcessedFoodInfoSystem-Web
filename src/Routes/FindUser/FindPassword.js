@@ -4,14 +4,15 @@ import {
   Alert,
   Button,
   Card,
-  CardTitle,
-  Col,
   Container,
+  FormGroup,
   Input,
+  Label,
   Spinner,
 } from 'reactstrap';
 import isEmail from 'validator/es/lib/isEmail';
 import { findPasswordApi } from '../../api';
+import Loading from '../ErrorPage/Loading';
 
 const FindPassword = () => {
   const [email, setEmail] = useState('');
@@ -41,8 +42,10 @@ const FindPassword = () => {
         .then(function (response) {
           setLoading(false);
           alert('입력하신 이메일로 임시번호를 발송하였습니다.');
+          window.location.href = '/login';
         })
         .catch(function (error) {
+          setLoading(false);
           makeErrorMessage(error.response.status);
           console.log(error.response.status);
         });
@@ -52,35 +55,36 @@ const FindPassword = () => {
   return (
     <div className="FindUser">
       <Container>
-        <p className="title">비밀번호 찾기</p>
-        <Card body>
-          <Col>
-            <CardTitle className="card-title">
-              비밀번호를 찾을 이메일을 입력해주세요.
-            </CardTitle>
-          </Col>
-          <Col md="6">
-            <Input
-              className="inputEmail"
-              type="email"
-              value={email}
-              onChange={onChange}
-              placeholder="이메일을 입력해주세요."
-            />
-          </Col>
-          <Col md="6">
-            {message != null ? <Alert color="danger">{message}</Alert> : null}
-          </Col>
-          <Col>
-            {loading ? (
-              <Spinner className="loadingSpinner" color="secondary" />
-            ) : (
-              <Button onClick={emailSubmit} className="submitButton">
-                확인
-              </Button>
-            )}
-          </Col>
-        </Card>
+        {loading && <Loading className="loading__now" />}
+        <div style={loading ? { opacity: '0.7' } : null}>
+          <p className="title">비밀번호 찾기</p>
+          <Card body>
+            <FormGroup className={'formGroup'}>
+              <Label className="inputEmail">
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={onChange}
+                  placeholder="가입한 이메일"
+                />
+              </Label>
+              <Label className="buttonArea">
+                <Button
+                  className="submitButton"
+                  onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                  style={loading ? { cursor: 'not-allowed' } : null}
+                >
+                  확인
+                </Button>
+              </Label>
+              <Label className={'alertArea'}>
+                {message != null ? (
+                  <Alert color="danger">{message}</Alert>
+                ) : null}
+              </Label>
+            </FormGroup>
+          </Card>
+        </div>
       </Container>
     </div>
   );
