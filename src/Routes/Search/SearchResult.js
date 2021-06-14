@@ -5,7 +5,8 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Col } from 'reactstrap';
 import ReactPaginate from 'react-paginate';
 import StarRatings from 'react-star-ratings';
-
+import  NoResult from '../ErrorPage/NoResult';
+import Loading from '../ErrorPage/Loading';
 const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) => {
   const [page, setPage] = useState(selectedPage - 1);
 
@@ -18,7 +19,7 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
 
   return (
     <div className='result'>
-      {loading ? <div>Loading...</div> :
+      {loading ? <Loading/>:
         <div className='result__container'>
           {result && result.length > 0 ?
             result.map((result, index) => (
@@ -38,7 +39,7 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
                 </Link>
               </div>
 
-            )) : <div>No result</div>
+            )) : <NoResult className="noResult"/>
           }
         </div>
       }
