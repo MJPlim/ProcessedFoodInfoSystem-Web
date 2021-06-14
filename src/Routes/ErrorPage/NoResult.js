@@ -4,8 +4,9 @@ import "./NoResult.scss";
 const  NoResult=()=>{
     return (
         <div className="page">
-            <BsExclamationOctagon className="icon" size="100"></BsExclamationOctagon>
+           
             <div className="content">
+                 <BsExclamationOctagon className="icon" size="20"></BsExclamationOctagon>
                 <h1 className="title"> 요청하신 검색어의 결과가 없습니다. </h1>
                 <div className="check">
                 <div className="checklist"><FaCheckCircle size="20"></FaCheckCircle> 검색어의 철자가 정확한지 확인해 주세요.</div>
