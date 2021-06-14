@@ -1,8 +1,6 @@
 @import './src/styles/utils';
 hr{
-  background-color:rgba(237,47,59,0.9);
-  border-radius: 1px;
-  height: 2px;
+  background-color: gray;
 }
 .category__container{
   margin: 20px auto 0;
@@ -114,4 +112,7 @@ hr{
     margin-bottom: 2px;
     font-size: x-large !important;
   }
+}
+.hr__search{
+  background-color: gray;
 }
