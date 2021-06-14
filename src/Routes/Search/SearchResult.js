@@ -20,10 +20,10 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
   return (
     <div className='result'>
       {loading ? <Loading/>:
-        <div className='result__container'>
+        <div className='result__container' style={result && result.length === 0 ? {display:'block'} : {display:'grid'} }>
           {result && result.length > 0 ?
             result.map((result, index) => (
-              <div className='card-body'>
+              <div className='card-body' >
                 <Link className='card-link' to={`/searchProduct/food/${result.foodId}`}>
                   <img height={'160'} className='foodImg' src={result.foodImageAddress} />
                   <h5 className='card-title'>{result.foodName}</h5>
@@ -57,8 +57,8 @@ const SearchResult = ({ loading, result, pageSize, onClickPage, selectedPage }) 
           null}
 
       </Col>
-     
     </div>
+
   );
 };
 export default SearchResult;
