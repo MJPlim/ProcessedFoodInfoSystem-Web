@@ -7,7 +7,7 @@ import { RiSearch2Line } from 'react-icons/ri';
 import { AiOutlineFilter } from 'react-icons/ai';
 import SearchResult from '../Search/SearchResult';
 import {
-  InputGroupAddon, Collapse
+  InputGroupAddon, Collapse,
 } from 'reactstrap';
 
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/all';
@@ -17,7 +17,7 @@ const SearchProductFood = (props) => {
   //드롭다운
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
- 
+
 
   const [isOpen1, setIsOpen1] = useState(false);
   const toggle1 = () => setIsOpen1(!isOpen1);
@@ -73,7 +73,7 @@ const SearchProductFood = (props) => {
   const [currentPage, setCurrentPage] = useState(sessionStorage.getItem('selectedPage') > 1 ? sessionStorage.getItem('selectedPage') : 1);
   const [pageSize, setPageSize] = useState(0);
 
- 
+
   useEffect(() => {
     console.log('setting 부분 마운트');
 
@@ -132,7 +132,7 @@ const SearchProductFood = (props) => {
 
   const getSearchResult = async (term) => {
     try {
-
+      setLoading(true);
       if (option === '식품명') {
         console.log('알러지이이', allergyList);
         // api쪽에서 join써서 null이면 빈 배열로 줘야함
@@ -158,6 +158,7 @@ const SearchProductFood = (props) => {
       }
 
     } catch (e) {
+      setLoading(false);
       setError(e);
       console.log('결과 불러오기 에러', e);
     } finally {
@@ -794,9 +795,9 @@ const SearchProductFood = (props) => {
             </header>
 
           </nav>
-          <hr className="hr__search"></hr>
+          <hr className='hr__search'></hr>
         </div>
-       
+
         <div>
           <nav class='navbar navbar-light bg-light justify-content-between'>
             <div className='result_allergy'>
