@@ -794,7 +794,7 @@ const SearchProductFood = (props) => {
             </header>
 
           </nav>
-          <hr></hr>
+          <hr className="hr__search"></hr>
         </div>
        
         <div>

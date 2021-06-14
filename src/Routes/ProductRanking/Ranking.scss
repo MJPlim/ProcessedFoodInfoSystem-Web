@@ -7,99 +7,60 @@
   //background-color: #0A1D37;
   //color: white;
   z-index: -2;
- .ranking__img{
-    background-image: url('../../image/Ranking/wing.png');
-    width: 830px;
-    height: 300px;
-    z-index: -1;
-    position: absolute;
- }
-  .ranking__title{
-    font-size: xx-large;
-    font-weight: 800;
-    position: relative;
-    margin-top: 150px;
-    left: 40%; 
+  //background-image: url('../../image/Ranking/bg.png');
+
+  .title{
+    font-size: large;
+    font-weight: 700;
+  }
+  .hr{
+    background-color: gray;
+  }
+  .top__3{
+    display: flex;
+    justify-content: space-between;
+    .top__item{
+     // display: flex;
+      //flex-direction: column;
+     // padding: 10px 40px;
+      width: 210px;
+      border-radius: 0.25rem;
+      // border-image: url('../../image/Ranking/first.png') round;
+       //border-image-slice: 20;
+       //border-width: 10px 10px;
+       border:1px solid gray;
+      .up__section{
+        display: flex;
+        flex-direction: column;
+        padding: 10px 50px;
+        .first__section{
+          display: flex;
+          justify-items: center;
+          .ranking{
+            font-size: large;
+          }
+           .img__crown{
+            width: 50px;
+            height: 50px;
+        }
+        }      
+        .ranking__img{
+           width: 120px;
+           height: 120px;
+           border-radius: 50%;
+          
+        }
+      }
+      .down__section{
+        margin-top: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   }
 
-  .topRating {
-    width: 100%;
-    text-align: center;
-    margin: auto auto 1%;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    z-index: -1;
-    .top__frame{
-      display: flex;
-      position:relative;
-      z-index: 2;
-      margin-top: 40px;
-    }
-    .frame__1{
-      margin-top: 0px
-    }
-    .frame__3{
-      margin-top: 60px;
-      display: flex;
-    }
-    .topRatingCard {
-      height: 100%;
-      width: 100%;
-      text-align: center;
-      display: inline-block;
-      border-image: url('../../image/Ranking/second.png') round;
-      border-image-slice: 20;
-      border-width: 5px 5px;
-      .title {
-        font-size: large;
-        word-break: keep-all;
-        font-weight: 700;
-      }
-      .foodNameCard {
-        margin-bottom: 10%;
-        margin-top: 4%;
-      }
-
-      .trophy {
-        margin: auto;
-        font-size: x-large;
-        display: inline;
-      }
-
-      .avgRating {
-        margin: auto auto auto 10px;
-        font-size: medium;
-        display: inline;
-      }
-
-      &.first {
-        
-        .trophy {
-          color: gold;
-        }
-      }
-
-      &.second {
-        margin-top: 40px;
-        .trophy {
-          color: silver;
-        }
-      }
-
-      &.third {
-        margin-top: 60px;
-        .trophy {
-          color: saddlebrown;
-        }
-      }
-
-      img {
-        width: 80%;
-        border-radius: 0.25rem;
-      }
-
-    }
-  }
+  
 
 
   .RankingTable {
@@ -108,8 +69,7 @@
     table-layout: fixed;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
-    box-shadow: 0px 1px 5px 2px rgba(255,193,7,0.7);
+      margin-top: 50px;
 
     .RankingTableRow {
       font-size: large;

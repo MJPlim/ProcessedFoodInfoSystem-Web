@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom';
 import first from '../../image/Ranking/first.png';
 import second from '../../image/Ranking/second.png';
 import third from '../../image/Ranking/third.png';
+import number1 from '../../image/Ranking/badge1.png';
+import crown from '../../image/Ranking/crown.png';
+
 const ProductReviewRanking = () => {
   const [rankingList, setRankingList] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,72 +39,76 @@ const ProductReviewRanking = () => {
 
   return (
     <div className='Ranking'>
-
-         /
-         <div className="ranking__title">카 티 랭 킹 </div>
-    
-      {/* 타이틀 영역 끝 */}
-      
+            <Row className='titleArea'>
+        <Col md='7'>
+          <p className='title'>제품 랭킹</p>
+        </Col>
+      </Row>
+      <hr className='hr' />
      
       {!loading && (
         <div className="ranking__page">
-          <Row className={'topRating'}>
-            <Col sm={4}>
-            
-              <Card body className={'second topRatingCard'}>
-                <FaTrophy className={'trophy'} />
-                <CardText className={'avgRating'}>{rankingList[1].avgRating}</CardText>
-                <div className={'foodNameCard'}>
-                  <CardTitle className={'title'}>{rankingList[1].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[1].category}</CardText>
-                </div>
-                <Link to={{
-                  pathname: `searchProduct/food/${rankingList[1].foodId}`,
-                }}>
-                  <img src={rankingList[1].foodImageAddress} />
-
-
-                </Link>
-              </Card>
-            </Col>
-
-            <Col sm={4}>
-         
-              <Card body className={'first topRatingCard'}>
-                <FaTrophy className={'trophy'} />
-                <CardText className={'avgRating'}>{rankingList[0].avgRating}</CardText>
-                <div className={'foodNameCard'}>
-                  <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[0].category}</CardText>
-                </div>
-                <Link to={{
-                  pathname: `searchProduct/food/${rankingList[0].foodId}`,
-                }}>
-                  <img src={rankingList[0].foodImageAddress} />
-
-                </Link>
-              </Card>
-            </Col>
-
-            
-            <Col sm={4}>
+         <div className="top__3">
           
-              <Card body className={'third topRatingCard'}>                  
-                <FaTrophy className={'trophy'} />
-                <CardText className={'avgRating'}>{rankingList[2].avgRating}</CardText>
-                <div className={'foodNameCard'}>
-                  <CardTitle className={'title'}>{rankingList[2].foodName}</CardTitle>
-                  <CardText className={'category'}> {rankingList[2].category}</CardText>
-                </div>
-                <Link to={{
-                  pathname: `searchProduct/food/${rankingList[2].foodId}`,
-                }}>
-                  <img src={rankingList[2].foodImageAddress} />
+            <div className="top__item item__2">
+            <div className="up__section">
+              <div className="first__section">
+                  <div className="ranking">2 nd </div>  <img className="img__crown"src={crown}/>
+              </div>
+              <Link  to={{
+                  pathname: `searchProduct/food/${rankingList[1].foodId}`,
+                  }}>
+                    <img className="ranking__img item__1__img"  src={rankingList[1].foodImageAddress} />
 
-                </Link>
-              </Card>
-            </Col>
-          </Row>
+              </Link>
+            </div>
+            <div className="down__section">
+                    <CardTitle className={'title'}>{rankingList[1].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[1].category}  <AiOutlineStar/> {rankingList[1].avgRating}</CardText>
+            </div>
+
+          </div>
+
+           <div className="top__item item__2">
+            <div className="up__section">
+              <div className="first__section">
+                   <div className="ranking">1 st </div> <img className="img__crown"src={crown}/>
+              </div>
+              <Link  to={{
+                  pathname: `searchProduct/food/${rankingList[0].foodId}`,
+                  }}>
+                    <img className="ranking__img item__1__img"  src={rankingList[0].foodImageAddress} />
+
+              </Link>
+            </div>
+            <div className="down__section">
+                  <CardTitle className={'title'}>{rankingList[0].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[0].category}  <AiOutlineStar/> {rankingList[0].avgRating}</CardText>
+            </div>
+
+          </div>
+
+             <div className="top__item item__2">
+            <div className="up__section">
+              <div className="first__section">
+                 <div className="ranking">3 rd </div> <img className="img__crown"src={crown}/>
+              </div>
+              <Link  to={{
+                  pathname: `searchProduct/food/${rankingList[2].foodId}`,
+                  }}>
+                    <img className="ranking__img item__1__img"  src={rankingList[2].foodImageAddress} />
+
+              </Link>
+            </div>
+            <div className="down__section">
+                    <CardTitle className={'title'}>{rankingList[2].foodName}</CardTitle>
+                  <CardText className={'category'}> {rankingList[2].category}  <AiOutlineStar/> {rankingList[2].avgRating}</CardText>
+            </div>
+
+          </div>
+
+
+         </div>
 
           <Table className={'RankingTable'}>
             <thead>
