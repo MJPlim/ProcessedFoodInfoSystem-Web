@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Alert, Button, Card, Container, FormGroup, Input, Label } from 'reactstrap';
+import {
+  Alert,
+  Button,
+  Card,
+  Container,
+  FormGroup,
+  Input,
+  Label,
+} from 'reactstrap';
 import '../FindUser/FindEmailStyle.scss';
 import isEmail from 'validator/es/lib/isEmail';
 import { findEmail } from 'api';
@@ -30,6 +38,7 @@ const FindEmail = () => {
             ' 입력하신 ' + secondEmail + '로 이메일을 발송했습니다',
             response,
           );
+          window.location.href = '/login';
           setLoading(false);
         })
         .catch((error) => {
@@ -40,28 +49,33 @@ const FindEmail = () => {
   };
 
   return (
-    <div className='findEmail'>
-      <Container className='container'>
-        {loading && <Loading className='loading__now' />}
+    <div className="findEmail">
+      <Container className="container">
+        {loading && <Loading className="loading__now" />}
         <div style={loading ? { opacity: '0.7' } : null}>
-          <p className='title'>이메일 찾기</p>
+          <p className="title">이메일 찾기</p>
           <Card body>
             <FormGroup>
-              <Label className='secondEmailInput'>
+              <Label className="secondEmailInput">
                 <Input
-                  type='email'
-                  placeholder='2차 보안 이메일'
+                  type="email"
+                  placeholder="2차 보안 이메일"
                   onChange={onChange}
                 />
               </Label>
-              <Label className='buttonArea'>
-                <Button className={'submitButton'} onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
-                        style={loading ? { cursor: 'not-allowed' } : null}>
+              <Label className="buttonArea">
+                <Button
+                  className={'submitButton'}
+                  onClick={!loading ? emailSubmit : (e) => e.preventDefault()}
+                  style={loading ? { cursor: 'not-allowed' } : null}
+                >
                   찾기
                 </Button>
               </Label>
               <Label className={'alertArea'}>
-                {message != null ? <Alert color='danger'>{message}</Alert> : null}
+                {message != null ? (
+                  <Alert color="danger">{message}</Alert>
+                ) : null}
               </Label>
             </FormGroup>
           </Card>
