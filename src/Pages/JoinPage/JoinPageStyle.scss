@@ -1,0 +1,15 @@
+@import "../../Styles/GlobalStyle.scss";
+.social_join_btn{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #B1B1B1;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    &:hover{
+        border: 1px solid $primary-color;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+}

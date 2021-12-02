@@ -1,0 +1,28 @@
+@import "../../Styles/GlobalStyle.scss";
+.item_card{
+    border:1px solid gray;
+    padding: 1rem;
+    .button{
+        border-radius: 5px;
+        background-color: white;
+        border: 1px solid $primary-color;
+        color: $primary-color;
+       
+        transition: all 0.5s ease;
+        &:hover{
+            color: white;
+            background-color: $primary-color;
+        }
+    }
+    &:hover{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+       // cursor: pointer;
+    }
+    
+    
+}
+.item_heart:hover{
+    color: $primary-color;
+    transform:scale(1.2);
+    transition: all 0.1s ease-in;
+}

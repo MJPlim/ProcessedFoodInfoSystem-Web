@@ -1,0 +1,20 @@
+@import "../../Styles/GlobalStyle.scss";
+
+.container{
+    background-color: white;
+}
+.search_group{
+    border-bottom: 1.5px solid black;
+    display: flex;
+    .search_input{
+        display: flex;
+        border: none;
+        outline: none;
+        background-color: rgba( 255, 255, 255, 0.5 );
+    }
+    .search_button{
+        border: none;
+        outline: none;
+        background-color: #ffffff;
+    }
+}
